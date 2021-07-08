@@ -1,0 +1,137 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep  5 21:09:06 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Multiple Outputs
+Introduction:
+    In this chapter, you will build neural networks with multiple outputs, which can be used to solve regression problems with 
+    multiple targets. You will also build a model that solves a regression problem and a classification problem simultaneously.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import numpy as np                                                                  #For making operations in lists
+import matplotlib.pyplot as plt                                                     #For creating charts
+
+from scipy.special import expit as sigmoid                                          #For learning machine 
+
+import tensorflow as tf                                                              #For DeapLearning
+
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.layers import Input                                                      #For DeapLearning
+from keras.models import Model                                                      #For DeapLearning
+from keras.optimizers import Adam                                                   #For DeapLearning
+from keras.utils import plot_model                                                  #For DeapLearning
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = "games_season_enriched.csv"
+games_tourney = pd.read_csv(file)
+print(games_tourney.head())
+
+games_tourney_train = games_tourney.query("season < 2010")
+games_tourney_test = games_tourney.query("season >= 2010")
+
+print("****************************************************")
+tema = "2. Simple two-output model"; print("** %s\n" % tema)
+
+input_tensor = Input(shape=(2,), name='Input') # Define the input
+output_tensor = Dense(2, name='Out')(input_tensor) # Define the output
+model = Model(input_tensor, output_tensor) # Create a model
+model.compile(optimizer='adam', loss='mean_absolute_error') # Compile the model
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='04_02_model.png', show_shapes=True, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('04_02_model.png') # Display the image
+plt.imshow(data)
+plt.title('Multiple Out Model')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+print("3. Fit a model with two outputs")
+
+# Fit the model
+model.fit(games_tourney_train[['seed_diff', 'pred']], games_tourney_train[['score_1', 'score_2']],
+  		  verbose=False, epochs=100, batch_size=2048)
+
+print("****************************************************")
+print("4. Inspect the model (I)")
+
+print(model.get_weights()) # Print the model's weights
+print(games_tourney_train.mean()) # Print the column means of the training data
+
+print("****************************************************")
+print("5. Evaluate the model")
+
+print(model.evaluate(games_tourney_test[['seed_diff', 'pred']], games_tourney_test[['score_1', 'score_2']], verbose=False)) # Evaluate the model on the tournament test data
+
+print("****************************************************")
+print("7. Classification and regression in one model")
+
+input_tensor = Input(shape=(2,), name='Input') # Create an input layer with 2 columns
+output_tensor_1 = Dense(1, activation='linear', use_bias=False, name='Reg_out')(input_tensor) # Create the first output
+output_tensor_2 = Dense(1, activation='sigmoid', use_bias=False, name='Clas_out')(output_tensor_1) # Create the second output (use the first output as input here)
+model = Model(input_tensor, [output_tensor_1, output_tensor_2]) # Create a model with 2 outputs
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='04_07_model.png', show_shapes=True, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('04_07_model.png') # Display the image
+plt.imshow(data)
+plt.title('Multiple Out Model')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+print("8. Compile and fit the model")
+
+model.compile(loss=['mean_absolute_error', 'binary_crossentropy'], optimizer=Adam(lr=0.01)) # Compile the model with 2 losses and the Adam optimzer with a higher learning rate
+model.fit(games_tourney_train[['seed_diff', 'pred']], # Fit the model to the tournament training data, with 2 inputs and 2 outputs
+          [games_tourney_train[['score_diff']], games_tourney_train[['won']]],
+          epochs=100, verbose=False, batch_size=16384)
+
+print("****************************************************")
+print("9. Inspect the model (II)")
+
+print(model.get_weights()) # Print the model weights
+print(games_tourney_train.mean()) # Print the training data means
+
+weight = np.array(model.get_weights())[1][0][0] # Weight from the model
+print(sigmoid(1 * weight)) # Print the approximate win probability predicted close game
+print(sigmoid(10 * weight)) # Print the approximate win probability predicted blowout game
+
+print("****************************************************")
+print("10. Evaluate on new data with two metrics")
+
+# Evaluate the model on new data
+print(model.evaluate(games_tourney_test[['seed_diff', 'pred']],
+                     [games_tourney_test[['score_diff']], games_tourney_test[['won']]], 
+                     verbose=False))
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
