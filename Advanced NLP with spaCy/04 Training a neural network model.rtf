@@ -1,0 +1,508 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2058{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red255\green0\blue0;\red0\green77\blue187;\red0\green176\blue80;\red102\green102\blue102;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sl240\slmult1\tx568\cf1\f0\fs22\lang10 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\b\fs32 04. Training a neural network model\par
+\cf0\b0\fs22 In this chapter, you'll learn how to update spaCy's statistical models to customize them for your use case \f1\endash  for example, to predict a new entity type in online comments. You'll write your own training loop from scratch, and understand the basics of how training works, along with tips and tricks that can make your custom NLP projects more successful.\cf1\b\f0\fs20\par
+
+\pard\sl240\slmult1\tx568\b0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.01 Training and updating models\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 See the video.\fs22\par
+
+\pard\sl240\slmult1\tx568\cf1 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.02 Purpose of training\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 While spaCy comes with a range of pre-trained models to predict linguistic annotations, you almost always want to fine-tune them with more examples. You can do this by training them with more labelled data.\fs22\par
+___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 What does training not help with?\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+
+\pard\li1440\sl240\slmult1\f2\fs20 POSIBLLE ANSWERS\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\b0\f0 Improve model accuracy on your data.\par
+{\pntext\f3\'B7\tab}Learn new classification schemes.\par
+{\pntext\f3\'B7\tab}\cf1 Discover patterns in unlabelled data.\par
+
+\pard\li1440\sl240\slmult1\cf0\b\f2 CORRECT ANSWER\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf1\b0\f0 Discover patterns in unlabelled data.\par
+
+\pard\li720\sl240\slmult1\qj\cf0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 That's right. spaCy's components are supervised models for text annotations, meaning they can only learn to reproduce examples, not guess new labels from raw text.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.03 Creating training data (1)\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 spaCy's rule-based Matcher is a great way to quickly create training data for named entity models. A list of sentences is available as the variable TEXTS. You can print it the IPython shell to inspect it. We want to find all mentions of different iPhone models, so we can create training data to teach a model to recognize them as 'GADGET'.\par
+The nlp object has already been created for you and the Matcher is available as the variable matcher.\par
+\fs22\par
+
+\pard\li720\sl240\slmult1\f2\fs16 In [1]: dir()\par
+Out[1]: \par
+
+\pard\li1440\sl240\slmult1 ['English', \tab\tab  'In', \tab\tab  'Matcher',\tab  'Out',\par
+ 'TEXTS',\tab\tab  '_',\tab\tab\tab  '__',\tab\tab  '___',\par
+ '__builtin__',\tab  '__builtins__',\tab  '__name__',\tab  '_dh',\par
+ '_i',\tab\tab\tab  '_i1',\tab\tab  '_ih',\tab  '_ii',\par
+ '_iii',\tab\tab  '_oh',\tab\tab  '_sh',\tab  'exit',\par
+ 'get_ipython',\tab  'matcher',\tab\tab  'nlp',\tab  'quit']\par
+
+\pard\li720\sl240\slmult1\par
+In [2]: TEXTS\par
+Out[2]: \par
+
+\pard\li1440\sl240\slmult1 ['How to preorder the iPhone X',\par
+ 'iPhone X is coming',\par
+ 'Should I pay $1,000 for the iPhone X?',\par
+ 'The iPhone 8 reviews are here',\par
+ 'Your iPhone goes up to 11 today',\par
+ 'I need a new phone! Any tips?']\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Write a pattern for two tokens whose lowercase forms match 'iphone' and 'x'.\par
+{\pntext\f3\'B7\tab}Write a pattern for two tokens: one token whose lowercase form matches 'iphone' and an optional digit using the '?' operator.\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 # Two tokens whose lowercase forms match 'iphone' and 'x'\par
+pattern1 = [\{'LOWER': 'iphone'\}, \{'LOWER': 'x'\}]\par
+\par
+# Token whose lowercase form matches 'iphone' and an optional digit\par
+pattern2 = [\{'LOWER': 'iphone'\}, \{'IS_DIGIT': True, 'OP': '?'\}]\par
+\par
+# Add patterns to the matcher\par
+matcher.add('GADGET', None, pattern1, pattern2)\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Nice! Now let's use those patterns to quickly bootstrap some training data for our model.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.04 Creating training data (2)\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 Let's use the match patterns we've created in the previous exercise to bootstrap a set of training examples. The nlp object has already been created for you and the Matcher with the added patterns pattern1 and pattern2 is available as the variable matcher. A list of sentences is available as the variable TEXTS.\fs22\par
+___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Create a doc object for each text using nlp.pipe and find the matches in it.\par
+{\pntext\f3\'B7\tab}Create a list of (start, end, label) tuples for the matches.\par
+
+\pard\sl240\slmult1\qj\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj Match on the doc and create a list of matched spans.\par
+{\pntext\f3\'B7\tab}Format each example as a tuple of the text and a dict, mapping 'entities' to the entity tuples.\par
+{\pntext\f3\'B7\tab}Append the example to TRAINING_DATA and inspect the printed data.\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 # Create a Doc object for each text in TEXTS\par
+for doc in nlp.pipe(TEXTS):\par
+    # Find the matches in the doc\par
+    matches = matcher(doc)\par
+    \par
+    # Get a list of (start, end, label) tuples of matches in the text\par
+    entities = [(start, end, 'GADGET') for match_id, start, end in matches]\par
+    print(doc.text, entities)\par
+\par
+\par
+ \par
+\par
+\par
+TRAINING_DATA = []\par
+\par
+# Create a Doc object for each text in TEXTS\par
+for doc in nlp.pipe(TEXTS):\par
+    # Match on the doc and create a list of matched spans\par
+    spans = [doc[start:end] for match_id, start, end in matcher(doc)]\par
+    # Get (start character, end character, label) tuples of matches\par
+    entities = [(span.start_char, span.end_char, 'GADGET') for span in spans]\par
+    \par
+    # Format the matches as a (doc.text, entities) tuple\par
+    training_example = (doc.text, \{'entities': entities\})\par
+    # Append the example to the training data\par
+    TRAINING_DATA.append(training_example)\par
+    \par
+print(*TRAINING_DATA, sep='\\n')    \par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b RESULT:\par
+\b0\f2\fs16 How to preorder the iPhone X [(4, 6, 'GADGET')]\par
+iPhone X is coming [(0, 2, 'GADGET')]\par
+Should I pay $1,000 for the iPhone X? [(7, 9, 'GADGET')]\par
+The iPhone 8 reviews are here [(1, 3, 'GADGET')]\par
+Your iPhone goes up to 11 today []\par
+I need a new phone! Any tips? []\par
+\par
+\par
+('How to preorder the iPhone X', \{'entities': [(20, 28, 'GADGET')]\})\par
+('iPhone X is coming', \{'entities': [(0, 8, 'GADGET')]\})\par
+('Should I pay $1,000 for the iPhone X?', \{'entities': [(28, 36, 'GADGET')]\})\par
+('The iPhone 8 reviews are here', \{'entities': [(4, 12, 'GADGET')]\})\par
+('Your iPhone goes up to 11 today', \{'entities': []\})\par
+('I need a new phone! Any tips?', \{'entities': []\})\b\par
+
+\pard\li720\sl240\slmult1\qj\b0\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Well done! Before you train a model with the data, you always want to double-check that your matcher didn't identify any false positives. But that process is still much faster than doing everything manually.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.05 The training loop\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 See the video.\fs22\par
+
+\pard\sl240\slmult1\tx568\cf1 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.06 Setting up the pipeline\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 In this exercise, you'll prepare a spaCy pipeline to train the entity recognizer to recognize 'GADGET' entities in a text \f1\endash  for exampe, "iPhone X".\par
+spacy has already been imported for you.\f0\fs22\par
+___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Create a blank 'en' model, for example using the spacy.blank method.\par
+{\pntext\f3\'B7\tab}Create a new entity recognizer using nlp.create_pipe and add it to the pipeline.\par
+{\pntext\f3\'B7\tab}Add the new label 'GADGET' to the entity recognizer using the add_label method on the pipeline component.\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 # Create a blank 'en' model\par
+nlp = spacy.blank('en')\par
+\par
+# Create a new entity recognizer and add it to the pipeline\par
+ner = nlp.create_pipe('ner')\par
+nlp.add_pipe(ner)\par
+\par
+# Add the label 'GADGET' to the entity recognizer\par
+ner.add_label('GADGET')\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Well done! The pipeline is now ready, so let's start writing the training loop.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.07 Building a training loop\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 Let's write a simple training loop from scratch!\par
+The pipeline you've created in the previous exercise is available as the nlp object. It already contains the entity recognizer with the added label 'GADGET'.\par
+The small set of labelled examples that you've created previously is available as the global variable TRAINING_DATA. To see the examples, you can print them in your script or in the IPython shell. spacy and random have already been imported for you.\fs22\par
+___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Call nlp.begin_training, create a training loop for 10 iterations and shuffle the training data.\par
+
+\pard\sl240\slmult1\qj\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj Create batches of training data using spacy.util.minibatch and iterate over the batches.\par
+{\pntext\f3\'B7\tab}Convert the (text, annotations) tuples in the batch to lists of texts and annotations.\par
+
+\pard\sl240\slmult1\qj\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj For each batch, use nlp.update to update the model with the texts and annotations.\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 print(*TRAINING_DATA, sep='\\n')\par
+\par
+# Start the training\par
+nlp.begin_training()\par
+\par
+# Loop for 10 iterations\par
+for itn in range(10):\par
+    # Shuffle the training data\par
+    random.shuffle(TRAINING_DATA)\par
+    losses = \{\}\par
+    \par
+    # Batch the examples and iterate over them\par
+    for batch in spacy.util.minibatch(TRAINING_DATA, size=2):\par
+        texts = [text for text, entities in batch]\par
+        annotations = [entities for text, entities in batch]\par
+\par
+        # Update the model\par
+        nlp.update(texts, annotations, losses=losses)\par
+        print(losses)\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b RESULT:\par
+\b0\f2\fs14 ('How to preorder the iPhone X', \{'entities': [(20, 28, 'GADGET')]\})\par
+('iPhone X is coming', \{'entities': [(0, 8, 'GADGET')]\})\par
+('Should I pay $1,000 for the iPhone X?', \{'entities': [(28, 36, 'GADGET')]\})\par
+('The iPhone 8 reviews are here', \{'entities': [(4, 12, 'GADGET')]\})\par
+('Your iPhone goes up to 11 today', \{'entities': [(5, 11, 'GADGET')]\})\par
+('I need a new phone! Any tips?', \{'entities': []\})\par
+\par
+\par
+\{'ner': 12.799999475479126\}\par
+\{'ner': 22.61614191532135\}\par
+\{'ner': 31.89820373058319\}\par
+\{'ner': 6.103688538074493\}\par
+\{'ner': 13.587891817092896\}\par
+\{'ner': 17.81059291958809\}\par
+\{'ner': 4.343554716557264\}\par
+\{'ner': 6.077743676491082\}\par
+\{'ner': 9.676137544680387\}\par
+\{'ner': 2.8210455179214478\}\par
+\{'ner': 3.7990785398578737\}\par
+\{'ner': 5.8724552985222545\}\par
+\{'ner': 3.0484834138769656\}\par
+\{'ner': 4.298366004542913\}\par
+\{'ner': 8.263815905840602\}\par
+\{'ner': 1.5249428739771247\}\par
+\{'ner': 3.384911867789924\}\par
+\{'ner': 6.526982665061951\}\par
+\{'ner': 1.1808173689059913\}\par
+\{'ner': 1.5217290225884312\}\par
+\{'ner': 2.944837315477514\}\par
+\{'ner': 0.133033319383685\}\par
+\{'ner': 0.1434499007355896\}\par
+\{'ner': 1.1193451453801515\}\par
+\{'ner': 0.7820249436872473\}\par
+\{'ner': 0.783475134585558\}\par
+\{'ner': 0.7836371230634995\}\par
+\{'ner': 0.000675961335844022\}\par
+\{'ner': 2.1849027405919657\}\par
+\{'ner': 2.1849118671491654\}\b\par
+
+\pard\li720\sl240\slmult1\qj\b0\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Good job \f1\endash  you've successfully trained your first spaCy model. The numbers printed to the IPython shell represent the loss on each iteration, the amount of work left for the optimizer. The lower the number, the better. In real life, you normally want to use a lot more data than this, ideally at least a few hundred or a few thousand examples.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.08 Exploring the model\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 Let's see how the model performs on unseen data! To speed things up a little, here's a trained model for the label 'GADGET', using the examples from the previous exercise, plus a few hundred more. The loaded model is already available as the nlp object. A list of test texts is available as TEST_DATA.\par
+\fs22\par
+
+\pard\li720\sl240\slmult1\f2\fs16 In [1]: TEST_DATA\par
+Out[1]: \par
+['Apple is slowing down the iPhone 8 and iPhone X - how to stop it',\par
+ "I finally understand what the iPhone X 'notch' is for",\par
+ 'Everything you need to know about the Samsung Galaxy S9',\par
+ 'Looking to compare iPad models? Here\rquote s how the 2018 lineup stacks up',\par
+ 'The iPhone 8 and iPhone 8 Plus are smartphones designed, developed, and marketed by Apple',\par
+ 'what is the cheapest ipad, especially ipad pro???',\par
+ 'Samsung Galaxy is a series of mobile computing devices designed, manufactured and marketed by Samsung Electronics']\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Process each text in TEST_DATA using nlp.pipe.\par
+{\pntext\f3\'B7\tab}Print the document text and the entities in the text.\par
+
+\pard\sl240\slmult1\qj\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj Out of all the entities in the texts, how many did the model get correct? Keep in mind that incomplete entity spans count as mistakes, too!\par
+
+\pard\li1440\sl240\slmult1\b\f2 POSIBLLE ANSWERS\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\b0\f0 45%\par
+{\pntext\f3\'B7\tab}60%\par
+{\pntext\f3\'B7\tab}\cf1 70%\par
+{\pntext\f3\'B7\tab}\cf0 90%\par
+
+\pard\li1440\sl240\slmult1\b\f2 CORRECT ANSWER\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf1\b0\f0 70%\par
+
+\pard\li720\sl240\slmult1\qj\cf0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 # Process each text in TEST_DATA\par
+for doc in nlp.pipe(TEST_DATA):\par
+    # Print the document text and entitites\par
+    print(doc.text)\par
+    print(doc.ents, '\\n\\n')\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b RESULT:\par
+\b0\f2\fs16 Apple is slowing down the iPhone 8 and iPhone X - how to stop it\par
+[('iPhone 8', 'GADGET'), ('iPhone X', 'GADGET')] \par
+\par
+\par
+I finally understand what the iPhone X 'notch' is for\par
+[('iPhone X', 'GADGET')] \par
+\par
+\par
+Everything you need to know about the Samsung Galaxy S9\par
+[('Samsung Galaxy', 'GADGET')] \par
+\par
+\par
+Looking to compare iPad models? Here\rquote s how the 2018 lineup stacks up\par
+[('iPad', 'GADGET')] \par
+\par
+\par
+The iPhone 8 and iPhone 8 Plus are smartphones designed, developed, and marketed by Apple\par
+[('iPhone 8', 'GADGET'), ('iPhone 8', 'GADGET')] \par
+\par
+\par
+what is the cheapest ipad, especially ipad pro???\par
+[('ipad', 'GADGET'), ('ipad', 'GADGET')] \par
+\par
+\par
+Samsung Galaxy is a series of mobile computing devices designed, manufactured and marketed by Samsung Electronics\par
+[('Samsung Galaxy', 'GADGET')]\b\par
+
+\pard\li720\sl240\slmult1\qj\b0\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Correct! On our test data, the model achieved an accuracy of 70%.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.09 Training best practices\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 See the video.\fs22\par
+
+\pard\sl240\slmult1\tx568\cf1 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.10 Good data vs. bad data\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 Here's an excerpt from a training set that labels the entity type TOURIST_DESTINATION in traveler reviews.\fs22\par
+
+\pard\li720\sl240\slmult1\f2\fs16 ('i went to \cf1 amsterdem\cf0  last year and the canals were beautiful', \{'entities': [(10, 19, 'TOURIST_DESTINATION')]\})\par
+('You should visit \cf1 Paris\cf0  once in your life, but the Eiffel Tower is kinda boring', \{'entities': [(17, 22, 'TOURIST_DESTINATION')]\})\par
+("There's also a \b Paris \b0 in \cf1 Arkansas\cf0 , lol", \{'entities': []\})\par
+('\cf1 Berlin \cf0 is perfect for summer holiday: lots of parks, great nightlife, cheap beer!', \{'entities': [(0, 6, 'TOURIST_DESTINATION')]\})\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Why is this data and label scheme problematic?\par
+
+\pard\li1440\sl240\slmult1\b\f2 POSIBLLE ANSWERS\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf1\b0\f0 Whether a place is a tourist destination is a subjective judgement and not a definitive category. It will be very difficult for the entity recognizer to learn.\par
+{\pntext\f3\'B7\tab}\cf0 "Paris" and "Arkansas" should also be labelled as tourist destinations for consistency. Otherwise, the model will be confused.\par
+
+\pard\li2880\sl240\slmult1\qj\cf4\i\fs16 Incorrect. While it's possible that Paris, AK is also a tourist attraction, this only highlights how subjective the label scheme is and how difficult it will be to decide whether the label applies or not. As a result, this distinction will also be very difficult to learn for the entity recognizer.\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf0\i0\fs20 Rare out-of-vocabulary words like the misspelled "amsterdem" shouldn't be labelled as entities.\par
+
+\pard\li2880\sl240\slmult1\qj\cf4\i\fs16 Incorrect. Even very uncommon words or misspellings can be labelled as entities. In fact, being able to predict categories in misspelled text based on the context is one of the big advantages of statistical named entity recognition.\par
+
+\pard\li1440\sl240\slmult1\cf0\b\i0\f2\fs20 CORRECT ANSWER\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf1\b0\f0 Whether a place is a tourist destination is a subjective judgement and not a definitive category. It will be very difficult for the entity recognizer to learn.\par
+
+\pard\sl240\slmult1\qj\cf0\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj Rewrite the TRAINING_DATA to only use the label GPE (cities, states, countries) instead of TOURIST_DESTINATION.\par
+{\pntext\f3\'B7\tab}Don't forget to add tuples for the GPE entities that weren't labeled in the old data.\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\b0\par
+\f2\fs16 TRAINING_DATA = [\par
+    ("i went to amsterdem last year and the canals were beautiful", \{'entities': [(10, 19, 'GPE')]\}),\par
+    ("You should visit Paris once in your life, but the Eiffel Tower is kinda boring", \{'entities': [(17, 22, 'GPE')]\}),\par
+    ("There's also a Paris in Arkansas, lol", \{'entities': [(15, 20, 'GPE'), (24, 32, 'GPE')]\}),\par
+    ("Berlin is perfect for summer holiday: lots of parks, great nightlife, cheap beer!", \{'entities': [(0, 6, 'GPE')]\})\par
+]\par
+     \par
+print(*TRAINING_DATA, sep='\\n')\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b RESULT:\par
+\b0\f2\fs16 ('i went to amsterdem last year and the canals were beautiful', \{'entities': [(10, 19, 'GPE')]\})\par
+('You should visit Paris once in your life, but the Eiffel Tower is kinda boring', \{'entities': [(17, 22, 'GPE')]\})\par
+("There's also a Paris in Arkansas, lol", \{'entities': [(15, 20, 'GPE'), (24, 32, 'GPE')]\})\par
+('Berlin is perfect for summer holiday: lots of parks, great nightlife, cheap beer!', \{'entities': [(0, 6, 'GPE')]\})\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Great work! Once the model achieves good results on detecting GPE entities in the traveler reviews, you could add a rule-based component to determine whether the entity is a tourist destination in this context. For example, you could resolve the entities types back to a knowledge base or look them up in a travel wiki.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.11 Training multiple labels\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 Here's a small sample of a dataset created to train a new entity type WEBSITE. The original dataset contains a few thousand sentences. In this exercise, you'll be doing the labeling by hand. In real life, you probably want to automate this and use an annotation tool \f1\endash  for example, Brat, a popular open-source solution, or Prodigy, our own annotation tool that integrates with spaCy.\par
+After this exercise you will be nearly done with the course! If you enjoyed it, feel free to send Ines a thank you via Twitter - she'll appreciate it! Tweet to Ines\f0\fs22\par
+___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b INSTRUCTIONS:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\b0\fs20 Complete the entity offsets for the WEBSITE entities in the data. Feel free to use len() if you don't want to count the characters.\par
+{\pntext\f3\'B7\tab}A model was trained with the data you just labelled, plus a few thousand similar examples. After training, it's doing great on WEBSITE, but doesn't recognize PERSON anymore. Why could this be happening?\par
+
+\pard\li1440\sl240\slmult1\b\f2 POSIBLLE ANSWERS\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\b0\f0 It's very difficult for the model to learn about different categories like PERSON and WEBSITE.\par
+{\pntext\f3\'B7\tab}\cf1 The training data included no examples of PERSON, so the model learned that this label is incorrect.\par
+{\pntext\f3\'B7\tab}\cf0 The hyperparameters need to be retuned so that both entity types can be recognized.\par
+
+\pard\li1440\sl240\slmult1\b\f2 CORRECT ANSWER\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sl240\slmult1\qj\cf1\b0\f0 The training data included no examples of PERSON, so the model learned that this label is incorrect.\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sl240\slmult1\qj\cf0 Update the training data to include annotations for the PERSON entities "PewDiePie" and "Alexis Ohanian".\par
+
+\pard\li720\sl240\slmult1\qj\fs22 ___________________________________________________________________________\par
+
+\pard\li720\sl240\slmult1\b ANSWER:\par
+\b0\f2\fs16 TRAINING_DATA = [\par
+    ("Reddit partners with Patreon to help creators build communities", \par
+     \{'entities': [(0, 6, 'WEBSITE'), (21, 28, 'WEBSITE')]\}),\par
+  \par
+    ("PewDiePie smashes YouTube record", \par
+     \{'entities': [(18, 25, 'WEBSITE')]\}),\par
+  \par
+    ("Reddit founder Alexis Ohanian gave away two Metallica tickets to fans", \par
+     \{'entities': [(0, 6, 'WEBSITE')]\}),\par
+    # And so on...\par
+]\par
+---------------------------------------------------------------------------\par
+TRAINING_DATA = [\par
+    ("Reddit partners with Patreon to help creators build communities", \par
+     \{'entities': [(0, 6, 'WEBSITE'), (21, 28, 'WEBSITE')]\}),\par
+  \par
+    ("PewDiePie smashes YouTube record", \par
+     \{'entities': [(0, 9, 'PERSON'), (18, 25, 'WEBSITE')]\}),\par
+  \par
+    ("Reddit founder Alexis Ohanian gave away two Metallica tickets to fans", \par
+     \{'entities': [(0, 6, 'WEBSITE'), (15, 29, 'PERSON')]\}),\par
+    # And so on...\par
+]\par
+
+\pard\li720\sl240\slmult1\qj\f0\fs22 ___________________________________________________________________________\par
+\cf3\i\fs20 Good job! After including both examples of the next WEBSITE entities, as well as existing entity types like PERSON, the model now performs much better.\cf0\i0\f2\fs16\par
+
+\pard\sl240\slmult1\tx568\cf1\f0\fs22 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\cf2\b 04.12 Wrapping up\par
+
+\pard\li720\sl240\slmult1\qj\cf0\b0\fs20 See the video.\fs22\par
+
+\pard\sl240\slmult1\tx568\cf1 __________________________________________________________________________________\par
+
+\pard\sl240\slmult1\qj\b Source:\par
+
+\pard\sl240\slmult1 {\cf0\b0{\field{\*\fldinst{HYPERLINK https://learn.datacamp.com/courses/advanced-nlp-with-spacy }}{\fldrslt{https://learn.datacamp.com/courses/advanced-nlp-with-spacy\ul0\cf0}}}}\cf0\b0\f0\fs22\lang2058\par
+
+\pard\sl240\slmult1\tx568\cf1\lang10 __________________________________________________________________________________\par
+\cf0\b\par
+}
+ 
