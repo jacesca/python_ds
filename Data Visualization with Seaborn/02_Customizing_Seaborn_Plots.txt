@@ -1,0 +1,374 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 22 21:27:30 2019
+
+@author: jacqueline.cortez
+Chapter 2: Customizing Seaborn Plots
+    Overview of functions for customizing the display of Seaborn plots.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import seaborn           as sns                                               #For visualizing data
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+plt.rcParams['figure.max_open_warning'] = 60
+
+print("****************************************************")
+topic = "User Variables"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Defined functions"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Reading data"; print("** %s\n" % topic)
+
+filename = "2018_College_Scorecard_Tuition.csv"
+df_college = pd.read_csv(filename)
+print("Columns of {}:\n{}".format(filename, df_college.columns))
+
+filename = "US_Market_Rent.csv"
+df_rent = pd.read_csv(filename)
+print("Columns of {}:\n{}".format(filename, df_rent.columns))
+
+print("****************************************************")
+topic = "1. Introduction to Seaborn"; print("** %s\n" % topic)
+
+#Default Style
+df_college.Tuition.plot.hist()
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.xlabel('Tuition')
+plt.title('Pyplot Default Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+
+#Seaborn Style
+sns.set()
+plt.figure()
+df_college.Tuition.plot.hist()
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.xlabel('Tuition')
+plt.title('Seaborn Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+#More Seaborn Styles
+for this_style in ['white', 'dark', 'whitegrid', 'darkgrid', 'ticks']:
+    plt.figure()
+    sns.set_style(this_style)
+    sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'])
+    plt.title('{} Style'.format(this_style.capitalize()))
+    plt.suptitle(topic)
+    plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+    plt.show()
+    plt.style.use('default')
+
+#Seaborn Style
+plt.figure()
+sns.set_style('white')
+sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'])
+sns.despine(left=True)
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Left Despine Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "2. Setting the default style"; print("** %s\n" % topic)
+
+# Plot the pandas histogram
+plt.figure()
+df_rent.fmr_2.plot.hist()
+plt.xlabel('Fair market rent for a 2-bedroom apartment')
+plt.title('Left Despine Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+
+# Set the default seaborn style
+plt.figure()
+sns.set()
+df_rent.fmr_2.plot.hist()
+plt.title('Left Despine Style')
+plt.xlabel('Fair market rent for a 2-bedroom apartment')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "3. Comparing styles"; print("** %s\n" % topic)
+
+# Plot with a dark style 
+plt.figure()
+sns.set_style('dark')
+sns.distplot(df_rent.fmr_2)
+plt.title('Dark Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+# Plot with a dark style 
+plt.figure()
+sns.set_style('whitegrid')
+sns.distplot(df_rent.fmr_2)
+plt.title('Whitegrid Style')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "4. Removing spines"; print("** %s\n" % topic)
+
+# Set the style to white
+sns.set_style('white')
+sns.lmplot(data=df_rent, x='pop2010', y='fmr_2') # Create a regression plo
+sns.despine(left=True) # Remove the spines
+plt.title('Relation between population and\nFair market rent for a 2-bedroom apartment')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "5. Colors in Seaborn"; print("** %s\n" % topic)
+
+#Defining a color for a plot
+plt.figure()
+sns.set(color_codes=True)
+sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'], color='g')
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Defining a color for a plot')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+#Palettes
+for p in sns.palettes.SEABORN_PALETTES:
+    plt.figure()
+    sns.set()
+    sns.set_palette(p)
+    sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'])
+    plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+    plt.title('{} palette'.format(p))
+    plt.suptitle(topic)
+    plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+    plt.show()
+    plt.style.use('default')
+    
+#Return the current palette
+print('The current palette is: ', sns.color_palette())
+
+#Display the palettes availables
+for p in sns.palettes.SEABORN_PALETTES:
+    sns.set_palette(p)
+    sns.palplot(sns.color_palette())
+    plt.title('{} palette'.format(p))
+    plt.suptitle(topic)
+    plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+    plt.show()
+plt.style.use('default')
+
+#Define customs palettes
+sns.palplot(sns.color_palette('Paired', 12))
+plt.title('Circular colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+
+sns.palplot(sns.color_palette('Blues', 12))
+plt.title('Sequential colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+
+sns.palplot(sns.color_palette('BrBG', 12))
+plt.title('Diverging colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+
+plt.style.use('default')
+
+print("****************************************************")
+topic = "6. Matplotlib color codes"; print("** %s\n" % topic)
+
+# Set style, enable color code, and create a magenta distplot
+plt.figure()
+sns.set(color_codes=True)
+sns.distplot(df_rent['fmr_3'], color='m')
+plt.title('Fair market rent for a 3-bedroom apartment')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "7. Using default palettes"; print("** %s\n" % topic)
+
+# Loop through differences between bright and colorblind palettes
+plt.figure()
+for i, p in enumerate(['bright', 'colorblind']):
+    plt.subplot(1,2,i+1)
+    sns.set_palette(p)
+    sns.distplot(df_rent['fmr_3'])
+    plt.title('{} palette'.format(p))
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+plt.style.use('default')
+    
+print("****************************************************")
+topic = "9. Creating Custom Palettes"; print("** %s\n" % topic)
+
+# Create the coolwarm palette
+sns.palplot(sns.color_palette("Purples", 8))
+plt.title('Purples colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+
+# Create the coolwarm palette
+sns.palplot(sns.color_palette("husl", 10))
+plt.title('Husl colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+
+# Create the coolwarm palette
+sns.palplot(sns.color_palette("coolwarm", 6))
+plt.title('Coolwarm colors')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.5, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+topic = "10. Customizing with matplotlib"; print("** %s\n" % topic)
+
+#Introducing axes
+#plt.figure()
+fig, ax = plt.subplots()
+sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'], ax=ax)
+ax.set(xlabel='Tuition 2018')
+plt.title('Introducing Axes')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+
+#More configurations on axes
+#plt.figure()
+fig, ax = plt.subplots()
+sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'], ax=ax)
+ax.set(xlabel = 'Tuition 2018',
+       ylabel = 'Distribution',
+       xlim   = (0, 50000),
+       title  = 'More configurations on Axes')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show()
+
+#Combining plots
+#plt.figure()
+fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(10,4))
+sns.distplot(df_college.loc[df_college.Tuition.notnull(), 'Tuition'], ax=ax0)
+sns.distplot(df_college.query("Tuition.notnull() & Regions=='South East'", engine='python')['Tuition'], ax=ax1)
+ax0.set(title  = 'All Region')
+ax1.set(xlabel = 'Tuition (South East)',
+        ylabel = 'Distribution',
+        xlim   = (0, 70000),
+        title  = 'Only South East Region')
+ax1.axvline(x=20000, label='My budget', linestyle='--')
+ax1.legend()
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "11. Using matplotlib axes"; print("** %s\n" % topic)
+
+sns.set()
+fig, ax = plt.subplots() # Create a figure and axes
+sns.distplot(df_rent['fmr_3'], ax=ax) # Plot the distribution of data
+ax.set(xlabel="3 Bedroom Fair Market Rent",
+       title='US Market Rent Dataset') # Create a more descriptive x axis label
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+print("****************************************************")
+topic = "12. Additional plot customizations"; print("** %s\n" % topic)
+
+sns.set()
+fig, ax = plt.subplots() # Create a figure and axes
+sns.distplot(df_rent['fmr_1'], ax=ax) # Plot the distribution of 1 bedroom rents
+ax.set(xlabel="1 Bedroom Fair Market Rent", # Modify the properties of the plot
+       xlim=(100,1500),
+       title="US Rent")
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+print("****************************************************")
+topic = "13. Adding annotations"; print("** %s\n" % topic)
+
+sns.set()
+sns.set_palette('bright')
+median = df_rent['fmr_1'].median()
+mean = df_rent['fmr_1'].mean()
+
+fig, ax = plt.subplots() # Create a figure and axes. Then plot the data
+sns.distplot(df_rent['fmr_1'], ax=ax) # Plot the distribution of 1 bedroom rents
+ax.set(xlabel = "1 Bedroom Fair Market Rent", # Customize the labels and limits
+       xlim   = (100,1500), 
+       title  = "US Rent")
+ax.axvline(x=median, color='m', label='Median', linestyle='--', linewidth=2) # Add vertical lines for the median and mean
+ax.axvline(x=mean, color='b', label='Mean', linestyle='-', linewidth=2)
+ax.legend() # Show the legend and plot the data
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+print("****************************************************")
+topic = "14. Multiple plots"; print("** %s\n" % topic)
+
+sns.set()
+fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(10,4)) # Create a plot with 1 row and 2 columns that share the y axis label
+
+sns.distplot(df_rent['fmr_1'], ax=ax0) # Plot the distribution of 1 bedroom apartments on ax0
+ax0.set(xlabel = "1 Bedroom Fair Market Rent", 
+        xlim   = (100,1500),
+        title  = 'US Rent for 1 Bedroom Fair Market')
+
+sns.distplot(df_rent['fmr_2'], ax=ax1) # Plot the distribution of 2 bedroom apartments on ax1
+ax1.set(xlabel = "2 Bedroom Fair Market Rent", 
+        xlim   = (100,1500),
+        title  = 'US Rent for 2 Bedroom Fair Market')
+#ax1.tick_params(labelsize =8) #x_ticks, rotation=0, 
+
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

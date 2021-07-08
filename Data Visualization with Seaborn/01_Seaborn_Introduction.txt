@@ -1,0 +1,218 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 22 11:50:25 2019
+
+@author: jacqueline.cortez
+Chapter 1: Seaborn Introduction
+    Introduction to the Seaborn library and where it fits in the Python visualization landscape.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import seaborn           as sns                                               #For visualizing data
+
+print("****************************************************")
+topic = "User Variables"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Defined functions"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Reading data"; print("** %s\n" % topic)
+
+filename = "white-wine.csv"
+df_wine = pd.read_csv(filename)
+print("Columns of {}:\n{}".format(filename, df_wine.columns))
+df_wine['type'] = 'good'
+df_wine.loc[df_wine.quality<5, 'type'] = 'bad'
+
+filename = "2010_US_School_Grants.csv"
+df_school_grants = pd.read_csv(filename)
+print("Columns of {}:\n{}".format(filename, df_school_grants.columns))
+
+filename = 'Automobile_Insurance_Premiums.csv'
+df_automobile = pd.read_csv(filename)
+print("Columns of {}:\n{}".format(filename, df_automobile.columns))
+
+print("****************************************************")
+topic = "1. Introduction to Seaborn"; print("** %s\n" % topic)
+
+plt.figure(figsize=(10,4)),
+#Using Matplotlib
+plt.subplot(1,3,1)
+plt.hist(df_wine.alcohol)
+plt.title('Using Matplotlib')
+
+#Using Pandas plot integrating functions
+plt.subplot(1,3,2)
+df_wine.alcohol.plot.hist()
+plt.title('Using Pandas Plot integrations functions')
+
+#Using Seaborn
+plt.subplot(1,3,3)
+sns.distplot(df_wine.alcohol)
+plt.title('Using Seaborn')
+
+# Display the plot
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "4. Comparing a histogram and distplot"; print("** %s\n" % topic)
+
+plt.figure(figsize=(10,4)),
+#Using Pandas plot integrating functions
+plt.subplot(1,2,1)
+df_school_grants.Award_Amount.plot.hist()
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Using Pandas Plot integrations functions')
+
+#Using Seaborn
+plt.subplot(1,2,2)
+#sns.set(font_scale=0.6)
+sns.distplot(df_school_grants.Award_Amount)
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Using Seaborn')
+
+# Display the plot
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "5. Using the distribution plot"; print("** %s\n" % topic)
+
+plt.figure(figsize=(10,4)),
+#Basic histogram
+plt.subplot(1,3,1)
+sns.distplot(df_wine.alcohol, kde=False, bins=10)
+plt.title('A simple histogram')
+
+#Making some customization
+plt.subplot(1,3,2)
+sns.distplot(df_wine.alcohol, hist=False, rug=True)
+plt.title('Alternative data distribution')
+
+#More customizations
+plt.subplot(1,3,3)
+sns.distplot(df_wine.alcohol, hist=False, rug=True, kde_kws={'shade':True})
+plt.title('Further customizations')
+
+# Display the plot
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "6. Plot a histogram"; print("** %s\n" % topic)
+topic = "7. Rug plot and kde shading"; print("** %s\n" % topic)
+
+plt.figure(figsize=(10,4)),
+#Basic histogram
+plt.subplot(1,2,1)
+sns.distplot(df_school_grants.Award_Amount, kde=False, bins=20)
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Just a Histogram')
+
+#A KDE with some customizations
+plt.subplot(1,2,2)
+#sns.set(font_scale=0.6)
+sns.distplot(df_school_grants.Award_Amount, hist=False, rug=True, kde_kws={'shade':True})
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Using Seaborn')
+
+# Display the plot
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "9. Regression Plots in Seaborn"; print("** %s\n" % topic)
+
+#Introduction to regplot
+plt.figure()
+sns.regplot(x='alcohol', y='pH', data=df_wine)
+plt.title('A regplot')
+plt.suptitle(topic)
+plt.show()
+
+#Comparing regplot vs lmplot
+plt.figure()
+sns.regplot(x='alcohol', y='quality', data=df_wine)
+plt.title('A regplot')
+plt.suptitle(topic)
+plt.show()
+
+sns.lmplot(x='alcohol', y='quality', data=df_wine)
+plt.title('A lmplot')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+#lmplot faceting
+sns.lmplot(x='quality', y='alcohol', data=df_wine, hue='type')
+plt.title('lmplot Faceting with hue')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+sns.lmplot(x='quality', y='alcohol', data=df_wine, col='type')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "10. Create a regression plot"; print("** %s\n" % topic)
+
+#Regplot
+plt.figure()
+sns.regplot(data=df_automobile, x="insurance_losses", y="premiums")
+plt.title('Using regplot')
+plt.suptitle(topic)
+plt.show()
+
+#lmplot
+sns.lmplot(data=df_automobile, x="insurance_losses", y="premiums")
+plt.title('Using lmplot')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+topic = "11. Plotting multiple variables"; print("** %s\n" % topic)
+
+# Create a regression plot using hue
+sns.lmplot(data=df_automobile, x="insurance_losses", y="premiums", hue="Region")
+plt.title('Relation between insurance losses and premiums, by Region')
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.85, wspace=None, hspace=0.5)
+plt.show()
+
+print("****************************************************")
+topic = "12. Facetting multiple regressions"; print("** %s\n" % topic)
+
+# Create a regression plot with multiple rows
+g = sns.lmplot(data=df_automobile, x="insurance_losses", y="premiums", row="Region", hue="Region")
+g.fig.set_figheight(5) #Height and width of sns plot
+g.fig.set_figwidth(6)
+plt.suptitle(topic)
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=0.5)
+plt.show()
+
+# Create a regression plot with multiple rows
+g = sns.lmplot(data=df_automobile,  x="insurance_losses", y="premiums", col="Region", hue="Region")
+plt.suptitle(topic)
+g.fig.set_figheight(5) #Height and width of sns plot
+g.fig.set_figwidth(10)
+plt.subplots_adjust(left=0.08, bottom=0.2, right=None, top=0.8, wspace=None, hspace=0.5)
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
