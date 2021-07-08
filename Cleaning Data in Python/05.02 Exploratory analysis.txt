@@ -1,0 +1,71 @@
+Exploratory analysis
+Whenever you obtain a new dataset, your first task 
+should always be to do some exploratory analysis to 
+get a better understanding of the data and diagnose 
+it for any potential issues.
+
+The Gapminder data for the 19th century has been 
+loaded into a DataFrame called g1800s. In the IPython 
+Shell, use pandas methods such as .head(), .info(), 
+and .describe(), and DataFrame attributes like .columns 
+and .shape to explore it.
+
+Use the information that you acquire from your 
+exploratory analysis to choose the true statement 
+from the options provided below.
+________________________________________________________
+ANSWER:
+True:
+	100 of the columns are of type float64 and 1 column is of type object.
+
+False:
+	The DataFrame has 259 rows and 100 columns.
+	The DataFrame has no missing values encoded as NaN.
+	The DataFrame takes up 203.2+ KB of memory.
+________________________________________________________
+IPYTHONSHELL:
+In [1]: !dir
+	g1800.csv
+
+In [2]: g1800s.head()
+	Out[2]: 
+	         Life expectancy   1800   1801   1802   1803  ...     1895   1896   1897   1898   1899
+	0               Abkhazia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	1            Afghanistan  28.21  28.20  28.19  28.18  ...    27.24  27.23  27.22  27.21  27.20
+	2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	3                Albania  35.40  35.40  35.40  35.40  ...    35.40  35.40  35.40  35.40  35.40
+	4                Algeria  28.82  28.82  28.82  28.82  ...    28.82  28.82  28.82  28.82  28.82
+	[5 rows x 101 columns]
+
+In [3]: g1800s.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 260 entries, 0 to 259
+	Columns: 101 entries, Life expectancy to 1899
+	dtypes: float64(100), object(1)
+	memory usage: 205.2+ KB
+
+In [4]: g1800s.describe()
+	Out[4]: 
+	             1800        1801        1802        1803        1804     ...            1895        1896        1897        1898        1899
+	count  201.000000  201.000000  201.000000  201.000000  201.000000     ...      201.000000  201.000000  201.000000  201.000000  201.000000
+	mean    31.486020   31.448905   31.463483   31.377413   31.446318     ...       32.811841   32.895224   32.964279   32.994080   32.962985
+	std      3.763585    3.755739    3.878204    3.901966    3.877156     ...        6.067020    6.344388    6.390669    6.336805    6.325265
+	min     23.390000   23.390000   23.390000   19.600000   23.390000     ...       22.000000   20.000000   19.000000   19.700000   18.900000
+	25%     29.000000   28.950000   28.900000   28.900000   28.950000     ...       29.200000   29.000000   29.200000   29.160000   29.000000
+	50%     31.800000   31.700000   31.600000   31.500000   31.600000     ...       32.000000   32.000000   32.000000   32.000000   32.000000
+	75%     33.900000   33.900000   33.900000   33.800000   33.870000     ...       35.000000   35.000000   35.000000   35.180000   35.180000
+	max     42.850000   40.300000   44.370000   44.840000   42.830000     ...       54.160000   53.840000   54.140000   54.690000   51.620000
+	[8 rows x 100 columns]
+
+In [5]: g1800s.columns
+	Out[5]: 
+	Index(['Life expectancy', '1800', '1801', '1802', '1803', 
+               '1804', '1805', '1806', '1807', '1808',
+	       ...
+	       '1890', '1891', '1892', '1893', '1894', '1895', 
+	       '1896', '1897', '1898', '1899'], 
+             dtype='object', length=101)
+
+In [6]: g1800s.shape
+	Out[6]: (260, 101)
+________________________________________________________

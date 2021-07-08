@@ -1,0 +1,145 @@
+# Create the series of countries: countries
+countries = gapminder["country"]
+print("***DATOS INICIALES DE MUESTRA***")
+print(countries.head())
+print("Cantidad de paises recopilados:")
+print(countries.shape)
+
+# Drop all the duplicates from countries
+countries = countries.drop_duplicates()
+print("Paises no duplicados:")
+print(countries.shape)
+
+# Write the regular expression: pattern
+pattern = '^[A-Z][A-Za-z\s\.]+$'
+
+# Create the Boolean vector: mask
+mask = countries.str.contains(pattern)
+
+# Invert the mask: mask_inverse
+mask_inverse = ~mask
+
+# Subset countries using mask_inverse: invalid_countries
+invalid_countries = countries.loc[mask_inverse]
+
+# Print invalid_countries
+print("Lista de paises invalidos:")
+print(invalid_countries)
+print(invalid_countries.shape)
+________________________________________________________
+OUT:
+***DATOS INICIALES DE MUESTRA***
+0                 Abkhazia
+1              Afghanistan
+2    Akrotiri and Dhekelia
+3                  Albania
+4                  Algeria
+Name: country, dtype: object
+
+Cantidad de paises recopilados:
+(169260,)
+
+Paises no duplicados:
+(260,)
+
+Lista de paises invalidos:
+49            Congo, Dem. Rep.
+50                 Congo, Rep.
+53               Cote d'Ivoire
+73      Falkland Is (Malvinas)
+93               Guinea-Bissau
+98            Hong Kong, China
+118    United Korea (former)\n
+131               Macao, China
+132             Macedonia, FYR
+145      Micronesia, Fed. Sts.
+161            Ngorno-Karabakh
+187             St. Barthélemy
+193     St.-Pierre-et-Miquelon
+225                Timor-Leste
+251      Virgin Islands (U.S.)
+252       North Yemen (former)
+253       South Yemen (former)
+258                      Åland
+Name: country, dtype: object
+(18,)
+________________________________________________________
+IPYTHONSHELL:
+In [1]
+	import re
+
+	
+	#pattern = '[A-Za-z]+\.{0|1}\s[A-Za-z]+'
+	
+#pattern = '^[A-Za-z]+\.{0,1}\s{0,1}[A-Za-z]+\.{0,1}$'
+
+	pattern = '^[A-Za-z\s\.]+$'
+	pattern = '^[A-Z][A-Za-z\s\.]+$'
+
+
+	print("Australia: "+str(bool(re.match(pattern, "Australia"))))
+	print("Nueva Zelanda: "+str(bool(re.match(pattern, "Nueva Zelanda"))))
+	print("Nueva  Zelanda: "+str(bool(re.match(pattern, "Nueva  Zelanda"))))
+	print("Nva. Zelanda: "+str(bool(re.match(pattern, "Nva. Zelanda"))))
+	print("Nueva Zel.: "+str(bool(re.match(pattern, "Nueva Zel."))))
+	print("Nueva Zel. Est.: "+str(bool(re.match(pattern, "Nueva Zel. Est."))))
+	print("Nueva Zel. Est.2: "+str(bool(re.match(pattern, "Nueva Zel. Est.2"))))
+	print(".Nueva Zel. Est.2: "+str(bool(re.match(pattern, ".Nueva Zel. Est.2"))))
+	print("nueva Zel. Est.2: "+str(bool(re.match(pattern, "nueva Zel. Est.2"))))
+
+Out [1]
+	Australia: True
+	Nueva Zelanda: True
+	Nueva  Zelanda: True
+	Nva. Zelanda: True
+	Nueva Zel.: True
+	Nueva Zel. Est.: True
+	Nueva Zel. Est.2: False
+	.Nueva Zel. Est.2: False
+
+	nueva Zel. Est.2: False
+________________________________________________
+INSTRUCTION:
+1. Create a Series called countries consisting of the 
+   'country' column of gapminder.
+2. Drop all duplicates from countries using the 
+   .drop_duplicates() method.
+3. Write a regular expression that tests your assumptions 
+   of what characters belong in countries:
+   - Anchor the pattern to match exactly what you want by 
+     placing a ^ in the beginning and $ in the end.
+   - Use A-Za-z to match the set of lower and upper case 
+     letters, \. to match periods, and \s to match 
+     whitespace between words.
+4. Use str.contains() to create a Boolean vector 
+   representing values that match the pattern.
+5. Invert the mask by placing a ~ before it.
+6. Subset the countries series using the .loc[] accessor 
+   and mask_inverse. Then hit 'Submit Answer' to see the 
+   invalid country names!
+________________________________________________________
+GUIDE:
+Looking at country spellings
+Having tidied your DataFrame and checked the data types, 
+your next task in the data cleaning process is to look 
+at the 'country' column to see if there are any special 
+or invalid characters you may need to deal with.
+
+It is reasonable to assume that country names will contain:
+
+- The set of lower and upper case letters.
+- Whitespace between words.
+- Periods for any abbreviations.
+
+To confirm that this is the case, you can leverage the 
+power of regular expressions again. For common operations 
+like this, Pandas has a built-in string method - 
+str.contains() - which takes a regular expression pattern, 
+and applies it to the Series, returning True if there is 
+a match, and False otherwise.
+
+Since here you want to find the values that do not match, 
+you have to invert the boolean, which can be done using ~. 
+This Boolean series can then be used to get the Series of 
+countries that have invalid names.
+________________________________________________________

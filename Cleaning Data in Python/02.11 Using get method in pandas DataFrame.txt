@@ -1,0 +1,71 @@
+In [1]: md = {0:["agua","tierra"],1:["aire","fuego"]}
+In [2]: import pandas as pd
+In [3]: mdf = pd.DataFrame(md)
+
+In [4]: mdf
+Out[4]: 
+        0      1
+0    agua   aire
+1  tierra  fuego
+
+In [5]: mdf[1]
+Out[5]: 
+0     aire
+1    fuego
+Name: 1, dtype: object
+
+In [6]: mdf[1].str
+Out[6]: <pandas.core.strings.StringMethods at 0x7fbf5d3e4470>
+
+In [7]: list(mdf[1].str)
+Out[7]: 
+[[0    a
+ 1    f
+ Name: 1, dtype: object, 0    i
+ 1    u
+ Name: 1, dtype: object, 0    r
+ 1    e
+ Name: 1, dtype: object, 0    e
+ 1    g
+ Name: 1, dtype: object, 0    NaN
+ 1      o
+ Name: 1, dtype: object]
+
+
+In [8]: mdf[1].str.get(0)
+Out[8]: 
+0    a
+1    f
+Name: 1, dtype: object
+
+In [9]: mdf[2]=[["abc","def"],["ghi","jkl"]]
+
+In [10]: mdf
+Out[10]: 
+        0      1           2
+0    agua   aire  [abc, def]
+1  tierra  fuego  [ghi, jkl]
+
+In [11]: mdf[2]
+Out[11]: 
+0    [abc, def]
+1    [ghi, jkl]
+Name: 2, dtype: object
+
+In [12]: mdf[2].str.get(0)
+Out[12]: 
+0    abc
+1    ghi
+Name: 2, dtype: object
+
+In [13]: mdf[2].str.get(1)
+Out[13]: 
+0    def
+1    jkl
+Name: 2, dtype: object
+
+In [14]: mdf[2].str.get(2)
+Out[14]: 
+0   NaN
+1   NaN
+Name: 2, dtype: float64

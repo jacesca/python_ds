@@ -1,0 +1,105 @@
+def check_null_or_valid(row_data):
+    """Function that takes a row of data,
+    drops all missing values,
+    and checks if all remaining values are greater than or equal to 0
+    """
+    no_na = row_data.dropna()
+    numeric = pd.to_numeric(no_na, errors="coerce")
+    ge0 = numeric >= 0
+    return ge0
+
+# Check whether the first column is 'Life expectancy'
+assert g1800s.columns[0] == "Life expectancy"
+
+# Check whether the values in the row are valid
+assert g1800s.iloc[:, 1:].apply(check_null_or_valid, axis=1).all().all()
+
+# Check that there is only one instance of each country
+assert g1800s['Life expectancy'].value_counts()[0] == 1
+________________________________________________________
+OUT:
+________________________________________________________
+IPYTHONSHELL:
+In [1]: g1800s.head()
+	Out[1]: 
+	         Life expectancy   1800   1801   1802   1803  ...     1895   1896   1897   1898   1899
+	0               Abkhazia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	1            Afghanistan  28.21  28.20  28.19  28.18  ...    27.24  27.23  27.22  27.21  27.20
+	2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	3                Albania  35.40  35.40  35.40  35.40  ...    35.40  35.40  35.40  35.40  35.40
+	4                Algeria  28.82  28.82  28.82  28.82  ...    28.82  28.82  28.82  28.82  28.82
+	[5 rows x 101 columns]
+
+In [2]: g1800s.columns
+	Out[2]: 
+	Index(['Life expectancy', '1800', '1801', '1802', '1803', '1804', '1805', '1806', '1807', '1808',
+	       ...
+	       '1890', '1891', '1892', '1893', '1894', '1895', '1896', '1897', '1898', '1899'], dtype='object', length=101)
+
+In [3]: g1800s.shape
+	Out[3]: (260, 101)
+
+In [4]: g1800s.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 260 entries, 0 to 259
+	Columns: 101 entries, Life expectancy to 1899
+	dtypes: float64(100), object(1)
+	memory usage: 205.2+ KB
+
+In [5]: g1800s.describe()
+	Out[5]: 
+	             1800        1801        1802        1803        1804     ...            1895        1896        1897        1898        1899
+	count  201.000000  201.000000  201.000000  201.000000  201.000000     ...      201.000000  201.000000  201.000000  201.000000  201.000000
+	mean    31.486020   31.448905   31.463483   31.377413   31.446318     ...       32.811841   32.895224   32.964279   32.994080   32.962985
+	std      3.763585    3.755739    3.878204    3.901966    3.877156     ...        6.067020    6.344388    6.390669    6.336805    6.325265
+	min     23.390000   23.390000   23.390000   19.600000   23.390000     ...       22.000000   20.000000   19.000000   19.700000   18.900000
+	25%     29.000000   28.950000   28.900000   28.900000   28.950000     ...       29.200000   29.000000   29.200000   29.160000   29.000000
+	50%     31.800000   31.700000   31.600000   31.500000   31.600000     ...       32.000000   32.000000   32.000000   32.000000   32.000000
+	75%     33.900000   33.900000   33.900000   33.800000   33.870000     ...       35.000000   35.000000   35.000000   35.180000   35.180000
+	max     42.850000   40.300000   44.370000   44.840000   42.830000     ...       54.160000   53.840000   54.140000   54.690000   51.620000
+[8 rows x 100 columns]
+________________________________________________________
+INSTRUCTION:
+1. Define a function called check_null_or_valid() that 
+   takes in one argument: row_data.
+2. Inside the function, convert no_na to a numeric data 
+   type using pd.to_numeric().
+3. Write an assert statement to make sure the first 
+   column (index 0) of the g1800s DataFrame is 
+   'Life expectancy'.
+4. Write an assert statement to test that all the 
+   values are valid for the g1800s DataFrame. Use the 
+   check_null_or_valid() function placed inside the 
+   .apply() method for this. Note that because you're 
+   applying it over the entire DataFrame, and not just 
+   one column, you'll have to chain the .all() method 
+   twice, and remember that you don't have to use () 
+   for functions placed inside .apply().
+5. Write an assert statement to make sure that each 
+   country occurs only once in the data. Use the 
+   .value_counts() method on the 'Life expectancy' 
+   column for this. Specifically, index 0 of 
+   .value_counts() will contain the most frequently 
+   occuring value. If this is equal to 1 for the 
+   'Life expectancy' column, then you can be certain 
+   that no country appears more than once in the data.
+________________________________________________________
+GUIDE:
+Thinking about the question at hand
+Since you are given life expectancy level data by 
+country and year, you could ask questions about how 
+much the average life expectancy changes over each year.
+
+Before continuing, however, it's important to make sure 
+that the following assumptions about the data are true:
+
+'Life expectancy' is the first column (index 0) of the 
+DataFrame.
+The other columns contain either null or numeric values.
+The numeric values are all greater than or equal to 0.
+There is only one instance of each country.
+You can write a function that you can apply over the 
+entire DataFrame to verify some of these assumptions. 
+Note that spending the time to write such a script will 
+help you when working with other datasets as well.
+________________________________________________________

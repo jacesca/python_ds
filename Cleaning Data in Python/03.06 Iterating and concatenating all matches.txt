@@ -1,0 +1,89 @@
+# Import necessary modules
+import glob
+import pandas as pd
+
+# Write the pattern: pattern
+pattern = 'uber-raw-data-*.csv'
+
+# Save all file matches: csv_files
+csv_files = glob.glob(pattern)
+
+# Create an empty list: frames
+frames = []
+
+#  Iterate over csv_files
+for csv in csv_files:
+
+    #  Read csv into a DataFrame: df
+    df = pd.read_csv(csv)
+    
+    # Append df to frames
+    frames.append(df)
+
+# Concatenate frames into a single DataFrame: uber
+uber = pd.concat(frames, ignore_index=True)
+
+# Print the shape of uber
+print(uber.shape)
+
+# Print the head of uber
+print(uber.head())
+print(uber.tail())
+print(uber.loc[0,:])
+________________________________________________________
+OUT:
+(297, 4)
+
+          Date/Time      Lat      Lon    Base
+0  5/1/2014 0:02:00  40.7521 -73.9914  B02512
+1  5/1/2014 0:06:00  40.6965 -73.9715  B02512
+2  5/1/2014 0:15:00  40.7464 -73.9838  B02512
+3  5/1/2014 0:17:00  40.7463 -74.0011  B02512
+4  5/1/2014 0:17:00  40.7594 -73.9734  B02512
+
+            Date/Time      Lat      Lon    Base
+292  6/1/2014 6:27:00  40.7554 -73.9738  B02512
+293  6/1/2014 6:35:00  40.7543 -73.9817  B02512
+294  6/1/2014 6:37:00  40.7751 -73.9633  B02512
+295  6/1/2014 6:46:00  40.6952 -74.1784  B02512
+296  6/1/2014 6:51:00  40.7621 -73.9817  B02512
+
+Date/Time    5/1/2014 0:02:00
+Lat                   40.7521
+Lon                  -73.9914
+Base                   B02512
+Name: 0, dtype: object
+________________________________________________________
+IPYTHONSHELL:
+In [1]: !dir
+
+uber-raw-data-2014_04.csv  uber-raw-data-2014_05.csv  
+uber-raw-data-2014_06.csv
+
+________________________________________________________
+INSTRUCTION:
+1. Write a for loop to iterate through csv_files:
+   * In each iteration of the loop, read csv into a 
+     DataFrame called df.
+   * After creating df, append it to the list frames 
+     using the .append() method.
+2. Concatenate frames into a single DataFrame called uber.
+3. Hit 'Submit Answer' to see the head and shape of 
+   the concatenated DataFrame!
+________________________________________________________
+GUIDE:
+Iterating and concatenating all matches
+Now that you have a list of filenames to load, you can 
+load all the files into a list of DataFrames that can 
+then be concatenated.
+
+You'll start with an empty list called frames. Your job 
+is to use a for loop to:
+
+1. iterate through each of the filenames
+2. read each filename into a DataFrame, and then
+3. append it to the frames list.
+
+You can then concatenate this list of DataFrames using 
+pd.concat(). Go for it!
+________________________________________________________

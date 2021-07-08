@@ -1,0 +1,135 @@
+Calculating summary statistics
+You'll now use the .describe() method to calculate 
+summary statistics of your data.
+
+In this exercise, the columns 'Initial Cost' and 
+'Total Est. Fee' have been cleaned up for you. That 
+is, the dollar sign has been removed and they have 
+been converted into two new numeric columns: 
+initial_cost and total_est_fee. You'll learn how to 
+do this yourself in later chapters. It's also worth 
+noting that some columns such as Job # are encoded 
+as numeric columns, but it does not make sense to 
+compute summary statistics for such columns.
+
+This cleaned DataFrame has been pre-loaded as df. 
+Your job is to use the .describe() method on it in 
+the IPython Shell and select the statement below that 
+is False.
+________________________________________________________
+ANSWER:
+True:
+	The mean of 'Proposed No. of Stories' is 8.144325.
+	The standard deviation of 'Existing Height' is 146.917360.
+	There are 12846 entries in the DataFrame.
+	The maximum of 'Proposed Height' is 4200.
+False:
+	The standard deviation of 'Street Frontage' is 11.874080.
+________________________________________________________
+IPYTHONSHELL:
+In [1]: df.shape
+Out[1]: (12846, 13)
+
+In [2]: df.columns
+Out[2]: 
+Index(['Job #', 'Doc #', 'Borough', 'initial_cost', 
+       'total_est_fee', 'Existing Zoning Sqft', 
+       'Proposed Zoning Sqft', 'Enlargement SQ Footage', 
+       'Street Frontage', 'ExistingNo. of Stories',
+       'Proposed No. of Stories', 'Existing Height', 
+       'Proposed Height'],
+      dtype='object')
+
+In [3]: df.describe()
+Out[3]: 
+              Job #         Doc #  initial_cost  total_est_fee  Existing Zoning Sqft       ...         Street Frontage  ExistingNo. of Stories  Proposed No. of Stories  Existing Height  \
+count  1.284600e+04  12846.000000  1.284600e+04   1.284600e+04          1.284600e+04       ...            12846.000000            12846.000000             12846.000000     12846.000000   
+mean   2.426788e+08      1.162930  1.803139e+05   2.894909e+03          1.439973e+03       ...                3.069360                8.062354                 8.144325        94.022809   
+std    1.312507e+08      0.514937  7.961524e+06   1.213534e+05          3.860757e+04       ...               37.246034               11.874080                11.843492       146.917360   
+min    1.036438e+08      1.000000  0.000000e+00   0.000000e+00          0.000000e+00       ...                0.000000                0.000000                 0.000000         0.000000   
+25%    1.216206e+08      1.000000  0.000000e+00   2.250000e+02          0.000000e+00       ...                0.000000                1.000000                 2.000000        20.000000   
+50%    2.202645e+08      1.000000  1.597500e+04   4.195000e+02          0.000000e+00       ...                0.000000                4.000000                 4.000000        45.000000   
+75%    3.208652e+08      1.000000  6.790500e+04   9.297000e+02          0.000000e+00       ...                0.000000                9.000000                 9.000000       105.000000   
+max    5.400246e+08      9.000000  9.003000e+08   1.014000e+07          2.873107e+06       ...             3160.000000              102.000000               102.000000      4200.000000   
+       Proposed Height  
+count     12846.000000  
+mean         94.917562  
+std         146.580666  
+min           0.000000  
+25%          21.000000  
+50%          45.000000  
+75%         107.000000  
+max        4200.000000  
+[8 rows x 12 columns]
+
+In [4]: df.describe(percentiles=[.1,.2,.3,.4,.5,.6,.7,.8,.9])
+Out[4]: 
+              Job #         Doc #  initial_cost  total_est_fee  Existing Zoning Sqft       ...         Street Frontage  ExistingNo. of Stories  Proposed No. of Stories  Existing Height  \
+count  1.284600e+04  12846.000000  1.284600e+04   1.284600e+04          1.284600e+04       ...            12846.000000            12846.000000             12846.000000     12846.000000   
+mean   2.426788e+08      1.162930  1.803139e+05   2.894909e+03          1.439973e+03       ...                3.069360                8.062354                 8.144325        94.022809   
+std    1.312507e+08      0.514937  7.961524e+06   1.213534e+05          3.860757e+04       ...               37.246034               11.874080                11.843492       146.917360   
+min    1.036438e+08      1.000000  0.000000e+00   0.000000e+00          0.000000e+00       ...                0.000000                0.000000                 0.000000         0.000000   
+10%    1.216013e+08      1.000000  0.000000e+00   1.600000e+02          0.000000e+00       ...                0.000000                0.000000                 0.000000         0.000000   
+20%    1.216138e+08      1.000000  0.000000e+00   2.000000e+02          0.000000e+00       ...                0.000000                1.000000                 1.000000        12.000000   
+30%    1.216279e+08      1.000000  1.795000e+03   2.350000e+02          0.000000e+00       ...                0.000000                2.000000                 2.000000        24.000000   
+40%    1.216438e+08      1.000000  7.500000e+03   3.154000e+02          0.000000e+00       ...                0.000000                3.000000                 3.000000        32.000000   
+50%    2.202645e+08      1.000000  1.597500e+04   4.195000e+02          0.000000e+00       ...                0.000000                4.000000                 4.000000        45.000000   
+60%    3.205902e+08      1.000000  3.000000e+04   5.360000e+02          0.000000e+00       ...                0.000000                5.000000                 5.000000        60.000000   
+70%    3.207628e+08      1.000000  5.000000e+04   7.474200e+02          0.000000e+00       ...                0.000000                6.000000                 7.000000        75.000000   
+80%    4.206074e+08      1.000000  9.096400e+04   1.171400e+03          0.000000e+00       ...                0.000000               12.000000                12.000000       140.000000   
+90%    4.208502e+08      2.000000  2.000000e+05   2.314700e+03          0.000000e+00       ...                0.000000               22.000000                22.000000       250.000000   
+max    5.400246e+08      9.000000  9.003000e+08   1.014000e+07          2.873107e+06       ...             3160.000000              102.000000               102.000000      4200.000000   
+       Proposed Height  
+count     12846.000000  
+mean         94.917562  
+std         146.580666  
+min           0.000000  
+10%           0.000000  
+20%          15.000000  
+30%          25.000000  
+40%          34.000000  
+50%          45.000000  
+60%          60.000000  
+70%          75.000000  
+80%         140.000000  
+90%         250.000000  
+max        4200.000000  
+[14 rows x 12 columns]
+
+In [5]: df_stat = df.describe(include="all")
+
+In [6]: df_stat.info()
+<class 'pandas.core.frame.DataFrame'>
+Index: 11 entries, count to max
+Data columns (total 13 columns):
+Job #                      8 non-null float64
+Doc #                      8 non-null float64
+Borough                    4 non-null object
+initial_cost               8 non-null float64
+total_est_fee              8 non-null float64
+Existing Zoning Sqft       8 non-null float64
+Proposed Zoning Sqft       8 non-null float64
+Enlargement SQ Footage     8 non-null float64
+Street Frontage            8 non-null float64
+ExistingNo. of Stories     8 non-null float64
+Proposed No. of Stories    8 non-null float64
+Existing Height            8 non-null float64
+Proposed Height            8 non-null float64
+dtypes: float64(12), object(1)
+memory usage: 1.5+ KB
+
+In [7]: df_stat["Borough"]
+Out[7]: 
+count         12846
+unique            5
+top       MANHATTAN
+freq           6310
+mean            NaN
+std             NaN
+min             NaN
+25%             NaN
+50%             NaN
+75%             NaN
+max             NaN
+Name: Borough, dtype: object
+________________________________________________________

@@ -1,0 +1,94 @@
+print("Tamaño del DataFrame antes de la depuración:")
+print(gapminder.shape)
+tamaño_inicial=gapminder.shape[0]
+
+# Assert that country does not contain any missing values
+assert pd.notnull(gapminder.country).all()
+
+# Assert that year does not contain any missing values
+assert pd.notnull(gapminder.year).all()
+
+# Drop the missing values
+gapminder = gapminder.dropna()
+
+# Print the shape of gapminder
+print("\nTamaño del DataFrame despues de la depuración:")
+print(gapminder.shape)
+tamaño_final=gapminder.shape[0]
+
+print("\nSe reduce en un "+str(round(tamaño_final/tamaño_inicial*100,0))+"%")
+________________________________________________________
+OUT:
+Tamaño del DataFrame antes de la depuración:
+(169260, 3)
+
+Tamaño del DataFrame despues de la depuración:
+(43857, 3)
+
+Se reduce en un 26.0%
+________________________________________________________
+IPYTHONSHELL:
+In [1]: gapminder.shape
+	Out[1]: (169260, 3)
+
+In [2]: gapminder.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 169260 entries, 0 to 169259
+	Data columns (total 3 columns):
+	country            169260 non-null object
+	year               169260 non-null int64
+	life_expectancy    43857 non-null float64
+	dtypes: float64(1), int64(1), object(1)
+	memory usage: 3.9+ MB
+________________________________________________________
+INSTRUCTION:
+1. Assert that country and year do not contain any 
+   missing values. The first assert statement has been 
+   written for you. Note the chaining of the .all() 
+   method to pd.notnull() to confirm that all values 
+   in the column are not null.
+2. Drop the rows in the data where any observation in 
+   life_expectancy is missing. As you confirmed that 
+   country and year don't have missing values, you can 
+   use the .dropna() method on the entire gapminder 
+   DataFrame, because any missing values would have to 
+   be in the life_expectancy column. The .dropna() 
+   method has the default keyword arguments axis=0 and 
+   how='any', which specify that rows with any missing 
+   values should be dropped.
+3. Print the shape of gapminder.
+________________________________________________________
+GUIDE:
+More data cleaning and processing
+It's now time to deal with the missing data. There are 
+several strategies for this: You can drop them, fill 
+them in using the mean of the column or row that the 
+missing value is in (also known as imputation), or, if 
+you are dealing with time series data, use a forward 
+fill or backward fill, in which you replace missing 
+values in a column with the most recent known value in 
+the column. See pandas Foundations for more on forward 
+fill and backward fill.
+
+In general, it is not the best idea to drop missing 
+values, because in doing so you may end up throwing away 
+useful information. In this data, the missing values 
+refer to years where no estimate for life expectancy is 
+available for a given country. You could fill in, or 
+guess what these life expectancies could be by looking 
+at the average life expectancies for other countries in 
+that year, for example. Whichever strategy you go with, 
+it is important to carefully consider all options and 
+understand how they will affect your data.
+
+In this exercise, you'll practice dropping missing 
+values. Your job is to drop all the rows that have NaN 
+in the life_expectancy column. Before doing so, it 
+would be valuable to use assert statements to confirm 
+that year and country do not have any missing values.
+
+Begin by printing the shape of gapminder in the IPython 
+Shell prior to dropping the missing values. Complete 
+the exercise to find out what its shape will be after 
+dropping the missing values!
+________________________________________________________

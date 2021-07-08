@@ -1,0 +1,250 @@
+##########################################################
+##                                                      ##
+##  POR FILAS                                           ##
+##                                                      ##
+##  Concatenando los tres dataframe por fila, se        ##
+##  obtiene un data frame de 780 fillas (se suman la    ##
+##  cantidad de filas de cada data frame) por 218       ##
+##  columnas (no se duplican las columnas).             ##
+##                                                      ##
+##########################################################
+
+# Concatenate the DataFrames row-wise
+gapminder = pd.concat([g1800s,g1900s,g2000s])
+
+# Print the shape of gapminder
+print(gapminder.shape)
+
+# Print the head and the tail of gapminder
+print(gapminder.head())
+print(gapminder.tail())
+________________________________________________________
+OUT:
+(780, 218)
+
+
+    1800   1801   1802   1803   1804          ...            2013  2014  2015  2016        Life expectancy
+0    NaN    NaN    NaN    NaN    NaN          ...             NaN   NaN   NaN   NaN               Abkhazia
+1  28.21  28.20  28.19  28.18  28.17          ...             NaN   NaN   NaN   NaN            Afghanistan
+2    NaN    NaN    NaN    NaN    NaN          ...             NaN   NaN   NaN   NaN  Akrotiri and Dhekelia
+3  35.40  35.40  35.40  35.40  35.40          ...             NaN   NaN   NaN   NaN                Albania
+4  28.82  28.82  28.82  28.82  28.82          ...             NaN   NaN   NaN   NaN                Algeria
+[5 rows x 218 columns]
+
+
+     1800  1801  1802  1803  1804       ...         2013  2014  2015   2016  Life expectancy
+255   NaN   NaN   NaN   NaN   NaN       ...          NaN   NaN   NaN    NaN       Yugoslavia
+256   NaN   NaN   NaN   NaN   NaN       ...         55.6  56.3  56.7  57.10           Zambia
+257   NaN   NaN   NaN   NaN   NaN       ...         55.7  57.0  59.3  61.69         Zimbabwe
+258   NaN   NaN   NaN   NaN   NaN       ...          NaN   NaN   NaN    NaN            Åland
+259   NaN   NaN   NaN   NaN   NaN       ...         56.0  56.1  56.1  56.10      South Sudan
+[5 rows x 218 columns]
+________________________________________________________
+##########################################################
+##                                                      ##
+##  POR COLUMNAS                                        ##
+##                                                      ##
+##  Concatenando los tres dataframe por columna, se     ##
+##  obtiene un data frame de 260 fillas (se mantiene    ##
+##  la cantidad de filas) por 220 columnas (se suman    ##
+##  el total de columnas de cada data frame).           ##
+##                                                      ##
+##########################################################
+
+# Concatenate the DataFrames row-wise
+gapminder = pd.concat([g1800s,g1900s,g2000s], axis=1)
+
+# Print the shape of gapminder
+print(gapminder.shape)
+
+# Print the head and the tail of gapminder
+print(gapminder.head())
+print(gapminder.tail())
+________________________________________________________
+OUT:
+(260, 220)
+
+
+         Life expectancy   1800   1801   1802   1803  ...    2012  2013  2014  2015   2016
+0               Abkhazia    NaN    NaN    NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+1            Afghanistan  28.21  28.20  28.19  28.18  ...    54.4  54.8  54.9  53.8  52.72
+2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+3                Albania  35.40  35.40  35.40  35.40  ...    77.5  77.7  77.9  78.0  78.10
+4                Algeria  28.82  28.82  28.82  28.82  ...    76.2  76.3  76.3  76.4  76.50
+[5 rows x 220 columns]
+
+
+    Life expectancy   1800   1801   1802   1803  ...    2012  2013  2014  2015   2016
+255      Yugoslavia    NaN    NaN    NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+256          Zambia  32.60  32.60  32.60  32.60  ...    54.7  55.6  56.3  56.7  57.10
+257        Zimbabwe  33.70  33.70  33.70  33.70  ...    54.2  55.7  57.0  59.3  61.69
+258           Åland    NaN    NaN    NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+259     South Sudan  26.67  26.67  26.67  26.67  ...    56.0  56.0  56.1  56.1  56.10
+[5 rows x 220 columns]
+________________________________________________________
+IPYTHONSHELL:
+In [1]: g1800s.shape
+	Out[1]: (260, 101)
+
+In [2]: g1900s.shape
+	Out[2]: (260, 101)
+
+In [3]: g2000s.shape
+	Out[3]: (260, 18)
+
+In [4]: g1800s.columns
+	Out[4]: Index(['Life expectancy', '1800', '1801', 
+	               '1802', '1803', '1804', '1805', 
+	               '1806', '1807', '1808',
+	               ...
+	               '1890', '1891', '1892', '1893', 
+	               '1894', '1895', '1896', '1897', 
+	               '1898', '1899'], 
+                     dtype='object', length=101)
+
+In [5]: g1900s.columns
+	Out[5]: Index(['Life expectancy', '1900', '1901', 
+                       '1902', '1903', '1904', '1905', 
+                       '1906', '1907', '1908',
+	               ...
+	               '1990', '1991', '1992', '1993', 
+	               '1994', '1995', '1996', '1997', 
+	               '1998', '1999'], 
+                     dtype='object', length=101)
+
+In [6]: g2000s.columns
+	Out[6]: Index(['Life expectancy', '2000', '2001', 
+	               '2002', '2003', '2004', '2005', 
+	               '2006', '2007', '2008', '2009', 
+	               '2010', '2011', '2012', '2013', 
+	               '2014', '2015', '2016'], 
+	             dtype='object')
+	
+In [7]: g1800s.head()
+	Out[7]: 
+	         Life expectancy   1800   1801   1802   1803  ...     1895   1896   1897   1898   1899
+	0               Abkhazia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	1            Afghanistan  28.21  28.20  28.19  28.18  ...    27.24  27.23  27.22  27.21  27.20
+	2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	3                Albania  35.40  35.40  35.40  35.40  ...    35.40  35.40  35.40  35.40  35.40
+	4                Algeria  28.82  28.82  28.82  28.82  ...    28.82  28.82  28.82  28.82  28.82
+	[5 rows x 101 columns]
+
+In [8]: g1900s.head()
+	Out[8]: 
+	         Life expectancy   1900   1901   1902   1903  ...   1995  1996  1997  1998  1999
+	0               Abkhazia    NaN    NaN    NaN    NaN  ...    NaN   NaN   NaN   NaN   NaN
+	1            Afghanistan  27.19  27.18  27.17  27.16  ...   49.4  49.7  49.5  48.6  50.0
+	2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN  ...    NaN   NaN   NaN   NaN   NaN
+	3                Albania  35.40  35.40  35.40  35.40  ...   73.7  73.8  74.1  74.2  74.2
+	4                Algeria  28.86  28.90  28.94  29.86  ...   71.6  72.1  72.4  72.6  73.0
+	[5 rows x 101 columns]
+
+In [9]: g2000s.head()
+	Out[9]: 
+	         Life expectancy  2000  2001  2002  2003  ...    2012  2013  2014  2015   2016
+	0               Abkhazia   NaN   NaN   NaN   NaN  ...     NaN   NaN   NaN   NaN    NaN
+	1            Afghanistan  50.1  50.4  51.0  51.4  ...    54.4  54.8  54.9  53.8  52.72
+	2  Akrotiri and Dhekelia   NaN   NaN   NaN   NaN  ...     NaN   NaN   NaN   NaN    NaN
+	3                Albania  74.7  75.1  75.5  75.7  ...    77.5  77.7  77.9  78.0  78.10
+	4                Algeria  73.3  73.5  73.8  73.9  ...    76.2  76.3  76.3  76.4  76.50
+	[5 rows x 18 columns]
+
+In [10]: g1800s.tail()
+	Out[10]: 
+	    Life expectancy   1800   1801   1802   1803  ...     1895   1896   1897   1898   1899
+	255      Yugoslavia    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	256          Zambia  32.60  32.60  32.60  32.60  ...    32.60  32.60  32.60  32.60  32.60
+	257        Zimbabwe  33.70  33.70  33.70  33.70  ...    33.70  33.70  33.70  33.70  33.70
+	258           Åland    NaN    NaN    NaN    NaN  ...      NaN    NaN    NaN    NaN    NaN
+	259     South Sudan  26.67  26.67  26.67  26.67  ...    26.67  26.67  26.67  26.67  26.67
+	[5 rows x 101 columns]
+
+In [11]: g1900s.tail()
+	Out[11]: 
+	    Life expectancy   1900   1901   1902   1903  ...    1995  1996  1997  1998   1999
+	255      Yugoslavia    NaN    NaN    NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+	256          Zambia  32.60  32.60  32.60  32.60  ...    46.9  46.3  45.9  45.4  45.00
+	257        Zimbabwe  33.70  33.70  33.70  33.70  ...    56.0  54.4  52.8  50.9  49.30
+	258           Åland    NaN    NaN    NaN    NaN  ...     NaN   NaN  78.9  81.0  78.25
+	259     South Sudan  26.67  26.67  26.67  26.67  ...    52.7  53.1  53.4  53.8  54.10
+	[5 rows x 101 columns]
+
+In [12]: g2000s.tail()
+	Out[12]: 
+	    Life expectancy  2000   2001  2002   2003  ...    2012  2013  2014  2015   2016
+	255      Yugoslavia   NaN    NaN   NaN    NaN  ...     NaN   NaN   NaN   NaN    NaN
+	256          Zambia  44.8  44.90  45.1  45.30  ...    54.7  55.6  56.3  56.7  57.10
+	257        Zimbabwe  47.9  47.00  45.9  45.30  ...    54.2  55.7  57.0  59.3  61.69
+	258           Åland  80.0  80.83  81.8  80.63  ...     NaN   NaN   NaN   NaN    NaN
+	259     South Sudan  54.4  54.70  54.9  55.00  ...    56.0  56.0  56.1  56.1  56.10
+	[5 rows x 18 columns]
+
+In [13]: g1800s.dtypes
+	Out[13]: 
+	Life expectancy     object
+	1800               float64
+	1801               float64
+	1802               float64
+	1803               float64
+	                    ...   
+	1897               float64
+	1898               float64
+	1899               float64
+	Length: 101, dtype: object
+
+In [14]: g1900s.dtypes
+	Out[14]: 
+	Life expectancy     object
+	1900               float64
+	1901               float64
+	1902               float64
+	1903               float64
+	                    ...   
+	1997               float64
+	1998               float64
+	1999               float64
+	Length: 101, dtype: object
+
+In [15]: g2000s.dtypes
+	Out[15]: 
+	Life expectancy     object
+	2000               float64
+	2001               float64
+	2002               float64
+	2003               float64
+	2004               float64
+	2005               float64
+	2006               float64
+	2007               float64
+	2008               float64
+	2009               float64
+	2010               float64
+	2011               float64
+	2012               float64
+	2013               float64
+	2014               float64
+	2015               float64
+	2016               float64
+	dtype: object
+________________________________________________________
+INSTRUCTION:
+1. Use pd.concat() to concatenate g1800s, g1900s, and 
+   g2000s into one DataFrame called gapminder. Make 
+   sure you pass DataFrames to pd.concat() in the form 
+   of a list.
+2. Print the shape and the head of the concatenated 
+   DataFrame.
+________________________________________________________
+GUIDE:
+Assembling your data
+Here, three DataFrames have been pre-loaded: g1800s, 
+g1900s, and g2000s. These contain the Gapminder life 
+expectancy data for, respectively, the 19th century, 
+the 20th century, and the 21st century.
+
+Your task in this exercise is to concatenate them into 
+a single DataFrame called gapminder. This is a row-wise 
+concatenation, similar to how you concatenated the 
+monthly Uber datasets in Chapter 3.
+________________________________________________________

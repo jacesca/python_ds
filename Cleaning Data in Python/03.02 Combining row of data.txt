@@ -1,0 +1,136 @@
+# Concatenate uber1, uber2, and uber3: row_concat
+row_concat = pd.concat([uber1,uber2,uber3])
+
+# Print the shape of row_concat
+print(row_concat.shape)
+
+# Print the head of row_concat
+print(row_concat.head())
+
+# Print the tail of row_concat
+
+print(row_concat.tail())
+
+# Print row with index=0
+
+print(row_concat.loc[0,:])
+________________________________________________________
+OUT:
+(297, 4)
+
+          Date/Time      Lat      Lon    Base
+0  4/1/2014 0:11:00  40.7690 -73.9549  B02512
+1  4/1/2014 0:17:00  40.7267 -74.0345  B02512
+2  4/1/2014 0:21:00  40.7316 -73.9873  B02512
+3  4/1/2014 0:28:00  40.7588 -73.9776  B02512
+4  4/1/2014 0:33:00  40.7594 -73.9722  B02512
+
+           Date/Time      Lat      Lon    Base
+94  6/1/2014 6:27:00  40.7554 -73.9738  B02512
+95  6/1/2014 6:35:00  40.7543 -73.9817  B02512
+96  6/1/2014 6:37:00  40.7751 -73.9633  B02512
+97  6/1/2014 6:46:00  40.6952 -74.1784  B02512
+98  6/1/2014 6:51:00  40.7621 -73.9817  B02512
+
+          Date/Time      Lat      Lon    Base
+0  4/1/2014 0:11:00  40.7690 -73.9549  B02512
+0  5/1/2014 0:02:00  40.7521 -73.9914  B02512
+0  6/1/2014 0:00:00  40.7293 -73.9920  B02512
+________________________________________________________
+IPYTHONSHELL:
+In [1]: uber1.head()
+Out[1]: 
+          Date/Time      Lat      Lon    Base
+0  4/1/2014 0:11:00  40.7690 -73.9549  B02512
+1  4/1/2014 0:17:00  40.7267 -74.0345  B02512
+2  4/1/2014 0:21:00  40.7316 -73.9873  B02512
+3  4/1/2014 0:28:00  40.7588 -73.9776  B02512
+4  4/1/2014 0:33:00  40.7594 -73.9722  B02512
+
+In [2]: uber2.head()
+Out[2]: 
+          Date/Time      Lat      Lon    Base
+0  5/1/2014 0:02:00  40.7521 -73.9914  B02512
+1  5/1/2014 0:06:00  40.6965 -73.9715  B02512
+2  5/1/2014 0:15:00  40.7464 -73.9838  B02512
+3  5/1/2014 0:17:00  40.7463 -74.0011  B02512
+4  5/1/2014 0:17:00  40.7594 -73.9734  B02512
+
+In [3]: uber3.head()
+Out[3]: 
+          Date/Time      Lat      Lon    Base
+0  6/1/2014 0:00:00  40.7293 -73.9920  B02512
+1  6/1/2014 0:01:00  40.7131 -74.0097  B02512
+2  6/1/2014 0:04:00  40.3461 -74.6610  B02512
+3  6/1/2014 0:04:00  40.7555 -73.9833  B02512
+4  6/1/2014 0:07:00  40.6880 -74.1831  B02512
+
+In [4]: uber1.shape
+
+Out[4]: (99, 4)
+
+
+
+In [5]: uber2.shape
+
+Out[5]: (99, 4)
+
+
+
+In [6]: uber3.shape
+
+Out[6]: (99, 4)
+
+In [7]: uber1.tail()
+Out[7]: 
+           Date/Time      Lat      Lon    Base
+94  4/1/2014 6:52:00  40.7255 -74.0092  B02512
+95  4/1/2014 6:54:00  40.7653 -73.9723  B02512
+96  4/1/2014 6:56:00  40.7644 -73.9769  B02512
+97  4/1/2014 6:57:00  40.7726 -73.9532  B02512
+98  4/1/2014 6:59:00  40.7898 -73.9661  B02512
+
+In [8]: uber2.tail()
+Out[8]: 
+           Date/Time      Lat      Lon    Base
+94  5/1/2014 6:03:00  40.7753 -73.9901  B02512
+95  5/1/2014 6:07:00  40.7204 -74.0085  B02512
+96  5/1/2014 6:07:00  40.7175 -74.0022  B02512
+97  5/1/2014 6:07:00  40.7321 -73.9885  B02512
+98  5/1/2014 6:08:00  40.7273 -73.9922  B02512
+
+In [9]: uber3.tail()
+Out[9]: 
+           Date/Time      Lat      Lon    Base
+94  6/1/2014 6:27:00  40.7554 -73.9738  B02512
+95  6/1/2014 6:35:00  40.7543 -73.9817  B02512
+96  6/1/2014 6:37:00  40.7751 -73.9633  B02512
+97  6/1/2014 6:46:00  40.6952 -74.1784  B02512
+98  6/1/2014 6:51:00  40.7621 -73.9817  B02512
+________________________________________________________
+INSTRUCTION:
+1. Concatenate uber1, uber2, and uber3 together using 
+   pd.concat(). You'll have to pass the DataFrames in 
+   as a list.
+2. Print the shape and then the head of the concatenated 
+   DataFrame, row_concat.
+________________________________________________________
+GUIDE:
+Combining rows of data
+The dataset you'll be working with here relates to 
+NYC Uber data. The original dataset has all the 
+originating Uber pickup locations by time and latitude 
+and longitude. For didactic purposes, you'll be working 
+with a very small portion of the actual data.
+
+Three DataFrames have been pre-loaded: uber1, which 
+contains data for April 2014, uber2, which contains 
+data for May 2014, and uber3, which contains data for 
+June 2014. Your job in this exercise is to concatenate 
+these DataFrames together such that the resulting 
+DataFrame has the data for all three months.
+
+Begin by exploring the structure of these three 
+DataFrames in the IPython Shell using methods 
+such as .head().
+________________________________________________________

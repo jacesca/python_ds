@@ -1,0 +1,119 @@
+Recognizing tidy data
+
+For data to be tidy, it must have:
+- Each variable as a separate column.
+- Each row as a separate observation.
+
+As a data scientist, you'll encounter data that is 
+represented in a variety of different ways, so it is 
+important to be able to recognize tidy (or untidy) 
+data when you see it.
+
+In this exercise, two example datasets have been 
+pre-loaded into the DataFrames df1 and df2. Only 
+one of them is tidy. Your job is to explore these 
+further in the IPython Shell and identify the one 
+that is not tidy, and why it is not tidy.
+
+In the rest of this course, you will frequently be 
+asked to explore the structure of DataFrames in the 
+IPython Shell prior to performing different operations 
+on them. Doing this will not only strengthen your 
+comprehension of the data cleaning concepts covered 
+in this course, but will also help you realize and 
+take advantage of the relationship between working 
+in the Shell and in the script.
+________________________________________________________
+ANSWER:
+df2; each variable is not a separate column.
+________________________________________________________
+IPYTHONSHELL:
+In [1]: df1.head()
+Out[1]: 
+   Ozone  Solar.R  Wind  Temp  Month  Day
+0   41.0    190.0   7.4    67      5    1
+1   36.0    118.0   8.0    72      5    2
+2   12.0    149.0  12.6    74      5    3
+3   18.0    313.0  11.5    62      5    4
+4    NaN      NaN  14.3    56      5    5
+
+
+In [2]: df2.head()
+Out[2]: 
+   Month  Day variable  value
+0      5    1    Ozone   41.0
+1      5    2    Ozone   36.0
+2      5    3    Ozone   12.0
+3      5    4    Ozone   18.0
+4      5    5    Ozone    NaN
+
+
+In [3]: import pandas as pd
+
+
+In [4]: df3 = pd.melt(frame=df1,id_vars=["Month","Day"],
+                      var_name="MyVar", 
+                      value_name="MyResult")
+
+
+In [5]: df3.head()
+Out[5]: 
+   Month  Day  MyVar  MyResult
+0      5    1  Ozone      41.0
+1      5    2  Ozone      36.0
+2      5    3  Ozone      12.0
+3      5    4  Ozone      18.0
+4      5    5  Ozone       NaN
+
+
+In [6]: df1.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 153 entries, 0 to 152
+Data columns (total 6 columns):
+Ozone      116 non-null float64
+Solar.R    146 non-null float64
+Wind       153 non-null float64
+Temp       153 non-null int64
+Month      153 non-null int64
+Day        153 non-null int64
+dtypes: float64(3), int64(3)
+memory usage: 7.2 KBIn 
+
+
+[7]: df1.describe()
+Out[7]: 
+            Ozone     Solar.R        Wind        Temp       Month         Day
+count  116.000000  146.000000  153.000000  153.000000  153.000000  153.000000
+mean    42.129310  185.931507    9.957516   77.882353    6.993464   15.803922
+std     32.987885   90.058422    3.523001    9.465270    1.416522    8.864520
+min      1.000000    7.000000    1.700000   56.000000    5.000000    1.000000
+25%     18.000000  115.750000    7.400000   72.000000    6.000000    8.000000
+50%     31.500000  205.000000    9.700000   79.000000    7.000000   16.000000
+75%     63.250000  258.750000   11.500000   85.000000    8.000000   23.000000
+max    168.000000  334.000000   20.700000   97.000000    9.000000   31.000000
+
+
+In [8]: df2.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 612 entries, 0 to 611
+Data columns (total 4 columns):
+Month       612 non-null int64
+Day         612 non-null int64
+variable    612 non-null object
+value       568 non-null float64
+dtypes: float64(1), int64(2), object(1)
+memory usage: 19.2+ KB
+
+
+In [9]: df2.describe()
+Out[9]: 
+            Month         Day       value
+count  612.000000  612.000000  568.000000
+mean     6.993464   15.803922   80.057218
+std      1.413041    8.842731   82.644454
+min      5.000000    1.000000    1.000000
+25%      6.000000    8.000000   13.000000
+50%      7.000000   16.000000   66.000000
+75%      8.000000   23.000000   91.000000
+max      9.000000   31.000000  334.000000
+________________________________________________________

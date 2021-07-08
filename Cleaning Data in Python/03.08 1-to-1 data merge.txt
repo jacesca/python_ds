@@ -1,0 +1,101 @@
+# Merge the DataFrames: o2o
+o2o = pd.merge(left=site, right=visited, left_on="name", right_on="site")
+
+# Print o2o
+print(o2o)
+print(o2o.shape)
+print(o2o.info)
+________________________________________________________
+OUT:
+    name    lat    long  ident   site       dated
+0   DR-1 -49.85 -128.57    619   DR-1  1927-02-08
+1   DR-3 -47.15 -126.72    734   DR-3  1939-01-07
+2  MSK-4 -48.87 -123.40    837  MSK-4  1932-01-14
+
+(3, 6)
+
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 3 entries, 0 to 2
+Data columns (total 6 columns):
+name     3 non-null object
+lat      3 non-null float64
+long     3 non-null float64
+ident    3 non-null int64
+site     3 non-null object
+dated    3 non-null object
+dtypes: float64(2), int64(1), object(3)
+memory usage: 168.0+ bytes
+None
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: site.shape
+Out[1]: (3, 3)
+
+In [2]: site.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3 entries, 0 to 2
+Data columns (total 3 columns):
+name    3 non-null object
+lat     3 non-null float64
+long    3 non-null float64
+dtypes: float64(2), object(1)
+memory usage: 152.0+ bytes
+
+In [3]: site.head()
+Out[3]: 
+    name    lat    long
+0   DR-1 -49.85 -128.57
+1   DR-3 -47.15 -126.72
+2  MSK-4 -48.87 -123.40
+
+In [4]: site
+Out[4]: 
+    name    lat    long
+0   DR-1 -49.85 -128.57
+1   DR-3 -47.15 -126.72
+2  MSK-4 -48.87 -123.40
+
+In [5]: visited.shape
+Out[5]: (3, 3)
+
+In [6]: visited.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3 entries, 0 to 2
+Data columns (total 3 columns):
+ident    3 non-null int64
+site     3 non-null object
+dated    3 non-null object
+dtypes: int64(1), object(2)
+memory usage: 152.0+ bytes
+
+In [7]: visited
+Out[7]: 
+   ident   site       dated
+0    619   DR-1  1927-02-08
+1    734   DR-3  1939-01-07
+2    837  MSK-4  1932-01-14
+________________________________________________________
+INSTRUCTION:
+1. Merge the site and visited DataFrames on the 'name' 
+   column of site and 'site' column of visited.
+2. Print the merged DataFrame o2o.
+________________________________________________________
+GUIDE:
+1-to-1 data merge
+Merging data allows you to combine disparate datasets 
+into a single dataset to do more complex analysis.
+
+Here, you'll be using survey data that contains readings 
+that William Dyer, Frank Pabodie, and Valentina Roerich 
+took in the late 1920 and 1930 while they were on an 
+expedition towards Antarctica. The dataset was taken 
+from a sqlite database from the Software Carpentry 
+SQL lesson.
+
+Two DataFrames have been pre-loaded: site and visited. 
+Explore them in the IPython Shell and take note of their 
+structure and column names. Your task is to perform a 
+1-to-1 merge of these two DataFrames using the 'name' 
+column of site and the 'site' column of visited.
+________________________________________________________

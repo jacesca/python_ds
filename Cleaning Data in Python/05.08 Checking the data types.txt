@@ -1,0 +1,80 @@
+import numpy as np
+import pandas as pd
+
+# Convert the year column to numeric
+gapminder.year = pd.to_numeric(gapminder.year)
+print(gapminder.info())
+
+# Test if country is of type object
+assert gapminder.country.dtypes == np.object
+
+# Test if year is of type int64
+assert gapminder.year.dtypes == np.int64
+
+# Test if life_expectancy is of type float64
+assert gapminder.life_expectancy.dtypes == np.float64
+________________________________________________________
+OUT:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 169260 entries, 0 to 169259
+Data columns (total 3 columns):
+country            169260 non-null object
+year               169260 non-null int64
+life_expectancy    43857 non-null float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 3.9+ MB
+None
+________________________________________________________
+IPYTHONSHELL:
+In [1]: gapminder.head()
+	Out[1]: 
+	                 country  year  life_expectancy
+	0               Abkhazia  1800              NaN
+	1            Afghanistan  1800            28.21
+	2  Akrotiri and Dhekelia  1800              NaN
+	3                Albania  1800            35.40
+	4                Algeria  1800            28.82
+
+In [2]: gapminder.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 169260 entries, 0 to 169259
+	Data columns (total 3 columns):
+	country            169260 non-null object
+	year               169260 non-null object
+	life_expectancy    43857 non-null float64
+	dtypes: float64(1), object(2)
+	memory usage: 3.9+ MB
+
+In [1]: gapminder.dtypes
+	Out[1]: 
+	country             object
+	year                object
+	life_expectancy    float64
+	dtype: object
+________________________________________________________
+INSTRUCTION:
+1. Convert the year column of gapminder using 
+   pd.to_numeric().
+2. Assert that the country column is of type np.object. 
+   This has been done for you.
+3. Assert that the year column is of type np.int64.
+4. Assert that the life_expectancy column is of type 
+   np.float64.
+________________________________________________________
+GUIDE:
+Checking the data types
+Now that your data are in the proper shape, you need 
+to ensure that the columns are of the proper data type. 
+That is, you need to ensure that country is of type 
+object, year is of type int64, and life_expectancy is 
+of type float64.
+
+The tidy DataFrame has been pre-loaded as gapminder. 
+Explore it in the IPython Shell using the .info() 
+method. Notice that the column 'year' is of type 
+object. This is incorrect, so you'll need to use the 
+pd.to_numeric() function to convert it to a numeric 
+data type.
+
+NumPy and pandas have been pre-imported as np and pd.
+________________________________________________________
