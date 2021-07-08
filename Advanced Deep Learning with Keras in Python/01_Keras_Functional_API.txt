@@ -1,0 +1,133 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep  2 21:09:42 2019
+
+@author: jacqueline.cortez
+
+Chapter 1. The Keras Functional API
+Introduction:
+    In this chapter, you'll become familiar with the basics of the Keras functional API. 
+    You'll build a simple functional network using functional building blocks, fit it to data, 
+    and make predictions.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import numpy as np                                                                  #For making operations in lists
+import matplotlib.pyplot as plt                                                     #For creating charts
+
+from sklearn.model_selection import train_test_split                                #For learning machine
+from keras.layers import Input                                                      #For DeapLearning
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.models import Model                                                      #For DeapLearning
+from keras.utils import plot_model                                                  #For DeapLearning
+
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+
+#print("****************************************************")
+print("** User Functions\n")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = "games_tourney.csv"
+games_tourney_train = pd.read_csv(file)
+print(games_tourney_train.head())
+# Split into training and test set
+X_train, X_test, y_train, y_test = train_test_split(games_tourney_train.drop(['score_diff'], axis=1), games_tourney_train['score_diff'], test_size = 0.19, random_state=SEED)
+
+print("****************************************************")
+tema = '2. Input layers'; print("** %s\n" % tema)
+
+# Create an input layer of shape 1
+input_tensor = Input(shape=(1,))
+print(input_tensor)
+
+
+print("****************************************************")
+tema = "3. Dense layers"; print("** %s\n" % tema)
+
+input_tensor = Input(shape=(1,)) # Input layer
+output_layer = Dense(1) # Dense layer
+output_tensor = output_layer(input_tensor) # Connect the dense layer to the input_tensor
+
+print(output_layer)
+print(output_tensor)
+
+print("****************************************************")
+tema = "4. Output layers"; print("** %s\n" % tema)
+
+# Create a dense layer and connect the dense layer to the input_tensor in one step
+# Note that we did this in 2 steps in the previous exercise, but are doing it in one step now
+output_tensor = Dense(1)(input_tensor)
+
+print("****************************************************")
+tema = "6. Build a model"; print("** %s\n" % tema)
+
+model = Model(input_tensor, output_tensor)
+
+print("****************************************************")
+tema = "7. Compile a model"; print("** %s\n" % tema)
+
+model.compile(optimizer='adam', loss='mean_absolute_error') # Compile the model
+
+print("****************************************************")
+tema = "8. Visualize a model"; print("** %s\n" % tema)
+
+input_tensor = Input(shape=(1,), name='Input-Data') # Input layer
+output_layer = Dense(1, name='Predicted-Score-Diff') # Dense layer
+output_tensor = output_layer(input_tensor) # Connect the dense layer to the input_tensor
+model = Model(input_tensor, output_tensor)
+model.compile(optimizer='adam', loss='mean_absolute_error') # Compile the model
+
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='01_08_model.png') # Plot the model
+
+data = plt.imread('01_08_model.png') # Display the image
+plt.imshow(data)
+plt.title('My first Keras Model')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "10. Fit the model to the tournament basketball data"; print("** %s\n" % tema)
+
+# Building the model
+input_tensor  = Input(shape=(1,), name='Input-Data') # Input layer
+middle_tensor = Dense(1, name='Middle-layer')(input_tensor) #Middle layer
+output_tensor = Dense(1, name='Predicted-Score-Diff')(middle_tensor) # Connect the dense layer to the input_tensor
+model = Model(input_tensor, output_tensor)
+model.compile(optimizer='adam', loss='mean_absolute_error') # Compile the model
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='01_10_model.png') # Plot the model
+
+# Plotting the model
+plt.figure()
+data = plt.imread('01_10_model.png') # Display the image
+plt.imshow(data)
+plt.title('The Keras Model - One Input (Seed Diff)')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+# Fitting the model
+np.random.seed(SEED) # Seed random number generator
+model.fit(X_train['seed_diff'], y_train, # Now fit the model
+          epochs=1, batch_size=128, validation_split=.10, verbose=True)
+
+print("****************************************************")
+tema = "11. Evaluate the model on a test set"; print("** %s\n" % tema)
+
+print(model.evaluate(X_test['seed_diff'], y_test, verbose=False)) # Evaluate the model on the test data
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
