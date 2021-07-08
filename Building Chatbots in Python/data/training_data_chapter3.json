@@ -1,0 +1,252 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "intent": "hotel_search",
+        "entities": [
+          {
+            "start": 18,
+            "end": 23,
+            "value": "lo",
+            "entity": "price"
+          },
+          {
+            "start": 37,
+            "end": 43,
+            "value": "center",
+            "entity": "area"
+          }
+        ],
+        "text": "I'm looking for a cheap hotel in the center of town"
+      },
+      {
+        "intent": "hotel_search",
+        "entities": [
+          {
+            "start": 8,
+            "end": 17,
+            "value": "hi",
+            "entity": "price"
+          },
+          {
+            "start": 32,
+            "end": 37,
+            "value": "south",
+            "entity": "area"
+          }
+        ],
+        "text": "show me expensive hotels in the south"
+      },
+      {
+        "intent": "hotel_search",
+        "entities": [
+          {
+            "start": 9,
+            "end": 14,
+            "value": "hi",
+            "entity": "price"
+          },
+          {
+            "start": 28,
+            "end": 33,
+            "value": "north",
+            "entity": "area"
+          }
+        ],
+        "text": "I want a fancy hotel in the north of the city"
+      },
+      {
+        "intent": "hotel_search",
+        "entities": [
+          {
+            "start": 15,
+            "end": 24,
+            "value": "mid",
+            "entity": "price"
+          },
+          {
+            "start": 39,
+            "end": 43,
+            "value": "east",
+            "entity": "area"
+          }
+        ],
+        "text": "let's see some mid-range places on the east side"
+      },
+      {
+        "intent": "hotel_search",
+        "entities": [
+          {
+            "start": 19,
+            "end": 24,
+            "value": "lo",
+            "entity": "price"
+          },
+          {
+            "start": 32,
+            "end": 36,
+            "value": "west",
+            "entity": "area"
+          }
+        ],
+        "text": "I am looking for a cheap hotel, west side"
+      },
+      {
+        "intent": "greet",
+        "entities": [],
+        "text": "hello"
+      },
+      {
+        "intent": "greet",
+        "entities": [],
+        "text": "hey hi"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 10,
+            "end": 19,
+            "value": "hi",
+            "entity": "price"
+          },
+          {
+            "start": 33,
+            "end": 38,
+            "value": "south",
+            "entity": "area"
+          }
+        ],
+        "text": "I want an expensive hotel in the south of town"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 18,
+            "end": 23,
+            "value": "lo",
+            "entity": "price"
+          },
+          {
+            "start": 24,
+            "end": 31,
+            "value": "central",
+            "entity": "area"
+          }
+        ],
+        "text": "I'm looking for a cheap central hotel"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 10,
+            "end": 19,
+            "value": "mid",
+            "entity": "price"
+          },
+          {
+            "start": 33,
+            "end": 38,
+            "value": "north",
+            "entity": "area"
+          }
+        ],
+        "text": "show me a mid-range place in the north"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 11,
+            "end": 16,
+            "value": "hi",
+            "entity": "price"
+          },
+          {
+            "start": 31,
+            "end": 36,
+            "value": "south",
+            "entity": "area"
+          }
+        ],
+        "text": "search for pricy hotels in the south of town"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 15,
+            "end": 20,
+            "value": "lo",
+            "entity": "price"
+          },
+          {
+            "start": 35,
+            "end": 39,
+            "value": "west",
+            "entity": "area"
+          }
+        ],
+        "text": "let's see some cheap places in the west"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 17,
+            "end": 20,
+            "value": "mid",
+            "entity": "price"
+          },
+          {
+            "start": 60,
+            "end": 65,
+            "value": "south",
+            "entity": "area"
+          }
+        ],
+        "text": "I am looking for mid range hotels and I want to stay in the south of the city"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 8,
+            "end": 17,
+            "value": "hi",
+            "entity": "price"
+          },
+          {
+            "start": 32,
+            "end": 36,
+            "value": "east",
+            "entity": "area"
+          }
+        ],
+        "text": "show me expensive places in the east"
+      },
+      {
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 21,
+            "end": 27,
+            "value": "center",
+            "entity": "area"
+          },
+          {
+            "start": 2,
+            "end": 7,
+            "value": "lo",
+            "entity": "price"
+          }
+        ],
+        "text": "a cheap hotel in the center"
+      }
+    ],
+    "regex_features": [],
+    "entity_synonyms": []
+  }
+}
