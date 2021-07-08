@@ -1,0 +1,139 @@
+    smoker     drink_level dress_preference  ambience        hijos       activity  budget
+0    False      abstemious         informal    family  independent        student  medium
+1    False      abstemious         informal    family  independent        student     low
+2    False  social drinker           formal    family  independent        student     low
+3    False      abstemious         informal    family  independent   professional  medium
+4    False      abstemious    no preference    family  independent        student  medium
+5     True  social drinker    no preference   friends  independent        student  medium
+6    False  casual drinker         informal  solitary  independent        student     low
+7    False  social drinker           formal  solitary  independent        student     low
+8    False      abstemious           formal    family         kids        student  medium
+9    False  social drinker    no preference   friends         kids        student  medium
+10   False      abstemious    no preference    family  independent        student  medium
+11   False  casual drinker           formal    family  independent        student  medium
+12   False      abstemious    no preference   friends  independent   professional  medium
+13   False      abstemious              NaN   friends  independent        student  medium
+14    True  social drinker         informal    family  independent        student  medium
+15   False  casual drinker         informal   friends  independent        student  medium
+16   False  casual drinker           formal    family          NaN   professional  medium
+17    True  casual drinker           formal   friends  independent        student     low
+18   False  casual drinker    no preference    family  independent        student  medium
+19   False      abstemious    no preference   friends  independent   professional  medium
+20   False  social drinker    no preference    family    dependent        student  medium
+21   False  casual drinker           formal    family  independent        student  medium
+22   False  casual drinker         informal   friends  independent        student     low
+23     NaN      abstemious              NaN       NaN          NaN            NaN     NaN
+24   False  social drinker    no preference    family          NaN        student  medium
+25   False      abstemious           formal    family  independent        student  medium
+26    True  social drinker    no preference       NaN  independent        student     low
+27   False      abstemious    no preference    family  independent        student  medium
+28    True  casual drinker           formal    family  independent        student     low
+29   False  casual drinker           formal    family  independent        student  medium
+30   False      abstemious         informal  solitary         kids     unemployed  medium
+31   False      abstemious           formal    family  independent        student  medium
+32   False  social drinker    no preference    family          NaN        student     low
+33   False  casual drinker         informal    family  independent        student  medium
+34    True  casual drinker    no preference   friends  independent        student  medium
+35   False  social drinker         informal    family  independent        student  medium
+36   False  social drinker    no preference    family  independent        student     low
+37    True  social drinker    no preference    family  independent        student     low
+38   False  social drinker    no preference   friends  independent        student  medium
+39   False      abstemious    no preference   friends  independent        student  medium
+40   False      abstemious    no preference   friends  independent   professional  medium
+41   False      abstemious    no preference    family  independent        student    high
+42   False      abstemious    no preference  solitary  independent        student  medium
+43    True  social drinker         informal    family         kids   professional  medium
+44   False  casual drinker          elegant   friends  independent        student    high
+45   False  social drinker    no preference   friends  independent        student  medium
+46   False      abstemious    no preference    family  independent        student  medium
+47    True  casual drinker    no preference       NaN  independent        student  medium
+48   False  casual drinker         informal  solitary          NaN        student     NaN
+49   False  social drinker    no preference    family  independent        student  medium
+50   False  casual drinker    no preference    family  independent   professional  medium
+51    True  social drinker    no preference    family  independent        student     low
+52   False  casual drinker         informal    family  independent        student     low
+53   False  social drinker           formal    family  independent        student  medium
+54   False      abstemious    no preference    family    dependent   professional  medium
+55   False  social drinker         informal    family  independent        student  medium
+56    True  casual drinker           formal   friends  independent        student  medium
+57   False      abstemious           formal    family  independent        student     low
+58   False      abstemious           formal   friends  independent        student  medium
+59   False  casual drinker           formal    family  independent        student  medium
+60   False  social drinker    no preference   friends  independent   professional  medium
+61   False  casual drinker         informal   friends  independent        student  medium
+62   False  casual drinker           formal    family  independent        student  medium
+63   False  casual drinker           formal  solitary  independent        student  medium
+64   False      abstemious           formal   friends  independent        student  medium
+65   False      abstemious         informal  solitary          NaN        student     low
+66   False      abstemious    no preference    family  independent        student  medium
+67   False  casual drinker         informal   friends  independent        student     low
+68   False  social drinker    no preference    family  independent   professional  medium
+69   False  casual drinker         informal   friends  independent        student     low
+70   False      abstemious           formal   friends  independent        student    high
+71   False  casual drinker    no preference    family  independent        student  medium
+72   False      abstemious         informal  solitary         kids     unemployed  medium
+73    True  casual drinker    no preference    family         kids   professional  medium
+74   False  casual drinker         informal    family  independent        student  medium
+75   False  social drinker          elegant    family         kids        student  medium
+76   False  social drinker          elegant    family         kids        student  medium
+77    True  social drinker         informal  solitary  independent   professional  medium
+78   False      abstemious           formal    family  independent            NaN  medium
+79    True  social drinker           formal   friends  independent        student     low
+80   False  casual drinker         informal    family  independent        student     low
+81    True      abstemious         informal   friends          NaN        student  medium
+82   False      abstemious              NaN       NaN          NaN            NaN     NaN
+83    True  casual drinker           formal    family  independent        student  medium
+84   False      abstemious    no preference  solitary  independent        student     NaN
+85   False  social drinker    no preference    family  independent        student  medium
+86   False      abstemious    no preference  solitary  independent        student  medium
+87   False  social drinker         informal    family  independent        student  medium
+88    True  casual drinker         informal    family  independent        student     low
+89   False  social drinker    no preference   friends  independent        student  medium
+90   False  casual drinker    no preference    family  independent        student     low
+91   False      abstemious           formal  solitary    dependent            NaN  medium
+92    True  casual drinker    no preference    family  independent        student  medium
+93   False      abstemious         informal   friends  independent        student  medium
+94   False      abstemious           formal    family  independent        student  medium
+95   False      abstemious           formal    family  independent        student  medium
+96   False      abstemious           formal    family  independent        student  medium
+97   False  social drinker           formal    family  independent        student  medium
+98    True  social drinker         informal    family  independent        student    high
+99   False  casual drinker           formal   friends  independent        student  medium
+100  False  casual drinker    no preference   friends  independent        student     low
+101  False  social drinker    no preference   friends  independent        student     low
+102  False      abstemious           formal   friends  independent   professional  medium
+103   True  social drinker    no preference    family  independent        student  medium
+104  False  social drinker           formal    family  independent        student  medium
+105  False  casual drinker         informal   friends  independent   professional  medium
+106  False      abstemious    no preference   friends  independent            NaN    high
+107  False      abstemious         informal  solitary  independent        student  medium
+108  False      abstemious           formal  solitary  independent        student     low
+109  False      abstemious    no preference    family  independent        student  medium
+110   True  casual drinker           formal   friends  independent        student  medium
+111   True  casual drinker           formal   friends  independent        student  medium
+112  False  casual drinker           formal    family  independent        student  medium
+113  False      abstemious    no preference    family  independent        student  medium
+114   True  social drinker          elegant   friends  independent        student     low
+115  False  social drinker           formal    family         kids        student  medium
+116  False      abstemious    no preference   friends  independent   professional  medium
+117   True  casual drinker         informal   friends  independent        student  medium
+118  False      abstemious           formal    family  independent        student  medium
+119  False      abstemious         informal   friends  independent        student     low
+120  False  social drinker    no preference    family  independent  working-class  medium
+121    NaN      abstemious              NaN       NaN          NaN            NaN     NaN
+122  False      abstemious         informal    family  independent        student  medium
+123  False  casual drinker         informal   friends  independent        student     low
+124  False  casual drinker           formal   friends  independent        student     low
+125  False  casual drinker           formal   friends  independent        student     low
+126  False      abstemious    no preference  solitary  independent        student     low
+127  False  casual drinker    no preference   friends  independent        student     low
+128  False  casual drinker    no preference   friends  independent        student     low
+129    NaN      abstemious              NaN       NaN          NaN            NaN     NaN
+130   True  social drinker    no preference   friends         kids        student  medium
+131  False  casual drinker         informal  solitary          NaN        student     NaN
+132  False      abstemious    no preference    family  independent        student  medium
+133  False  casual drinker    no preference    family  independent        student  medium
+134  False  casual drinker         informal    family         kids        student     low
+135   True  social drinker    no preference   friends  independent        student     low
+136  False  social drinker           formal    family  independent        student     low
+137  False  social drinker           formal   friends  independent        student  medium
