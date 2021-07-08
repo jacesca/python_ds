@@ -1,0 +1,201 @@
+Column1;id;full_name;day;airline;destination;dest_region;dest_size;boarding_;dept_time;wait_min;cleanliness;safety
+0;1351;Melodie Stuart;Tuesday;UNITED INTL;KANSAI;Asia;Hub;Gates 91;2018/12/31;115;Clean;Neutral
+1;373;Dominic Shannon;Friday;ALASKA;SAN JOSE DEL CABO;Canada/Mexico;Small;Gates 5;2018/12/31;135;Clean;Very safe
+2;2820;Quintessa Tillman;Thursday;DELTA;LOS ANGELES;West US;Hub;Gates 4;2018/12/31;70;Average;Somewhat safe
+3;1157;Dr. Christine Nicholson;Tuesday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;190;Clean;Very safe
+4;2992;Regina Clements;Wednesday;AMERICAN;MIAMI;East US;Hub;Gates 5;2018/12/31;559;Somewhat clean;Very safe
+5;634;Colleen Harding;Thursday;ALASKA;NEWARK;East US;Hub;Gates 5;2018/12/31;140;Somewhat clean;Very safe
+6;2578;Kaitlin Cochran;Saturday;JETBLUE;LONG BEACH;West US;Small;Gates;2018/12/31;63;Clean;Very safe
+7;2592;Molly Norton;Saturday;AEROMEXICO;MEXICO CITY;Canada/Mexico;Hub;Gates;2018/12/31;215;Somewhat clean;Very safe
+8;919;Richard Lott;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;70;Somewhat clean;Somewhat safe
+9;3028;Matthew Nguyen;Tuesday;UNITED;PORTLAND;West US;Medium;Gates 7;2018/12/31;180;Average;Very safe
+10;1129;Dr. Laith Decker;Tuesday;SOUTHWEST;SAN DIEGO;West US;Medium;Gates 2;2018/12/31;540;Clean;Very safe
+11;2648;Holly Austin;Saturday;JETBLUE;BOSTON;East US;Large;Gates;2018/12/31;192;Somewhat clean;Very safe
+12;3104;Jaden Gray;Tuesday;UNITED;SPOKANE;West US;Small;Gates 7;2018/12/31;107;Clean;Very safe
+13;2589;Germaine Hurley;Saturday;INTERJET;GUADALAJARA;Canada/Mexico;Medium;Gates;2018/12/31;155;Somewhat clean;Somewhat safe
+14;2345;Kyle Gay;Tuesday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;155;Somewhat clean;Somewhat safe
+15;390;Zachery Diaz;Friday;ALASKA;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;175;Somewhat clean;Neutral
+16;954;Carolyn Hartman;Tuesday;ALASKA;NEW YORK-JFK;EAST US;Hub;Gates 5;2018/12/31;100;Clean;Very safe
+17;2913;Miss Alana Grant;Friday;TURKISH AIRLINES;ISTANBUL;Middle East;Hub;Gates 91;2018/12/31;225;Clean;Very safe
+18;803;Idola Acosta;Sunday;ALASKA;BALTIMORE;East US;Medium;Gates 5;2018/12/31;155;Clean;Very safe
+19;767;Dara English;Thursday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;115;Average;Neutral
+20;1214;Miss Aurora Flores;Tuesday;SOUTHWEST;LAS VEGAS;West US;Hub;Gates 2;2018/12/31;60;Average;Somewhat safe
+21;1373;Henry Sloan;Tuesday;UNITED INTL;SHANGHAI;Asia;Hub;Gates 91;2018/12/31;145;Clean;Very safe
+22;1263;Jared Chase;Thursday;UNITED INTL;TOKYO-NARITA;Asia;Hub;Gates 91;2018/12/31;210;Average;Neutral
+23;2723;Xavier Castro;Wednesday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;160;Somewhat clean;Very safe
+24;3097;Holmes Fowler;Tuesday;UNITED;SPOKANE;West US;Small;Gates 7;2018/12/31;604;Clean;Very safe
+25;214;Lucy Noel;Wednesday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;100;Average;Somewhat safe
+26;1372;Kerry Tucker;Tuesday;UNITED INTL;PARIS-DE GAULLE;eur;Hub;Gates 91;2018/12/31;205;Somewhat clean;Very safe
+27;1956;Garrison Barrett;Tuesday;UNITED;BOSTON;East US;Large;Gates 7;2018/12/31;115;Somewhat clean;Somewhat safe
+28;1716;Stephanie Cannon;Sunday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;510;Clean;Neutral
+29;1487;Dr. Charlotte Savage;Wednesday;HAWAIIAN AIR;HONOLULU;West US;Medium;Gates;2018/12/31;135;Clean;Very safe
+30;842;Lane Clements;Tuesday;AMERICAN;DALLAS-FT. WORTH;Midwest US;Hub;Gates 5;2018/12/31;145;Somewhat clean;Very safe
+31;930;Aimee Whitfield;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;270;Average;Somewhat safe
+32;3064;Martena Neal;Sunday;COPA;PANAMA CITY;Central/South America;Medium;Gates;2018/12/31;173;Average;Neutral
+33;743;Xandra Hartman;Sunday;ALASKA;NEW YORK-JFK;East US;Hub;Gates 5;2018/12/31;100;Somewhat clean;Very safe
+34;2099;Meredith Gutierrez;Monday;UNITED INTL;MEXICO CITY;Canada/Mexico;Hub;Gates 91;2018/12/31;190;Clean;Very safe
+35;315;Mr. Kermit Deleon;Thursday;UNITED;SAN DIEGO;West US;Medium;Gates 7;2018/12/31;92;Somewhat clean;Very safe
+36;2216;Derek Terrell;Thursday;SOUTHWEST;PHOENIX;West US;Hub;Gates 2;2018/12/31;135;Somewhat clean;Very safe
+37;3121;Shaeleigh Mccarthy;Sunday;ALASKA;NEWARK;East US;Hub;Gates 5;2018/12/31;125;Clean;Very safe
+38;2890;Burke Leon;Sunday;WOW;REYKJAVIK;Europe;Small;Gates;2018/12/31;145;Average;Neutral
+39;3046;Mr. Clinton Holmes;Tuesday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;120;Average;Very safe
+40;3183;Whoopi Tillman;Thursday;DELTA;LOS ANGELES;West US;Hub;Gates 4;2018/12/31;900;Somewhat clean;Somewhat safe
+41;2288;Hamilton Gardner;Tuesday;UNITED;SAN ANTONIO;Midwest US;Medium;Gates 7;2018/12/31;150;Clean;Very safe
+42;2740;Graiden Bridges;Wednesday;AIR FRANCE/KLM;PARIS-DE GAULLE;eur;Hub;Gates;2018/12/31;330;Average;Very unsafe
+43;1570;Sheila Robinson;Wednesday;UNITED INTL;HONG KONG;Asia;Hub;Gates 91;2018/12/31;150;Clean;Somewhat safe
+44;3228;Cameron Barlow;Thursday;ALASKA;PORTLAND;West US;Medium;Gates 5;2018/12/31;110;Clean;Very safe
+45;1140;Kasimir Irwin;Tuesday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;415;Somewhat clean;Very safe
+46;349;Ms. Lilah Chen;Friday;ALASKA;SAN DIEGO;West US;Medium;Gates 5;2018/12/31;76;Clean;Very safe
+47;1572;Judith Price;Wednesday;UNITED INTL;HONG KONG;Asia;Hub;Gates 91;2018/12/31;150;Somewhat clean;Neutral
+48;1635;Dane Barker;Thursday;KOREAN AIR;SEOUL;Asia;Hub;Gates;2018/12/31;210;Somewhat dirty;Somewhat safe
+49;524;Micah Bullock;Thursday;EMIRATES;DUBAI;Middle East;Hub;Gates;2018/12/31;165;Somewhat clean;Somewhat safe
+50;1139;Leonard Stevens;Tuesday;SOUTHWEST;SAN DIEGO;West US;Medium;Gates 2;2018/12/31;120;Average;Very safe
+51;314;Ms. Beverly Hampton;Thursday;UNITED;SAN DIEGO;West US;Medium;Gates 7;2018/12/31;122;Clean;Very safe
+52;558;Devin Morrison;Thursday;EMIRATES;DUBAI;Middle East;Hub;Gates;2018/12/31;225;Somewhat clean;Somewhat safe
+53;262;Mr. Jordan Cooke;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;175;Somewhat clean;Somewhat safe
+54;2537;Miss Ann Hale;Tuesday;UNITED;CHICAGO-O'HARE;Midwest US;Hub;Gates 6;2018/12/31;115;Clean;Very safe
+55;1713;Graiden Riddle;Sunday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;135;Average;Very safe
+56;407;Julian Stanley;Saturday;UNITED;PHOENIX;West US;Hub;Gates 7;2018/12/31;110;Clean;Very safe
+57;3212;Christine Carter;Thursday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;90;Somewhat clean;Somewhat safe
+58;450;Hasad Valentine;Sunday;UNITED;INDIANAPOLIS;Midwest US;Medium;Gates 6;2018/12/31;68;Clean;Somewhat safe
+59;1477;Bevis Mcdowell;Wednesday;AVIANCA;SAN SALVADOR;Central/South America;Small;Gates;2018/12/31;155;Clean;Very safe
+60;3151;Alec Davis;Thursday;DELTA;SALT LAKE CITY;West US;Medium;Gates 4;2018/12/31;15;Average;Very safe
+61;2257;Dr. Daniel Hood;Wednesday;UNITED;LOS ANGELES;West US;Hub;Gates 6;2018/12/31;65;Clean;Very safe
+62;2400;Ms. Britanney Schmidt;Wednesday;UNITED INTL;BEIJING;Asia;Hub;Gates 91;2018/12/31;205;Clean;Very safe
+63;2230;Wanda Jackson;Wednesday;AER LINGUS;DUBLIN;Europe;Large;Gates 91;2018/12/31;300;Average;Somewhat safe
+64;2865;Quyn Henderson;Wednesday;UNITED;WASHINGTON DC-DULLES;East US;Medium;Gates 7;2018/12/31;77;Average;Very safe
+65;387;Hammett Duncan;Friday;ALASKA;INDIANAPOLIS;Midwest US;Medium;Gates 5;2018/12/31;160;Clean;Very safe
+66;1957;Duncan Stark;Friday;CATHAY PACIFIC;HONG KONG;Asia;Hub;Gates;2018/12/31;185;Somewhat clean;Neutral
+67;2526;Jin Shannon;Tuesday;JETBLUE;LONG BEACH;West US;Small;Gates;2018/12/31;60;Somewhat clean;Somewhat safe
+68;3041;Fulton Meadows;Tuesday;AMERICAN;DALLAS-FT. WORTH;Midwest US;Hub;Gates 5;2018/12/31;185;Somewhat clean;Very safe
+69;813;Dr. Malik Hanson;Sunday;ALASKA;PORTLAND;West US;Medium;Gates 5;2018/12/31;140;Somewhat clean;Very safe
+70;1523;Laith Espinoza;Wednesday;JETBLUE;NEW YORK-JFK;EAST US;Hub;Gates;2018/12/31;81;Somewhat clean;Very safe
+71;2796;Dr. Jared Holman;Sunday;WOW;REYKJAVIK;Europe;Small;Gates;2018/12/31;160;Somewhat clean;Somewhat safe
+72;3255;Julie Davidson;Tuesday;UNITED;SAN DIEGO;West US;Medium;Gates 7;2018/12/31;105;Average;Somewhat safe
+73;2042;Dr. Jane Harrell;Friday;BRITISH AIRWAYS;LONDON HEATHROW;Europe;Hub;Gates;2018/12/31;180;Somewhat clean;Very safe
+74;3062;Aphrodite Shannon;Sunday;PHILIPPINE AIRLINES;MANILA;Asia;Medium;Gates;2018/01/01;215;Clean;Somewhat safe
+75;2026;Jermaine Randall;Friday;BRITISH AIRWAYS;LONDON HEATHROW;Europe;Hub;Gates;2018/12/31;120;Somewhat clean;Somewhat safe
+76;1793;Hammett Talley;Saturday;UNITED;RALEIGH-DURHAM;East US;Medium;Gates 7;2018/12/31;150;Clean;Somewhat safe
+77;1366;Sasha Riggs;Tuesday;UNITED INTL;KANSAI;Asia;Hub;Gates 91;2018/12/31;170;Clean;Very safe
+78;1017;Dr. Damian Wynn;Friday;AIR CANADA;VANCOUVER;Canada/Mexico;Medium;Gates 91;2018/12/31;110;Somewhat clean;Very safe
+79;2501;Aidan Macias;Friday;ALASKA;SALT LAKE CITY;West US;Medium;Gates;2018/12/31;120;Somewhat clean;Neutral
+80;3202;Sawyer Hines;Sunday;CATHAY PACIFIC;HONG KONG;Asia;Hub;Gates;2018/01/01;210;Clean;Neutral
+81;1747;Mr. Hector Caldwell;Monday;LUFTHANSA;MUNICH;Europe;Hub;Gates 91;2018/12/31;205;Clean;Very safe
+82;1954;Abra Webb;Saturday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;245;Clean;Very safe
+83;643;Stone Price;Thursday;ALASKA;NEW ORLEANS;Midwest US;Medium;Gates 5;2018/12/31;160;Somewhat clean;Neutral
+84;2258;Cheyenne Stout;Wednesday;WOW;REYKJAVIK;Europe;Small;Gates 91;2018/12/31;355;Somewhat clean;Somewhat safe
+85;2334;Lareina Wall;Tuesday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;155;Clean;Very safe
+86;1887;Dr. Ella Pena;Tuesday;UNITED;BOSTON;East US;Large;Gates 7;2018/12/31;85;Somewhat clean;Neutral
+87;363;Quintessa Sherman;Friday;LUFTHANSA;FRANKFURT;Europe;Hub;Gates 91;2018/12/31;180;Somewhat clean;Somewhat safe
+88;2443;Ishmael Duffy;Tuesday;JETBLUE;BOSTON;East US;Large;Gates;2018/12/31;177;Clean;Very safe
+89;2321;Ms. Willa Stuart;Wednesday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;130;Somewhat clean;Somewhat safe
+90;1593;Gareth Hunt;Thursday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;50;Clean;Very safe
+91;716;Stewart Jacobs;Wednesday;CATHAY PACIFIC;HONG KONG;Asia;Hub;Gates;2018/12/31;270;Clean;Very safe
+92;2320;Ms. Amaya Pate;Wednesday;QANTAS;SYDNEY;Australia/New Zealand;Hub;Gates;2018/12/31;150;Somewhat clean;Somewhat safe
+93;2038;Dr. Xavier Medina;Friday;BRITISH AIRWAYS;LONDON HEATHROW;eur;Hub;Gates;2018/12/31;150;Average;Somewhat safe
+94;550;Mr. Marvin Mcneil;Thursday;EMIRATES;DUBAI;Middle East;Hub;Gates;2018/12/31;245;Somewhat clean;Somewhat safe
+95;746;Imogene Harris;Sunday;ALASKA;NEW YORK-JFK;East US;Hub;Gates 5;2018/12/31;120;Clean;Very safe
+96;2739;Abbot Hensley;Friday;UNITED;KAHULUI;West US;Small;Gates 6;2018/12/31;32;Somewhat clean;Very safe
+97;1984;Miss Fiona Velez;Friday;AIR FRANCE/KLM;AMSTERDAM;eur;Hub;Gates;2018/12/31;115;Average;Neutral
+98;2566;Rinah Stephenson;Saturday;JETBLUE;LONG BEACH;West US;Small;Gates;2018/12/31;103;Clean;Very safe
+99;2200;Ms. Olivia Keith;Wednesday;AER LINGUS;DUBLIN;Europe;Large;Gates 91;2018/12/31;180;Somewhat clean;Somewhat safe
+100;340;Vielka Rosario;Wednesday;SOUTHWEST;PHOENIX;West US;Hub;Gates 2;2018/12/31;240;Somewhat clean;Somewhat safe
+101;1252;Lani Sawyer;Thursday;UNITED INTL;TOKYO-NARITA;Asia;Hub;Gates 91;2018/12/31;120;Somewhat clean;Somewhat safe
+102;1946;Clayton Sparks;Saturday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;305;Clean;Very safe
+103;2627;Oprah Ingram;Tuesday;UNITED;CHICAGO-O'HARE;Midwest US;Hub;Gates 6;2018/12/31;75;Clean;Very safe
+104;1563;Acton Smith;Wednesday;DELTA;ATLANTA;East US;Hub;Gates 4;2018/12/31;135;Somewhat clean;Somewhat safe
+105;752;Demetria Byrd;Thursday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;235;Somewhat clean;Somewhat safe
+106;3135;Patience Galloway;Tuesday;UNITED;SAN DIEGO;West US;Medium;Gates 6;2018/12/31;70;Somewhat clean;Very safe
+107;1123;Hoyt Alvarez;Thursday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;90;Somewhat clean;Very safe
+108;2220;Dara Pennington;Thursday;SOUTHWEST;PHOENIX;West US;Hub;Gates 2;2018/12/31;95;Somewhat clean;Very safe
+109;3065;Ebony Davidson;Tuesday;UNITED;SPOKANE;West US;Small;Gates 7;2018/12/31;112;Average;Neutral
+110;3052;Brent Rosario;Tuesday;AMERICAN;MIAMI;East US;Hub;Gates 5;2018/12/31;125;Clean;Somewhat safe
+111;2847;Melyssa Mayer;Tuesday;UNITED;SEATTLE;West US;Hub;Gates 7;2018/12/31;142;Average;Very safe
+112;884;Regan Kelly;Tuesday;ALASKA;SEATTLE;West US;Hub;Gates 5;2018/12/31;85;Clean;Very safe
+113;2054;Leah Barlow;Friday;UNITED;NEWARK;East US;Hub;Gates 7;2018/12/31;150;Clean;Very safe
+114;1571;Nathan Santos;Wednesday;DELTA;DETROIT;Midwest US;Large;Gates 4;2018/12/31;155;Somewhat clean;Very safe
+115;747;Uta Mckee;Sunday;ALASKA;NEW YORK-JFK;East US;Hub;Gates 5;2018/12/31;120;Somewhat clean;Very safe
+116;1799;Lawrence Gallegos;Sunday;ALASKA;RALEIGH-DURHAM;EAST US;Medium;Gates 5;2018/12/31;265;Somewhat clean;Neutral
+117;2281;Matthew Edwards;Wednesday;QANTAS;SYDNEY;Australia/New Zealand;Hub;Gates;2018/12/31;225;Average;Neutral
+118;2711;Xander Wilson;Friday;UNITED;SANTA BARBARA;West US;Small;Gates 7;2018/12/31;122;Somewhat clean;Somewhat safe
+119;917;Kelly Pittman;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;90;Somewhat clean;Somewhat safe
+120;2091;Brynne Pugh;Thursday;AMERICAN;PHILADELPHIA;East US;Large;Gates 5;2018/12/31;97;Somewhat clean;Somewhat safe
+121;265;Shea Collins;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;415;Average;Neutral
+122;2387;Hu Carver;Wednesday;UNITED INTL;BEIJING;Asia;Hub;Gates 91;2018/12/31;135;Somewhat clean;Neutral
+123;3254;Stacey Coleman;Tuesday;UNITED;SAN DIEGO;West US;Medium;Gates 7;2018/12/31;150;Somewhat clean;Very safe
+124;772;Kaye Mcgowan;Thursday;UNITED INTL;SAN JOSE DEL CABO;Canada/Mexico;Small;Gates 91;2018/12/31;90;Somewhat clean;Very safe
+125;465;Vivien Cobb;Sunday;UNITED;DENVER;West US;Hub;Gates 7;2018/12/31;131;Average;Somewhat safe
+126;374;Vaughan Harrison;Friday;ALASKA;SAN JOSE DEL CABO;Canada/Mexico;Small;Gates 5;2018/12/31;105;Somewhat clean;Neutral
+127;367;Porter Hudson;Friday;ALASKA;SAN JOSE DEL CABO;Canada/Mexico;Small;Gates 5;2018/12/31;135;Somewhat clean;Very safe
+128;2113;Carl Conway;Friday;JETBLUE;LONG BEACH;West US;Small;Gates;2018/12/31;514;Average;Somewhat safe
+129;1970;Lyle Bradshaw;Friday;CATHAY PACIFIC;HONG KONG;Asia;Hub;Gates;2018/12/31;185;Clean;Very safe
+130;1012;Hashim Walter;Friday;AIR CANADA;VANCOUVER;Canada/Mexico;Medium;Gates 91;2018/12/31;185;Clean;Very safe
+131;1739;Branden Larson;Monday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;75;Somewhat clean;Somewhat safe
+132;2004;Idola Ball;Wednesday;UNITED;NEWARK;East US;Hub;Gates 7;2018/12/31;170;Somewhat clean;Somewhat safe
+133;2016;Camilla White;Wednesday;UNITED;NEWARK;East US;Hub;Gates 7;2018/12/31;98;Clean;Very safe
+134;2262;Rafael Lowery;Saturday;UNITED;BAKERSFIELD;West US;Small;Gates 7;2018/12/31;166;Somewhat dirty;Very safe
+135;2482;Victor Leon;Friday;ALASKA;SALT LAKE CITY;West US;Medium;Gates;2018/12/31;90;Somewhat clean;Neutral
+136;2969;Yasir Lynch;Tuesday;UNITED;HONOLULU;West US;Medium;Gates 7;2018/12/31;65;Clean;Very safe
+137;2575;Dr. Emerson Woodard;Tuesday;UNITED;CHICAGO-O'HARE;Midwest US;Hub;Gates 6;2018/12/31;90;Clean;Somewhat safe
+138;637;Dr. Astra Mcneil;Thursday;ALASKA;NEW ORLEANS;Midwest US;Medium;Gates 5;2018/12/31;110;Clean;Very safe
+139;2497;Dr. Shafira Marks;Friday;UNITED;CHICAGO-O'HARE;Midwest US;Hub;Gates 6;2018/12/31;139;Somewhat clean;Somewhat safe
+140;1724;Mr. Dominic Smith;Monday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;150;Clean;Very safe
+141;805;Talon Holder;Wednesday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;160;Somewhat clean;Very safe
+142;3169;Ivor Wise;Thursday;DELTA;LOS ANGELES;West US;Hub;Gates 4;2018/12/31;60;Average;Very safe
+143;1090;Carolyn Clay;Thursday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;105;Somewhat clean;Very safe
+144;270;Jerome Ruiz;Thursday;UNITED;LOS ANGELES;West US;Hub;Gates 7;2018/12/31;130;Clean;Very safe
+145;569;Todd Chase;Thursday;ALASKA;SEATTLE;West US;Hub;Gates 5;2018/12/31;105;Somewhat clean;Somewhat safe
+146;2319;Gray Noel;Wednesday;QANTAS;SYDNEY;Australia/New Zealand;Hub;Gates;2018/12/31;220;Average;Very safe
+147;3223;Ann Sanchez;Thursday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;60;Clean;Very safe
+148;2922;Mr. Alec Heath;Thursday;DELTA;SEATTLE;West US;Hub;Gates 4;2018/12/31;105;Somewhat clean;Somewhat safe
+149;13;Heidi Terry;Tuesday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;90;Average;Somewhat safe
+150;1719;Alana Velasquez;Sunday;AIR FRANCE/KLM;PARIS-DE GAULLE;eur;Hub;Gates;2018/12/31;510;Average;Somewhat safe
+151;3186;Mr. Jared York;Thursday;DELTA;LOS ANGELES;West US;Hub;Gates 4;2018/12/31;53;Average;Somewhat safe
+152;2157;Abbot Lester;Wednesday;FRONTIER;DENVER;West US;Hub;Gates 2;2018/12/31;153;Clean;Very safe
+153;1103;Dr. Fulton Turner;Tuesday;SOUTHWEST;SAN DIEGO;West US;Medium;Gates 2;2018/12/31;120;Clean;Very safe
+154;2053;Dr. Maggie Cortez;Friday;UNITED;NEWARK;East US;Hub;Gates 7;2018/12/31;90;Average;Somewhat safe
+155;2353;Ramona Wade;Wednesday;UNITED;AUSTIN;Midwest US;Medium;Gates 7;2018/12/31;150;Clean;Very safe
+156;3048;Dr. Lynn Thomas;Sunday;PHILIPPINE AIRLINES;MANILA;Asia;Medium;Gates;2018/01/01;215;Somewhat clean;Very safe
+157;2143;Aquila Graham;Wednesday;FRONTIER;DENVER;West US;Hub;Gates 2;2018/12/31;123;Clean;Very safe
+158;1113;Gareth Marks;Thursday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;120;Clean;Very safe
+159;1303;Dolan Wolf;Tuesday;UNITED INTL;LONDON HEATHROW;Europe;Hub;Gates 91;2018/12/31;140;Clean;Very safe
+160;1261;Julie Coffey;Thursday;CHINA EASTERN;SHANGHAI;Asia;Hub;Gates;2018/12/31;195;Clean;Very safe
+161;9004;Emerson Hatfield;Friday;AIR CANADA;VANCOUVER;Canada/Mexico;Medium;Gates 91;2018/12/31;335;Clean;Very safe
+162;1913;Claire Rios;Saturday;AIR FRANCE/KLM;PARIS-DE GAULLE;Europe;Hub;Gates;2018/12/31;215;Clean;Very safe
+163;3035;Christian Doyle;Tuesday;UNITED;PORTLAND;West US;Medium;Gates 7;2018/12/31;216;Somewhat clean;Somewhat safe
+164;1542;Haley Oliver;Thursday;DELTA;NEW YORK-JFK;East US;Hub;Gates 4;2018/12/31;105;Somewhat clean;Very safe
+165;2352;Rigel Day;Tuesday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;155;Clean;Very safe
+166;801;Clare Gould;Sunday;ALASKA;BALTIMORE;East US;Medium;Gates 5;2018/12/31;155;Clean;Very safe
+167;529;Ms. Keiko Mcfarland;Thursday;EMIRATES;DUBAI;Middle East;Hub;Gates;2018/12/31;240;Somewhat dirty;Somewhat safe
+168;3107;Duncan Chandler;Tuesday;UNITED;SPOKANE;West US;Small;Gates 7;2018/12/31;247;Clean;Very safe
+169;1785;Penelope Stark;Saturday;UNITED;RALEIGH-DURHAM;EAST US;Medium;Gates 7;2018/12/31;130;Average;Neutral
+170;202;Kasper Shields;Wednesday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;85;Somewhat clean;Somewhat safe
+171;883;Dr. Rose Fleming;Tuesday;ALASKA;SEATTLE;West US;Hub;Gates 5;2018/12/31;145;Average;Very safe
+172;3142;Miss Petra Mitchell;Thursday;DELTA;SALT LAKE CITY;West US;Medium;Gates 4;2018/12/31;45;Somewhat clean;Very safe
+173;3157;Ms. Regan Lynch;Tuesday;UNITED;SAN DIEGO;West US;Medium;Gates 6;2018/12/31;135;Somewhat clean;Very safe
+174;1894;Keane Bennett;Monday;LUFTHANSA;MUNICH;Europe;Hub;Gates 91;2018/12/31;235;Somewhat clean;Very safe
+175;458;Nash Head;Sunday;UNITED;DALLAS-FT. WORTH;Midwest US;Hub;Gates 6;2018/12/31;250;Somewhat clean;Somewhat safe
+176;2020;Ainsley Riley;Friday;BRITISH AIRWAYS;LONDON HEATHROW;eur;Hub;Gates;2018/12/31;105;Somewhat clean;Neutral
+177;312;Kirestin Newton;Thursday;UNITED;SAN DIEGO;West US;Medium;Gates 7;2018/12/31;182;Somewhat clean;Very safe
+178;2903;Jakeem Hall;Friday;TURKISH AIRLINES;ISTANBUL;middle east;Hub;Gates 91;2018/12/31;195;Clean;Very safe
+179;2108;Reece Mitchell;Friday;JETBLUE;LONG BEACH;West US;Small;Gates;2018/12/31;119;Somewhat clean;Very safe
+180;339;Wanda Walls;Wednesday;SOUTHWEST;PHOENIX;West US;Hub;Gates 2;2018/12/31;180;Average;Neutral
+181;2938;Barry Mccray;Friday;TURKISH AIRLINES;ISTANBUL;Middle East;Hub;Gates 91;2018/12/31;135;Average;Neutral
+182;1396;Dr. Zahir Hardin;Tuesday;UNITED INTL;SHANGHAI;Asia;Hub;Gates 91;2018/12/31;295;Somewhat clean;Very safe
+183;1843;Graiden Cox;Wednesday;SOUTHWEST;SAN DIEGO;West US;Medium;Gates 2;2018/12/31;55;Average;Somewhat safe
+184;3038;Miss Lara Green;Tuesday;UNITED;PORTLAND;West US;Medium;Gates 7;2018/12/31;362;Somewhat clean;Somewhat safe
+185;1482;Felix Bell;Wednesday;FRONTIER;DENVER;West US;Hub;Gates 2;2018/01/01;179;Somewhat clean;Very safe
+186;2670;Mr. Addison Day;Tuesday;SOUTHWEST;DENVER;West US;Hub;Gates 2;2018/12/31;260;Average;Very safe
+187;756;Tallulah Guzman;Sunday;ALASKA;NEW YORK-JFK;East US;Hub;Gates 5;2018/12/31;125;Clean;Very safe
+188;2128;Jocelyn Guzman;Wednesday;FRONTIER;DENVER;West US;Hub;Gates 2;2018/12/31;243;Clean;Very safe
+189;1514;Ivory Miller;Wednesday;INTERJET;GUADALAJARA;Canada/Mexico;Medium;Gates;2018/12/31;105;Somewhat clean;Very safe
+190;2481;Mr. Eaton Vazquez;Friday;UNITED;CHICAGO-O'HARE;Midwest US;Hub;Gates 6;2018/12/31;89;Average;Somewhat safe
+191;1150;Silas Clemons;Tuesday;SOUTHWEST;SAN DIEGO;West US;Medium;Gates 2;2018/12/31;50;Clean;Very safe
+192;1105;Quinn Barry;Thursday;DELTA;MINNEAPOLIS-ST. PAUL;Midwest US;Hub;Gates 4;2018/12/31;105;Somewhat clean;Neutral
+193;2945;Orson Pratt;Wednesday;SOUTHWEST;LOS ANGELES;West US;Hub;Gates 2;2018/12/31;65;Somewhat clean;Somewhat safe
+194;261;Constance Morse;Friday;AIR CANADA;TORONTO;Canada/Mexico;Hub;Gates 91;2018/12/31;115;Clean;Very safe
+195;819;Ms. Vanna Rivera;Sunday;ALASKA;PORTLAND;West US;Medium;Gates 5;2018/12/31;80;Somewhat clean;Neutral
+196;2924;Miss Venus Lowe;Friday;TURKISH AIRLINES;ISTANBUL;Middle East;Hub;Gates 91;2018/12/31;205;Somewhat clean;Somewhat safe
+197;2245;Amethyst Nieves;Thursday;SOUTHWEST;PHOENIX;West US;Hub;Gates 2;2018/12/31;140;Average;Somewhat safe
+198;238;Miss Vivian Foreman;Wednesday;AMERICAN;LOS ANGELES;West US;Hub;Gates 5;2018/12/31;115;Somewhat clean;Very safe
+199;1077;Miss Wendy Griffin;Friday;AIR CANADA;CALGARY;Canada/Mexico;Medium;Gates 91;2018/12/31;385;Somewhat clean;Somewhat safe
