@@ -1,0 +1,174 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep  4 20:45:23 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Multiple Inputs: 3 Inputs (and Beyond!)
+Introduction:
+    In this chapter, you will extend your 2-input model to 3 inputs, and learn how to use Keras' summary and plot functions 
+    to understand the parameters and topology of your neural networks. By the end of the chapter, you will understand how 
+    to extend a 2-input model to 3 inputs and beyond.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import numpy as np                                                                  #For making operations in lists
+import matplotlib.pyplot as plt                                                     #For creating charts
+
+from keras.layers import Concatenate                                                 #For DeapLearning
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.layers import Embedding                                                  #For DeapLearning
+from keras.layers import Flatten                                                    #For DeapLearning
+from keras.layers import Input                                                      #For DeapLearning
+from keras.models import Model                                                      #For DeapLearning
+from keras.utils import plot_model                                                  #For DeapLearning
+
+
+file = "games_season.csv"
+games_season = pd.read_csv(file)
+print(games_season.head())
+
+file = "games_tourney.csv"
+games_tourney = pd.read_csv(file)
+print(games_tourney.head())
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+print("****************************************************")
+tema = "2. Make an input layer for home vs. away"; print("** %s\n" % tema)
+
+n_teams = np.unique(games_season['team_1']).shape[0] # Count the unique number of teams
+team_lookup = Embedding(input_dim=n_teams, output_dim=1, input_length=1, name='team_lookup') # Create an embedding layer
+
+teamid_in = Input(shape=(1,), name='teamid_in') # Create an input layer for the team ID
+strength_lookup = team_lookup(teamid_in) # Lookup the input in the team strength embedding layer
+strength_lookup_flat = Flatten(name='strength_lookup_flat')(strength_lookup) # Flatten the output
+
+team_strength_model = Model(teamid_in, strength_lookup_flat, name='Team-Strength-Model') # Combine the operations into a single, re-usable model
+
+# Summarazing the model
+print(team_strength_model.summary()) # Summarize the model
+plot_model(team_strength_model, to_file='03_02_model.png') # Plot the model
+
+# Plotting the model
+plt.figure()
+data = plt.imread('02_03_model.png') # Display the image
+plt.imshow(data)
+plt.title('"team_strength_model" (Embedding Team Number)')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+team_in_1 = Input(shape=(1,), name='Team-1-In') # Create an Input for each team
+team_in_2 = Input(shape=(1,), name='Team-2-In')
+home_in = Input(shape=(1,), name='Home-In') # Create an input for home vs away
+
+team_1_strength = team_strength_model(team_in_1) # Lookup the team inputs in the team strength model
+team_2_strength = team_strength_model(team_in_2)
+
+out = Concatenate(name='Gathering-together')([team_1_strength, team_2_strength, home_in]) # Combine the team strengths with the home input using a Concatenate layer, then add a Dense layer
+out = Dense(1, name='Out')(out)
+
+print("****************************************************")
+tema = "3. Make a model and compile it"; print("** %s\n" % tema)
+
+model = Model([team_in_1, team_in_2, home_in], out) # Make a Model
+model.compile(optimizer='SGD', loss='mean_absolute_error') # Compile the model
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='03_03_model.png') # Plot the model
+
+# Plotting the model
+plt.figure()
+data = plt.imread('03_03_model.png') # Display the image
+plt.imshow(data)
+plt.title('"Shared Layers Model" (Using "team_strength_model")')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "4. Fit the model and evaluate"; print("** %s\n" % tema)
+
+model.fit([games_season['team_1'], games_season['team_2'], games_season['home']], # Fit the model to the games_season dataset
+          games_season['score_diff'], 
+          epochs=1, verbose=True, validation_split=.10, batch_size=2048)
+#games_tourney['pred'] = model.predict([games_tourney['team_1'], games_tourney['team_2'], games_tourney['home']]) # Predict
+#print(games_tourney['pred'])
+
+print("mean_absolute_error: ", model.evaluate([games_tourney['team_1'], games_tourney['team_2'],games_tourney['home']], 
+                                               games_tourney['score_diff'], 
+                                               verbose=False)) # Evaluate the model on the games_tourney dataset
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='03_04_model.png', show_shapes=False, show_layer_names=True, rankdir='LR') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('03_04_model.png') # Display the image
+plt.imshow(data)
+plt.title('"Shared Layers Model" (Using "team_strength_model")')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "9. Add the model predictions to the tournament data"; print("** %s\n" % tema)
+
+games_tourney['pred'] = model.predict([games_tourney['team_1'], games_tourney['team_2'], games_tourney['home']]) # Predict
+
+print("****************************************************")
+tema = "10. Create an input layer with multiple columns"; print("** %s\n" % tema)
+
+input_tensor = Input(shape=(3,), name='Input') # Create an input layer with 3 columns
+output_tensor = Dense(1, name='Output')(input_tensor) # Pass it to a Dense layer with 1 unit
+model = Model(input_tensor, output_tensor) # Create a model
+model.compile(optimizer='adam', loss='mean_absolute_error') # Compile the model
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='03_10_model.png', show_shapes=False, show_layer_names=True, rankdir='LR') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('03_10_model.png') # Display the image
+plt.imshow(data)
+plt.title('Stacked Layers Model')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "11 Fit the model"; print("** %s\n" % tema)
+
+games_tourney_train = games_tourney.query("season < 2010")
+games_tourney_test = games_tourney.query("season >= 2010")
+
+# Fit the model
+model.fit(games_tourney_train[['home', 'seed_diff', 'pred']], games_tourney_train['score_diff'],
+          epochs=1, verbose=True)
+
+print("****************************************************")
+tema = "12 Evaluate the model"; print("** %s\n" % tema)
+
+# Evaluate the model on the games_tourney_test dataset
+print(model.evaluate(games_tourney_test[['home', 'seed_diff', 'pred']],
+                     games_tourney_test['score_diff'], 
+                     verbose=False))
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
