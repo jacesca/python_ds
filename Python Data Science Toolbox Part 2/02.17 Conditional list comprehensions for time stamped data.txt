@@ -1,0 +1,67 @@
+# Extract the created_at column from df: tweet_time
+tweet_time = df['created_at']
+
+# Extract the clock time: tweet_clock_time
+tweet_clock_time = [entry[11:19] for entry in tweet_time if entry[17:19] == "19"]
+
+# Print the extracted times
+print(tweet_clock_time)
+____________________________________________________________
+OUT:
+['23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19', '23:40:19', 
+ '23:40:19', '23:40:19', '23:40:19', '23:40:19']
+____________________________________________________________
+INSTRUCTION:
+1. Extract the column 'created_at' from df and assign the 
+   result to tweet_time.
+2. Create a list comprehension that extracts the time from 
+   each row in tweet_time. Each row is a string that 
+   represents a timestamp, and you will access the 12th 
+   to 19th characters in the string to extract the time. 
+   Use entry as the iterator variable and assign the 
+   result to tweet_clock_time. Additionally, add a 
+   conditional expression that checks whether 
+   entry[17:19] is equal to '19'.
+____________________________________________________________
+GUIDE:
+Conditional list comprehensions for time-stamped data
+Great, you've successfully extracted the data of interest, 
+the time, from a pandas DataFrame! Let's tweak your work 
+further by adding a conditional that further specifies 
+which entries to select.
+
+In this exercise, you will be using a list comprehension 
+to extract the time from time-stamped Twitter data. You 
+will add a conditional expression to the list comprehension 
+so that you only select the times in which entry[17:19] is 
+equal to '19'. The pandas package has been imported as pd 
+and the file 'tweets.csv' has been imported as the df 
+DataFrame for your use.
+____________________________________________________________
+IPYTHONSHELL:
+In [1]: df.keys()
+
+Out[1]: 
+Index(['contributors', 'coordinates', 'created_at', 
+               'entities', 'extended_entities', 'favorite_count', 
+               'favorited', 'filter_level', 'geo', 'id', 'id_str', 
+               'in_reply_to_screen_name',
+ 'in_reply_to_status_id', 
+               'in_reply_to_status_id_str',
+ 'in_reply_to_user_id', 
+               'in_reply_to_user_id_str', 'is_quote_status', 
+               'lang', 'place', 'possibly_sensitive', 
+               'quoted_status',
+ 'quoted_status_id', 
+               'quoted_status_id_str', 'retweet_count',
+ 'retweeted', 
+               'retweeted_status', 'source', 'text', 'timestamp_ms',
+               'truncated', 'user'],
+      
+         dtype='object')
+____________________________________________________________

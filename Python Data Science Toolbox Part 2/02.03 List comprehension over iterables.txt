@@ -1,0 +1,44 @@
+GUIDE:
+List comprehension over iterables
+You know that list comprehensions can be built over iterables. 
+Given the following objects below, which of these can we build 
+list comprehensions over?
+
+	doctor = ['house', 'cuddy', 'chase', 'thirteen', 'wilson']
+	range(50)
+	underwood = 'After all, we are nothing more or less than what we choose to reveal.'
+	jean = '24601'
+	flash = ['jay garrick', 'barry allen', 'wally west', 'bart allen']
+	valjean = 24601
+_____________________________________________________________
+IPYTHONSHELL:
+In [1]: doctor = ['house', 'cuddy', 'chase', 'thirteen', 'wilson']
+...     [item+"!" for item in doctor]
+Out[1]: ['house!', 'cuddy!', 'chase!', 'thirteen!', 'wilson!']
+
+In [2]: rango = range(50)
+...     [item*10 for item in range(50)]
+Out[2]: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, ...  480, 490]
+
+In [3]: underwood = 'After all, we are nothing more or less than what we choose to reveal.'
+...     [item=="a" for item in underwood]
+Out[3]: [False, False, False, False, False, False, True, False, ... True, False, False]
+
+In [4]: jean = '24601'
+...     [int(item)*10 for item in jean]
+Out[4]: [20, 40, 60, 0, 10]
+
+In [5]: flash = ['jay garrick', 'barry allen', 'wally west', 'bart allen']
+...     [item[0] for item in flash]
+Out[5]: ['j', 'b', 'w', 'b']
+
+In [6]: valjean = 24601
+...     [item*10 for item in valjean]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+    [item*10 for item in valjean]
+TypeError: 'int' object is not iterable
+_____________________________________________________________
+RESULT:
+You can build list comprehensions over all the objects except the integer object valjean.
+_____________________________________________________________
