@@ -1,0 +1,208 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct  3 18:04:25 2019
+
+@author: jacqueline.cortez
+Chapter 1: Building 2-layer maps : combining polygons and scatterplots
+    In this chapter, you will learn how to create a two-layer map by first plotting regions from a shapefile and 
+    then plotting location points as a scatterplot.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import pandas            as pd                                                #For loading tabular data
+import geopandas         as gpd                                               #For working with geospatial data
+import matplotlib.pyplot as plt                                               #For creating charts
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+pd.set_option("display.max_columns",20)
+
+print("****************************************************")
+topic = "User Variables"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Defined functions"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Reading data"; print("** %s\n" % topic)
+
+filename = "father_son_height.csv"
+father_son = pd.read_csv(filename, sep=';')
+print("Columns of {}:\n{}\n".format(filename, father_son.columns))
+
+filename = "public_art.csv"
+df_art = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_art.columns))
+
+df_mini_art = pd.DataFrame({'StopID':[4431,  588,  590,  541],
+                            'StopName':['MUSIC CITY CENTRAL 5TH - BAY 11', 'CHARLOTTE AVE & 7TH AVE N WB',
+                                        'CHARLOTTE AVE & 8TH AVE N WB', '11TH AVE / N GULCH STATION OUTBOUND'],
+                            'Location':[(36.16659, -86.781996), (36.165, -86.78406), 
+                                        (36.164393, -86.785451), (36.162249, -86.790464)]})
+filename = 'Hen_Permits.csv'
+df_chickens = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_chickens.columns))
+
+filename = 'schools.csv'
+df_schools = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_schools.columns))
+
+
+print("****************************************************")
+topic = "Reading geospatialdata"; print("** %s\n" % topic)
+
+filename = "shapefile_path\\nashville.shp"
+df_service_district = gpd.read_file(filename)
+print("Columns of df_service_district:\n{}\n".format(df_service_district.columns))
+
+filename = "school_districts.geojson"
+df_school_districts = gpd.read_file(filename)
+print("Columns of {}:\n{}\n".format(filename, df_school_districts.columns))
+ 
+filename = "shapefile_path\\SLV_deptos.shp"
+df_slv_deptos = gpd.read_file(filename, encoding = 'utf-8')
+print("Columns of df_slv_deptos:\n{}\n".format(df_slv_deptos.columns))
+
+print("****************************************************")
+topic = "3. Styling a scatterplot"; print("** %s\n" % topic)
+
+# Scatterplot 1 - father heights vs son heights with darkred square markers
+plt.scatter(father_son.fheight, father_son.sheight, color = 'darkred', marker = 's', alpha=0.75)
+plt.grid(False)
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+
+# Scatterplot 2 - yellow markers with darkblue borders
+plt.figure()
+plt.scatter(father_son.fheight, father_son.sheight, c = 'yellow', edgecolor = 'darkblue')
+plt.grid(False)
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+
+# Scatterplot 3
+plt.figure()
+plt.scatter(father_son.fheight, father_son.sheight,  c = 'yellow', edgecolor = 'darkblue')
+plt.grid(True)
+plt.xlabel('father height (inches)')
+plt.ylabel('son height (inches)')
+plt.title('Son Height as a Function of Father Height')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "4. Extracting longitude and latitude"; print("** %s\n" % topic)
+
+print('Head of df_mini_art before extraction:\n{}'.format(df_mini_art.head())) # print the first few rows of df 
+df_mini_art['lat'] = [loc[0] for loc in df_mini_art.Location] # extract latitude to a new column: lat
+df_mini_art['lng'] = [loc[1] for loc in df_mini_art.Location] # extract longitude to a new column: lng
+print('\nHead of df_mini_art after extraction:\n{}'.format(df_mini_art.head())) # print the first few rows of df again
+
+print("****************************************************")
+topic = "5. Plotting chicken locations"; print("** %s\n" % topic)
+
+print('Head of chickens dataset:\n{}'.format(df_chickens.head())) # Look at the first few rows of the chickens DataFrame
+
+# Plot the locations of all Nashville chicken permits
+plt.scatter(x = df_chickens.lng, y = df_chickens.lat,  c = 'yellow', edgecolor = 'darkblue')
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('Location of the Nashville chickens')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "7. Creating a GeoDataFrame & examining the geometry"; print("** %s\n" % topic)
+
+print('Shape of df_service_district: {}'.format(df_service_district)) 
+print('\ndf_service_district without geometry:\n{}'.format(df_service_district[['area_sq_mi', 'name', 'objectid']]))  
+
+print("****************************************************")
+topic = "8. Plotting shapefile polygons"; print("** %s\n" % topic)
+
+# Plot the Service Districts without any additional arguments
+df_service_district.plot()
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('Nashville')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+# Plot the Service Districts, color them according to name, and show a legend
+df_service_district.plot(column = 'name', legend = True)
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('Nashville')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "9. Scatterplots over polygons"; print("** %s\n" % topic)
+
+df_school_districts.plot(column='district', legend=True, cmap='Set2')
+plt.scatter(df_schools.Longitude, df_schools.Latitude, marker='p', c='darkgreen')
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('Nashville Schools and School Districts')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+
+#Plotting EL SALVADOR
+df_slv_deptos.query('SDP != "Desconocido"').plot(column='NA2', 
+                    legend=True, legend_kwds=dict(fontsize=5, ncol=2, markerscale=0.5),
+                    cmap='tab20')
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('El Salvador')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "11. Plotting points over polygons - part 1"; print("** %s\n" % topic)
+
+df_service_district.plot(column='name') # Plot the service district shapefile
+plt.scatter(x=df_chickens.lng, y=df_chickens.lat, c = 'black', alpha=0.5) # Add the chicken locations
+plt.grid(True)
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+plt.title('Chicken locations in Nashville')
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "12. Plotting points over polygons - part 2"; print("** %s\n" % topic)
+
+df_service_district.plot(column='name') # Plot the service district shapefile
+plt.scatter(x=df_chickens.lng, y=df_chickens.lat, c = 'black', alpha=0.5, edgecolor = 'white') # Add the chicken locations
+plt.title('Nashville Chicken Permits') # Add labels and title
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.grid(True) # Add grid lines and show the plot
+plt.suptitle(topic)
+#plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

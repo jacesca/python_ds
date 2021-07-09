@@ -1,0 +1,224 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 13 10:40:47 2019
+
+@author: jacqueline.cortez
+Sourde: 
+    https://scitools.org.uk/cartopy/docs/latest/crs/projections.html
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import cartopy                                                                #For working with geospatial data
+import matplotlib.pyplot as plt                                               #For creating charts
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+plt.rcParams['figure.max_open_warning'] = 60
+
+print("****************************************************")
+topic = "1. PlateCarree Projection"; print("** %s\n" % topic)
+
+nplots = 2
+fig = plt.figure(figsize=(10, 5))
+
+for i in range(0, nplots):
+    central_longitude = 0 if i == 0 else 180
+    ax = fig.add_subplot(1, nplots, i+1, projection=cartopy.crs.PlateCarree(central_longitude=central_longitude))
+    ax.coastlines(resolution='110m')
+    ax.gridlines()
+    plt.title('central_longitude = {}'.format(central_longitude))
+plt.suptitle('{}\nThe world Map (2 PlateCarree projections)'.format(topic)); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+print("****************************************************")
+topic = "2. Map Projection"; print("** %s\n" % topic)
+
+fig = plt.figure(figsize=(10, 5))
+
+ax = fig.add_subplot(2, 3, 1, projection=cartopy.crs.AlbersEqualArea())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('AlbersEqualArea'); 
+
+ax = fig.add_subplot(2, 3, 2, projection=cartopy.crs.AzimuthalEquidistant(central_latitude=90))
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('AzimuthalEquidistant'); 
+
+ax = fig.add_subplot(2, 3, 3, projection=cartopy.crs.EquidistantConic())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EquidistantConic'); 
+
+ax = fig.add_subplot(2, 3, 4, projection=cartopy.crs.LambertConformal())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('LambertConformal'); 
+
+ax = fig.add_subplot(2, 3, 5, projection=cartopy.crs.LambertCylindrical())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('LambertCylindrical'); 
+
+ax = fig.add_subplot(2, 3, 6, projection=cartopy.crs.Mercator())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Mercator'); 
+
+plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "3. Map Projection"; print("** %s\n" % topic)
+
+fig = plt.figure(figsize=(10, 5))
+
+ax = fig.add_subplot(2, 3, 1, projection=cartopy.crs.Miller())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('(Miller'); 
+
+ax = fig.add_subplot(2, 3, 2, projection=cartopy.crs.Mollweide())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Mollweide'); 
+
+ax = fig.add_subplot(2, 3, 3, projection=cartopy.crs.Orthographic())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Orthographic'); 
+
+ax = fig.add_subplot(2, 3, 4, projection=cartopy.crs.Robinson())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Robinson'); 
+
+ax = fig.add_subplot(2, 3, 5, projection=cartopy.crs.Sinusoidal())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Sinusoidal'); 
+
+ax = fig.add_subplot(2, 3, 6, projection=cartopy.crs.Stereographic())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Stereographic'); 
+
+plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "4. Map Projection"; print("** %s\n" % topic)
+
+fig = plt.figure(figsize=(10, 5))
+
+ax = fig.add_subplot(2, 3, 1, projection=cartopy.crs.TransverseMercator())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('TransverseMercator'); 
+
+ax = fig.add_subplot(2, 3, 2, projection=cartopy.crs.InterruptedGoodeHomolosine())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('InterruptedGoodeHomolosine'); 
+
+ax = fig.add_subplot(2, 3, 3, projection=cartopy.crs.RotatedPole(pole_latitude=37.5, pole_longitude=177.5))
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('RotatedPole'); 
+
+ax = fig.add_subplot(2, 3, 4, projection=cartopy.crs.OSGB())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('OSGB'); 
+
+ax = fig.add_subplot(2, 3, 5, projection=cartopy.crs.EuroPP())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EuroPP'); 
+
+ax = fig.add_subplot(2, 3, 6, projection=cartopy.crs.Geostationary())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Geostationary'); 
+
+plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "5. UTM Projection"; print("** %s\n" % topic)
+
+nplots = 60
+fig = plt.figure(figsize=(10, 5))
+
+for i in range(0, nplots):
+    ax = fig.add_subplot(1, nplots, i+1, projection=cartopy.crs.UTM(zone=i+1, southern_hemisphere=True))
+    ax.coastlines(resolution='110m')
+    ax.gridlines()
+plt.title('The world Map (UTM projection)'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "6. Map Projection"; print("** %s\n" % topic)
+
+fig = plt.figure(figsize=(10, 5))
+
+ax = fig.add_subplot(2, 3, 1, projection=cartopy.crs.EckertI())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertI'); 
+
+ax = fig.add_subplot(2, 3, 2, projection=cartopy.crs.EckertII())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertII'); 
+
+ax = fig.add_subplot(2, 3, 3, projection=cartopy.crs.EckertIII())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertIII'); 
+
+ax = fig.add_subplot(2, 3, 4, projection=cartopy.crs.EckertIV())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertIV'); 
+
+ax = fig.add_subplot(2, 3, 5, projection=cartopy.crs.EckertV())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertV'); 
+
+ax = fig.add_subplot(2, 3, 6, projection=cartopy.crs.EckertVI())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EckertVI'); 
+
+plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "7. Map Projection"; print("** %s\n" % topic)
+
+fig = plt.figure(figsize=(10, 5))
+
+ax = fig.add_subplot(2, 3, 1, projection=cartopy.crs.NearsidePerspective(central_latitude=50.72, central_longitude=-3.53, satellite_height=10000000.0))
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('NearsidePerspective'); 
+
+ax = fig.add_subplot(2, 3, 2, projection=cartopy.crs.EqualEarth())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('EqualEarth'); 
+
+ax = fig.add_subplot(2, 3, 3, projection=cartopy.crs.Gnomonic())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('Gnomonic'); 
+
+ax = fig.add_subplot(2, 3, 4, projection=cartopy.crs.LambertAzimuthalEqualArea())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('LambertAzimuthalEqualArea'); 
+
+ax = fig.add_subplot(2, 3, 5, projection=cartopy.crs.NorthPolarStereo())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('NorthPolarStereo'); 
+
+ax = fig.add_subplot(2, 3, 6, projection=cartopy.crs.SouthPolarStereo())
+ax.coastlines(resolution='110m'); ax.gridlines();
+ax.set_anchor('N'); plt.title('SouthPolarStereo'); 
+
+plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "8. OSNI Projection"; print("** %s\n" % topic)
+
+plt.figure(figsize=(10, 5))
+ax = plt.axes(projection=cartopy.crs.OSNI())
+ax.coastlines(resolution='10m')
+ax.gridlines()
+plt.title('The world Map (OSNI projection)'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

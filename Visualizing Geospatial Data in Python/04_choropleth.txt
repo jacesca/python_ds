@@ -1,0 +1,348 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Oct 12 14:26:57 2019
+
+@author: jacqueline.cortez
+Chapter 4: Creating a choropleth building permit density in Nashville
+    In this chapter, you will learn about a special map called a choropleth. Then you will learn and practice 
+    building choropleths using two different packages: geopandas and folium.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import folium                                                                 #To create map street
+import pandas            as pd                                                #For loading tabular data
+import geopandas         as gpd                                               #For working with geospatial data
+import matplotlib.pyplot as plt                                               #For creating charts
+import pprint                                                                 #Import pprint to format disctionary output
+
+import os
+import webbrowser 
+
+from shapely.geometry                import Point                             #(Geospatial) To create a point geometry column 
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+pd.set_option("display.max_columns",60)
+pd.options.display.float_format = '{:,.4f}'.format
+
+print("****************************************************")
+topic = "User Variables"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Defined functions"; print("** %s\n" % topic)
+
+def displaying_folium_map(location, filename, zoom_start, child=None, main_marker=True):
+    folium_map = folium.Map(location=location, zoom_start=zoom_start)
+    if main_marker:
+        folium.Marker(location, popup="Here!!!").add_to(folium_map)
+    if child != None:
+        for item in child:
+            item.add_to(folium_map)
+    folium_map.save(filename)
+
+    cwd = os.getcwd()
+    path=cwd+'\\'+filename
+    webbrowser.open('file://' + path)
+
+
+
+def displaying_html_folium_map(folium_map, filename):
+    folium_map.save(filename)
+
+    cwd = os.getcwd()
+    path=cwd+'\\'+filename
+    webbrowser.open('file://' + path)
+
+
+    
+print("****************************************************")
+topic = "Reading geospatialdata"; print("** %s\n" % topic)
+
+filename = "school_districts.geojson"
+df_school_districts = gpd.read_file(filename)
+print("Columns of {}:\n{}\n".format(filename, df_school_districts.columns))
+
+filename = "council_districts.geojson"
+df_council_districts = gpd.read_file(filename)
+print("Columns of {}:\n{}\n".format(filename, df_council_districts.columns))
+
+print("****************************************************")
+topic = "Reading data"; print("** %s\n" % topic)
+
+filename = "schools.csv"
+df_schools = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_schools.columns))
+df_schools['geometry'] = df_schools.apply(lambda x: Point((x.Longitude, x.Latitude)), axis=1)          # Calculating the geometry column.
+df_schools_geo = gpd.GeoDataFrame(df_schools, crs={'init': 'epsg:4326'}, geometry=df_schools.geometry)   # Transforming to new GeoDataFrame.
+print("Columns of df_schools_geo:\n{}\n".format(df_schools.columns))
+
+filename = "building_permits_2017.csv"
+df_building_permits = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_building_permits.columns))
+df_building_permits['geometry'] = df_building_permits.apply(lambda x: Point((x.lng, x.lat)), axis=1)          # Calculating the geometry column.
+df_building_permits_geo = gpd.GeoDataFrame(df_building_permits, crs=df_council_districts.crs, geometry=df_building_permits.geometry)   # Transforming to new GeoDataFrame.
+print("Columns of df_building_permits_geo:\n{}\n".format(df_building_permits_geo.columns))
+
+print("****************************************************")
+topic = "1. What is a choropleth?"; print("** %s\n" % topic)
+
+############################
+## Exploring the data
+############################
+df_schools_in_district = gpd.sjoin(df_schools_geo, df_school_districts, op='within') # Finding schools in district one.
+
+#Plot the schools in District
+legend_kwds = dict(loc='upper left', bbox_to_anchor=(1, 1.03), ncol=1, markerscale=0.7, fontsize=8, title='School Districts') 
+ax = df_school_districts.plot(column = 'district', 
+                              legend = True, legend_kwds = legend_kwds, cmap='Set3',
+                              linewidth=0.3, edgecolor='black') # Plotting the district.
+df_schools_in_district.plot(  ax=ax, 
+                              cmap='Dark2', edgecolor='white', alpha=0.8) # Plotting the schools in district.
+plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Schools in Nashville by district'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.12, bottom=None, right=0.75, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+############################
+## Preparing the data
+############################
+df_school_counts = df_schools_in_district.groupby(['district']).size().to_frame().reset_index()
+df_school_counts.columns = ['district', 'school_count']
+
+df_school_districts_with_counts = pd.merge(df_school_districts, df_school_counts, on='district')
+df_school_districts_with_counts['area'] = df_school_districts_with_counts.geometry.area
+df_school_districts_with_counts['school_density'] = df_school_districts_with_counts.apply(lambda x: x.school_count/x.area, axis=1)
+print('df_school_districts_with_counts:\n{}\n'.format(df_school_districts_with_counts))
+
+print("****************************************************")
+topic = "2. Finding counts from a spatial join"; print("** %s\n" % topic)
+
+############################
+## Exploring the data
+############################
+df_permits_by_district = gpd.sjoin(df_building_permits_geo, df_council_districts, op = 'within') # Spatial join of permits_geo and council_districts
+
+#Plot the schools in District
+legend_kwds = dict(loc='upper left', bbox_to_anchor=(1, 1.03), ncol=3, markerscale=0.7, fontsize=8, title='Council Districts') 
+ax = df_council_districts.plot(column = 'district', 
+                              legend = True, legend_kwds = legend_kwds, cmap='Set3',
+                              linewidth=0.3, edgecolor='black') # Plotting the district.
+df_permits_by_district.plot(  ax=ax, 
+                              cmap='Dark2', edgecolor='white', alpha=0.8) # Plotting the schools in district.
+plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Building Permits by district in Nashville'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.12, bottom=None, right=0.65, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+############################
+## Preparing the data
+############################
+df_permit_counts = df_permits_by_district.groupby(['district']).size() # Create permit_counts
+print('df_permit_counts:\n{}\n'.format(df_permit_counts))
+
+print("****************************************************")
+topic = "3. Council district areas and permit counts"; print("** %s\n" % topic)
+
+df_council_districts['area'] = df_council_districts.geometry.area # Create an area column in council_districts
+df_permit_counts = df_permit_counts.to_frame() # Convert permit_counts to a DataFrame
+df_permit_counts.reset_index(inplace=True) # Reset index and column names
+df_permit_counts.columns = ['district', 'bldg_permits']
+
+df_districts_permits = pd.merge(df_council_districts, df_permit_counts, on='district')
+
+print("****************************************************")
+topic = "4. Calculating a normalized metric"; print("** %s\n" % topic)
+
+df_districts_permits['permit_density'] = df_districts_permits.apply(lambda x: x.bldg_permits/x.area, axis=1)
+print('df_districts_permits:\n{}\n'.format(df_districts_permits))
+
+print("****************************************************")
+topic = "5. Choropleths with geopandas"; print("** %s\n" % topic)
+
+############################
+## Preparing the data
+############################
+df_schools_in_district = gpd.sjoin(df_school_districts, df_schools_geo, op='contains') # Finding schools in district one.
+df_school_counts = df_schools_in_district.groupby(['district']).size().to_frame().reset_index()
+df_school_counts.columns = ['district', 'school_count']
+df_school_districts_with_counts = pd.merge(df_school_districts, df_school_counts, on='district')
+
+#Changing to meters coord
+gpd.GeoDataFrame.crs = {'init': 'epsg:4326'}
+df_school_districts_with_counts.geometry = df_school_districts_with_counts.geometry.to_crs(epsg=3857)
+df_school_districts_with_counts['area'] = df_school_districts_with_counts.geometry.area / 10**6
+df_school_districts_with_counts['school_density'] = df_school_districts_with_counts.apply(lambda x: x.school_count/x.area, axis=1)
+
+#Getting back to degrees coord
+gpd.GeoDataFrame.crs = {'init': 'epsg:3857'}
+df_school_districts_with_counts.geometry = df_school_districts_with_counts.geometry.to_crs(epsg=4326)
+print('df_school_districts_with_counts:\n{}\n'.format(df_school_districts_with_counts))
+
+
+############################
+## Ploting the choropleth
+############################
+#With default color
+df_school_districts_with_counts.plot(column = 'school_density', edgecolor='black', legend=True) #linewidth=0.3,  Plotting the district.
+#plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Schools per km\u00b2.'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.12, bottom=None, right=0.75, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+#with cmap='BuGn'
+df_school_districts_with_counts.plot(column = 'school_density', cmap='BuGn', edgecolor='black', legend=True) #linewidth=0.3,  Plotting the district.
+#plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Schools per km\u00b2.'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.12, bottom=None, right=0.75, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+print("****************************************************")
+topic = "6. Geopandas choropleths"; print("** %s\n" % topic)
+
+############################
+## Keeping the right measures
+############################
+#Changing to meters coord
+gpd.GeoDataFrame.crs = {'init': 'epsg:4326'}
+df_districts_permits.geometry = df_districts_permits.geometry.to_crs(epsg=3857)
+df_districts_permits['area'] = df_districts_permits.geometry.area / 10**6
+df_districts_permits['permit_density'] = df_districts_permits.apply(lambda x: x.bldg_permits/x.area, axis=1)
+
+#Getting back to degrees coord
+gpd.GeoDataFrame.crs = {'init': 'epsg:3857'}
+df_districts_permits.geometry = df_districts_permits.geometry.to_crs(epsg=4326)
+
+############################
+## Ploting the choropleth
+############################
+df_districts_permits.plot(column = 'permit_density', cmap='BuGn', edgecolor='black', legend=True) #linewidth=0.3,  Plotting the district.
+#plt.xticks(fontsize=7); plt.yticks(fontsize=7); plt.xticks(rotation = 'vertical')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('2017 Building Project Density by Council District'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.12, bottom=None, right=0.75, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+print("****************************************************")
+topic = "7. Area in km squared, geometry in decimal degrees"; print("** %s\n" % topic)
+
+# Change council_districts crs to epsg 3857
+gpd.GeoDataFrame.crs = {'init': 'epsg:4326'}
+df_council_districts = df_council_districts.to_crs(epsg = 3857)
+
+# Create area in square km
+sqm_to_sqkm = 10**6
+df_council_districts['area'] = df_council_districts.geometry.area / sqm_to_sqkm
+
+# Change council_districts crs back to epsg 4326
+gpd.GeoDataFrame.crs = {'init': 'epsg:3857'}
+df_council_districts = df_council_districts.to_crs(epsg = 4326)
+
+print("****************************************************")
+topic = "8. Spatially joining and getting counts"; print("** %s\n" % topic)
+
+df_building_permits_geo = gpd.GeoDataFrame(df_building_permits, crs=df_council_districts.crs, geometry=df_building_permits.geometry)   # Transforming to new GeoDataFrame.
+df_permits_by_district = gpd.sjoin(df_building_permits_geo, df_council_districts, op = 'within') # Spatial join of permits_geo and council_districts
+df_permit_counts = df_permits_by_district.groupby(['district']).size().to_frame().reset_index() # Create permit_counts
+df_permit_counts.columns = ['district', 'bldg_permits']
+
+print("****************************************************")
+topic = "9. Building a polished Geopandas choropleth"; print("** %s\n" % topic)
+
+df_districts_permits = pd.merge(df_council_districts, df_permit_counts, on='district') # Merge permits_by_district and counts_df
+df_districts_permits['permit_density'] = df_districts_permits.apply(lambda row: row.bldg_permits / row.area, axis = 1)
+
+
+############################
+## Ploting the choropleth
+############################
+df_districts_permits.plot(column = 'permit_density', cmap='OrRd', edgecolor='black', legend=True) #linewidth=0.3,  Plotting the district.
+#plt.xticks(fontsize=7); plt.yticks(fontsize=7); plt.xticks(rotation = 'vertical')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('2017 Building Project Density by Council District'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.12, bottom=None, right=0.75, top=None, wspace=None, hspace=None);
+plt.show()  # Show the plot
+
+print("****************************************************")
+topic = "10. Choropleths with folium"; print("** %s\n" % topic)
+"""
+folium_map = folium.Map(location=[36.1636, -86.7823], zoom_start=10)
+folium.Choropleth(geo_data     = df_school_districts_with_counts,
+                  name         = 'geometry',
+                  data         = df_school_districts_with_counts,
+                  columns      = ['district', 'school_density'],
+                  key_on       = 'feature.properties.district',
+                  fill_color   = 'YlGn',
+                  fill_opacity = 0.75,
+                  line_opacity = 0.5,
+                  legend_name  = 'Schools per km squared by School District').add_to(folium_map)
+folium.LayerControl().add_to(folium_map)
+displaying_html_folium_map(folium_map, '04_10_cloropleths.html')
+"""
+#Displaying the folium map of the school density by district
+child = [folium.Choropleth(geo_data     = df_school_districts_with_counts,
+                           name         = 'geometry',
+                           data         = df_school_districts_with_counts,
+                           columns      = ['district', 'school_density'],
+                           key_on       = 'feature.properties.district',
+                           fill_color   = 'YlGn',
+                           fill_opacity = 0.75,
+                           line_opacity = 0.5,
+                           legend_name  = 'Schools per km squared by School District'),
+         folium.LayerControl()]
+displaying_folium_map([36.1636, -86.7823], '04_10_cloropleths.html', zoom_start=10, child=child, main_marker=False)
+
+print("****************************************************")
+topic = "11. Folium choropleth"; print("** %s\n" % topic)
+
+#Displaying the folium map of the building permits by district
+my_cloropleth = folium.Choropleth(geo_data     = df_districts_permits,
+                                  name         = 'geometry',
+                                  data         = df_districts_permits,
+                                  columns      = ['district', 'permit_density'],
+                                  key_on       = 'feature.properties.district',
+                                  fill_color   = 'Reds',
+                                  fill_opacity = 0.5,
+                                  line_opacity = 1.0,
+                                  legend_name  = '2017 Permitted Building Projects per km squared')
+
+child = [my_cloropleth, folium.LayerControl()]
+pprint.pprint(child) #Only to check.
+
+displaying_folium_map([36.1636,-86.7823], '04_11_cloropleths.html', zoom_start=10, child=child, main_marker=False)
+
+print("****************************************************")
+topic = "12. Folium choropleth with markers and popups"; print("** %s\n" % topic)
+
+#Displaying the folium map of the building permits by district
+my_cloropleth = folium.Choropleth(geo_data     = df_districts_permits,
+                                  name         = 'geometry',
+                                  data         = df_districts_permits,
+                                  columns      = ['district', 'permit_density'],
+                                  key_on       = 'feature.properties.district',
+                                  fill_color   = 'Reds',
+                                  fill_opacity = 0.5,
+                                  line_opacity = 1.0,
+                                  legend_name  = '2017 Permitted Building Projects per km squared')
+
+
+df_districts_permits['center'] = df_districts_permits['geometry'].centroid
+child = [folium.Marker(location = [row['center'].y, row['center'].x], 
+                       popup = ('<strong>District:</strong><span style="color:red">' + str(row['district']) + '</span>;  ' + '<strong>Permits issued:</strong><span style="color:red">' + str(row['bldg_permits']) + '</span>')) for index, row in df_districts_permits.iterrows()]
+child.insert(0, folium.LayerControl())
+child.insert(0, my_cloropleth)
+pprint.pprint(child) #Only to check.
+
+displaying_folium_map([36.1636,-86.7823], '04_12_cloropleths.html', zoom_start=10, child=child, main_marker=False)
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,125 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 13 14:37:49 2019
+
+@author: jacqueline.cortez
+Source:
+    https://www.datacamp.com/community/tutorials/geospatial-data-python
+Data:
+    US State 5m JSON: https://eric.clst.org/tech/usgeojson/
+    Hurricane Florence data; http://flhurricane.com/cyclone/stormhistory.php?storm=6&year=2018
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "1. Importing libraries"; print("** %s\n" % topic)
+
+import geopandas         as gpd                                               #For working with geospatial data 
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import missingno         as msno                                              #Missing data visualization module for Python
+import seaborn           as sns                                               #For visualizing data
+import matplotlib.pyplot as plt                                               #For creating charts
+
+from shapely.geometry                import Point                             #(Geospatial) To create a point geometry column 
+
+print("****************************************************")
+topic = "2. Reading geospatialdata"; print("** %s\n" % topic)
+
+filename = "US_State.json"
+df_geo_US = gpd.read_file(filename)
+print("** Columns of {}:\n{}\n".format(filename, df_geo_US.columns))
+print("** Head of {}:\n{}\n".format(filename, df_geo_US.head()))
+df_geo_US.plot()
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); 
+plt.title('US State'); plt.suptitle(topic); #plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.85, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+#Excluding Alaska and Hawaii
+df_geo_US[df_geo_US.NAME.isin(['Alaska','Hawaii']) == False].plot(figsize=(10,4), color='#3B3C6E');
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); 
+plt.title('US State'); plt.suptitle(topic); #plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.85, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "3. Reading data"; print("** %s\n" % topic)
+
+filename = "florence_huracaine.csv"
+df_huracaine_florence = pd.read_csv(filename)
+print("** Columns of {}:\n{}\n".format(filename, df_huracaine_florence.columns))
+print("** Head of {}:\n{}\n".format(filename, df_huracaine_florence.head()))
+
+print("****************************************************")
+topic = "4. Exploratory Data Analysis"; print("** %s\n" % topic)
+
+print("** General Information of Huracaine Florence:\n{}\n".format(df_huracaine_florence.info()))
+
+#Checking missing values using the missingno package. This is a useful package using visualization to show missing data. 
+#As you can see below, there's only one missing value in the column "Forecaster" which you don't need for this tutorial. 
+#So you can ignore it for now.
+# Notice you can always adjust the color of the visualization
+plt.figure()
+msno.bar(df_huracaine_florence, color='darkolivegreen', figsize=(8,4), fontsize=8)
+plt.title('Huracaine Florence'); plt.suptitle(topic); 
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=0.8, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("** Statistical Information of Huracaine Florence:\n{}\n".format(df_huracaine_florence.describe()))
+
+# dropping all unused features:
+df_huracaine_florence = df_huracaine_florence.drop(['AdvisoryNumber', 'Forecaster', 'Received'], axis=1)
+print("** Head of Huracaine Florence:\n{}\n".format(df_huracaine_florence.head()))
+
+print("****************************************************")
+topic = "5. Fixing the coord from Huracaine Florence data"; print("** %s\n" % topic)
+
+#Normally, if you plot the data by itself, there is no need to take extra care for the coordinate. 
+#However, if you want it to look similar to how you look on the map, it's important to check on the 
+#longitude and latitude. Here the longitude is west, you will need to add "-" in front of the number 
+#to correctly plot the data:
+
+df_huracaine_florence['Long'] = 0 - df_huracaine_florence['Long'] # Add "-" in front of the number to correctly plot the data:
+df_huracaine_florence['geometry'] = df_huracaine_florence[['Long', 'Lat']].values.tolist() # Combining Lattitude and Longitude to create hurricane coordinates:
+df_huracaine_florence['geometry'] = df_huracaine_florence['geometry'].apply(Point) # Change the coordinates to a geoPoint
+print("** Head of Huracaine Florence:\n{}\n".format(df_huracaine_florence.head()))
+
+print("****************************************************")
+topic = "6. Creating a new GeoDataFrame"; print("** %s\n" % topic)
+
+# Convert the count df to geodf
+df_huracaine_florence = gpd.GeoDataFrame(df_huracaine_florence, geometry='geometry')
+print("** Head of Huracaine Florence:\n{}\n".format(df_huracaine_florence.head()))
+
+print("****************************************************")
+topic = "7. Just exploring the Huracaine Florence data"; print("** %s\n" % topic)
+
+# Groupping by name to see how many names it has in the data set:
+print("** How many names are ther in Huracaine Florence data?\n{}\n".format(df_huracaine_florence.groupby('Name').Type.count()))
+
+#Finding the mean wind speed of hurrican Florence:
+print("** Mean wind speed of Hurricane Florence is {} mph and it can go up to {} mph maximum.\n".format(
+        round(df_huracaine_florence.Wind.mean(),4), df_huracaine_florence.Wind.max()))
+
+print("****************************************************")
+topic = "8. Visualizing the Huracaine Florence data"; print("** %s\n" % topic)
+
+df_huracaine_florence.plot(figsize=(10,4))
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); 
+plt.title('Huracaine Florence'); plt.suptitle(topic); #plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.85, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print("****************************************************")
+topic = "9. Plotting the hurricane position on the US map"; print("** %s\n" % topic)
+
+# Plotting to see the hurricane overlay the US map:
+fig, ax = plt.subplots(1, figsize=(10, 4))
+base = df_geo_US[df_geo_US.NAME.isin(['Alaska','Hawaii']) == False].plot(ax=ax, color='#3B3C6E')
+df_huracaine_florence.plot(ax=base, column='Wind', marker="<", markersize=10, cmap='cool', label="Wind speed(mph)"); # plotting the hurricane position on top with red color to stand out:
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); 
+plt.title('Huracaine Florence in US Map'); plt.suptitle(topic); #plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.85, wspace=None, hspace=None)
+plt.legend()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

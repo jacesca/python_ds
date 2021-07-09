@@ -1,0 +1,151 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 13 09:16:42 2019
+
+@author: jacqueline.cortez
+Sourde: http://geopandas.org/gallery/plotting_with_geoplot.html
+
+Plotting with Geoplot and GeoPandas
+-----------------------------------
+
+`Geoplot <https://residentmario.github.io/geoplot/index.html>`_ is a Python
+library providing a selection of easy-to-use geospatial visualizations. It is
+built on top of the lower-level `CartoPy <http://scitools.org.uk/cartopy/>`_,
+covered in a separate section of this tutorial, and is designed to work with
+GeoPandas input.
+
+This example is a brief tour of the `geoplot` API. For more details on the
+library refer to `its documentation
+<https://residentmario.github.io/geoplot/index.html>`_.
+
+First we'll load in the data using GeoPandas.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import geopandas         as gpd                                               #For working with geospatial data 
+import geoplot                                                                #For working with geospatial data
+import matplotlib.pyplot as plt                                               #For creating charts
+
+print("****************************************************")
+topic = "Reading geospatialdata"; print("** %s\n" % topic)
+
+world      = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+boroughs   = gpd.read_file(geoplot.datasets.get_path('nyc_boroughs'))
+collisions = gpd.read_file(geoplot.datasets.get_path('nyc_injurious_collisions'))
+
+
+
+
+
+
+###############################################################################
+# Plotting with Geoplot
+# =====================
+#
+# We start out by replicating the basic GeoPandas world plot using Geoplot.
+print("****************************************************")
+topic = "1. Plotting with Geoplot"; print("** %s\n" % topic)
+
+geoplot.polyplot(world, figsize=(8, 4))
+plt.axis('off')
+plt.title('The world Map'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+###############################################################################
+# Geoplot can re-project data into any of the map projections provided by
+# CartoPy (see the list
+# `here <http://scitools.org.uk/cartopy/docs/latest/crs/projections.html>`_).
+
+# use the Orthographic map projection (e.g. a world globe)
+print("****************************************************")
+topic = "2. Map Projection"; print("** %s\n" % topic)
+
+# use the Orthographic map projection (e.g. a world globe)
+ax = geoplot.polyplot(world, projection=geoplot.crs.Orthographic(), figsize=(8, 4))
+ax.outline_patch.set_visible(True)
+plt.axis('off')
+plt.title('The world Map (Orthographic projection)'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+
+###############################################################################
+# ``polyplot`` is trivial and can only plot the geometries you pass to it. If
+# you want to use color as a visual variable, specify a ``choropleth``. Here
+# we sort GDP per person by country into five buckets by color.
+print("****************************************************")
+topic = "3. Choropleth"; print("** %s\n" % topic)
+
+geoplot.choropleth(world, hue=world['gdp_md_est'] / world['pop_est'], cmap='Greens', figsize=(8, 4))
+plt.axis('off')
+plt.title('The world Map'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+
+###############################################################################
+# If you want to use size as a visual variable, use a ``cartogram``. Here are
+# population estimates for countries in Africa.
+print("****************************************************")
+topic = "4. Cartogram"; print("** %s\n" % topic)
+
+africa = world.query('continent == "Africa"')
+ax = geoplot.cartogram(africa, scale='pop_est', limits=(0.2, 1), edgecolor='None', figsize=(8, 4))
+geoplot.polyplot(africa, edgecolor='gray', ax=ax)
+plt.axis('off')
+plt.title('Africa'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+
+###############################################################################
+# If we have data in the shape of points in space, we may generate a
+# three-dimensional heatmap on it using ``kdeplot``.
+print("****************************************************")
+topic = "5. KDE Plot"; print("** %s\n" % topic)
+
+ax = geoplot.kdeplot(collisions, 
+                     clip=boroughs.geometry, 
+                     shade=True, cmap='Reds', 
+                     projection=geoplot.crs.AlbersEqualArea(), figsize=(8, 4))
+geoplot.polyplot(boroughs, ax=ax, zorder=1)
+plt.axis('off')
+plt.title('Boroughs'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+
+
+###############################################################################
+# Alternatively, we may partition the space into neighborhoods automatically,
+# using Voronoi tessellation. This is a good way of visually verifying whether
+# or not a certain data column is spatially correlated.
+print("****************************************************")
+topic = "6. Voronoi"; print("** %s\n" % topic)
+
+ax = geoplot.voronoi(collisions.head(1000), 
+                     projection=geoplot.crs.AlbersEqualArea(),
+                     clip=boroughs.simplify(0.001),
+                     hue='NUMBER OF PERSONS INJURED', cmap='Reds', k=None,
+                     legend=True, edgecolor='white', figsize=(8, 4))
+geoplot.polyplot(boroughs, edgecolor='black', zorder=1, ax=ax)
+plt.axis('off')
+plt.title('Boroughs'); plt.suptitle(topic); #plt.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+
+###############################################################################
+# These are just some of the plots you can make with Geoplot. There are
+# many other possibilities not covered in this brief introduction. For more
+# examples, refer to the
+# `Gallery <https://residentmario.github.io/geoplot/gallery/index.html>`_ in
+# the Geoplot documentation.
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
