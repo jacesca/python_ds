@@ -1,0 +1,1073 @@
+edition,country,NOC,Bronze,Gold,Silver,total
+1896,Australia,AUS,0.0,2.0,0.0,2.0
+1896,Austria,AUT,2.0,2.0,1.0,5.0
+1896,Denmark,DEN,3.0,1.0,2.0,6.0
+1896,France,FRA,2.0,5.0,4.0,11.0
+1896,Germany,GER,2.0,26.0,5.0,33.0
+1896,Greece,GRE,22.0,10.0,20.0,52.0
+1896,Hungary,HUN,3.0,2.0,1.0,6.0
+1896,Mixed teams,ZZX,2.0,2.0,2.0,6.0
+1896,Switzerland,SUI,0.0,1.0,2.0,3.0
+1896,United Kingdom,GBR,2.0,2.0,3.0,7.0
+1896,United States,USA,2.0,11.0,7.0,20.0
+1900,Australia,AUS,3.0,2.0,0.0,5.0
+1900,Austria,AUT,3.0,0.0,3.0,6.0
+1900,Belgium,BEL,15.0,5.0,19.0,39.0
+1900,Bohemia,BOH,1.0,0.0,1.0,2.0
+1900,Canada,CAN,1.0,1.0,0.0,2.0
+1900,Cuba,CUB,0.0,1.0,1.0,2.0
+1900,Denmark,DEN,2.0,1.0,3.0,6.0
+1900,France,FRA,53.0,46.0,86.0,185.0
+1900,Germany,GER,10.0,11.0,19.0,40.0
+1900,Hungary,HUN,2.0,1.0,2.0,5.0
+1900,India,IND,0.0,0.0,2.0,2.0
+1900,Italy,ITA,0.0,2.0,2.0,4.0
+1900,Mixed teams,ZZX,8.0,18.0,8.0,34.0
+1900,Netherlands,NED,15.0,0.0,5.0,20.0
+1900,Norway,NOR,3.0,0.0,6.0,9.0
+1900,Spain,ESP,0.0,2.0,0.0,2.0
+1900,Sweden,SWE,1.0,0.0,0.0,1.0
+1900,Switzerland,SUI,1.0,13.0,1.0,15.0
+1900,United Kingdom,GBR,10.0,48.0,20.0,78.0
+1900,United States,USA,14.0,27.0,14.0,55.0
+1904,Austria,AUT,1.0,0.0,0.0,1.0
+1904,Canada,CAN,0.0,26.0,9.0,35.0
+1904,Cuba,CUB,3.0,4.0,2.0,9.0
+1904,Germany,GER,5.0,4.0,4.0,13.0
+1904,Greece,GRE,1.0,1.0,0.0,2.0
+1904,Hungary,HUN,1.0,2.0,1.0,4.0
+1904,Mixed teams,ZZX,0.0,3.0,5.0,8.0
+1904,Switzerland,SUI,1.0,1.0,0.0,2.0
+1904,United Kingdom,GBR,0.0,1.0,1.0,2.0
+1904,United States,USA,111.0,146.0,137.0,394.0
+1908,Australasia,ANZ,2.0,15.0,2.0,19.0
+1908,Austria,AUT,1.0,0.0,0.0,1.0
+1908,Belgium,BEL,6.0,1.0,24.0,31.0
+1908,Bohemia,BOH,5.0,0.0,0.0,5.0
+1908,Canada,CAN,26.0,17.0,8.0,51.0
+1908,Denmark,DEN,3.0,0.0,12.0,15.0
+1908,Finland,FIN,27.0,1.0,1.0,29.0
+1908,France,FRA,21.0,9.0,5.0,35.0
+1908,Germany,GER,7.0,4.0,11.0,22.0
+1908,Greece,GRE,0.0,0.0,3.0,3.0
+1908,Hungary,HUN,5.0,6.0,7.0,18.0
+1908,Italy,ITA,0.0,2.0,5.0,7.0
+1908,Netherlands,NED,11.0,0.0,0.0,11.0
+1908,Norway,NOR,3.0,7.0,34.0,44.0
+1908,Russian Empire,RU1,0.0,1.0,2.0,3.0
+1908,South Africa,RSA,0.0,1.0,1.0,2.0
+1908,Sweden,SWE,11.0,69.0,18.0,98.0
+1908,United Kingdom,GBR,68.0,144.0,135.0,347.0
+1908,United States,USA,15.0,34.0,14.0,63.0
+1912,Australasia,ANZ,3.0,5.0,2.0,10.0
+1912,Austria,AUT,5.0,0.0,9.0,14.0
+1912,Belgium,BEL,9.0,9.0,1.0,19.0
+1912,Canada,CAN,3.0,3.0,2.0,8.0
+1912,Denmark,DEN,34.0,5.0,45.0,84.0
+1912,Finland,FIN,22.0,9.0,36.0,67.0
+1912,France,FRA,5.0,10.0,10.0,25.0
+1912,Germany,GER,23.0,10.0,19.0,52.0
+1912,Greece,GRE,1.0,1.0,0.0,2.0
+1912,Hungary,HUN,3.0,10.0,17.0,30.0
+1912,Italy,ITA,2.0,18.0,1.0,21.0
+1912,Netherlands,NED,22.0,0.0,0.0,22.0
+1912,Norway,NOR,29.0,41.0,6.0,76.0
+1912,Russian Empire,RU1,9.0,0.0,5.0,14.0
+1912,South Africa,RSA,0.0,5.0,2.0,7.0
+1912,Sweden,SWE,25.0,86.0,62.0,173.0
+1912,United Kingdom,GBR,58.0,44.0,58.0,160.0
+1912,United States,USA,31.0,45.0,25.0,101.0
+1920,Australia,AUS,1.0,0.0,5.0,6.0
+1920,Belgium,BEL,65.0,57.0,66.0,188.0
+1920,Brazil,BRA,5.0,1.0,1.0,7.0
+1920,Canada,CAN,3.0,10.0,3.0,16.0
+1920,Czechoslovakia,TCH,10.0,0.0,0.0,10.0
+1920,Denmark,DEN,1.0,30.0,44.0,75.0
+1920,Estonia,EST,0.0,1.0,2.0,3.0
+1920,Finland,FIN,17.0,18.0,14.0,49.0
+1920,France,FRA,55.0,13.0,73.0,141.0
+1920,Greece,GRE,0.0,0.0,5.0,5.0
+1920,Italy,ITA,7.0,68.0,9.0,84.0
+1920,Japan,JPN,0.0,0.0,3.0,3.0
+1920,Luxembourg,LUX,0.0,0.0,1.0,1.0
+1920,Netherlands,NED,24.0,14.0,10.0,48.0
+1920,New Zealand,NZL,1.0,0.0,0.0,1.0
+1920,Norway,NOR,27.0,58.0,56.0,141.0
+1920,South Africa,RSA,6.0,3.0,12.0,21.0
+1920,Spain,ESP,0.0,0.0,24.0,24.0
+1920,Sweden,SWE,57.0,53.0,36.0,146.0
+1920,Switzerland,SUI,21.0,6.0,2.0,29.0
+1920,United Kingdom,GBR,17.0,55.0,35.0,107.0
+1920,United States,USA,38.0,110.0,45.0,193.0
+1924,Argentina,ARG,2.0,6.0,3.0,11.0
+1924,Australia,AUS,2.0,3.0,5.0,10.0
+1924,Austria,AUT,1.0,0.0,3.0,4.0
+1924,Belgium,BEL,6.0,3.0,29.0,38.0
+1924,Canada,CAN,1.0,0.0,19.0,20.0
+1924,Czechoslovakia,TCH,5.0,1.0,4.0,10.0
+1924,Denmark,DEN,2.0,2.0,8.0,12.0
+1924,Estonia,EST,4.0,1.0,1.0,6.0
+1924,Finland,FIN,15.0,24.0,13.0,52.0
+1924,France,FRA,20.0,39.0,63.0,122.0
+1924,Haiti,HAI,7.0,0.0,0.0,7.0
+1924,Hungary,HUN,8.0,2.0,10.0,20.0
+1924,Italy,ITA,21.0,25.0,5.0,51.0
+1924,Japan,JPN,1.0,0.0,0.0,1.0
+1924,Netherlands,NED,17.0,8.0,1.0,26.0
+1924,New Zealand,NZL,1.0,0.0,0.0,1.0
+1924,Norway,NOR,3.0,16.0,7.0,26.0
+1924,Poland,POL,1.0,0.0,4.0,5.0
+1924,Portugal,POR,3.0,0.0,0.0,3.0
+1924,Romania,ROU,23.0,0.0,0.0,23.0
+1924,South Africa,RSA,1.0,1.0,1.0,3.0
+1924,Sweden,SWE,49.0,6.0,25.0,80.0
+1924,Switzerland,SUI,21.0,13.0,31.0,65.0
+1924,United Kingdom,GBR,20.0,17.0,29.0,66.0
+1924,United States,USA,51.0,110.0,37.0,198.0
+1924,Uruguay,URU,0.0,22.0,0.0,22.0
+1924,Yugoslavia,YUG,0.0,2.0,0.0,2.0
+1928,Argentina,ARG,5.0,3.0,24.0,32.0
+1928,Australia,AUS,1.0,1.0,2.0,4.0
+1928,Austria,AUT,2.0,2.0,0.0,4.0
+1928,Belgium,BEL,4.0,0.0,1.0,5.0
+1928,Canada,CAN,21.0,7.0,5.0,33.0
+1928,Chile,CHI,0.0,0.0,1.0,1.0
+1928,Czechoslovakia,TCH,2.0,2.0,12.0,16.0
+1928,Denmark,DEN,3.0,5.0,5.0,13.0
+1928,Egypt,EGY,1.0,2.0,1.0,4.0
+1928,Estonia,EST,6.0,2.0,1.0,9.0
+1928,Finland,FIN,9.0,8.0,8.0,25.0
+1928,France,FRA,13.0,7.0,16.0,36.0
+1928,Germany,GER,39.0,20.0,13.0,72.0
+1928,Haiti,HAI,0.0,0.0,1.0,1.0
+1928,Hungary,HUN,0.0,9.0,11.0,20.0
+1928,India,IND,0.0,15.0,0.0,15.0
+1928,Ireland,IRL,0.0,1.0,0.0,1.0
+1928,Italy,ITA,31.0,18.0,21.0,70.0
+1928,Japan,JPN,1.0,2.0,5.0,8.0
+1928,Netherlands,NED,6.0,20.0,39.0,65.0
+1928,New Zealand,NZL,0.0,1.0,0.0,1.0
+1928,Norway,NOR,1.0,4.0,4.0,9.0
+1928,Philippines,PHI,1.0,0.0,0.0,1.0
+1928,Poland,POL,14.0,1.0,3.0,18.0
+1928,South Africa,RSA,5.0,1.0,0.0,6.0
+1928,Spain,ESP,0.0,3.0,0.0,3.0
+1928,Sweden,SWE,21.0,7.0,8.0,36.0
+1928,Switzerland,SUI,5.0,16.0,8.0,29.0
+1928,United Kingdom,GBR,24.0,6.0,25.0,55.0
+1928,United States,USA,17.0,43.0,24.0,84.0
+1928,Uruguay,URU,0.0,22.0,0.0,22.0
+1928,Yugoslavia,YUG,10.0,1.0,1.0,12.0
+1932,Argentina,ARG,0.0,3.0,1.0,4.0
+1932,Australia,AUS,1.0,3.0,1.0,5.0
+1932,Austria,AUT,3.0,1.0,1.0,5.0
+1932,Canada,CAN,23.0,2.0,13.0,38.0
+1932,Czechoslovakia,TCH,1.0,1.0,2.0,4.0
+1932,Denmark,DEN,4.0,0.0,5.0,9.0
+1932,Finland,FIN,16.0,5.0,8.0,29.0
+1932,France,FRA,6.0,23.0,8.0,37.0
+1932,Germany,GER,5.0,7.0,26.0,38.0
+1932,Hungary,HUN,8.0,20.0,4.0,32.0
+1932,India,IND,0.0,11.0,0.0,11.0
+1932,Ireland,IRL,0.0,2.0,0.0,2.0
+1932,Italy,ITA,18.0,21.0,38.0,77.0
+1932,Japan,JPN,4.0,10.0,17.0,31.0
+1932,Latvia,LAT,0.0,0.0,1.0,1.0
+1932,Mexico,MEX,0.0,0.0,2.0,2.0
+1932,Netherlands,NED,0.0,2.0,10.0,12.0
+1932,New Zealand,NZL,0.0,0.0,2.0,2.0
+1932,Philippines,PHI,3.0,0.0,0.0,3.0
+1932,Poland,POL,14.0,2.0,3.0,19.0
+1932,South Africa,RSA,3.0,2.0,0.0,5.0
+1932,Spain,ESP,1.0,0.0,0.0,1.0
+1932,Sweden,SWE,12.0,12.0,7.0,31.0
+1932,Switzerland,SUI,0.0,0.0,1.0,1.0
+1932,United Kingdom,GBR,14.0,8.0,12.0,34.0
+1932,United States,USA,59.0,78.0,44.0,181.0
+1932,Uruguay,URU,1.0,0.0,0.0,1.0
+1936,Argentina,ARG,4.0,5.0,2.0,11.0
+1936,Australia,AUS,1.0,0.0,0.0,1.0
+1936,Austria,AUT,4.0,5.0,41.0,50.0
+1936,Belgium,BEL,12.0,0.0,0.0,12.0
+1936,Canada,CAN,9.0,1.0,12.0,22.0
+1936,Czechoslovakia,TCH,0.0,5.0,12.0,17.0
+1936,Denmark,DEN,3.0,0.0,3.0,6.0
+1936,Egypt,EGY,2.0,2.0,1.0,5.0
+1936,Estonia,EST,3.0,2.0,2.0,7.0
+1936,Finland,FIN,13.0,7.0,6.0,26.0
+1936,France,FRA,18.0,12.0,13.0,43.0
+1936,Germany,GER,59.0,88.0,63.0,210.0
+1936,Hungary,HUN,16.0,25.0,1.0,42.0
+1936,India,IND,0.0,19.0,0.0,19.0
+1936,Italy,ITA,5.0,36.0,30.0,71.0
+1936,Japan,JPN,8.0,9.0,4.0,21.0
+1936,Latvia,LAT,1.0,0.0,1.0,2.0
+1936,Mexico,MEX,16.0,0.0,0.0,16.0
+1936,Netherlands,NED,21.0,9.0,7.0,37.0
+1936,New Zealand,NZL,0.0,1.0,0.0,1.0
+1936,Norway,NOR,15.0,1.0,12.0,28.0
+1936,Philippines,PHI,1.0,0.0,0.0,1.0
+1936,Poland,POL,4.0,0.0,5.0,9.0
+1936,Portugal,POR,3.0,0.0,0.0,3.0
+1936,Romania,ROU,0.0,0.0,2.0,2.0
+1936,South Africa,RSA,0.0,0.0,1.0,1.0
+1936,Sweden,SWE,16.0,7.0,11.0,34.0
+1936,Switzerland,SUI,24.0,1.0,22.0,47.0
+1936,Turkey,TUR,1.0,1.0,0.0,2.0
+1936,United Kingdom,GBR,8.0,12.0,16.0,36.0
+1936,United States,USA,15.0,51.0,26.0,92.0
+1936,Yugoslavia,YUG,0.0,0.0,1.0,1.0
+1948,Argentina,ARG,1.0,3.0,8.0,12.0
+1948,Australia,AUS,5.0,2.0,9.0,16.0
+1948,Austria,AUT,3.0,1.0,0.0,4.0
+1948,Belgium,BEL,8.0,4.0,2.0,14.0
+1948,Brazil,BRA,12.0,0.0,0.0,12.0
+1948,Canada,CAN,5.0,0.0,1.0,6.0
+1948,Cuba,CUB,0.0,0.0,2.0,2.0
+1948,Czechoslovakia,TCH,3.0,14.0,3.0,20.0
+1948,Denmark,DEN,27.0,7.0,15.0,49.0
+1948,Egypt,EGY,1.0,2.0,2.0,5.0
+1948,Finland,FIN,7.0,15.0,7.0,29.0
+1948,France,FRA,21.0,25.0,22.0,68.0
+1948,Hungary,HUN,21.0,15.0,24.0,60.0
+1948,India,IND,0.0,20.0,0.0,20.0
+1948,Iran,IRI,1.0,0.0,0.0,1.0
+1948,Italy,ITA,12.0,20.0,31.0,63.0
+1948,Jamaica,JAM,0.0,1.0,2.0,3.0
+1948,"Korea, South",KOR,2.0,0.0,0.0,2.0
+1948,Mexico,MEX,4.0,4.0,1.0,9.0
+1948,Netherlands,NED,32.0,8.0,2.0,42.0
+1948,Norway,NOR,11.0,3.0,4.0,18.0
+1948,Panama,PAN,2.0,0.0,0.0,2.0
+1948,Peru,PER,0.0,1.0,0.0,1.0
+1948,Poland,POL,1.0,0.0,0.0,1.0
+1948,Portugal,POR,3.0,0.0,2.0,5.0
+1948,Puerto Rico*,PUR,1.0,0.0,0.0,1.0
+1948,South Africa,RSA,1.0,2.0,1.0,4.0
+1948,Spain,ESP,0.0,0.0,3.0,3.0
+1948,Sri Lanka,SRI,0.0,0.0,1.0,1.0
+1948,Sweden,SWE,29.0,29.0,15.0,73.0
+1948,Switzerland,SUI,5.0,5.0,22.0,32.0
+1948,Trinidad and Tobago,TRI,0.0,0.0,1.0,1.0
+1948,Turkey,TUR,2.0,6.0,4.0,12.0
+1948,United Kingdom,GBR,11.0,6.0,39.0,56.0
+1948,United States,USA,35.0,83.0,30.0,148.0
+1948,Uruguay,URU,2.0,0.0,1.0,3.0
+1948,Yugoslavia,YUG,0.0,0.0,16.0,16.0
+1952,Argentina,ARG,2.0,2.0,2.0,6.0
+1952,Australia,AUS,11.0,7.0,2.0,20.0
+1952,Austria,AUT,2.0,0.0,1.0,3.0
+1952,Belgium,BEL,0.0,4.0,3.0,7.0
+1952,Brazil,BRA,2.0,1.0,0.0,3.0
+1952,Bulgaria,BUL,1.0,0.0,0.0,1.0
+1952,Canada,CAN,0.0,1.0,3.0,4.0
+1952,Chile,CHI,0.0,0.0,4.0,4.0
+1952,Czechoslovakia,TCH,10.0,11.0,4.0,25.0
+1952,Denmark,DEN,5.0,3.0,1.0,9.0
+1952,Egypt,EGY,1.0,0.0,0.0,1.0
+1952,Finland,FIN,29.0,8.0,3.0,40.0
+1952,France,FRA,16.0,14.0,9.0,39.0
+1952,Germany,GER,26.0,0.0,14.0,40.0
+1952,Hungary,HUN,32.0,52.0,17.0,101.0
+1952,India,IND,1.0,14.0,0.0,15.0
+1952,Iran,IRI,4.0,0.0,3.0,7.0
+1952,Ireland,IRL,0.0,0.0,1.0,1.0
+1952,Italy,ITA,15.0,17.0,21.0,53.0
+1952,Jamaica,JAM,0.0,5.0,3.0,8.0
+1952,Japan,JPN,2.0,1.0,9.0,12.0
+1952,"Korea, South",KOR,2.0,0.0,0.0,2.0
+1952,Lebanon,LIB,1.0,0.0,1.0,2.0
+1952,Luxembourg,LUX,0.0,1.0,0.0,1.0
+1952,Mexico,MEX,0.0,0.0,1.0,1.0
+1952,Netherlands,NED,0.0,0.0,18.0,18.0
+1952,New Zealand,NZL,2.0,1.0,0.0,3.0
+1952,Norway,NOR,0.0,5.0,8.0,13.0
+1952,Poland,POL,1.0,1.0,2.0,4.0
+1952,Portugal,POR,2.0,0.0,0.0,2.0
+1952,Romania,ROU,2.0,1.0,1.0,4.0
+1952,South Africa,RSA,4.0,2.0,8.0,14.0
+1952,Soviet Union,URS,19.0,36.0,62.0,117.0
+1952,Spain,ESP,0.0,0.0,1.0,1.0
+1952,Sweden,SWE,23.0,23.0,24.0,70.0
+1952,Switzerland,SUI,12.0,2.0,19.0,33.0
+1952,Trinidad and Tobago,TRI,2.0,0.0,0.0,2.0
+1952,Turkey,TUR,1.0,2.0,0.0,3.0
+1952,United Kingdom,GBR,26.0,3.0,2.0,31.0
+1952,United States,USA,28.0,79.0,23.0,130.0
+1952,Uruguay,URU,14.0,0.0,0.0,14.0
+1952,Venezuela,VEN,1.0,0.0,0.0,1.0
+1952,Yugoslavia,YUG,0.0,4.0,20.0,24.0
+1956,Argentina,ARG,1.0,0.0,1.0,2.0
+1956,Australia,AUS,26.0,23.0,12.0,61.0
+1956,Austria,AUT,4.0,0.0,0.0,4.0
+1956,Bahamas,BAH,2.0,0.0,0.0,2.0
+1956,Belgium,BEL,0.0,0.0,2.0,2.0
+1956,Brazil,BRA,0.0,1.0,0.0,1.0
+1956,Bulgaria,BUL,14.0,1.0,3.0,18.0
+1956,Canada,CAN,5.0,5.0,9.0,19.0
+1956,Chile,CHI,2.0,0.0,2.0,4.0
+1956,Czechoslovakia,TCH,1.0,1.0,5.0,7.0
+1956,Denmark,DEN,1.0,1.0,5.0,7.0
+1956,Finland,FIN,22.0,3.0,1.0,26.0
+1956,France,FRA,13.0,6.0,13.0,32.0
+1956,Greece,GRE,1.0,0.0,0.0,1.0
+1956,Hungary,HUN,14.0,30.0,20.0,64.0
+1956,Iceland,ISL,0.0,0.0,1.0,1.0
+1956,India,IND,0.0,17.0,0.0,17.0
+1956,Iran,IRI,1.0,2.0,2.0,5.0
+1956,Ireland,IRL,3.0,1.0,1.0,5.0
+1956,Italy,ITA,10.0,25.0,11.0,46.0
+1956,Japan,JPN,5.0,4.0,15.0,24.0
+1956,"Korea, South",KOR,1.0,0.0,1.0,2.0
+1956,Mexico,MEX,1.0,1.0,0.0,2.0
+1956,New Zealand,NZL,0.0,3.0,0.0,3.0
+1956,Norway,NOR,2.0,1.0,0.0,3.0
+1956,Pakistan,PAK,0.0,0.0,14.0,14.0
+1956,Poland,POL,9.0,1.0,9.0,19.0
+1956,Romania,ROU,10.0,6.0,3.0,19.0
+1956,South Africa,RSA,7.0,0.0,0.0,7.0
+1956,Soviet Union,URS,55.0,68.0,46.0,169.0
+1956,Sweden,SWE,6.0,14.0,14.0,34.0
+1956,Switzerland,SUI,3.0,0.0,0.0,3.0
+1956,Turkey,TUR,2.0,3.0,2.0,7.0
+1956,Unified team of Germany,EUA,22.0,12.0,23.0,57.0
+1956,United Kingdom,GBR,22.0,8.0,15.0,45.0
+1956,United States,USA,20.0,61.0,37.0,118.0
+1956,Uruguay,URU,12.0,0.0,0.0,12.0
+1956,Yugoslavia,YUG,0.0,0.0,23.0,23.0
+1960,Argentina,ARG,1.0,0.0,3.0,4.0
+1960,Australia,AUS,9.0,10.0,17.0,36.0
+1960,Austria,AUT,0.0,1.0,2.0,3.0
+1960,Belgium,BEL,2.0,0.0,2.0,4.0
+1960,Brazil,BRA,13.0,0.0,0.0,13.0
+1960,British West Indies,BWI,5.0,0.0,0.0,5.0
+1960,Bulgaria,BUL,3.0,1.0,3.0,7.0
+1960,Canada,CAN,0.0,0.0,9.0,9.0
+1960,Czechoslovakia,TCH,11.0,4.0,7.0,22.0
+1960,Denmark,DEN,4.0,2.0,17.0,23.0
+1960,Egypt,EGY,1.0,0.0,1.0,2.0
+1960,Ethiopia,ETH,0.0,1.0,0.0,1.0
+1960,Finland,FIN,4.0,1.0,1.0,6.0
+1960,France,FRA,5.0,0.0,6.0,11.0
+1960,Ghana,GHA,0.0,0.0,1.0,1.0
+1960,Greece,GRE,0.0,3.0,0.0,3.0
+1960,Hungary,HUN,36.0,13.0,16.0,65.0
+1960,India,IND,0.0,0.0,13.0,13.0
+1960,Iran,IRI,3.0,0.0,1.0,4.0
+1960,Iraq,IRQ,1.0,0.0,0.0,1.0
+1960,Italy,ITA,34.0,36.0,18.0,88.0
+1960,Japan,JPN,10.0,9.0,10.0,29.0
+1960,Mexico,MEX,1.0,0.0,0.0,1.0
+1960,Morocco,MAR,0.0,0.0,1.0,1.0
+1960,Netherlands,NED,2.0,0.0,1.0,3.0
+1960,New Zealand,NZL,1.0,2.0,0.0,3.0
+1960,Norway,NOR,0.0,2.0,0.0,2.0
+1960,Pakistan,PAK,1.0,13.0,0.0,14.0
+1960,Poland,POL,15.0,4.0,11.0,30.0
+1960,Portugal,POR,0.0,0.0,2.0,2.0
+1960,Romania,ROU,11.0,3.0,1.0,15.0
+1960,Singapore,SIN,0.0,0.0,1.0,1.0
+1960,South Africa,RSA,2.0,0.0,1.0,3.0
+1960,Soviet Union,URS,45.0,61.0,63.0,169.0
+1960,Spain,ESP,14.0,0.0,0.0,14.0
+1960,Sweden,SWE,3.0,2.0,2.0,7.0
+1960,Switzerland,SUI,6.0,0.0,5.0,11.0
+1960,Taiwan,TPE,0.0,0.0,1.0,1.0
+1960,Turkey,TUR,0.0,7.0,2.0,9.0
+1960,Unified team of Germany,EUA,21.0,34.0,33.0,88.0
+1960,United Kingdom,GBR,15.0,2.0,11.0,28.0
+1960,United States,USA,21.0,68.0,23.0,112.0
+1960,Venezuela,VEN,1.0,0.0,0.0,1.0
+1960,Yugoslavia,YUG,0.0,16.0,1.0,17.0
+1964,Argentina,ARG,0.0,0.0,1.0,1.0
+1964,Australia,AUS,29.0,8.0,5.0,42.0
+1964,Bahamas,BAH,0.0,2.0,0.0,2.0
+1964,Belgium,BEL,1.0,2.0,0.0,3.0
+1964,Brazil,BRA,12.0,0.0,0.0,12.0
+1964,Bulgaria,BUL,2.0,3.0,5.0,10.0
+1964,Canada,CAN,1.0,2.0,2.0,5.0
+1964,Cuba,CUB,0.0,0.0,1.0,1.0
+1964,Czechoslovakia,TCH,12.0,5.0,38.0,55.0
+1964,Denmark,DEN,4.0,7.0,1.0,12.0
+1964,Ethiopia,ETH,0.0,1.0,0.0,1.0
+1964,Finland,FIN,2.0,3.0,0.0,5.0
+1964,France,FRA,17.0,1.0,13.0,31.0
+1964,Ghana,GHA,1.0,0.0,0.0,1.0
+1964,Hungary,HUN,7.0,42.0,7.0,56.0
+1964,India,IND,0.0,15.0,0.0,15.0
+1964,Iran,IRI,2.0,0.0,0.0,2.0
+1964,Ireland,IRL,1.0,0.0,0.0,1.0
+1964,Italy,ITA,9.0,13.0,28.0,50.0
+1964,Japan,JPN,27.0,32.0,5.0,64.0
+1964,Kenya,KEN,1.0,0.0,0.0,1.0
+1964,"Korea, South",KOR,1.0,0.0,2.0,3.0
+1964,Mexico,MEX,1.0,0.0,0.0,1.0
+1964,Netherlands,NED,16.0,5.0,9.0,30.0
+1964,New Zealand,NZL,2.0,4.0,0.0,6.0
+1964,Nigeria,NGR,1.0,0.0,0.0,1.0
+1964,Pakistan,PAK,0.0,0.0,16.0,16.0
+1964,Philippines,PHI,0.0,0.0,1.0,1.0
+1964,Poland,POL,25.0,10.0,13.0,48.0
+1964,Romania,ROU,10.0,2.0,4.0,16.0
+1964,Soviet Union,URS,50.0,61.0,63.0,174.0
+1964,Sweden,SWE,8.0,3.0,4.0,15.0
+1964,Switzerland,SUI,1.0,1.0,4.0,6.0
+1964,Trinidad and Tobago,TRI,5.0,0.0,1.0,6.0
+1964,Tunisia,TUN,1.0,0.0,1.0,2.0
+1964,Turkey,TUR,1.0,2.0,3.0,6.0
+1964,Unified team of Germany,EUA,49.0,22.0,44.0,115.0
+1964,United Kingdom,GBR,5.0,4.0,19.0,28.0
+1964,United States,USA,36.0,78.0,36.0,150.0
+1964,Uruguay,URU,1.0,0.0,0.0,1.0
+1964,Yugoslavia,YUG,2.0,2.0,11.0,15.0
+1968,Argentina,ARG,2.0,0.0,0.0,2.0
+1968,Australia,AUS,10.0,5.0,34.0,49.0
+1968,Austria,AUT,3.0,0.0,2.0,5.0
+1968,Belgium,BEL,2.0,0.0,1.0,3.0
+1968,Brazil,BRA,3.0,0.0,1.0,4.0
+1968,Bulgaria,BUL,3.0,2.0,21.0,26.0
+1968,Cameroon,CMR,0.0,0.0,1.0,1.0
+1968,Canada,CAN,4.0,3.0,3.0,10.0
+1968,Cuba,CUB,0.0,0.0,10.0,10.0
+1968,Czechoslovakia,TCH,15.0,7.0,7.0,29.0
+1968,Denmark,DEN,6.0,4.0,6.0,16.0
+1968,East Germany,GDR,19.0,13.0,19.0,51.0
+1968,Ethiopia,ETH,0.0,1.0,1.0,2.0
+1968,Finland,FIN,1.0,1.0,2.0,4.0
+1968,France,FRA,10.0,12.0,5.0,27.0
+1968,Greece,GRE,1.0,0.0,0.0,1.0
+1968,Hungary,HUN,29.0,32.0,20.0,81.0
+1968,India,IND,15.0,0.0,0.0,15.0
+1968,Iran,IRI,2.0,2.0,1.0,5.0
+1968,Italy,ITA,19.0,5.0,8.0,32.0
+1968,Jamaica,JAM,0.0,0.0,1.0,1.0
+1968,Japan,JPN,22.0,16.0,29.0,67.0
+1968,Kenya,KEN,2.0,3.0,7.0,12.0
+1968,"Korea, South",KOR,1.0,0.0,1.0,2.0
+1968,Mexico,MEX,3.0,3.0,3.0,9.0
+1968,Mongolia,MGL,3.0,0.0,1.0,4.0
+1968,Netherlands,NED,1.0,6.0,7.0,14.0
+1968,New Zealand,NZL,2.0,5.0,0.0,7.0
+1968,Norway,NOR,0.0,4.0,2.0,6.0
+1968,Pakistan,PAK,0.0,13.0,0.0,13.0
+1968,Poland,POL,30.0,5.0,2.0,37.0
+1968,Romania,ROU,9.0,5.0,9.0,23.0
+1968,Soviet Union,URS,60.0,66.0,62.0,188.0
+1968,Sweden,SWE,1.0,4.0,4.0,9.0
+1968,Switzerland,SUI,10.0,0.0,3.0,13.0
+1968,Taiwan,TPE,1.0,0.0,0.0,1.0
+1968,Tunisia,TUN,1.0,1.0,0.0,2.0
+1968,Turkey,TUR,0.0,2.0,0.0,2.0
+1968,Uganda,UGA,1.0,0.0,1.0,2.0
+1968,United Kingdom,GBR,5.0,8.0,5.0,18.0
+1968,United States,USA,35.0,83.0,31.0,149.0
+1968,Venezuela,VEN,0.0,1.0,0.0,1.0
+1968,West Germany,FRG,18.0,16.0,15.0,49.0
+1968,Yugoslavia,YUG,2.0,13.0,14.0,29.0
+1972,Argentina,ARG,0.0,0.0,1.0,1.0
+1972,Australia,AUS,2.0,11.0,7.0,20.0
+1972,Austria,AUT,2.0,0.0,1.0,3.0
+1972,Belgium,BEL,0.0,0.0,2.0,2.0
+1972,Brazil,BRA,2.0,0.0,0.0,2.0
+1972,Bulgaria,BUL,6.0,6.0,10.0,22.0
+1972,Canada,CAN,8.0,0.0,2.0,10.0
+1972,Colombia,COL,2.0,0.0,1.0,3.0
+1972,Cuba,CUB,18.0,3.0,1.0,22.0
+1972,Czechoslovakia,TCH,6.0,2.0,21.0,29.0
+1972,Denmark,DEN,0.0,1.0,0.0,1.0
+1972,East Germany,GDR,56.0,30.0,62.0,148.0
+1972,Ethiopia,ETH,2.0,0.0,0.0,2.0
+1972,Finland,FIN,6.0,3.0,1.0,10.0
+1972,France,FRA,15.0,2.0,5.0,22.0
+1972,Ghana,GHA,1.0,0.0,0.0,1.0
+1972,Greece,GRE,0.0,0.0,2.0,2.0
+1972,Hungary,HUN,25.0,10.0,46.0,81.0
+1972,India,IND,14.0,0.0,0.0,14.0
+1972,Iran,IRI,1.0,0.0,2.0,3.0
+1972,Italy,ITA,13.0,9.0,3.0,25.0
+1972,Jamaica,JAM,1.0,0.0,0.0,1.0
+1972,Japan,JPN,8.0,29.0,19.0,56.0
+1972,Kenya,KEN,4.0,5.0,3.0,12.0
+1972,"Korea, North",PRK,13.0,1.0,1.0,15.0
+1972,"Korea, South",KOR,0.0,0.0,1.0,1.0
+1972,Lebanon,LIB,0.0,0.0,1.0,1.0
+1972,Mexico,MEX,0.0,0.0,1.0,1.0
+1972,Mongolia,MGL,0.0,0.0,1.0,1.0
+1972,Netherlands,NED,2.0,3.0,1.0,6.0
+1972,New Zealand,NZL,1.0,9.0,4.0,14.0
+1972,Niger,NIG,1.0,0.0,0.0,1.0
+1972,Nigeria,NGR,1.0,0.0,0.0,1.0
+1972,Norway,NOR,4.0,2.0,2.0,8.0
+1972,Pakistan,PAK,0.0,0.0,15.0,15.0
+1972,Poland,POL,11.0,27.0,8.0,46.0
+1972,Romania,ROU,27.0,3.0,10.0,40.0
+1972,Soviet Union,URS,58.0,107.0,46.0,211.0
+1972,Spain,ESP,1.0,0.0,0.0,1.0
+1972,Sweden,SWE,8.0,4.0,9.0,21.0
+1972,Switzerland,SUI,0.0,0.0,8.0,8.0
+1972,Tunisia,TUN,0.0,0.0,1.0,1.0
+1972,Turkey,TUR,0.0,0.0,1.0,1.0
+1972,Uganda,UGA,0.0,1.0,1.0,2.0
+1972,United Kingdom,GBR,12.0,8.0,9.0,29.0
+1972,United States,USA,43.0,53.0,59.0,155.0
+1972,West Germany,FRG,36.0,43.0,17.0,96.0
+1972,Yugoslavia,YUG,2.0,15.0,1.0,18.0
+1976,Australia,AUS,8.0,0.0,16.0,24.0
+1976,Austria,AUT,1.0,0.0,0.0,1.0
+1976,Belgium,BEL,6.0,0.0,3.0,9.0
+1976,Bermuda*,BER,1.0,0.0,0.0,1.0
+1976,Brazil,BRA,3.0,0.0,0.0,3.0
+1976,Bulgaria,BUL,18.0,8.0,13.0,39.0
+1976,Canada,CAN,12.0,0.0,8.0,20.0
+1976,Cuba,CUB,14.0,6.0,4.0,24.0
+1976,Czechoslovakia,TCH,9.0,2.0,4.0,15.0
+1976,Denmark,DEN,5.0,3.0,0.0,8.0
+1976,East Germany,GDR,42.0,99.0,51.0,192.0
+1976,Finland,FIN,0.0,4.0,2.0,6.0
+1976,France,FRA,8.0,5.0,7.0,20.0
+1976,Hungary,HUN,35.0,14.0,6.0,55.0
+1976,Iran,IRI,1.0,0.0,1.0,2.0
+1976,Italy,ITA,4.0,2.0,25.0,31.0
+1976,Jamaica,JAM,0.0,1.0,1.0,2.0
+1976,Japan,JPN,10.0,25.0,6.0,41.0
+1976,"Korea, North",PRK,0.0,1.0,1.0,2.0
+1976,"Korea, South",KOR,15.0,1.0,1.0,17.0
+1976,Mexico,MEX,1.0,1.0,0.0,2.0
+1976,Mongolia,MGL,0.0,0.0,1.0,1.0
+1976,Netherlands,NED,13.0,0.0,2.0,15.0
+1976,New Zealand,NZL,9.0,17.0,1.0,27.0
+1976,Norway,NOR,0.0,2.0,4.0,6.0
+1976,Pakistan,PAK,16.0,0.0,0.0,16.0
+1976,Poland,POL,26.0,18.0,29.0,73.0
+1976,Portugal,POR,0.0,0.0,2.0,2.0
+1976,Puerto Rico*,PUR,1.0,0.0,0.0,1.0
+1976,Romania,ROU,23.0,4.0,28.0,55.0
+1976,Soviet Union,URS,79.0,113.0,93.0,285.0
+1976,Spain,ESP,0.0,0.0,6.0,6.0
+1976,Sweden,SWE,0.0,9.0,1.0,10.0
+1976,Switzerland,SUI,6.0,1.0,3.0,10.0
+1976,Thailand,THA,1.0,0.0,0.0,1.0
+1976,Trinidad and Tobago,TRI,0.0,1.0,0.0,1.0
+1976,United Kingdom,GBR,11.0,6.0,15.0,32.0
+1976,United States,USA,36.0,63.0,56.0,155.0
+1976,Venezuela,VEN,0.0,0.0,1.0,1.0
+1976,West Germany,FRG,30.0,21.0,24.0,75.0
+1976,Yugoslavia,YUG,3.0,2.0,14.0,19.0
+1980,Australia,AUS,5.0,5.0,2.0,12.0
+1980,Austria,AUT,1.0,1.0,3.0,5.0
+1980,Belgium,BEL,0.0,1.0,0.0,1.0
+1980,Brazil,BRA,5.0,4.0,0.0,9.0
+1980,Bulgaria,BUL,40.0,8.0,46.0,94.0
+1980,Cuba,CUB,5.0,8.0,7.0,20.0
+1980,Czechoslovakia,TCH,16.0,18.0,18.0,52.0
+1980,Denmark,DEN,2.0,4.0,2.0,8.0
+1980,East Germany,GDR,61.0,112.0,87.0,260.0
+1980,Ethiopia,ETH,2.0,2.0,0.0,4.0
+1980,Finland,FIN,5.0,3.0,1.0,9.0
+1980,France,FRA,6.0,18.0,5.0,29.0
+1980,Greece,GRE,4.0,1.0,0.0,5.0
+1980,Guyana,GUY,1.0,0.0,0.0,1.0
+1980,Hungary,HUN,40.0,8.0,13.0,61.0
+1980,India,IND,0.0,16.0,0.0,16.0
+1980,Ireland,IRL,1.0,0.0,2.0,3.0
+1980,Italy,ITA,8.0,8.0,21.0,37.0
+1980,Jamaica,JAM,3.0,0.0,0.0,3.0
+1980,"Korea, North",PRK,2.0,0.0,3.0,5.0
+1980,Lebanon,LIB,1.0,0.0,0.0,1.0
+1980,Mexico,MEX,11.0,0.0,1.0,12.0
+1980,Mongolia,MGL,2.0,0.0,2.0,4.0
+1980,Netherlands,NED,5.0,0.0,1.0,6.0
+1980,Poland,POL,22.0,3.0,25.0,50.0
+1980,Romania,ROU,50.0,7.0,15.0,72.0
+1980,Soviet Union,URS,123.0,192.0,127.0,442.0
+1980,Spain,ESP,3.0,2.0,19.0,24.0
+1980,Sweden,SWE,9.0,3.0,6.0,18.0
+1980,Switzerland,SUI,0.0,2.0,0.0,2.0
+1980,Tanzania,TAN,0.0,0.0,2.0,2.0
+1980,Uganda,UGA,0.0,0.0,1.0,1.0
+1980,United Kingdom,GBR,22.0,5.0,18.0,45.0
+1980,Venezuela,VEN,0.0,0.0,1.0,1.0
+1980,Yugoslavia,YUG,17.0,13.0,27.0,57.0
+1980,Zimbabwe,ZIM,0.0,16.0,0.0,16.0
+1984,Algeria,ALG,2.0,0.0,0.0,2.0
+1984,Australia,AUS,29.0,7.0,14.0,50.0
+1984,Austria,AUT,1.0,1.0,1.0,3.0
+1984,Belgium,BEL,2.0,1.0,2.0,5.0
+1984,Brazil,BRA,2.0,1.0,34.0,37.0
+1984,Cameroon,CMR,1.0,0.0,0.0,1.0
+1984,Canada,CAN,32.0,19.0,35.0,86.0
+1984,China,CHN,37.0,26.0,13.0,76.0
+1984,Colombia,COL,0.0,0.0,1.0,1.0
+1984,Cote d'Ivoire,CIV,0.0,0.0,1.0,1.0
+1984,Denmark,DEN,10.0,0.0,5.0,15.0
+1984,Dominican Republic,DOM,1.0,0.0,0.0,1.0
+1984,Egypt,EGY,0.0,0.0,1.0,1.0
+1984,Finland,FIN,6.0,4.0,2.0,12.0
+1984,France,FRA,31.0,21.0,16.0,68.0
+1984,Greece,GRE,1.0,0.0,1.0,2.0
+1984,Iceland,ISL,1.0,0.0,0.0,1.0
+1984,Ireland,IRL,0.0,0.0,1.0,1.0
+1984,Italy,ITA,28.0,29.0,6.0,63.0
+1984,Jamaica,JAM,2.0,0.0,4.0,6.0
+1984,Japan,JPN,31.0,10.0,8.0,49.0
+1984,Kenya,KEN,2.0,1.0,0.0,3.0
+1984,"Korea, South",KOR,7.0,6.0,29.0,42.0
+1984,Mexico,MEX,1.0,2.0,3.0,6.0
+1984,Morocco,MAR,0.0,2.0,0.0,2.0
+1984,Netherlands,NED,14.0,20.0,6.0,40.0
+1984,New Zealand,NZL,6.0,16.0,1.0,23.0
+1984,Nigeria,NGR,4.0,0.0,1.0,5.0
+1984,Norway,NOR,3.0,0.0,1.0,4.0
+1984,Pakistan,PAK,0.0,16.0,0.0,16.0
+1984,Peru,PER,0.0,0.0,1.0,1.0
+1984,Portugal,POR,2.0,1.0,0.0,3.0
+1984,Puerto Rico*,PUR,1.0,0.0,1.0,2.0
+1984,Romania,ROU,35.0,40.0,31.0,106.0
+1984,Spain,ESP,3.0,2.0,14.0,19.0
+1984,Sweden,SWE,11.0,3.0,18.0,32.0
+1984,Switzerland,SUI,6.0,0.0,9.0,15.0
+1984,Syria,SYR,0.0,0.0,1.0,1.0
+1984,Taiwan,TPE,1.0,0.0,0.0,1.0
+1984,Thailand,THA,0.0,0.0,1.0,1.0
+1984,Turkey,TUR,3.0,0.0,0.0,3.0
+1984,United Kingdom,GBR,43.0,9.0,20.0,72.0
+1984,United States,USA,50.0,168.0,115.0,333.0
+1984,Venezuela,VEN,3.0,0.0,0.0,3.0
+1984,West Germany,FRG,52.0,31.0,74.0,157.0
+1984,Yugoslavia,YUG,35.0,47.0,5.0,87.0
+1984,Zambia,ZAM,1.0,0.0,0.0,1.0
+1988,Argentina,ARG,12.0,0.0,1.0,13.0
+1988,Australia,AUS,10.0,18.0,6.0,34.0
+1988,Austria,AUT,0.0,1.0,0.0,1.0
+1988,Belgium,BEL,2.0,0.0,0.0,2.0
+1988,Brazil,BRA,5.0,1.0,22.0,28.0
+1988,Bulgaria,BUL,17.0,10.0,14.0,41.0
+1988,Canada,CAN,12.0,4.0,5.0,21.0
+1988,Chile,CHI,0.0,0.0,1.0,1.0
+1988,China,CHN,31.0,6.0,16.0,53.0
+1988,Colombia,COL,1.0,0.0,0.0,1.0
+1988,Costa Rica,CRC,0.0,0.0,1.0,1.0
+1988,Czechoslovakia,TCH,3.0,3.0,4.0,10.0
+1988,Denmark,DEN,3.0,3.0,1.0,7.0
+1988,Djibouti,DJI,1.0,0.0,0.0,1.0
+1988,East Germany,GDR,47.0,75.0,52.0,174.0
+1988,Finland,FIN,2.0,1.0,1.0,4.0
+1988,France,FRA,13.0,12.0,4.0,29.0
+1988,Greece,GRE,1.0,0.0,0.0,1.0
+1988,Hungary,HUN,15.0,20.0,9.0,44.0
+1988,Indonesia,INA,0.0,0.0,3.0,3.0
+1988,Iran,IRI,0.0,0.0,1.0,1.0
+1988,Italy,ITA,8.0,11.0,10.0,29.0
+1988,Jamaica,JAM,0.0,0.0,5.0,5.0
+1988,Japan,JPN,13.0,4.0,3.0,20.0
+1988,Kenya,KEN,2.0,5.0,2.0,9.0
+1988,"Korea, South",KOR,12.0,28.0,37.0,77.0
+1988,Mexico,MEX,2.0,0.0,0.0,2.0
+1988,Mongolia,MGL,1.0,0.0,0.0,1.0
+1988,Morocco,MAR,2.0,1.0,0.0,3.0
+1988,Netherlands,NED,36.0,3.0,5.0,44.0
+1988,Netherlands Antilles*,AHO,0.0,0.0,1.0,1.0
+1988,New Zealand,NZL,16.0,4.0,4.0,24.0
+1988,Norway,NOR,0.0,2.0,21.0,23.0
+1988,Pakistan,PAK,1.0,0.0,0.0,1.0
+1988,Peru,PER,0.0,0.0,12.0,12.0
+1988,Philippines,PHI,1.0,0.0,0.0,1.0
+1988,Poland,POL,10.0,2.0,9.0,21.0
+1988,Portugal,POR,0.0,1.0,0.0,1.0
+1988,Romania,ROU,13.0,8.0,30.0,51.0
+1988,Senegal,SEN,0.0,0.0,1.0,1.0
+1988,Soviet Union,URS,95.0,134.0,65.0,294.0
+1988,Spain,ESP,2.0,1.0,2.0,5.0
+1988,Suriname,SUR,0.0,1.0,0.0,1.0
+1988,Sweden,SWE,11.0,0.0,5.0,16.0
+1988,Switzerland,SUI,2.0,0.0,6.0,8.0
+1988,Thailand,THA,1.0,0.0,0.0,1.0
+1988,Turkey,TUR,0.0,1.0,1.0,2.0
+1988,United Kingdom,GBR,15.0,22.0,16.0,53.0
+1988,United States,USA,52.0,77.0,64.0,193.0
+1988,Virgin Islands*,ISV,0.0,0.0,1.0,1.0
+1988,West Germany,FRG,44.0,32.0,37.0,113.0
+1988,Yugoslavia,YUG,21.0,15.0,27.0,63.0
+1992,Algeria,ALG,1.0,1.0,0.0,2.0
+1992,Argentina,ARG,2.0,0.0,0.0,2.0
+1992,Australia,AUS,16.0,14.0,27.0,57.0
+1992,Austria,AUT,0.0,0.0,6.0,6.0
+1992,Bahamas,BAH,1.0,0.0,0.0,1.0
+1992,Belgium,BEL,2.0,0.0,1.0,3.0
+1992,Brazil,BRA,0.0,13.0,1.0,14.0
+1992,Bulgaria,BUL,7.0,3.0,7.0,17.0
+1992,Canada,CAN,12.0,27.0,5.0,44.0
+1992,China,CHN,19.0,18.0,46.0,83.0
+1992,Colombia,COL,1.0,0.0,0.0,1.0
+1992,Croatia,CRO,3.0,0.0,12.0,15.0
+1992,Cuba,CUB,14.0,44.0,13.0,71.0
+1992,Czechoslovakia,TCH,1.0,4.0,3.0,8.0
+1992,Denmark,DEN,9.0,3.0,2.0,14.0
+1992,Estonia,EST,2.0,1.0,0.0,3.0
+1992,Ethiopia,ETH,2.0,1.0,0.0,3.0
+1992,Finland,FIN,2.0,1.0,4.0,7.0
+1992,France,FRA,43.0,9.0,5.0,57.0
+1992,Germany,GER,60.0,81.0,57.0,198.0
+1992,Ghana,GHA,13.0,0.0,0.0,13.0
+1992,Greece,GRE,0.0,2.0,0.0,2.0
+1992,Hungary,HUN,8.0,14.0,23.0,45.0
+1992,Independent Olympic Participants (1992),IOP,2.0,0.0,1.0,3.0
+1992,Indonesia,INA,1.0,2.0,3.0,6.0
+1992,Iran,IRI,2.0,0.0,1.0,3.0
+1992,Ireland,IRL,0.0,1.0,1.0,2.0
+1992,Israel,ISR,1.0,0.0,1.0,2.0
+1992,Italy,ITA,14.0,22.0,10.0,46.0
+1992,Jamaica,JAM,1.0,0.0,3.0,4.0
+1992,Japan,JPN,36.0,3.0,8.0,47.0
+1992,Kenya,KEN,2.0,2.0,4.0,8.0
+1992,"Korea, North",PRK,6.0,4.0,0.0,10.0
+1992,"Korea, South",KOR,16.0,28.0,5.0,49.0
+1992,Latvia,LAT,1.0,0.0,2.0,3.0
+1992,Lithuania,LTU,12.0,1.0,0.0,13.0
+1992,Malaysia,MAS,2.0,0.0,0.0,2.0
+1992,Mexico,MEX,0.0,0.0,1.0,1.0
+1992,Mongolia,MGL,2.0,0.0,0.0,2.0
+1992,Morocco,MAR,1.0,1.0,1.0,3.0
+1992,Namibia,NAM,0.0,0.0,2.0,2.0
+1992,Netherlands,NED,8.0,5.0,20.0,33.0
+1992,New Zealand,NZL,5.0,1.0,9.0,15.0
+1992,Nigeria,NGR,4.0,0.0,7.0,11.0
+1992,Norway,NOR,1.0,2.0,20.0,23.0
+1992,Pakistan,PAK,16.0,0.0,0.0,16.0
+1992,Peru,PER,0.0,0.0,1.0,1.0
+1992,Philippines,PHI,1.0,0.0,0.0,1.0
+1992,Poland,POL,19.0,5.0,18.0,42.0
+1992,Puerto Rico*,PUR,1.0,0.0,0.0,1.0
+1992,Qatar,QAT,1.0,0.0,0.0,1.0
+1992,Romania,ROU,14.0,8.0,31.0,53.0
+1992,Slovenia,SLO,6.0,0.0,0.0,6.0
+1992,South Africa,RSA,0.0,0.0,3.0,3.0
+1992,Spain,ESP,2.0,44.0,20.0,66.0
+1992,Suriname,SUR,1.0,0.0,0.0,1.0
+1992,Sweden,SWE,7.0,1.0,27.0,35.0
+1992,Switzerland,SUI,0.0,1.0,0.0,1.0
+1992,Taiwan,TPE,0.0,0.0,20.0,20.0
+1992,Thailand,THA,1.0,0.0,0.0,1.0
+1992,Turkey,TUR,2.0,2.0,2.0,6.0
+1992,Unified team,EUN,66.0,92.0,65.0,223.0
+1992,United Kingdom,GBR,39.0,8.0,3.0,50.0
+1992,United States,USA,85.0,89.0,50.0,224.0
+1996,Algeria,ALG,1.0,2.0,0.0,3.0
+1996,Argentina,ARG,1.0,0.0,19.0,20.0
+1996,Armenia,ARM,0.0,1.0,1.0,2.0
+1996,Australia,AUS,84.0,32.0,16.0,132.0
+1996,Austria,AUT,2.0,0.0,1.0,3.0
+1996,Azerbaijan,AZE,0.0,0.0,1.0,1.0
+1996,Bahamas,BAH,0.0,0.0,5.0,5.0
+1996,Belarus,BLR,16.0,1.0,6.0,23.0
+1996,Belgium,BEL,2.0,2.0,2.0,6.0
+1996,Brazil,BRA,44.0,5.0,15.0,64.0
+1996,Bulgaria,BUL,6.0,3.0,12.0,21.0
+1996,Burundi,BDI,0.0,1.0,0.0,1.0
+1996,Canada,CAN,12.0,8.0,31.0,51.0
+1996,China,CHN,17.0,19.0,74.0,110.0
+1996,Costa Rica,CRC,0.0,1.0,0.0,1.0
+1996,Croatia,CRO,0.0,16.0,13.0,29.0
+1996,Cuba,CUB,10.0,39.0,8.0,57.0
+1996,Czech Republic,CZE,4.0,4.0,5.0,13.0
+1996,Denmark,DEN,1.0,22.0,1.0,24.0
+1996,Ecuador,ECU,0.0,1.0,0.0,1.0
+1996,Ethiopia,ETH,1.0,2.0,0.0,3.0
+1996,Finland,FIN,1.0,1.0,2.0,4.0
+1996,France,FRA,20.0,21.0,10.0,51.0
+1996,Georgia,GEO,2.0,0.0,0.0,2.0
+1996,Germany,GER,47.0,42.0,35.0,124.0
+1996,Greece,GRE,0.0,4.0,4.0,8.0
+1996,Hong Kong*,HKG,0.0,1.0,0.0,1.0
+1996,Hungary,HUN,26.0,8.0,9.0,43.0
+1996,India,IND,1.0,0.0,0.0,1.0
+1996,Indonesia,INA,3.0,2.0,1.0,6.0
+1996,Iran,IRI,1.0,1.0,1.0,3.0
+1996,Ireland,IRL,1.0,3.0,0.0,4.0
+1996,Israel,ISR,1.0,0.0,0.0,1.0
+1996,Italy,ITA,28.0,19.0,24.0,71.0
+1996,Jamaica,JAM,12.0,1.0,3.0,16.0
+1996,Japan,JPN,14.0,3.0,26.0,43.0
+1996,Kazakhstan,KAZ,4.0,3.0,4.0,11.0
+1996,Kenya,KEN,3.0,1.0,4.0,8.0
+1996,"Korea, North",PRK,2.0,2.0,1.0,5.0
+1996,"Korea, South",KOR,7.0,10.0,49.0,66.0
+1996,Latvia,LAT,0.0,0.0,1.0,1.0
+1996,Lithuania,LTU,12.0,0.0,0.0,12.0
+1996,Malaysia,MAS,1.0,0.0,2.0,3.0
+1996,Mexico,MEX,1.0,0.0,0.0,1.0
+1996,Moldova,MDA,1.0,0.0,2.0,3.0
+1996,Mongolia,MGL,1.0,0.0,0.0,1.0
+1996,Morocco,MAR,2.0,0.0,0.0,2.0
+1996,Mozambique,MOZ,1.0,0.0,0.0,1.0
+1996,Namibia,NAM,0.0,0.0,2.0,2.0
+1996,Netherlands,NED,26.0,38.0,9.0,73.0
+1996,New Zealand,NZL,4.0,3.0,2.0,9.0
+1996,Nigeria,NGR,3.0,19.0,4.0,26.0
+1996,Norway,NOR,20.0,2.0,3.0,25.0
+1996,Philippines,PHI,0.0,0.0,1.0,1.0
+1996,Poland,POL,7.0,7.0,7.0,21.0
+1996,Portugal,POR,2.0,1.0,0.0,3.0
+1996,Puerto Rico*,PUR,1.0,0.0,0.0,1.0
+1996,Romania,ROU,15.0,13.0,10.0,38.0
+1996,Russia,RUS,34.0,36.0,45.0,115.0
+1996,Slovakia,SVK,1.0,1.0,1.0,3.0
+1996,Slovenia,SLO,0.0,0.0,2.0,2.0
+1996,South Africa,RSA,1.0,3.0,1.0,5.0
+1996,Spain,ESP,22.0,24.0,21.0,67.0
+1996,Sweden,SWE,5.0,3.0,23.0,31.0
+1996,Switzerland,SUI,0.0,5.0,6.0,11.0
+1996,Syria,SYR,0.0,1.0,0.0,1.0
+1996,Taiwan,TPE,0.0,0.0,1.0,1.0
+1996,Thailand,THA,1.0,1.0,0.0,2.0
+1996,Tonga,TGA,0.0,0.0,1.0,1.0
+1996,Trinidad and Tobago,TRI,2.0,0.0,0.0,2.0
+1996,Tunisia,TUN,1.0,0.0,0.0,1.0
+1996,Turkey,TUR,1.0,4.0,1.0,6.0
+1996,Uganda,UGA,1.0,0.0,0.0,1.0
+1996,Ukraine,UKR,19.0,10.0,5.0,34.0
+1996,United Kingdom,GBR,9.0,2.0,15.0,26.0
+1996,United States,USA,52.0,160.0,48.0,260.0
+1996,Uzbekistan,UZB,1.0,0.0,1.0,2.0
+1996,Yugoslavia,YUG,13.0,1.0,12.0,26.0
+1996,Zambia,ZAM,0.0,0.0,1.0,1.0
+2000,Algeria,ALG,3.0,1.0,1.0,5.0
+2000,Argentina,ARG,3.0,0.0,17.0,20.0
+2000,Armenia,ARM,1.0,0.0,0.0,1.0
+2000,Australia,AUS,54.0,60.0,69.0,183.0
+2000,Austria,AUT,0.0,3.0,1.0,4.0
+2000,Azerbaijan,AZE,1.0,2.0,0.0,3.0
+2000,Bahamas,BAH,0.0,6.0,0.0,6.0
+2000,Barbados,BAR,1.0,0.0,0.0,1.0
+2000,Belarus,BLR,11.0,3.0,8.0,22.0
+2000,Belgium,BEL,4.0,0.0,3.0,7.0
+2000,Brazil,BRA,36.0,0.0,12.0,48.0
+2000,Bulgaria,BUL,2.0,5.0,6.0,13.0
+2000,Cameroon,CMR,0.0,18.0,0.0,18.0
+2000,Canada,CAN,23.0,4.0,4.0,31.0
+2000,Chile,CHI,18.0,0.0,0.0,18.0
+2000,China,CHN,17.0,39.0,23.0,79.0
+2000,Colombia,COL,0.0,1.0,0.0,1.0
+2000,Costa Rica,CRC,2.0,0.0,0.0,2.0
+2000,Croatia,CRO,9.0,1.0,0.0,10.0
+2000,Cuba,CUB,12.0,22.0,35.0,69.0
+2000,Czech Republic,CZE,4.0,2.0,3.0,9.0
+2000,Denmark,DEN,4.0,18.0,3.0,25.0
+2000,Estonia,EST,2.0,1.0,0.0,3.0
+2000,Ethiopia,ETH,3.0,4.0,1.0,8.0
+2000,Finland,FIN,1.0,3.0,1.0,5.0
+2000,France,FRA,14.0,22.0,30.0,66.0
+2000,Georgia,GEO,6.0,0.0,0.0,6.0
+2000,Germany,GER,65.0,31.0,23.0,119.0
+2000,Greece,GRE,8.0,4.0,6.0,18.0
+2000,Hungary,HUN,4.0,25.0,24.0,53.0
+2000,Iceland,ISL,1.0,0.0,0.0,1.0
+2000,India,IND,1.0,0.0,0.0,1.0
+2000,Indonesia,INA,2.0,2.0,4.0,8.0
+2000,Iran,IRI,1.0,3.0,0.0,4.0
+2000,Ireland,IRL,0.0,0.0,1.0,1.0
+2000,Israel,ISR,1.0,0.0,0.0,1.0
+2000,Italy,ITA,29.0,22.0,14.0,65.0
+2000,Jamaica,JAM,9.0,0.0,14.0,23.0
+2000,Japan,JPN,8.0,5.0,30.0,43.0
+2000,Kazakhstan,KAZ,0.0,3.0,4.0,7.0
+2000,Kenya,KEN,2.0,2.0,3.0,7.0
+2000,"Korea, North",PRK,3.0,0.0,1.0,4.0
+2000,"Korea, South",KOR,35.0,12.0,26.0,73.0
+2000,Kuwait,KUW,1.0,0.0,0.0,1.0
+2000,Kyrgyzstan,KGZ,1.0,0.0,0.0,1.0
+2000,Latvia,LAT,1.0,1.0,1.0,3.0
+2000,Lithuania,LTU,15.0,2.0,0.0,17.0
+2000,Macedonia,MKD,1.0,0.0,0.0,1.0
+2000,Mexico,MEX,3.0,1.0,2.0,6.0
+2000,Moldova,MDA,1.0,0.0,1.0,2.0
+2000,Morocco,MAR,4.0,0.0,1.0,5.0
+2000,Mozambique,MOZ,0.0,1.0,0.0,1.0
+2000,Netherlands,NED,23.0,27.0,29.0,79.0
+2000,New Zealand,NZL,3.0,1.0,0.0,4.0
+2000,Nigeria,NGR,0.0,0.0,8.0,8.0
+2000,Norway,NOR,19.0,21.0,4.0,44.0
+2000,Poland,POL,7.0,7.0,10.0,24.0
+2000,Portugal,POR,2.0,0.0,0.0,2.0
+2000,Qatar,QAT,1.0,0.0,0.0,1.0
+2000,Romania,ROU,13.0,27.0,6.0,46.0
+2000,Russia,RUS,54.0,66.0,68.0,188.0
+2000,Saudi Arabia,KSA,1.0,0.0,1.0,2.0
+2000,Slovakia,SVK,1.0,2.0,3.0,6.0
+2000,Slovenia,SLO,0.0,3.0,0.0,3.0
+2000,South Africa,RSA,3.0,0.0,2.0,5.0
+2000,Spain,ESP,20.0,3.0,20.0,43.0
+2000,Sri Lanka,SRI,0.0,0.0,1.0,1.0
+2000,Sweden,SWE,8.0,4.0,20.0,32.0
+2000,Switzerland,SUI,2.0,1.0,11.0,14.0
+2000,Taiwan,TPE,4.0,0.0,1.0,5.0
+2000,Thailand,THA,2.0,1.0,0.0,3.0
+2000,Trinidad and Tobago,TRI,1.0,0.0,1.0,2.0
+2000,Turkey,TUR,2.0,3.0,0.0,5.0
+2000,Ukraine,UKR,12.0,3.0,20.0,35.0
+2000,United Kingdom,GBR,13.0,22.0,20.0,55.0
+2000,United States,USA,52.0,130.0,66.0,248.0
+2000,Uruguay,URU,0.0,0.0,1.0,1.0
+2000,Uzbekistan,UZB,2.0,1.0,1.0,4.0
+2000,Vietnam,VIE,0.0,0.0,1.0,1.0
+2000,Yugoslavia,YUG,13.0,12.0,1.0,26.0
+2004,Argentina,ARG,21.0,26.0,0.0,47.0
+2004,Australia,AUS,30.0,49.0,78.0,157.0
+2004,Austria,AUT,1.0,3.0,4.0,8.0
+2004,Azerbaijan,AZE,4.0,1.0,0.0,5.0
+2004,Bahamas,BAH,1.0,1.0,0.0,2.0
+2004,Belarus,BLR,9.0,2.0,6.0,17.0
+2004,Belgium,BEL,2.0,1.0,0.0,3.0
+2004,Brazil,BRA,3.0,18.0,19.0,40.0
+2004,Bulgaria,BUL,14.0,2.0,1.0,17.0
+2004,Cameroon,CMR,0.0,1.0,0.0,1.0
+2004,Canada,CAN,4.0,3.0,10.0,17.0
+2004,Chile,CHI,1.0,3.0,0.0,4.0
+2004,China,CHN,15.0,52.0,27.0,94.0
+2004,Colombia,COL,2.0,0.0,0.0,2.0
+2004,Croatia,CRO,3.0,14.0,3.0,20.0
+2004,Cuba,CUB,22.0,31.0,8.0,61.0
+2004,Czech Republic,CZE,5.0,1.0,6.0,12.0
+2004,Denmark,DEN,10.0,19.0,0.0,29.0
+2004,Dominican Republic,DOM,0.0,1.0,0.0,1.0
+2004,Egypt,EGY,3.0,1.0,1.0,5.0
+2004,Eritrea,ERI,1.0,0.0,0.0,1.0
+2004,Estonia,EST,2.0,0.0,1.0,3.0
+2004,Ethiopia,ETH,2.0,2.0,3.0,7.0
+2004,Finland,FIN,0.0,0.0,2.0,2.0
+2004,France,FRA,22.0,21.0,10.0,53.0
+2004,Georgia,GEO,0.0,2.0,2.0,4.0
+2004,Germany,GER,63.0,41.0,45.0,149.0
+2004,Greece,GRE,5.0,8.0,18.0,31.0
+2004,Hong Kong*,HKG,0.0,0.0,2.0,2.0
+2004,Hungary,HUN,4.0,24.0,12.0,40.0
+2004,India,IND,0.0,0.0,1.0,1.0
+2004,Indonesia,INA,3.0,1.0,1.0,5.0
+2004,Iran,IRI,2.0,2.0,2.0,6.0
+2004,Israel,ISR,1.0,1.0,0.0,2.0
+2004,Italy,ITA,39.0,24.0,39.0,102.0
+2004,Jamaica,JAM,6.0,6.0,1.0,13.0
+2004,Japan,JPN,53.0,21.0,20.0,94.0
+2004,Kazakhstan,KAZ,3.0,1.0,4.0,8.0
+2004,Kenya,KEN,2.0,1.0,4.0,7.0
+2004,"Korea, North",PRK,1.0,0.0,4.0,5.0
+2004,"Korea, South",KOR,10.0,14.0,28.0,52.0
+2004,Latvia,LAT,0.0,0.0,4.0,4.0
+2004,Lithuania,LTU,0.0,1.0,2.0,3.0
+2004,Mexico,MEX,1.0,0.0,3.0,4.0
+2004,Mongolia,MGL,1.0,0.0,0.0,1.0
+2004,Morocco,MAR,0.0,2.0,1.0,3.0
+2004,Netherlands,NED,22.0,4.0,50.0,76.0
+2004,New Zealand,NZL,0.0,4.0,2.0,6.0
+2004,Nigeria,NGR,8.0,0.0,0.0,8.0
+2004,Norway,NOR,2.0,5.0,0.0,7.0
+2004,Paraguay,PAR,0.0,0.0,17.0,17.0
+2004,Poland,POL,6.0,4.0,2.0,12.0
+2004,Portugal,POR,1.0,0.0,2.0,3.0
+2004,Romania,ROU,11.0,23.0,5.0,39.0
+2004,Russia,RUS,96.0,47.0,49.0,192.0
+2004,Serbia,SCG,0.0,0.0,14.0,14.0
+2004,Slovakia,SVK,5.0,3.0,2.0,10.0
+2004,Slovenia,SLO,3.0,0.0,2.0,5.0
+2004,South Africa,RSA,3.0,4.0,3.0,10.0
+2004,Spain,ESP,8.0,4.0,15.0,27.0
+2004,Sweden,SWE,2.0,5.0,5.0,12.0
+2004,Switzerland,SUI,4.0,1.0,2.0,7.0
+2004,Syria,SYR,1.0,0.0,0.0,1.0
+2004,Taiwan,TPE,3.0,2.0,4.0,9.0
+2004,Thailand,THA,4.0,3.0,1.0,8.0
+2004,Trinidad and Tobago,TRI,1.0,0.0,0.0,1.0
+2004,Turkey,TUR,4.0,3.0,3.0,10.0
+2004,Ukraine,UKR,31.0,9.0,8.0,48.0
+2004,United Arab Emirates,UAE,0.0,1.0,0.0,1.0
+2004,United Kingdom,GBR,15.0,17.0,25.0,57.0
+2004,United States,USA,73.0,116.0,75.0,264.0
+2004,Uzbekistan,UZB,2.0,2.0,1.0,5.0
+2004,Venezuela,VEN,2.0,0.0,0.0,2.0
+2004,Zimbabwe,ZIM,1.0,1.0,1.0,3.0
+2008,Afghanistan,AFG,1.0,0.0,0.0,1.0
+2008,Algeria,ALG,1.0,0.0,1.0,2.0
+2008,Argentina,ARG,31.0,20.0,0.0,51.0
+2008,Armenia,ARM,6.0,0.0,0.0,6.0
+2008,Australia,AUS,76.0,31.0,42.0,149.0
+2008,Austria,AUT,2.0,0.0,1.0,3.0
+2008,Azerbaijan,AZE,4.0,1.0,2.0,7.0
+2008,Bahamas,BAH,1.0,0.0,4.0,5.0
+2008,Belarus,BLR,17.0,8.0,5.0,30.0
+2008,Belgium,BEL,0.0,1.0,4.0,5.0
+2008,Brazil,BRA,27.0,14.0,34.0,75.0
+2008,Bulgaria,BUL,3.0,1.0,1.0,5.0
+2008,Cameroon,CMR,0.0,1.0,0.0,1.0
+2008,Canada,CAN,10.0,11.0,13.0,34.0
+2008,Chile,CHI,0.0,0.0,1.0,1.0
+2008,China,CHN,57.0,74.0,53.0,184.0
+2008,Colombia,COL,1.0,0.0,1.0,2.0
+2008,Croatia,CRO,3.0,0.0,2.0,5.0
+2008,Cuba,CUB,11.0,2.0,34.0,47.0
+2008,Czech Republic,CZE,0.0,3.0,4.0,7.0
+2008,Denmark,DEN,6.0,6.0,6.0,18.0
+2008,Dominican Republic,DOM,0.0,1.0,1.0,2.0
+2008,Ecuador,ECU,0.0,0.0,1.0,1.0
+2008,Egypt,EGY,1.0,0.0,0.0,1.0
+2008,Estonia,EST,0.0,1.0,2.0,3.0
+2008,Ethiopia,ETH,2.0,4.0,1.0,7.0
+2008,Finland,FIN,2.0,1.0,2.0,5.0
+2008,France,FRA,28.0,25.0,23.0,76.0
+2008,Georgia,GEO,3.0,3.0,0.0,6.0
+2008,Germany,GER,43.0,42.0,16.0,101.0
+2008,Greece,GRE,4.0,0.0,3.0,7.0
+2008,Hungary,HUN,3.0,16.0,8.0,27.0
+2008,Iceland,ISL,0.0,0.0,14.0,14.0
+2008,India,IND,2.0,1.0,0.0,3.0
+2008,Indonesia,INA,3.0,2.0,2.0,7.0
+2008,Iran,IRI,1.0,1.0,0.0,2.0
+2008,Ireland,IRL,2.0,0.0,1.0,3.0
+2008,Israel,ISR,1.0,0.0,0.0,1.0
+2008,Italy,ITA,20.0,8.0,14.0,42.0
+2008,Jamaica,JAM,5.0,9.0,3.0,17.0
+2008,Japan,JPN,17.0,23.0,11.0,51.0
+2008,Kazakhstan,KAZ,7.0,2.0,4.0,13.0
+2008,Kenya,KEN,4.0,6.0,4.0,14.0
+2008,"Korea, North",PRK,3.0,2.0,1.0,6.0
+2008,"Korea, South",KOR,26.0,41.0,11.0,78.0
+2008,Kyrgyzstan,KGZ,1.0,0.0,1.0,2.0
+2008,Latvia,LAT,1.0,1.0,1.0,3.0
+2008,Lithuania,LTU,3.0,0.0,2.0,5.0
+2008,Malaysia,MAS,0.0,0.0,1.0,1.0
+2008,Mauritius,MRI,1.0,0.0,0.0,1.0
+2008,Mexico,MEX,2.0,2.0,0.0,4.0
+2008,Moldova,MDA,1.0,0.0,0.0,1.0
+2008,Mongolia,MGL,0.0,2.0,2.0,4.0
+2008,Morocco,MAR,1.0,0.0,1.0,2.0
+2008,Netherlands,NED,4.0,40.0,18.0,62.0
+2008,New Zealand,NZL,8.0,4.0,2.0,14.0
+2008,Nigeria,NGR,6.0,0.0,18.0,24.0
+2008,Norway,NOR,1.0,16.0,5.0,22.0
+2008,Panama,PAN,0.0,1.0,0.0,1.0
+2008,Poland,POL,1.0,6.0,13.0,20.0
+2008,Portugal,POR,0.0,1.0,1.0,2.0
+2008,Romania,ROU,16.0,5.0,1.0,22.0
+2008,Russia,RUS,56.0,43.0,44.0,143.0
+2008,Serbia,SRB,14.0,0.0,1.0,15.0
+2008,Singapore,SIN,0.0,0.0,3.0,3.0
+2008,Slovakia,SVK,1.0,4.0,5.0,10.0
+2008,Slovenia,SLO,2.0,1.0,2.0,5.0
+2008,South Africa,RSA,0.0,0.0,1.0,1.0
+2008,Spain,ESP,16.0,7.0,48.0,71.0
+2008,Sudan,SUD,0.0,0.0,1.0,1.0
+2008,Sweden,SWE,2.0,0.0,5.0,7.0
+2008,Switzerland,SUI,8.0,3.0,0.0,11.0
+2008,Taiwan,TPE,4.0,0.0,0.0,4.0
+2008,Tajikistan,TJK,1.0,0.0,1.0,2.0
+2008,Thailand,THA,0.0,2.0,2.0,4.0
+2008,Togo,TOG,1.0,0.0,0.0,1.0
+2008,Trinidad and Tobago,TRI,0.0,0.0,5.0,5.0
+2008,Tunisia,TUN,0.0,1.0,0.0,1.0
+2008,Turkey,TUR,3.0,1.0,4.0,8.0
+2008,Ukraine,UKR,16.0,10.0,5.0,31.0
+2008,United Kingdom,GBR,21.0,31.0,25.0,77.0
+2008,United States,USA,81.0,125.0,109.0,315.0
+2008,Uzbekistan,UZB,3.0,1.0,2.0,6.0
+2008,Venezuela,VEN,1.0,0.0,0.0,1.0
+2008,Vietnam,VIE,0.0,0.0,1.0,1.0
+2008,Zimbabwe,ZIM,0.0,1.0,3.0,4.0

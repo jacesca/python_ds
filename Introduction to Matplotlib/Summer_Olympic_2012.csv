@@ -1,0 +1,494 @@
+name,country,age,height,weight,sex,birth,gold,silver,bronze,total,sport,event
+Jennifer Abel,Canada,20,160.0,62.0,F,1991-08-23 00:00:00,0,0,1,1,Diving,"Women's 3m Springboard, Women's Synchronised 3m Springboard"
+Alaaeldin Abouelkassem,Egypt,21,188.0,82.0,M,1990-11-25 00:00:00,0,1,0,1,Fencing,"Men's Individual Foil, Men's Team Foil"
+Chantal Achterberg,Netherlands,27,171.0,72.0,F,1985-04-16 00:00:00,0,0,1,1,Rowing,Women's Eight
+Filip Adamski,Germany,29,189.0,90.0,M,1983-01-05 00:00:00,1,0,0,1,Rowing,Men's Eight
+Rebecca Adlington,Great Britain,23,179.0,70.0,F,1989-02-17 00:00:00,0,0,1,1,Swimming,"Women's 400m Freestyle, Women's 800m Freestyle"
+Nathan Adrian,United States of America,23,201.0,102.0,M,1988-12-07 00:00:00,1,1,0,2,Swimming,"Men's 100m Freestyle, Men's 4x100m Freestyle Relay"
+Kseniia Afanaseva,Russian Federation,20,158.0,48.0,F,1991-09-13 00:00:00,0,1,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Yannick Agnel,France,20,202.0,90.0,M,1992-06-09 00:00:00,2,1,0,3,Swimming,"Men's 100m Freestyle, Men's 200m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Mayra Aguiar,Brazil,21,178.0,78.0,F,1991-08-03 00:00:00,0,0,1,1,Judo,Women's -78kg
+Hannes Aigner,Germany,23,183.0,80.0,M,1989-03-19 00:00:00,0,0,1,1,Canoe Slalom,Men's Kayak (K1)
+Nasser Al-Attiya,Qatar,41,178.0,70.0,M,1970-12-21 00:00:00,0,0,1,1,Shooting,Men's Skeet
+Sara Algotsson Ostholt,Sweden,37,162.0,55.0,F,1974-12-08 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, WEGA"
+Yuri Alvear,Colombia,26,174.0,70.0,F,1986-03-29 00:00:00,0,0,1,1,Judo,Women's -70kg
+Kum Ae An,Democratic People's Republic  of Korea,32,160.0,52.0,F,1980-06-03 00:00:00,1,0,0,1,Judo,Women's -52kg
+Alyssa Anderson,United States of America,21,173.0,64.0,F,1990-09-30 00:00:00,1,0,0,1,Swimming,Women's 4x200m Freestyle Relay
+Kristin Armstrong,United States of America,38,173.0,58.0,F,1973-08-11 00:00:00,1,0,0,1,Cycling - Road,"Women's Individual Time Trial, Women's Road Race"
+Judith Arndt,Germany,36,173.0,59.0,F,1976-07-23 00:00:00,0,1,0,1,"Cycling - Road, Cycling - Track","Women's Individual Time Trial, Women's Road Race, Women's Team Pursuit"
+Sandra Auffarth,Germany,25,170.0,58.0,F,1986-12-27 00:00:00,1,0,1,2,Equestrian,"Individual Eventing, Team Eventing, OPGUN LOUVO"
+Mariana Avitia,Mexico,18,164.0,61.0,F,1993-09-18 00:00:00,0,0,1,1,Archery,"Women's Individual, Women's Team"
+Alexander Kristoff,Norway,25,78.0,78.0,M,1987-07-05 00:00:00,0,0,1,1,Cycling - Road,Men's Road Race
+Alina Dumitru,Romania,29,158.0,48.0,F,1982-08-30 00:00:00,0,1,0,1,Judo,Women's -48kg
+Carina BAER,Germany,22,186.0,74.0,F,1990-01-23 00:00:00,0,1,0,1,Rowing,Women's Quadruple Sculls
+Tim Baillie,Great Britain,33,176.0,78.0,M,1979-05-11 00:00:00,1,0,0,1,Canoe Slalom,Men's Canoe Double (C2)
+Angie Bainbridge,Australia,22,181.0,67.0,F,1989-10-16 00:00:00,0,1,0,1,Swimming,Women's 4x200m Freestyle Relay
+Coralie Balmy,France,25,180.0,67.0,F,1987-06-02 00:00:00,0,0,1,1,Swimming,"Women's 400m Freestyle, Women's 800m Freestyle, Women's 4x200m Freestyle Relay"
+Bronte Barratt,Australia,23,171.0,59.0,F,1989-02-08 00:00:00,0,1,1,2,Swimming,"Women's 200m Freestyle, Women's 400m Freestyle, Women's 4x200m Freestyle Relay"
+Jacob Barsoe,Denmark,23,188.0,73.0,M,1988-09-21 00:00:00,0,0,1,1,Rowing,Men's Lightweight Four
+Danka Bartekova,Slovakia,27,170.0,55.0,F,1984-10-19 00:00:00,0,0,1,1,Shooting,Women's Skeet
+Chris Bartley,Great Britain,28,178.0,73.0,M,1984-02-02 00:00:00,0,1,0,1,Rowing,Men's Lightweight Four
+Romano Battisti,Italy,25,190.0,92.0,M,1986-08-21 00:00:00,0,1,0,1,Rowing,Men's Double Sculls
+Gregory Bauge,France,27,181.0,94.0,M,1985-01-31 00:00:00,0,1,0,1,Cycling - Track,"Men's Sprint, Men's Team Sprint"
+Elizabeth Beisel,United States of America,19,168.0,66.0,F,1992-08-18 00:00:00,0,1,0,1,Swimming,"Women's 200m Backstroke, Women's 400m Individual Medley"
+Claudia Belderbos,Netherlands,27,176.0,72.0,F,1985-01-23 00:00:00,0,0,1,1,Rowing,Women's Eight
+Mireia Belmonte Garcia,Spain,21,170.0,60.0,F,1990-11-10 00:00:00,0,1,0,1,Swimming,"Women's 400m Freestyle, Women's 800m Freestyle, Women's 200m Butterfly, Women's 200m Individual Medley, Women's 400m Individual Medley, Women's 4x200m Freestyle Relay"
+Meaghan Benfeito,Canada,23,155.0,50.0,F,1989-03-02 00:00:00,0,0,1,1,Diving,"Women's 10m Platform, Women's Synchronised 10m Platform"
+Ricky Berens,United States of America,24,188.0,93.0,M,1988-04-21 00:00:00,1,1,0,2,Swimming,"Men's 200m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay"
+Gabriel Bergen,Canada,30,187.0,92.0,M,1982-07-06 00:00:00,0,1,0,1,Rowing,Men's Eight
+Yanet Bermoy Acosta,Cuba,25,48.0,51.0,F,1987-05-29 00:00:00,0,1,0,1,Judo,Women's -52kg
+Alain Bernard,France,29,196.0,90.0,M,1983-05-01 00:00:00,1,0,0,1,Swimming,Men's 4x100m Freestyle Relay
+Ole Bischof,Germany,32,180.0,81.0,M,1979-08-27 00:00:00,0,1,0,1,Judo,Men's -81kg
+Sylwia Bogacka,Poland,30,162.0,55.0,F,1981-10-03 00:00:00,0,1,0,1,Shooting,"Women's 10m Air Rifle, Women's 50m Rifle 3 Positions"
+Hamish Bond,New Zealand,26,189.0,91.0,M,1986-02-13 00:00:00,1,0,0,1,Rowing,Men's Pair
+Charlotte Bonnet,France,17,174.0,61.0,F,1995-02-14 00:00:00,0,0,1,1,Swimming,"Women's 100m Freestyle, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Edith Bosch,Netherlands,32,183.0,70.0,F,1980-05-31 00:00:00,0,0,1,1,Judo,Women's -70kg
+David Boudia,United States of America,23,175.0,73.0,M,1989-04-24 00:00:00,0,0,1,1,Diving,"Men's 10m Platform, Men's Synchronised 10m Platform"
+Carline Bouw,Netherlands,27,184.0,71.0,F,1984-12-14 00:00:00,0,0,1,1,Rowing,Women's Eight
+Matthew Brittain,South Africa,25,186.0,70.0,M,1987-05-05 00:00:00,1,0,0,1,Rowing,Men's Lightweight Four
+Jeremiah Brown,Canada,26,198.0,106.0,M,1985-11-25 00:00:00,0,1,0,1,Rowing,Men's Eight
+Kelci Bryant,United States of America,23,163.0,61.0,F,1989-01-15 00:00:00,0,1,0,1,Diving,Women's Synchronised 3m Springboard
+Karina Bryant,Great Britain,33,184.0,103.0,F,1979-01-27 00:00:00,0,0,1,1,Judo,Women's +78kg
+Ashley Brzozowicz,Canada,29,177.0,76.0,F,1982-12-17 00:00:00,0,1,0,1,Rowing,Women's Eight
+Diana Laura Bulimar,Romania,16,140.0,32.0,F,1995-08-22 00:00:00,0,0,1,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Andrew Byrnes,Canada,29,200.0,98.0,M,1983-05-22 00:00:00,0,1,0,1,Rowing,Men's Eight
+Bo Bae Ki,Republic of Korea,24,168.0,55.0,F,1988-02-20 00:00:00,2,0,0,2,Archery,"Women's Individual, Women's Team"
+Brent Hayden,Canada,28,193.0,86.0,M,1983-10-21 00:00:00,0,0,1,1,Swimming,"Men's 50m Freestyle, Men's 100m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x100m Medley Relay"
+Britta Heidemann,Germany,29,180.0,71.0,F,1982-12-22 00:00:00,0,1,0,1,Fencing,"Women's Individual Epee, Women's Team Epee"
+Erin Cafaro,United States of America,29,175.0,75.0,F,1983-06-09 00:00:00,1,0,0,1,Rowing,Women's Eight
+Ivan Cambar Rodriguez,Cuba,28,77.0,77.0,M,1983-12-29 00:00:00,0,0,1,1,Weightlifting,Men's 77kg
+Alan Campbell,Great Britain,29,191.0,96.0,M,1983-05-09 00:00:00,0,0,1,1,Rowing,Men's Single Sculls
+Cate Campbell,Australia,20,186.0,67.0,F,1992-05-20 00:00:00,1,0,0,1,Swimming,"Women's 50m Freestyle, Women's 100m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Niccolo Campriani,Italy,24,177.0,75.0,M,1987-11-06 00:00:00,0,1,0,1,Shooting,"Men's 10m Air Rifle, Men's 50m Rifle Prone, Men's 50m Rifle 3 Positions"
+Yuan Cao,People's Republic of China,17,160.0,42.0,M,1995-02-07 00:00:00,1,0,0,1,Diving,Men's Synchronised 10m Platform
+Corina Caprioriu,Romania,26,160.0,57.0,F,1986-07-18 00:00:00,0,1,0,1,Judo,Women's -57kg
+Peter Chambers,Great Britain,22,187.0,73.0,M,1990-03-14 00:00:00,0,1,0,1,Rowing,Men's Lightweight Four
+Richard Chambers,Great Britain,27,183.0,74.0,M,1985-06-10 00:00:00,0,1,0,1,Rowing,Men's Lightweight Four
+Germain Chardin,France,29,192.0,92.0,M,1983-05-15 00:00:00,0,1,0,1,Rowing,Men's Pair
+Diana Maria Chelaru,Romania,18,150.0,57.0,F,1993-08-15 00:00:00,0,0,1,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Ruolin Chen,People's Republic of China,19,158.0,47.0,F,1992-12-12 00:00:00,1,0,0,1,Diving,"Women's 10m Platform, Women's Synchronised 10m Platform"
+Yibing Chen,People's Republic of China,27,160.0,58.0,M,1984-12-19 00:00:00,1,0,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Ying Chen,People's Republic of China,34,164.0,75.0,F,1977-11-04 00:00:00,0,1,0,1,Shooting,Women's 25m Pistol
+Ming Cheng,People's Republic of China,26,165.0,65.0,F,1986-02-11 00:00:00,0,1,0,1,Archery,"Women's Individual, Women's Team"
+Zulfiya Chinshanlo,Kazakhstan,19,155.0,53.0,F,1993-07-25 00:00:00,1,0,0,1,Weightlifting,Women's 53kg
+Jun-Ho Cho,Republic of Korea,23,165.0,65.0,M,1988-12-16 00:00:00,0,0,1,1,Judo,Men's -66kg
+Byungchul Choi,Republic of Korea,30,173.0,70.0,M,1981-10-24 00:00:00,0,0,1,1,Fencing,Men's Individual Foil
+Hyeonju Choi,Republic of Korea,27,172.0,65.0,F,1984-08-06 00:00:00,1,0,0,1,Archery,"Women's Individual, Women's Team"
+Maialen Chourraut,Spain,29,161.0,55.0,F,1983-03-08 00:00:00,0,0,1,1,Canoe Slalom,Women's Kayak (K1)
+Tyler Clary,United States of America,23,185.0,84.0,M,1989-03-12 00:00:00,1,0,0,1,Swimming,"Men's 200m Butterfly, Men's 200m Backstroke"
+Roxana Daniela Cocos,Romania,23,158.0,68.0,F,1989-06-05 00:00:00,0,1,0,1,Weightlifting,Women's 69kg
+Nathan Cohen,New Zealand,26,184.0,85.0,M,1986-01-02 00:00:00,1,0,0,1,Rowing,Men's Double Sculls
+Kristina Cook,Great Britain,41,175.0,71.0,F,1970-08-31 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, MINERS FROLIC"
+Iztok Cop,Slovenia,40,190.0,90.0,M,1972-06-17 00:00:00,0,0,1,1,Rowing,Men's Double Sculls
+Natalie Coughlin,United States of America,29,173.0,63.0,F,1982-08-23 00:00:00,0,0,1,1,Swimming,Women's 4x100m Freestyle Relay
+Alicia Coutts,Australia,24,176.0,69.0,F,1987-09-14 00:00:00,1,2,1,4,Swimming,"Women's 100m Butterfly, Women's 200m Individual Medley, Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Lionel Cox,Belgium,31,185.0,74.0,M,1981-07-11 00:00:00,0,1,0,1,Shooting,Men's 50m Rifle Prone
+Will Crothers,Canada,25,195.0,95.0,M,1987-06-14 00:00:00,0,1,0,1,Rowing,Men's Eight
+Kim Crow,Australia,26,188.0,74.0,F,1985-08-09 00:00:00,0,1,0,1,Rowing,"Women's Single Sculls, Women's Double Sculls"
+Laszlo Cseh,Hungary,26,190.0,84.0,M,1985-12-03 00:00:00,0,0,1,1,Swimming,"Men's 200m Butterfly, Men's 200m Individual Medley, Men's 400m Individual Medley, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Caryn Davies,United States of America,30,193.0,82.0,F,1982-04-14 00:00:00,1,0,0,1,Rowing,Women's Eight
+Catalina Ponor,Romania,24,160.0,51.0,F,1987-08-20 00:00:00,0,0,1,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Charlie Houchin,United States of America,24,191.0,84.0,M,1987-11-03 00:00:00,1,0,0,1,Swimming,Men's 4x200m Freestyle Relay
+Michael D'almeida,France,24,177.0,82.0,M,1987-09-03 00:00:00,0,1,0,1,Cycling - Track,Men's Team Sprint
+Hakan Dahlby,Sweden,46,185.0,85.0,M,1965-09-15 00:00:00,0,1,0,1,Shooting,Men's Double Trap
+Jun Dai,People's Republic of China,20,181.0,75.0,M,1992-02-06 00:00:00,0,0,1,1,Swimming,"Men's 1500m Freestyle, Men's 4x200m Freestyle Relay"
+Xiaoxiang Dai,People's Republic of China,21,178.0,70.0,M,1990-12-15 00:00:00,0,0,1,1,Archery,"Men's Individual, Men's Team"
+Sytske de Groot,Netherlands,26,180.0,72.0,F,1986-04-03 00:00:00,0,0,1,1,Rowing,Women's Eight
+Annemiek de Haan,Netherlands,31,187.0,73.0,F,1981-07-15 00:00:00,0,0,1,1,Rowing,Women's Eight
+Rajmond Debevec,Slovenia,49,182.0,76.0,M,1963-03-29 00:00:00,0,0,1,1,Shooting,"Men's 50m Rifle Prone, Men's 50m Rifle 3 Positions"
+Lucie Decosse,France,30,168.0,70.0,F,1981-08-06 00:00:00,1,0,0,1,Judo,Women's -70kg
+Natalie Dell,United States of America,27,175.0,77.0,F,1985-02-20 00:00:00,0,0,1,1,Rowing,Women's Quadruple Sculls
+Yana Dementieva,Ukraine,33,182.0,75.0,F,1978-10-23 00:00:00,1,0,0,1,Rowing,Women's Quadruple Sculls
+Inna Deriglazova,Russian Federation,22,177.0,65.0,F,1990-03-10 00:00:00,0,1,0,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Elisa Di Francisca,Italy,29,177.0,65.0,F,1982-12-13 00:00:00,2,0,0,2,Fencing,"Women's Individual Foil, Women's Team Foil"
+Feng Ding,People's Republic of China,25,175.0,80.0,M,1987-03-19 00:00:00,0,0,1,1,Shooting,Men's 25m Rapid Fire Pistol
+Ning Ding,People's Republic of China,22,171.0,63.0,F,1990-06-20 00:00:00,0,1,0,1,Table Tennis,"Women's Singles, Women's Team"
+Dong Dong,People's Republic of China,23,168.0,57.0,M,1989-04-13 00:00:00,1,0,0,1,Trampoline,Men's Trampoline
+Gabrielle Douglas,United States of America,16,150.0,50.0,F,1995-12-31 00:00:00,2,0,0,2,Gymnastics - Artistic,"Women's Individual All-Around, Women's Team, Women's Qualification"
+Nataliya Dovgodko,Ukraine,21,186.0,78.0,F,1991-02-07 00:00:00,1,0,0,1,Rowing,Women's Quadruple Sculls
+Conor Dwyer,United States of America,23,196.0,88.0,M,1989-01-10 00:00:00,1,0,0,1,Swimming,"Men's 400m Freestyle, Men's 4x200m Freestyle Relay"
+Douglas Csima,Canada,26,191.0,100.0,M,1985-11-28 00:00:00,0,1,0,1,Rowing,Men's Eight
+Iuliia Efimova,Russian Federation,20,178.0,64.0,F,1992-04-03 00:00:00,0,0,1,1,Swimming,"Women's 100m Breaststroke, Women's 200m Breaststroke, Women's 4x100m Medley Relay"
+Richard Egington,Great Britain,33,200.0,105.0,M,1979-02-26 00:00:00,0,0,1,1,Rowing,Men's Eight
+Irawan Eko Yuli,Indonesia,23,157.0,62.0,M,1989-07-24 00:00:00,0,0,1,1,Weightlifting,Men's 62kg
+Brady Ellison,United States of America,23,180.0,86.0,M,1988-10-27 00:00:00,0,1,0,1,Archery,"Men's Individual, Men's Team"
+Brittany Elmslie,Australia,18,179.0,73.0,F,1994-06-19 00:00:00,1,1,0,2,Swimming,"Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Rene Enders,Germany,25,165.0,75.0,M,1987-02-13 00:00:00,0,0,1,1,Cycling - Track,Men's Team Sprint
+Arianna Errigo,Italy,24,180.0,64.0,F,1988-06-06 00:00:00,1,1,0,2,Fencing,"Women's Individual Foil, Women's Team Foil"
+Paola Espinosa Sanchez,Mexico,26,156.0,48.0,F,1986-07-31 00:00:00,0,1,0,1,Diving,"Women's 10m Platform, Women's Synchronised 10m Platform"
+Tony Estanguet,France,34,186.0,76.0,M,1978-05-06 00:00:00,1,0,0,1,Canoe Slalom,Men's Canoe Single (C1)
+Ophelie-Cyrielle Etienne,France,21,176.0,62.0,F,1990-09-09 00:00:00,0,0,1,1,Swimming,"Women's 200m Freestyle, Women's 4x200m Freestyle Relay"
+Blair Evans,Australia,21,175.0,65.0,F,1991-04-03 00:00:00,0,1,0,1,Swimming,"Women's 400m Individual Medley, Women's 4x200m Freestyle Relay"
+Eskild Ebbesen,Denmark,40,188.0,75.0,M,1972-05-27 00:00:00,0,0,1,1,Rowing,Men's Lightweight Four
+Eva Csernoviczki,Hungary,25,160.0,48.0,F,1986-10-16 00:00:00,0,0,1,1,Judo,Women's -48kg
+Yuting Fang,People's Republic of China,22,170.0,62.0,F,1989-12-21 00:00:00,0,1,0,1,Archery,"Women's Individual, Women's Team"
+Margaux Farrell,France,21,183.0,71.0,F,1990-08-22 00:00:00,0,0,1,1,Swimming,Women's 4x200m Freestyle Relay
+James Feigen,United States of America,22,196.0,98.0,M,1989-09-26 00:00:00,0,1,0,1,Swimming,Men's 4x100m Freestyle Relay
+Tianwei Feng,Singapore,25,163.0,57.0,F,1986-08-31 00:00:00,0,0,1,1,Table Tennis,"Women's Singles, Women's Team"
+Zhe Feng,People's Republic of China,24,160.0,58.0,M,1987-11-19 00:00:00,1,0,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Emilie Fer,France,29,172.0,63.0,F,1983-02-17 00:00:00,1,0,0,1,Canoe Slalom,Women's Kayak (K1)
+Sergei Fesikov,Russian Federation,23,204.0,90.0,M,1989-01-21 00:00:00,0,0,1,1,Swimming,"Men's 50m Freestyle, Men's 4x100m Freestyle Relay"
+Oscar Albeiro Figueroa Mosquera,Colombia,29,165.0,62.0,M,1983-04-27 00:00:00,0,1,0,1,Weightlifting,Men's 62kg
+Roseline Filion,Canada,25,152.0,52.0,F,1987-07-03 00:00:00,0,0,1,1,Diving,"Women's 10m Platform, Women's Synchronised 10m Platform"
+Joachim Fischer,Denmark,33,188.0,78.0,M,1978-11-23 00:00:00,0,0,1,1,Badminton,Mixed Doubles
+David Florence,Great Britain,29,188.0,77.0,M,1982-08-08 00:00:00,0,1,0,1,Canoe Slalom,"Men's Canoe Single (C1), Men's Canoe Double (C2)"
+James Foad,Great Britain,25,185.0,90.0,M,1987-03-20 00:00:00,0,0,1,1,Rowing,Men's Eight
+Robert Forstemann,Germany,26,174.0,90.0,M,1986-03-05 00:00:00,0,0,1,1,"Cycling - Mountain Bike, Cycling - Track","Men's Cross-country, Men's Sprint, Men's Team Sprint"
+Karsten Forsterling,Australia,32,191.0,88.0,M,1980-01-21 00:00:00,0,0,1,1,Rowing,Men's Quadruple Sculls
+Jessica Fox,Australia,18,166.0,60.0,F,1994-06-11 00:00:00,0,1,0,1,Canoe Slalom,Women's Kayak (K1)
+William Fox-Pitt,Great Britain,43,198.0,76.0,M,1969-01-02 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, LIONHEART"
+Zsuzsanna Francia,United States of America,29,188.0,79.0,F,1982-11-08 00:00:00,1,0,0,1,Rowing,Women's Eight
+Michele Frangilli,Italy,36,181.0,110.0,M,1976-05-01 00:00:00,1,0,0,1,Archery,"Men's Individual, Men's Team"
+Missy Franklin,United States of America,17,185.0,75.0,F,1995-05-10 00:00:00,2,0,1,3,Swimming,"Women's 100m Freestyle, Women's 200m Freestyle, Women's 100m Backstroke, Women's 200m Backstroke, Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Christopher Froome,Great Britain,27,185.0,71.0,M,1985-05-20 00:00:00,0,0,1,1,Cycling - Road,"Men's Individual Time Trial, Men's Road Race"
+Kamilla Gafurzianova,Russian Federation,24,174.0,64.0,F,1988-05-18 00:00:00,0,1,0,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Marco Galiazzo,Italy,29,178.0,98.0,M,1983-05-07 00:00:00,1,0,0,1,Archery,"Men's Individual, Men's Team"
+Arsen Galstyan,Russian Federation,23,170.0,60.0,M,1989-02-19 00:00:00,1,0,0,1,Judo,Men's -60kg
+Ivan Garcia Navarro,Mexico,18,165.0,55.0,M,1993-10-25 00:00:00,0,1,0,1,Diving,"Men's 10m Platform, Men's Synchronised 10m Platform"
+Gemma Gibbons,Great Britain,25,173.0,77.0,F,1987-01-06 00:00:00,0,1,0,1,Judo,Women's -78kg
+Rob Gibson,Canada,26,195.0,101.0,M,1986-02-02 00:00:00,0,1,0,1,Rowing,Men's Eight
+Fabien Gilot,France,28,193.0,85.0,M,1984-04-27 00:00:00,1,0,0,1,Swimming,"Men's 100m Freestyle, Men's 4x100m Freestyle Relay"
+Christine Girard,Canada,27,161.0,63.0,F,1985-01-03 00:00:00,0,0,1,1,Weightlifting,Women's 63kg
+Helen Glover,Great Britain,26,178.0,70.0,F,1986-06-17 00:00:00,1,0,0,1,Rowing,Women's Pair
+Priscilla Gneto,France,21,163.0,52.0,F,1991-08-03 00:00:00,0,0,1,1,Judo,Women's -52kg
+Celine Goberville,France,25,156.0,53.0,F,1986-09-19 00:00:00,0,1,0,1,Shooting,"Women's 10m Air Pistol, Women's 25m Pistol"
+Anders Golding,Denmark,28,186.0,95.0,M,1984-05-12 00:00:00,0,1,0,1,Shooting,Men's Skeet
+Jinjie Gong,People's Republic of China,25,165.0,65.0,F,1986-11-12 00:00:00,0,1,0,1,Cycling - Track,Women's Team Sprint
+Asley Gonzalez,Cuba,22,179.0,89.0,M,1989-09-05 00:00:00,0,1,0,1,Judo,Men's -90kg
+Katherine Grainger,Great Britain,36,183.0,80.0,F,1975-11-12 00:00:00,1,0,0,1,Rowing,Women's Double Sculls
+Andrey Grechin,Russian Federation,24,198.0,94.0,M,1987-10-21 00:00:00,0,0,1,1,Swimming,"Men's 50m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x100m Medley Relay"
+Matthew Grevers,United States of America,27,203.0,104.0,M,1985-03-26 00:00:00,1,1,0,2,Swimming,"Men's 100m Backstroke, Men's 4x100m Freestyle Relay, Men's 4x100m Medley Relay"
+Anastasia Grishina,Russian Federation,16,146.0,37.0,F,1996-01-16 00:00:00,0,1,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Tim Grohmann,Germany,23,194.0,98.0,M,1988-12-27 00:00:00,1,0,0,1,Rowing,Men's Quadruple Sculls
+Henk Grol,Netherlands,27,190.0,100.0,M,1985-04-14 00:00:00,0,0,1,1,Judo,Men's -100kg
+Krista Guloien,Canada,32,177.0,75.0,F,1980-03-20 00:00:00,0,1,0,1,Rowing,Women's Eight
+Daniel Gyurta,Hungary,23,185.0,77.0,M,1989-05-04 00:00:00,1,0,0,1,Swimming,"Men's 100m Breaststroke, Men's 200m Breaststroke, Men's 4x100m Medley Relay"
+Gevrise Emane,France,30,160.0,63.0,F,1982-07-27 00:00:00,0,0,1,1,Judo,Women's -63kg
+Kosuke Hagino,Japan,17,175.0,68.0,M,1994-08-15 00:00:00,0,0,1,1,Swimming,"Men's 200m Individual Medley, Men's 400m Individual Medley"
+Juliette Haigh,New Zealand,29,176.0,69.0,F,1982-08-04 00:00:00,0,0,1,1,Rowing,Women's Pair
+Brendan Hansen,United States of America,30,183.0,85.0,M,1981-08-15 00:00:00,0,0,1,1,Swimming,"Men's 100m Breaststroke, Men's 4x100m Medley Relay"
+Janine Hanson,Canada,29,179.0,73.0,F,1982-12-14 00:00:00,0,1,0,1,Rowing,Women's Eight
+Yun Hao,People's Republic of China,17,185.0,80.0,M,1995-06-23 00:00:00,0,0,1,1,Swimming,"Men's 400m Freestyle, Men's 4x200m Freestyle Relay"
+Jessica Hardy,United States of America,25,183.0,69.0,F,1987-03-12 00:00:00,0,0,1,1,Swimming,"Women's 50m Freestyle, Women's 100m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Kayla Harrison,United States of America,22,173.0,75.0,F,1990-07-02 00:00:00,1,0,0,1,Judo,Women's -78kg
+Zi He,People's Republic of China,21,159.0,51.0,F,1990-12-10 00:00:00,1,0,0,1,Diving,"Women's 3m Springboard, Women's Synchronised 3m Springboard"
+Femke Heemskerk,Netherlands,24,180.0,67.0,F,1987-09-21 00:00:00,0,1,0,1,Swimming,"Women's 100m Freestyle, Women's 200m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Aliaksandra Herasimenia,Belarus,26,175.0,60.0,F,1985-12-31 00:00:00,0,1,0,1,Swimming,"Women's 50m Freestyle, Women's 100m Freestyle, Women's 100m Butterfly, Women's 4x100m Freestyle Relay"
+Emilie Heymans,Canada,30,170.0,60.0,F,1981-12-14 00:00:00,0,0,1,1,Diving,"Women's 3m Springboard, Women's Synchronised 3m Springboard"
+Phelan Hill,Great Britain,33,171.0,55.0,M,1979-07-21 00:00:00,0,0,1,1,Rowing,Men's Eight
+Philip Hindes,Great Britain,19,177.0,83.0,M,1992-09-22 00:00:00,1,0,0,1,Cycling - Track,Men's Team Sprint
+Hiroaki Hiraoka,Japan,27,160.0,60.0,M,1985-02-06 00:00:00,0,1,0,1,Judo,Men's -60kg
+Pavol Hochschorner,Slovakia,32,176.0,75.0,M,1979-09-07 00:00:00,0,0,1,1,Canoe Slalom,Men's Canoe Double (C2)
+Peter Hochschorner,Slovakia,32,188.0,87.0,M,1979-09-07 00:00:00,0,0,1,1,Canoe Slalom,Men's Canoe Double (C2)
+Malcolm Howard,Canada,29,200.0,100.0,M,1983-02-07 00:00:00,0,1,0,1,Rowing,Men's Eight
+Chris Hoy,Great Britain,36,185.0,93.0,M,1976-03-23 00:00:00,1,0,0,1,Cycling - Track,"Men's Keirin, Men's Team Sprint"
+Hee Sook Jeon,Republic of Korea,28,169.0,60.0,F,1984-06-16 00:00:00,0,0,1,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Ilias Iliadis,Greece,25,178.0,90.0,M,1986-11-10 00:00:00,0,0,1,1,Judo,Men's -90kg
+Dong Hyun Im,Republic of Korea,26,184.0,100.0,M,1986-05-12 00:00:00,0,0,1,1,Archery,"Men's Individual, Men's Team"
+Larisa Andreea Iordache,Romania,16,150.0,37.0,F,1996-06-19 00:00:00,0,0,1,1,Gymnastics - Artistic,"Women's Individual All-Around, Women's Team, Women's Qualification"
+Cristina Iovu,Republic of Moldova,19,155.0,53.0,F,1992-11-08 00:00:00,0,0,1,1,Weightlifting,Women's 53kg
+Kristian Ipsen,United States of America,19,170.0,73.0,M,1992-10-20 00:00:00,0,0,1,1,Diving,Men's Synchronised 3m Springboard
+Ryosuke Irie,Japan,22,178.0,62.0,M,1990-01-24 00:00:00,0,1,1,2,Swimming,"Men's 100m Backstroke, Men's 200m Backstroke, Men's 4x100m Medley Relay"
+Mansur Isaev,Russian Federation,25,172.0,73.0,M,1986-09-23 00:00:00,1,0,0,1,Judo,Men's -73kg
+Sandra Raluca Izbasa,Romania,22,167.0,52.0,F,1990-06-18 00:00:00,0,0,1,1,Gymnastics - Artistic,"Women's Individual All-Around, Women's Team, Women's Qualification"
+Danila Izotov,Russian Federation,20,193.0,82.0,M,1991-10-02 00:00:00,0,0,1,1,Swimming,"Men's 100m Freestyle, Men's 200m Freestyle, Men's 4x100m Freestyle Relay"
+Inge Dekker,Netherlands,26,182.0,64.0,F,1985-08-18 00:00:00,0,1,0,1,Swimming,"Women's 100m Butterfly, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Michael Jamieson,Great Britain,23,186.0,81.0,M,1988-08-05 00:00:00,0,1,0,1,Swimming,"Men's 100m Breaststroke, Men's 200m Breaststroke"
+Haiqi Jiang,People's Republic of China,20,199.0,88.0,M,1992-01-17 00:00:00,0,0,1,1,Swimming,Men's 4x200m Freestyle Relay
+Liuyang Jiao,People's Republic of China,20,172.0,63.0,F,1991-08-06 00:00:00,1,0,0,1,Swimming,"Women's 100m Butterfly, Women's 200m Butterfly, Women's 4x100m Medley Relay"
+Jongoh Jin,Republic of Korea,32,175.0,72.0,M,1979-09-24 00:00:00,1,0,0,1,Shooting,"Men's 50m Pistol, Men's 10m Air Pistol"
+Eric Johannesen,Germany,24,193.0,98.0,M,1988-07-16 00:00:00,1,0,0,1,Rowing,Men's Eight
+Abigail Johnston,United States of America,22,165.0,61.0,F,1989-11-16 00:00:00,0,1,0,1,Diving,Women's Synchronised 3m Springboard
+Cullen Jones,United States of America,28,196.0,95.0,M,1984-02-29 00:00:00,0,1,0,1,Swimming,"Men's 50m Freestyle, Men's 100m Freestyle, Men's 4x100m Freestyle Relay"
+Morten Jorgensen,Denmark,27,183.0,72.0,M,1985-06-23 00:00:00,0,0,1,1,Rowing,Men's Lightweight Four
+Gil Ok Jung,Republic of Korea,31,168.0,53.0,F,1980-09-15 00:00:00,0,0,1,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Jinsun Jung,Republic of Korea,28,185.0,81.0,M,1984-01-24 00:00:00,0,0,1,1,Fencing,Men's Individual Epee
+Michael Jung,Germany,30,170.0,68.0,M,1982-07-31 00:00:00,2,0,0,2,Equestrian,"Individual Eventing, Team Eventing, SAM"
+Yuliya Kalina,Ukraine,23,160.0,58.0,F,1988-10-24 00:00:00,0,0,1,1,Weightlifting,Women's 58kg
+Megan Kalmoe,United States of America,28,178.0,74.0,F,1983-08-21 00:00:00,0,0,1,1,Rowing,Women's Quadruple Sculls
+Jake Kaminski,United States of America,23,208.0,71.0,M,1988-08-11 00:00:00,0,1,0,1,Archery,"Men's Individual, Men's Team"
+Miki Kanie,Japan,23,162.0,64.0,F,1988-12-04 00:00:00,0,0,1,1,Archery,"Women's Individual, Women's Team"
+Ryohei Kato,Japan,18,162.0,54.0,M,1993-09-09 00:00:00,0,1,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Kaori Kawanaka,Japan,21,159.0,50.0,F,1991-08-03 00:00:00,0,0,1,1,Archery,"Women's Individual, Women's Team"
+Jason Kenny,Great Britain,24,177.0,80.0,M,1988-03-23 00:00:00,1,0,0,1,Cycling - Track,"Men's Sprint, Men's Team Sprint"
+Tagir Khaibulaev,Russian Federation,28,176.0,100.0,M,1984-07-24 00:00:00,1,0,0,1,Judo,Men's -100kg
+Olga Kharlan,Ukraine,21,171.0,68.0,F,1990-09-04 00:00:00,0,0,1,1,Fencing,Women's Individual Sabre
+Bubmin Kim,Republic of Korea,21,187.0,96.0,M,1991-05-22 00:00:00,0,0,1,1,Archery,"Men's Individual, Men's Team"
+Jae-Bum Kim,Republic of Korea,27,180.0,78.0,M,1985-01-25 00:00:00,1,0,0,1,Judo,Men's -81kg
+Jangmi Kim,Republic of Korea,19,157.0,53.0,F,1992-09-25 00:00:00,1,0,0,1,Shooting,"Women's 10m Air Pistol, Women's 25m Pistol"
+Jiyeon Kim,Republic of Korea,24,165.0,57.0,F,1988-03-12 00:00:00,1,0,0,1,Fencing,Women's Individual Sabre
+Un Guk Kim,Democratic People's Republic  of Korea,23,158.0,62.0,M,1988-10-28 00:00:00,1,0,0,1,Weightlifting,Men's 62kg
+Mary King,Great Britain,51,170.0,65.0,F,1961-06-08 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, IMPERIAL CAVALIER"
+Nienke Kingma,Netherlands,30,182.0,74.0,F,1982-02-12 00:00:00,0,0,1,1,Rowing,Women's Eight
+Felipe Kitadai,Brazil,23,164.0,60.0,M,1989-07-28 00:00:00,0,0,1,1,Judo,Men's -60kg
+Ingrid Klimke,Germany,44,172.0,59.0,F,1968-04-01 00:00:00,1,0,0,1,Equestrian,"Individual Eventing, Team Eventing, BUTTS ABRAXXAS"
+Kara Kohler,United States of America,21,188.0,82.0,F,1991-01-20 00:00:00,0,0,1,1,Rowing,Women's Quadruple Sculls
+Victoria Komova,Russian Federation,17,150.0,48.0,F,1995-01-30 00:00:00,0,2,0,2,Gymnastics - Artistic,"Women's Individual All-Around, Women's Team, Women's Qualification"
+Olena Kostevych,Ukraine,27,162.0,54.0,F,1985-04-14 00:00:00,0,0,2,2,Shooting,"Women's 10m Air Pistol, Women's 25m Pistol"
+Nikolay Kovalev,Russian Federation,25,176.0,70.0,M,1986-10-28 00:00:00,0,0,1,1,Fencing,"Men's Individual Sabre, Men's Team Sabre"
+Anastasiia Kozhenkova,Ukraine,26,186.0,73.0,F,1986-01-19 00:00:00,1,0,0,1,Rowing,Women's Quadruple Sculls
+Andreas Kuffner,Germany,25,196.0,93.0,M,1987-03-11 00:00:00,1,0,0,1,Rowing,Men's Eight
+Yolane Kukla,Australia,16,168.0,61.0,F,1995-09-29 00:00:00,1,0,0,1,Swimming,Women's 4x100m Freestyle Relay
+Iryna Kulesha,Belarus,26,163.0,75.0,F,1986-06-26 00:00:00,0,0,1,1,Weightlifting,Women's 75kg
+Vijay Kumar,India,26,170.0,70.0,M,1985-08-19 00:00:00,0,1,0,1,Shooting,"Men's 25m Rapid Fire Pistol, Men's 10m Air Pistol"
+Evgeny Kuznetsov,Russian Federation,22,170.0,64.0,M,1990-04-12 00:00:00,0,1,0,1,Diving,"Men's 3m Springboard, Men's Synchronised 3m Springboard"
+Kate Hornsey,Australia,30,174.0,73.0,F,1981-10-19 00:00:00,0,1,0,1,Rowing,Women's Pair
+Evgeny Lagunov,Russian Federation,26,190.0,85.0,M,1985-12-14 00:00:00,0,0,1,1,Swimming,"Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay"
+Mylene Lazare,France,24,183.0,75.0,F,1987-11-20 00:00:00,0,0,1,1,Swimming,Women's 4x200m Freestyle Relay
+Chad le Clos,South Africa,20,184.0,76.0,M,1992-04-12 00:00:00,1,0,0,1,Swimming,"Men's 100m Butterfly, Men's 200m Butterfly, Men's 200m Individual Medley, Men's 400m Individual Medley, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Sung Jin Lee,Republic of Korea,27,165.0,60.0,F,1985-03-07 00:00:00,1,0,0,1,Archery,"Women's Individual, Women's Team"
+Clement Lefert,France,24,185.0,68.0,M,1987-09-26 00:00:00,1,1,0,2,Swimming,"Men's 100m Butterfly, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Ugo Legrand,France,23,175.0,73.0,M,1989-01-22 00:00:00,0,0,1,1,Judo,Men's -73kg
+Sheng Lei,People's Republic of China,28,192.0,75.0,M,1984-03-07 00:00:00,1,0,0,1,Fencing,"Men's Individual Foil, Men's Team Foil"
+Amaury Leveaux,France,26,202.0,92.0,M,1985-12-02 00:00:00,1,1,0,2,Swimming,"Men's 50m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay"
+Caitlin Leverenz,United States of America,21,173.0,73.0,F,1991-02-26 00:00:00,0,0,1,1,Swimming,"Women's 200m Individual Medley, Women's 400m Individual Medley"
+Maximilian Levy,Germany,25,182.0,88.0,M,1987-06-26 00:00:00,0,0,1,1,Cycling - Track,"Men's Keirin, Men's Team Sprint"
+Danell Leyva,United States of America,20,170.0,61.0,M,1991-10-30 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Individual All-Around, Men's Team, Men's Qualification"
+Jason Lezak,United States of America,36,193.0,98.0,M,1975-11-12 00:00:00,0,1,0,1,Swimming,Men's 4x100m Freestyle Relay
+Xiaoxia Li,People's Republic of China,24,174.0,65.0,F,1988-01-16 00:00:00,1,0,0,1,Table Tennis,"Women's Singles, Women's Team"
+Xuanxu Li,People's Republic of China,18,165.0,55.0,F,1994-02-05 00:00:00,0,0,1,1,Swimming,"Women's 400m Freestyle, Women's 400m Individual Medley"
+Xueying Li,People's Republic of China,22,161.0,58.0,F,1990-05-15 00:00:00,1,0,0,1,Weightlifting,Women's 58kg
+Yunqi Li,People's Republic of China,18,193.0,82.0,M,1993-08-28 00:00:00,0,0,1,1,Swimming,"Men's 200m Freestyle, Men's 4x200m Freestyle Relay"
+Ruben Limardo Gascon,Venezuela,27,175.0,80.0,M,1985-08-03 00:00:00,1,0,0,1,Fencing,Men's Individual Epee
+Qingfeng Lin,People's Republic of China,23,167.0,68.0,M,1989-01-26 00:00:00,1,0,0,1,Weightlifting,Men's 69kg
+Caroline Lind,United States of America,29,183.0,82.0,F,1982-10-11 00:00:00,1,0,0,1,Rowing,Women's Eight
+Nikita Lobintsev,Russian Federation,23,194.0,81.0,M,1988-11-21 00:00:00,0,0,1,1,Swimming,"Men's 100m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x100m Medley Relay"
+Ryan Lochte,United States of America,28,188.0,88.0,M,1984-08-03 00:00:00,2,2,1,5,Swimming,"Men's 200m Freestyle, Men's 200m Backstroke, Men's 200m Individual Medley, Men's 400m Individual Medley, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay"
+Esther Lofgren,United States of America,27,188.0,79.0,F,1985-02-28 00:00:00,1,0,0,1,Rowing,Women's Eight
+Eleanor Logan,United States of America,24,188.0,84.0,F,1987-12-27 00:00:00,1,0,0,1,Rowing,Women's Eight
+Constantine Louloudis,Great Britain,20,190.0,94.0,M,1991-09-15 00:00:00,0,0,1,1,Rowing,Men's Eight
+Chunlong Lu,People's Republic of China,23,170.0,57.0,M,1989-04-08 00:00:00,0,0,1,1,Trampoline,Men's Trampoline
+Haojie Lu,People's Republic of China,22,175.0,76.0,M,1990-08-03 00:00:00,0,1,0,1,Weightlifting,Men's 77kg
+Xiaojun Lu,People's Republic of China,28,172.0,77.0,M,1984-07-27 00:00:00,1,0,0,1,Weightlifting,Men's 77kg
+Ying Lu,People's Republic of China,23,175.0,62.0,F,1989-01-22 00:00:00,0,1,0,1,Swimming,"Women's 100m Butterfly, Women's 4x100m Medley Relay"
+Zhiwu Lu,People's Republic of China,23,182.0,76.0,M,1989-03-18 00:00:00,0,0,1,1,Swimming,"Men's 100m Freestyle, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Yutong Luo,People's Republic of China,26,165.0,62.0,M,1985-10-06 00:00:00,1,0,0,1,Diving,Men's Synchronised 3m Springboard
+Jin Ma,People's Republic of China,24,165.0,61.0,F,1988-05-07 00:00:00,0,1,0,1,Badminton,Mixed Doubles
+James Magnussen,Australia,21,195.0,90.0,M,1991-04-11 00:00:00,0,1,0,1,Swimming,"Men's 50m Freestyle, Men's 100m Freestyle, Men's 4x100m Freestyle Relay"
+Gregory Mallet,France,28,195.0,82.0,M,1984-03-21 00:00:00,0,1,0,1,Swimming,"Men's 200m Freestyle, Men's 4x200m Freestyle Relay"
+Marti Malloy,United States of America,26,160.0,57.0,F,1986-06-23 00:00:00,0,0,1,1,Judo,Women's -57kg
+Maiya Maneza,Kazakhstan,26,161.0,62.0,F,1985-11-01 00:00:00,1,0,0,1,Weightlifting,Women's 63kg
+Mc Kayla Maroney,United States of America,16,160.0,46.0,F,1995-12-09 00:00:00,1,0,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Darcy Marquardt,Canada,33,182.0,76.0,F,1979-03-22 00:00:00,0,1,0,1,Rowing,Women's Eight
+Adrienne Martelli,United States of America,24,185.0,79.0,F,1987-12-03 00:00:00,0,0,1,1,Rowing,Women's Quadruple Sculls
+Michal Martikan,Slovakia,33,170.0,71.0,M,1979-05-18 00:00:00,0,0,1,1,Canoe Slalom,Men's Canoe Single (C1)
+Damir Martin,Croatia,24,188.0,94.0,M,1988-07-14 00:00:00,0,1,0,1,Rowing,Men's Quadruple Sculls
+Razvan Constantin Martin,Romania,20,158.0,69.0,M,1991-12-22 00:00:00,0,0,1,1,Weightlifting,Men's 69kg
+Tony Martin,Germany,27,186.0,75.0,M,1985-04-23 00:00:00,0,1,0,1,Cycling - Road,"Men's Individual Time Trial, Men's Road Race"
+Sergei Martynov,Belarus,44,172.0,70.0,M,1968-05-18 00:00:00,1,0,0,1,Shooting,Men's 50m Rifle Prone
+Natalie Mastracci,Canada,23,178.0,75.0,F,1989-06-05 00:00:00,0,1,0,1,Rowing,Women's Eight
+Takeshi Matsuda,Japan,28,184.0,85.0,M,1984-06-23 00:00:00,0,0,1,1,Swimming,"Men's 100m Butterfly, Men's 200m Butterfly, Men's 4x100m Medley Relay"
+Kaori Matsumoto,Japan,24,162.0,57.0,F,1987-09-11 00:00:00,1,0,0,1,Judo,Women's -57kg
+Conlin Mccabe,Canada,21,205.0,100.0,M,1990-08-20 00:00:00,0,1,0,1,Rowing,Men's Eight
+Nicholas Mccrory,United States of America,20,180.0,74.0,M,1991-08-09 00:00:00,0,0,1,1,Diving,"Men's 10m Platform, Men's Synchronised 10m Platform"
+Kaarle Mcculloch,Australia,24,168.0,69.0,F,1988-01-20 00:00:00,0,0,1,1,Cycling - Track,Women's Team Sprint
+Matthew Mclean,United States of America,24,198.0,100.0,M,1988-05-13 00:00:00,1,0,0,1,Swimming,Men's 4x200m Freestyle Relay
+James Mcrae,Australia,25,193.0,93.0,M,1987-06-27 00:00:00,0,0,1,1,Rowing,Men's Quadruple Sculls
+Anna Meares,Australia,28,165.0,72.0,F,1983-09-21 00:00:00,0,0,1,1,Cycling - Track,"Women's Sprint, Women's Keirin, Women's Team Sprint"
+Ruta Meilutyte,Lithuania,15,172.0,64.0,F,1997-03-19 00:00:00,1,0,0,1,Swimming,"Women's 50m Freestyle, Women's 100m Freestyle, Women's 100m Breaststroke"
+Sarah Menezes,Brazil,22,154.0,48.0,F,1990-03-26 00:00:00,1,0,0,1,Judo,Women's -48kg
+Florian Mennigen,Germany,30,194.0,93.0,M,1982-04-10 00:00:00,1,0,0,1,Rowing,Men's Eight
+Julia Michalska,Poland,27,179.0,69.0,F,1985-07-21 00:00:00,0,0,1,1,Rowing,Women's Double Sculls
+Alexander Mikhaylin,Russian Federation,32,195.0,115.0,M,1979-08-18 00:00:00,0,1,0,1,Judo,Men's +100kg
+Hiromi Miyake,Japan,26,146.0,48.0,F,1985-11-18 00:00:00,0,1,0,1,Weightlifting,Women's 48kg
+Alin George Moldoveanu,Romania,29,174.0,74.0,M,1983-05-03 00:00:00,1,0,0,1,Shooting,Men's 10m Air Rifle
+Daniele Molmenti,Italy,28,170.0,68.0,M,1984-08-01 00:00:00,1,0,0,1,Canoe Slalom,Men's Kayak (K1)
+Christopher Morgan,Australia,29,191.0,85.0,M,1982-12-15 00:00:00,0,0,1,1,Rowing,Men's Quadruple Sculls
+Andreanne Morin,Canada,30,177.0,71.0,F,1981-08-09 00:00:00,0,1,0,1,Rowing,Women's Eight
+Vladimir Morozov,Russian Federation,20,180.0,73.0,M,1992-06-16 00:00:00,0,0,1,1,Swimming,"Men's 100m Backstroke, Men's 4x100m Freestyle Relay"
+Dorian Mortelette,France,28,194.0,90.0,M,1983-11-24 00:00:00,0,1,0,1,Rowing,Men's Pair
+Vasily Mosin,Russian Federation,40,182.0,77.0,M,1972-05-09 00:00:00,0,0,1,1,Shooting,Men's Double Trap
+Lukas Mueller,Germany,25,208.0,102.0,M,1987-05-19 00:00:00,1,0,0,1,Rowing,Men's Eight
+Camille Muffat,France,22,183.0,71.0,F,1989-10-28 00:00:00,1,1,1,3,Swimming,"Women's 200m Freestyle, Women's 400m Freestyle, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Eric Murray,New Zealand,30,195.0,98.0,M,1982-05-06 00:00:00,1,0,0,1,Rowing,Men's Pair
+Meghan Musnicki,United States of America,29,183.0,77.0,F,1983-02-05 00:00:00,1,0,0,1,Rowing,Women's Eight
+Aliya Mustafina,Russian Federation,17,162.0,48.0,F,1994-09-30 00:00:00,0,1,1,2,Gymnastics - Artistic,"Women's Individual All-Around, Women's Team, Women's Qualification"
+Magdalena Fularczyk,Poland,25,173.0,72.0,F,1986-09-16 00:00:00,0,0,1,1,Rowing,Women's Double Sculls
+Mahe Drysdale,New Zealand,33,199.0,100.0,M,1978-11-19 00:00:00,1,0,0,1,Rowing,Men's Single Sculls
+Masashi Ebinuma,Japan,22,170.0,66.0,M,1990-02-15 00:00:00,0,0,1,1,Judo,Men's -66kg
+Matthew Langridge,Great Britain,29,195.0,96.0,M,1983-05-20 00:00:00,0,0,1,1,Rowing,Men's Eight
+Tuvshinbayar Naidan,Mongolia,28,178.0,100.0,M,1984-06-01 00:00:00,0,1,0,1,Judo,Men's -100kg
+Riki Nakaya,Japan,23,168.0,73.0,M,1989-07-25 00:00:00,0,1,0,1,Judo,Men's -73kg
+Hyun Hee Nam,Republic of Korea,30,155.0,44.0,F,1981-09-29 00:00:00,0,0,1,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Gagan Narang,India,29,180.0,115.0,M,1983-05-06 00:00:00,0,0,1,1,Shooting,"Men's 10m Air Rifle, Men's 50m Rifle Prone, Men's 50m Rifle 3 Positions"
+George Nash,Great Britain,22,195.0,97.0,M,1989-10-02 00:00:00,0,0,1,1,Rowing,Men's Pair
+Sizwe Ndlovu,South Africa,31,185.0,72.0,M,1980-09-24 00:00:00,1,0,0,1,Rowing,Men's Lightweight Four
+Lia Neal,United States of America,17,178.0,73.0,F,1995-02-13 00:00:00,0,0,1,1,Swimming,Women's 4x100m Freestyle Relay
+Jade Neilsen,Australia,21,175.0,70.0,F,1991-07-24 00:00:00,0,1,0,1,Swimming,Women's 4x200m Freestyle Relay
+Mauro Nespoli,Italy,24,181.0,85.0,M,1987-11-22 00:00:00,1,0,0,1,Archery,"Men's Individual, Men's Team"
+Marcel Nguyen,Germany,24,167.0,55.0,M,1987-09-08 00:00:00,0,1,0,1,Gymnastics - Artistic,"Men's Individual All-Around, Men's Team, Men's Qualification"
+Andrew Nicholson,New Zealand,51,182.0,75.0,M,1961-08-01 00:00:00,0,0,1,1,Equestrian,"Individual Eventing, Team Eventing, NEREO"
+Ivan Nifontov,Russian Federation,25,172.0,81.0,M,1987-06-05 00:00:00,0,0,1,1,Judo,Men's -81kg
+Masashi Nishiyama,Japan,27,178.0,90.0,M,1985-07-09 00:00:00,0,0,1,1,Judo,Men's -90kg
+Daniel Noonan,Australia,32,187.0,90.0,M,1979-10-28 00:00:00,0,0,1,1,Rowing,Men's Quadruple Sculls
+Natsumi Hoshi,Japan,21,164.0,54.0,F,1990-08-21 00:00:00,0,0,1,1,Swimming,"Women's 100m Butterfly, Women's 200m Butterfly"
+Diego Occhiuzzi,Italy,31,180.0,80.0,M,1981-04-30 00:00:00,0,1,0,1,Fencing,"Men's Individual Sabre, Men's Team Sabre"
+Ha Na Oh,Republic of Korea,27,175.0,65.0,F,08/01/1985,0,0,1,1,Fencing,Women's Team Foil
+Jin Hyek Oh,Republic of Korea,30,182.0,100.0,M,1981-08-15 00:00:00,1,0,1,2,Archery,"Men's Individual, Men's Team"
+Sam Oldham,Great Britain,19,168.0,62.0,M,1993-02-17 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Yun Chol Om,Democratic People's Republic  of Korea,20,152.0,56.0,M,1991-11-18 00:00:00,1,0,0,1,Weightlifting,Men's 56kg
+Britta Oppelt,Germany,34,173.0,69.0,F,1978-07-05 00:00:00,0,1,0,1,Rowing,Women's Quadruple Sculls
+Alejandra Orozco Loza,Mexico,15,156.0,47.0,F,1997-04-19 00:00:00,0,1,0,1,Diving,Women's Synchronised 10m Platform
+Idalys Ortiz,Cuba,22,180.0,95.0,F,1989-09-27 00:00:00,1,0,0,1,Judo,Women's +78kg
+Dimitrij Ovtcharov,Germany,23,185.0,78.0,M,1988-09-02 00:00:00,0,0,1,1,Table Tennis,"Men's Singles, Men's Team"
+Jonathan Paget,New Zealand,28,190.0,80.0,M,1983-11-17 00:00:00,0,0,1,1,Equestrian,"Individual Eventing, Team Eventing, CLIFTON PROMISE"
+Kylie Palmer,Australia,22,173.0,68.0,F,1990-02-25 00:00:00,0,1,0,1,Swimming,"Women's 200m Freestyle, Women's 400m Freestyle, Women's 800m Freestyle, Women's 4x200m Freestyle Relay"
+Alex Partridge,Great Britain,31,193.0,93.0,M,1981-01-25 00:00:00,0,0,1,1,Rowing,Men's Eight
+Maria Paseka,Russian Federation,17,159.0,48.0,F,1995-07-19 00:00:00,0,1,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Automne Pavia,France,23,173.0,57.0,F,1989-01-03 00:00:00,0,0,1,1,Judo,Women's -57kg
+Christinna Pedersen,Denmark,26,178.0,71.0,F,1986-05-12 00:00:00,0,0,1,1,Badminton,"Women's Doubles, Mixed Doubles"
+Lauren Perdue,United States of America,21,170.0,65.0,F,1991-06-25 00:00:00,1,0,0,1,Swimming,Women's 4x200m Freestyle Relay
+Thiago Pereira,Brazil,26,183.0,67.0,M,1986-01-26 00:00:00,0,1,0,1,Swimming,"Men's 200m Individual Medley, Men's 400m Individual Medley, Men's 4x100m Medley Relay"
+Dimitri Peters,Germany,28,188.0,100.0,M,1984-05-04 00:00:00,0,0,1,1,Judo,Men's -100kg
+Michael Phelps,United States of America,27,193.0,88.0,M,1985-06-30 00:00:00,2,2,0,4,Swimming,"Men's 100m Butterfly, Men's 200m Butterfly, Men's 200m Individual Medley, Men's 400m Individual Medley, Men's 4x100m Freestyle Relay, Men's 4x200m Freestyle Relay, Men's 4x100m Medley Relay"
+Zara Phillips,Great Britain,31,168.0,64.0,F,1981-05-15 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, HIGH KINGDOM"
+Bartosz Piasecki,Norway,25,196.0,80.0,M,1986-12-09 00:00:00,0,1,0,1,Fencing,Men's Individual Epee
+Caroline Powell,New Zealand,39,156.0,60.0,F,1973-03-14 00:00:00,0,0,1,1,Equestrian,"Individual Eventing, Team Eventing, LENAMORE"
+Brooke Pratley,Australia,32,191.0,75.0,F,1980-04-06 00:00:00,0,1,0,1,Rowing,Women's Double Sculls
+Brian Price,Canada,36,163.0,55.0,M,1976-02-19 00:00:00,0,1,0,1,Rowing,Men's Eight
+Leuris Pupo,Cuba,35,168.0,78.0,M,1977-04-09 00:00:00,1,0,0,1,Shooting,Men's 25m Rapid Fire Pistol
+Daniel Purvis,Great Britain,21,168.0,63.0,M,1990-11-13 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Individual All-Around, Men's Team, Men's Qualification"
+Kai Qin,People's Republic of China,26,170.0,65.0,M,1986-01-31 00:00:00,1,0,0,1,Diving,"Men's 3m Springboard, Men's Synchronised 3m Springboard"
+Tom Ransley,Great Britain,26,198.0,100.0,M,1985-09-06 00:00:00,0,0,1,1,Rowing,Men's Eight
+Maximilian Reinelt,Germany,23,194.0,96.0,M,1988-08-24 00:00:00,1,0,0,1,Rowing,Men's Eight
+Roline Repelaer van Driel,Netherlands,28,189.0,84.0,F,1984-07-28 00:00:00,0,0,1,1,Rowing,Women's Eight
+Kimberly Rhode,United States of America,33,163.0,83.0,F,1979-07-16 00:00:00,1,0,0,1,Shooting,"Women's Trap, Women's Skeet"
+Jonelle Richards,New Zealand,31,162.0,57.0,F,1980-10-14 00:00:00,0,0,1,1,Equestrian,"Individual Eventing, Team Eventing, FLINTSTAR"
+Julia Richter,Germany,23,175.0,71.0,F,1988-09-29 00:00:00,0,1,0,1,Rowing,Women's Quadruple Sculls
+Jong Sim Rim,Democratic People's Republic  of Korea,19,163.0,68.0,F,1993-02-05 00:00:00,1,0,0,1,Weightlifting,Women's 69kg
+Teddy Riner,France,23,204.0,131.0,M,1989-04-07 00:00:00,1,0,0,1,Judo,Men's +100kg
+Taylor Ritzel,United States of America,23,188.0,90.0,F,1988-09-04 00:00:00,1,0,0,1,Rowing,Women's Eight
+Aida Roman,Mexico,24,168.0,61.0,F,1988-05-21 00:00:00,0,1,0,1,Archery,"Women's Individual, Women's Team"
+Kyla Ross,United States of America,15,157.0,45.0,F,1996-10-24 00:00:00,1,0,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Marc Ryan,New Zealand,29,185.0,77.0,M,1982-10-14 00:00:00,0,0,1,1,Cycling - Track,Men's Team Pursuit
+Chun Hwa Ryang,Democratic People's Republic  of Korea,21,147.0,48.0,F,1991-06-12 00:00:00,0,0,1,1,Weightlifting,Women's 48kg
+Ranomi Kromowidjojo,Netherlands,21,179.0,69.0,F,1990-08-20 00:00:00,1,1,0,2,Swimming,"Women's 50m Freestyle, Women's 100m Freestyle, Women's 4x100m Freestyle Relay"
+Ren Hayakawa,Japan,24,179.0,65.0,F,1987-08-24 00:00:00,0,0,1,1,Archery,"Women's Individual, Women's Team"
+Richard Hounslow,Great Britain,30,183.0,76.0,M,1981-12-19 00:00:00,0,1,0,1,Canoe Slalom,"Men's Kayak (K1), Men's Canoe Double (C2)"
+Rosalba Forciniti,Italy,26,159.0,52.0,F,1986-02-13 00:00:00,0,0,1,1,Judo,Women's -52kg
+David Sain,Croatia,24,186.0,93.0,M,1988-02-08 00:00:00,0,1,0,1,Rowing,Men's Quadruple Sculls
+Nyam-Ochir Sainjargal,Mongolia,26,174.0,73.0,M,1986-07-20 00:00:00,0,0,1,1,Judo,Men's -73kg
+Ilaria Salvatori,Italy,33,160.0,54.0,F,05/02/1979,1,0,0,1,Fencing,Women's Team Foil
+German Sanchez Sanchez,Mexico,20,167.0,47.0,M,1992-06-24 00:00:00,0,1,0,1,Diving,"Men's 10m Platform, Men's Synchronised 10m Platform"
+Alessio Sartori,Italy,35,202.0,100.0,M,1976-11-13 00:00:00,0,1,0,1,Rowing,Men's Double Sculls
+William Satch,Great Britain,23,194.0,94.0,M,1989-06-09 00:00:00,0,0,1,1,Rowing,Men's Pair
+Martin Sauer,Germany,29,169.0,55.0,M,1982-12-17 00:00:00,1,0,0,1,Rowing,Men's Eight
+Mohamed Sbihi,Great Britain,24,203.0,103.0,M,1988-03-27 00:00:00,0,0,1,1,Rowing,Men's Eight
+Anne Schellekens,Netherlands,26,163.0,48.0,F,1986-04-18 00:00:00,0,0,1,1,Rowing,Women's Eight
+Melanie Schlanger,Australia,25,176.0,65.0,F,1986-08-31 00:00:00,1,1,0,2,Swimming,"Women's 100m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay"
+Richard Schmidt,Germany,25,191.0,97.0,M,1987-05-23 00:00:00,1,0,0,1,Rowing,Men's Eight
+Allison Schmitt,United States of America,22,185.0,74.0,F,1990-06-07 00:00:00,2,1,1,4,Swimming,"Women's 200m Freestyle, Women's 400m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay"
+Lauritz Schoof,Germany,21,195.0,96.0,M,1990-10-07 00:00:00,1,0,0,1,Rowing,Men's Quadruple Sculls
+Dirk Schrade,Germany,34,183.0,68.0,M,1978-06-29 00:00:00,1,0,0,1,Equestrian,"Individual Eventing, Team Eventing, KING ARTUS"
+Hinkelien Schreuder,Netherlands,28,179.0,64.0,F,1984-02-13 00:00:00,0,1,0,1,Swimming,Women's 4x100m Freestyle Relay
+Karl Schulze,Germany,24,190.0,98.0,M,1988-03-05 00:00:00,1,0,0,1,Rowing,Men's Quadruple Sculls
+Rebecca Scown,New Zealand,28,176.0,73.0,F,1983-08-10 00:00:00,0,0,1,1,Rowing,Women's Pair
+Greg Searle,Great Britain,40,197.0,97.0,M,1972-03-20 00:00:00,0,0,1,1,Rowing,Men's Eight
+Emily Seebohm,Australia,20,180.0,70.0,F,1992-06-05 00:00:00,1,1,0,2,Swimming,"Women's 100m Backstroke, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Jesse Sergent,New Zealand,24,189.0,77.0,M,1988-07-08 00:00:00,0,0,1,1,Cycling - Track,Men's Team Pursuit
+Aida Shanaeva,Russian Federation,26,178.0,68.0,F,1986-04-23 00:00:00,0,1,0,1,Fencing,"Women's Individual Foil, Women's Team Foil"
+Lasha Shavdatuashvili,Georgia,20,167.0,66.0,M,1992-01-31 00:00:00,1,0,0,1,Judo,Men's -66kg
+Maryna Shkermankova,Belarus,22,161.0,68.0,F,1990-04-09 00:00:00,0,0,1,1,Weightlifting,Women's 69kg
+Rafael Silva,Brazil,25,203.0,155.0,M,1987-05-11 00:00:00,0,0,1,1,Judo,Men's +100kg
+Martin Sinkovic,Croatia,22,188.0,95.0,M,1989-11-10 00:00:00,0,1,0,1,Rowing,Men's Quadruple Sculls
+Valent Sinkovic,Croatia,24,184.0,93.0,M,1988-08-02 00:00:00,0,1,0,1,Rowing,Men's Quadruple Sculls
+Kevin Sireau,France,25,188.0,90.0,M,1987-04-18 00:00:00,0,1,0,1,Cycling - Track,Men's Team Sprint
+Pimsiri Sirikaew,Thailand,22,149.0,58.0,F,1990-04-25 00:00:00,0,1,0,1,Weightlifting,Women's 58kg
+John Smith,South Africa,22,191.0,72.0,M,1990-01-12 00:00:00,1,0,0,1,Rowing,Men's Lightweight Four
+Louis Smith,Great Britain,23,179.0,76.0,M,1989-04-22 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Dae-Nam Song,Republic of Korea,33,178.0,85.0,M,1979-04-05 00:00:00,1,0,0,1,Judo,Men's -90kg
+Rebecca Soni,United States of America,25,170.0,61.0,F,1987-03-18 00:00:00,1,1,0,2,Swimming,"Women's 100m Breaststroke, Women's 200m Breaststroke"
+Luka Spik,Slovenia,33,196.0,95.0,M,1979-02-09 00:00:00,0,0,1,1,Rowing,Men's Double Sculls
+Christian Sprenger,Australia,26,196.0,92.0,M,1985-12-19 00:00:00,0,1,0,1,Swimming,Men's 100m Breaststroke
+Heather Stanning,Great Britain,27,181.0,74.0,F,1985-01-26 00:00:00,1,0,0,1,Rowing,Women's Pair
+Etienne Stott,Great Britain,33,182.0,83.0,M,1979-06-30 00:00:00,1,0,0,1,Canoe Slalom,Men's Canoe Double (C2)
+Mika Sugimoto,Japan,27,165.0,100.0,F,1984-08-27 00:00:00,0,1,0,1,Judo,Women's +78kg
+Joseph Sullivan,New Zealand,25,182.0,82.0,M,1987-04-11 00:00:00,1,0,0,1,Rowing,Men's Double Sculls
+Yang Sun,People's Republic of China,20,198.0,89.0,M,1991-12-01 00:00:00,1,1,1,3,Swimming,"Men's 200m Freestyle, Men's 400m Freestyle, Men's 1500m Freestyle, Men's 4x200m Freestyle Relay"
+Yujie Sun,People's Republic of China,19,185.0,72.0,F,1992-08-10 00:00:00,0,0,1,1,Fencing,"Women's Individual Epee, Women's Team Epee"
+Satomi Suzuki,Japan,21,168.0,62.0,F,1991-01-29 00:00:00,0,1,1,2,Swimming,"Women's 100m Breaststroke, Women's 200m Breaststroke, Women's 4x100m Medley Relay"
+Ondrej Synek,Czech Republic,29,199.0,93.0,M,1982-10-13 00:00:00,0,1,0,1,Rowing,Men's Single Sculls
+Shu-Ching Hsu,Taipei (Chinese Taipei),21,159.0,52.0,F,1991-05-09 00:00:00,0,1,0,1,Weightlifting,Women's 53kg
+Svetlana Podobedova,Kazakhstan,26,165.0,75.0,F,1986-05-25 00:00:00,1,0,0,1,Weightlifting,Women's 75kg
+Sarah Tait,Australia,29,180.0,70.0,F,1983-01-23 00:00:00,0,1,0,1,Rowing,Women's Pair
+Kazuhito Tanaka,Japan,27,166.0,56.0,M,1985-05-16 00:00:00,0,1,0,1,Gymnastics - Artistic,"Men's Individual All-Around, Men's Team, Men's Qualification"
+Yusuke Tanaka,Japan,22,166.0,58.0,M,1989-11-29 00:00:00,0,1,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Yi Tang,People's Republic of China,19,177.0,70.0,F,1993-01-08 00:00:00,0,0,1,1,Swimming,"Women's 100m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x200m Freestyle Relay, Women's 4x100m Medley Relay"
+Kateryna Tarasenko,Ukraine,24,183.0,72.0,F,1987-08-06 00:00:00,1,0,0,1,Rowing,Women's Quadruple Sculls
+Davis Tarwater,United States of America,28,185.0,84.0,M,1984-03-24 00:00:00,1,0,0,1,Swimming,Men's 4x200m Freestyle Relay
+Sideris Tasiadis,Germany,22,179.0,79.0,M,1990-05-07 00:00:00,0,1,0,1,Canoe Slalom,Men's Canoe Single (C1)
+Ryo Tateishi,Japan,23,182.0,70.0,M,1989-06-12 00:00:00,0,0,1,1,Swimming,"Men's 100m Breaststroke, Men's 200m Breaststroke"
+Audrey Tcheumeo,France,22,177.0,78.0,F,1990-04-20 00:00:00,0,0,1,1,Judo,Women's -78kg
+Aya Terakawa,Japan,27,173.0,60.0,F,1984-11-12 00:00:00,0,0,1,1,Swimming,"Women's 100m Backstroke, Women's 4x100m Medley Relay"
+Luca Tesconi,Italy,30,177.0,73.0,M,1982-01-03 00:00:00,0,1,0,1,Shooting,Men's 10m Air Pistol
+Annekatrin Thiele,Germany,27,173.0,68.0,F,1984-10-18 00:00:00,0,1,0,1,Rowing,Women's Quadruple Sculls
+Kerstin Thiele,Germany,25,168.0,70.0,F,1986-08-26 00:00:00,0,1,0,1,Judo,Women's -70kg
+Nick Thoman,United States of America,26,185.0,84.0,M,1986-03-06 00:00:00,0,1,0,1,Swimming,"Men's 100m Backstroke, Men's 4x100m Medley Relay"
+Kristian Thomas,Great Britain,23,180.0,78.0,M,1989-02-14 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Individual All-Around, Men's Team, Men's Qualification"
+James Thompson,South Africa,25,182.0,70.0,M,1986-11-18 00:00:00,1,0,0,1,Rowing,Men's Lightweight Four
+Lesley Thompson-Willie,Canada,52,160.0,50.0,F,1959-09-20 00:00:00,0,1,0,1,Rowing,Women's Eight
+Peter Thomsen,Germany,51,183.0,73.0,M,1961-04-04 00:00:00,1,0,0,1,Equestrian,"Individual Eventing, Team Eventing, BARNY"
+Mark Todd,New Zealand,56,190.0,82.0,M,1956-03-01 00:00:00,0,0,1,1,Equestrian,"Individual Eventing, Team Eventing, CAMPINO"
+Andreas Toelzer,Germany,32,192.0,145.0,M,1980-01-27 00:00:00,0,0,1,1,Judo,Men's +100kg
+Libby Trickett,Australia,27,167.0,64.0,F,1985-01-28 00:00:00,1,0,0,1,Swimming,Women's 4x100m Freestyle Relay
+Svetlana Tsarukaeva,Russian Federation,24,162.0,62.0,F,1987-12-25 00:00:00,0,1,0,1,Weightlifting,Women's 63kg
+Taehwan Park,Republic of Korea,22,183.0,76.0,M,1989-09-27 00:00:00,0,2,0,2,Swimming,"Men's 200m Freestyle, Men's 400m Freestyle, Men's 1500m Freestyle"
+Takaharu Furukawa,Japan,27,174.0,81.0,M,1984-08-09 00:00:00,0,1,0,1,Archery,"Men's Individual, Men's Team"
+Troy Dumais,United States of America,32,168.0,68.0,M,1980-01-21 00:00:00,0,0,1,1,Diving,"Men's 3m Springboard, Men's Synchronised 3m Springboard"
+Miklos Ungvari,Hungary,31,176.0,66.0,M,1980-10-15 00:00:00,0,1,0,1,Judo,Men's -66kg
+Rigoberto Uran Uran,Colombia,25,173.0,62.0,M,1987-01-26 00:00:00,0,1,0,1,Cycling - Road,Men's Road Race
+Dmitry Ushakov,Russian Federation,23,176.0,64.0,M,1988-08-15 00:00:00,0,1,0,1,Trampoline,Men's Trampoline
+Antoine Valois-Fortier,Canada,22,190.0,81.0,M,1990-03-13 00:00:00,0,0,1,1,Judo,Men's -81kg
+Cameron van der Burgh,South Africa,24,184.0,74.0,M,1988-05-25 00:00:00,1,0,0,1,Swimming,"Men's 100m Breaststroke, Men's 4x100m Medley Relay"
+Charline van Snick,Belgium,21,157.0,48.0,F,1990-09-02 00:00:00,0,0,1,1,Judo,Women's -48kg
+Peter Vanderkaay,United States of America,28,193.0,95.0,M,1984-02-12 00:00:00,0,0,1,1,Swimming,Men's 400m Freestyle
+Jacobine Veenhoven,Netherlands,28,183.0,72.0,F,1984-01-30 00:00:00,0,0,1,1,Rowing,Women's Eight
+Marleen Veldhuis,Netherlands,33,182.0,67.0,F,1979-06-29 00:00:00,0,1,0,1,Swimming,"Women's 50m Freestyle, Women's 4x100m Freestyle Relay, Women's 4x100m Medley Relay"
+Sofya Velikaya,Russian Federation,27,170.0,67.0,F,1985-06-08 00:00:00,0,1,0,1,Fencing,Women's Individual Sabre
+Valentina Vezzali,Italy,38,164.0,53.0,F,1974-02-14 00:00:00,1,0,1,2,Fencing,"Women's Individual Foil, Women's Team Foil"
+Rachelle Viinberg,Canada,33,183.0,74.0,F,1979-04-30 00:00:00,0,1,0,1,Rowing,Women's Eight
+Alexandr Vinokurov,Kazakhstan,38,176.0,69.0,M,1973-09-16 00:00:00,1,0,0,1,Cycling - Road,"Men's Individual Time Trial, Men's Road Race"
+Kristina Vogel,Germany,21,160.0,62.0,F,1990-11-10 00:00:00,1,0,0,1,Cycling - Track,"Women's Sprint, Women's Keirin, Women's Team Sprint"
+Dana Vollmer,United States of America,24,183.0,68.0,F,1987-11-13 00:00:00,2,0,0,2,Swimming,"Women's 100m Butterfly, Women's 4x200m Freestyle Relay"
+Marianne Vos,Netherlands,25,169.0,52.0,F,1987-05-13 00:00:00,1,0,0,1,Cycling - Road,"Women's Individual Time Trial, Women's Road Race"
+Shannon Vreeland,United States of America,20,188.0,79.0,F,1991-11-15 00:00:00,1,0,0,1,Swimming,Women's 4x200m Freestyle Relay
+Valentin Hristov,Azerbaijan,18,156.0,56.0,M,1994-03-30 00:00:00,0,0,1,1,Weightlifting,Men's 56kg
+Vavrinec Hradilek,Czech Republic,25,168.0,78.0,M,1987-03-10 00:00:00,0,1,0,1,Canoe Slalom,"Men's Kayak (K1), Men's Canoe Double (C2)"
+Vincent Hancock,United States of America,23,173.0,77.0,M,1989-03-19 00:00:00,1,0,0,1,Shooting,Men's Skeet
+Hao Wang,People's Republic of China,19,156.0,50.0,F,1992-12-26 00:00:00,1,0,0,1,Diving,Women's Synchronised 10m Platform
+Hao Wang,People's Republic of China,28,175.0,78.0,M,1983-12-15 00:00:00,0,1,0,1,Table Tennis,"Men's Singles, Men's Team"
+Mingjuan Wang,People's Republic of China,26,150.0,48.0,F,1985-10-11 00:00:00,1,0,0,1,Weightlifting,Women's 48kg
+Anna Watkins,Great Britain,29,183.0,78.0,F,1983-02-13 00:00:00,1,0,0,1,Rowing,Women's Double Sculls
+Ning Wei,People's Republic of China,29,166.0,63.0,F,1982-08-05 00:00:00,0,1,0,1,Shooting,Women's Skeet
+Amanda Weir,United States of America,26,185.0,75.0,F,1986-03-11 00:00:00,0,0,1,1,Swimming,Women's 4x100m Freestyle Relay
+Miriam Welte,Germany,25,171.0,67.0,F,1986-12-09 00:00:00,1,0,0,1,Cycling - Track,Women's Team Sprint
+Phillipp Wende,Germany,27,199.0,89.0,M,1985-07-04 00:00:00,1,0,0,1,Rowing,Men's Quadruple Sculls
+Mary Whipple,United States of America,32,163.0,48.0,F,1980-05-10 00:00:00,1,0,0,1,Rowing,Women's Eight
+Max Whitlock,Great Britain,19,167.0,56.0,M,1993-01-13 00:00:00,0,0,1,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Jordyn Wieber,United States of America,17,157.0,52.0,F,1995-07-12 00:00:00,1,0,0,1,Gymnastics - Artistic,"Women's Team, Women's Qualification"
+Bradley Wiggins,Great Britain,32,190.0,77.0,M,1980-04-28 00:00:00,1,0,0,1,"Cycling - Road, Cycling - Track","Men's Individual Time Trial, Men's Road Race"
+Kristof Wilke,Germany,27,190.0,92.0,M,1985-04-17 00:00:00,1,0,0,1,Rowing,Men's Eight
+Lauren Wilkinson,Canada,22,180.0,73.0,F,1989-10-17 00:00:00,0,1,0,1,Rowing,Women's Eight
+Rob Williams,Great Britain,27,185.0,75.0,M,1985-01-21 00:00:00,0,1,0,1,Rowing,Men's Lightweight Four
+Nicola Wilson,Great Britain,35,177.0,64.0,F,1976-10-01 00:00:00,0,1,0,1,Equestrian,"Individual Eventing, Team Eventing, OPPOSITION BUZZ"
+Peter Robert Russell Wilson,Great Britain,25,198.0,90.0,M,1986-09-15 00:00:00,1,0,0,1,Shooting,Men's Double Trap
+Kasper Winther,Denmark,27,182.0,73.0,M,1985-03-21 00:00:00,0,0,1,1,Rowing,Men's Lightweight Four
+Jingbiao Wu,People's Republic of China,23,163.0,56.0,M,1989-01-10 00:00:00,0,1,0,1,Weightlifting,Men's 56kg
+Minxia Wu,People's Republic of China,26,167.0,53.0,F,1985-11-10 00:00:00,1,0,0,1,Diving,"Women's 3m Springboard, Women's Synchronised 3m Springboard"
+Jacob Wukie,United States of America,26,180.0,73.0,M,1986-05-11 00:00:00,0,1,0,1,Archery,"Men's Individual, Men's Team"
+Chen Xu,People's Republic of China,27,186.0,80.0,M,1984-11-29 00:00:00,0,1,0,1,Badminton,Mixed Doubles
+Jing Xu,People's Republic of China,21,169.0,70.0,F,1990-09-06 00:00:00,0,1,0,1,Archery,"Women's Individual, Women's Team"
+Lili Xu,People's Republic of China,24,166.0,63.0,F,1988-02-18 00:00:00,0,1,0,1,Judo,Women's -63kg
+Koji Yamamuro,Japan,23,159.0,58.0,M,1989-01-17 00:00:00,0,1,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Shiwen Ye,People's Republic of China,16,172.0,64.0,F,1996-03-01 00:00:00,2,0,0,2,Swimming,"Women's 200m Individual Medley, Women's 400m Individual Medley, Women's 4x200m Freestyle Relay"
+Siling Yi,People's Republic of China,23,165.0,54.0,F,1989-05-06 00:00:00,1,0,0,1,Shooting,Women's 10m Air Rifle
+Dan Yu,People's Republic of China,24,158.0,50.0,F,1987-08-18 00:00:00,0,0,1,1,Shooting,Women's 10m Air Rifle
+Olga Zabelinskaya,Russian Federation,32,175.0,61.0,F,1980-05-10 00:00:00,0,0,2,2,Cycling - Road,"Women's Individual Time Trial, Women's Road Race"
+Natalya Zabolotnaya,Russian Federation,26,165.0,75.0,F,1985-08-15 00:00:00,0,1,0,1,Weightlifting,Women's 75kg
+Ilya Zakharov,Russian Federation,21,177.0,70.0,M,1991-05-02 00:00:00,0,1,0,1,Diving,"Men's 3m Springboard, Men's Synchronised 3m Springboard, Men's Synchronised 10m Platform"
+Chenglong Zhang,People's Republic of China,23,173.0,65.0,M,1989-05-12 00:00:00,1,0,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
+Jike Zhang,People's Republic of China,24,178.0,70.0,M,1988-02-16 00:00:00,1,0,0,1,Table Tennis,"Men's Singles, Men's Team"
+Nan Zhang,People's Republic of China,22,183.0,73.0,M,1990-03-01 00:00:00,1,0,0,1,Badminton,Mixed Doubles
+Andrija Zlatic,Serbia,34,180.0,85.0,M,1978-01-25 00:00:00,0,0,1,1,Shooting,"Men's 50m Pistol, Men's 10m Air Pistol"
+Urska Zolnir,Slovenia,30,173.0,63.0,F,1981-10-09 00:00:00,1,0,0,1,Judo,Women's -63kg
+Kai Zou,People's Republic of China,24,158.0,55.0,M,1988-02-25 00:00:00,1,0,0,1,Gymnastics - Artistic,"Men's Team, Men's Qualification"
