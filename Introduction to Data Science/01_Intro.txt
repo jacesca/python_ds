@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 25 13:46:51 2019
+
+@author: jacqueline.cortez
+
+Capítulo 1. Getting Started in Python
+Introduction:
+    Welcome to the wonderful world of Data Analysis in Python! In this chapter, you'll 
+    learn the basics of Python syntax, load your first Python modules, and use functions 
+    to get a suspect list for the kidnapping of Bayes, DataCamp's prize-winning Golden 
+    Retriever.
+"""
+
+# Import packages
+import pandas as pd                  #For loading tabular data
+import matplotlib.pyplot as plt      #For creating charts
+import seaborn as sns                #For visualizing data
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("Filling the report...\n")
+
+bayes_age    = 4.0           # Fill in Bayes' age (4.0)
+favorite_toy = 'Mr. Squeaky' # Bayes' favorite toy
+owner        = 'DataCamp'    # Bayes' owner
+birthday     = '2019-02-14'
+case_id      = 'DATACAMP!123-456?'
+
+print("Read the file that contains the frequency of each letter in the ransom note for Bayes....\n")
+r = pd.read_fwf('ransom.data')
+print('{}\n'.format(r))
+
+print("Graphing the data....\n")
+sns.set()
+plt.plot(r.letter.tolist(), r.frequency.tolist())
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
