@@ -1,0 +1,12 @@
+#Following is a preview of the DataFrame df: 
+#  P  Q
+#a 5 20
+#b 3 15
+
+#Complete the code to return the output 
+for i, x in df.iterrows():
+    print(i + ': ' + str(x["Q"]))
+
+#Output
+#a: 20
+#b: 15
