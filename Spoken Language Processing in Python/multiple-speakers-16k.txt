@@ -1,0 +1,3 @@
+1: One of the limitations of the speech recognition lottery. 
+2: Is that it doesn't recognize different speakers invoices. 
+3: It will just return it all as one block a text. 
