@@ -1,0 +1,295 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 15 22:07:20 2019
+
+@author: jacqueline.cortez
+
+Capítulo 2. Visualization with hierarchical clustering and t-SNE
+Introduction:
+    In this chapter, you'll learn about two unsupervised learning techniques for data visualization, hierarchical clustering 
+    and t-SNE. Hierarchical clustering merges the data samples into ever-coarser clusters, yielding a tree visualization of 
+    the resulting cluster hierarchy. t-SNE maps the data samples into 2d space so that the proximity of the samples to one 
+    another can be visualized.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import matplotlib.pyplot as plt                                                     #For creating charts
+import seaborn as sns                                                               #For visualizing data
+
+from scipy.cluster.hierarchy import fcluster                                        #For learning machine - unsurpervised
+from scipy.cluster.hierarchy import dendrogram                                      #For learning machine - unsurpervised
+from scipy.cluster.hierarchy import linkage                                         #For learning machine - unsurpervised
+from sklearn.manifold import TSNE                                                   #For learning machine - unsurpervised
+from sklearn.model_selection import train_test_split                                #For learning machine
+from sklearn.preprocessing import normalize                                         #For learning machine - unsurpervised
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'seeds.csv'
+seed = pd.read_csv(file, header=None, names=['area', 'perimeter', 'compactness', 'length', 'width', 'coefficient', 'groove', 'varieties'])
+grain_samples = seed.drop('varieties', axis=1).values
+grain_varieties = seed.varieties.values
+seed_varieties = {1: 'Kama wheat', 2: 'Rosa wheat', 3: 'Canadian wheat'}
+seed['variety_name'] = seed.varieties.map(seed_varieties)
+grain_labels = seed['variety_name'].values
+
+file = 'company-stock-movements-2010-2015-incl.csv'
+movements = pd.read_csv(file)
+movement_samples = movements.drop('Unnamed: 0', axis=1).values
+movement_companies = movements['Unnamed: 0'].values
+
+
+file = 'eurovision-2016.csv'
+eurovision = pd.read_csv(file, usecols=['From country', 'To country', 'Televote Points'])
+eurovision = eurovision.pivot(index='From country', columns='To country', values='Televote Points')
+eurovision.fillna(0, inplace=True)
+eurovision_samples = eurovision.values
+eurovision_labels = eurovision.index.values
+
+
+print("****************************************************")
+tema = "3. Hierarchical clustering of the grain data"; print("** %s\n" % tema)
+
+samples_train, samples_test, label_train, label_test = train_test_split(grain_samples, seed.variety_name.values, random_state=42, train_size=0.25)
+# Calculate the linkage: mergings
+mergings = linkage(samples_train, method='complete')
+
+# Plot the dendrogram, using varieties as labels
+sns.set() # Set default Seaborn style
+dendrogram(mergings, labels=label_train, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Seed Samples')
+#plt.ylabel('Levels of clustering')
+plt.title('A Dendrogram of Seed Samples')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.25, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = "4. Hierarchies of stocks"; print("** %s\n" % tema)
+
+normalized_movements = normalize(movement_samples) # Normalize the movements: normalized_movements
+mergings = linkage(normalized_movements, method='complete') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=movement_companies, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Companies names')
+#plt.ylabel('Levels of clustering')
+plt.title('A Dendrogram for Companies Movements Samples')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.45, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = "7. Different linkage, different hierarchical clustering!"; print("** %s\n" % tema)
+
+#############################################################
+###### METHOD = COMPLETE
+#############################################################
+mergings = linkage(eurovision_samples, method='complete') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with COMPLETE method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = SINGLE
+#############################################################
+mergings = linkage(eurovision_samples, method='single') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with SINGLE method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = AVERAGE
+#############################################################
+mergings = linkage(eurovision_samples, method='average') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with AVERAGE method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = WEIGHTED
+#############################################################
+mergings = linkage(eurovision_samples, method='weighted') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with WEIGHTED method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = CENTROID
+#############################################################
+mergings = linkage(eurovision_samples, method='centroid') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with CENTROID method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = MEDIAN
+#############################################################
+mergings = linkage(eurovision_samples, method='median') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with MEDIAN method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+#############################################################
+###### METHOD = WARD
+#############################################################
+mergings = linkage(eurovision_samples, method='ward') # Calculate the linkage: mergings
+
+# Plot the dendrogram
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=eurovision_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Countries')
+plt.ylabel('Cluster distance')
+plt.title('Dendrogram with WARD method in Linkage')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.3, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+
+print("****************************************************")
+tema = "9. Extracting the cluster labels"; print("** %s\n" % tema)
+
+mergings = linkage(grain_samples, method='complete') # Calculate the linkage: mergings
+labels = fcluster(mergings, 8, criterion='distance') # Use fcluster to extract labels: labels
+
+
+
+# Plot the dendrogram, using varieties as labels
+sns.set() # Set default Seaborn style
+plt.figure()
+dendrogram(mergings, labels=grain_labels, leaf_rotation=90, leaf_font_size=6)
+plt.xlabel('Seed Samples')
+#plt.ylabel('Levels of clustering')
+plt.title('A Dendrogram of Seed Samples')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.25, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+
+df = pd.DataFrame({'labels': labels, 'varieties': grain_labels}) # Create a DataFrame with labels and varieties as columns: df
+ct = pd.crosstab(df['labels'], df['varieties']) # Create crosstab: ct
+print(ct) # Display ct
+
+
+
+print("****************************************************")
+tema = "11. t-SNE visualization of grain dataset"; print("** %s\n" % tema)
+
+model = TSNE(learning_rate=200) # Create a TSNE instance: model
+tsne_features = model.fit_transform(grain_samples) # Apply fit_transform to samples: tsne_features
+
+xs = tsne_features[:,0] # Select the 0th feature: xs
+ys = tsne_features[:,1] # Select the 1st feature: ys
+
+# Scatter plot, coloring by variety_numbers
+#sns.set() # Set default Seaborn style
+plt.figure()
+plt.scatter(xs, ys, c=grain_varieties)
+#plt.xlabel('Seed Samples')
+#plt.ylabel('Levels of clustering')
+plt.title('Seed Samples')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=0.25, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+#plt.style.use('default')
+
+
+
+print("****************************************************")
+tema = "12. A t-SNE map of the stock market"; print("** %s\n" % tema)
+
+model = TSNE(learning_rate=50) # Create a TSNE instance: model
+tsne_features = model.fit_transform(normalized_movements) # Apply fit_transform to normalized_movements: tsne_features
+xs = tsne_features[:,0] # Select the 0th feature: xs
+ys = tsne_features[:,1] # Select the 1th feature: ys
+
+#sns.set() # Set default Seaborn style
+plt.figure()
+plt.scatter(xs, ys, alpha=0.5) # Scatter plot
+for x, y, company in zip(xs, ys, movement_companies): # Annotate the points
+    plt.annotate(company, (x, y), fontsize=5, alpha=0.75)
+#plt.xlabel('Seed Samples')
+#plt.ylabel('Levels of clustering')
+plt.title('Companies Samples')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=0.25, right=None, top=None, wspace=None, hspace=None)
+plt.show()
+#plt.style.use('default')
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

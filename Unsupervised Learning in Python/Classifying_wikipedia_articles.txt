@@ -1,0 +1,89 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 17 21:24:05 2019
+
+@author: jacqueline.cortez
+"""
+import pandas as pd                                                                 #For loading tabular data
+import numpy as np                                                                  #For making operations in lists
+
+from sklearn.cluster import KMeans                                                  #For learning machine - unsurpervised
+from sklearn.decomposition import TruncatedSVD                                      #For learning machine - unsurpervised
+from sklearn.feature_extraction.text import TfidfVectorizer                         #For learning machine - unsurpervised
+from sklearn.pipeline import make_pipeline                                          #For learning machine - unsurpervised
+
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Initializing the script\n")
+
+""" Read the articles from wikipedia
+import time
+import wikipedia
+
+wikipedia_df = pd.read_csv('wikipedia-vectors.csv', index_col=0)
+titles = list(wikipedia_df.columns)
+
+articles = []
+for i, title in enumerate(titles, 1):
+    print("{} - {}".format(i, title))
+    article = wikipedia.page(title)
+    print(article.url)
+    articles.append([title, article.content])
+    time.sleep(5)
+    
+wikipedia_articles = np.array(articles)
+wikipedia_df = pd.DataFrame({'title':wikipedia_articles[:,0], 'content':wikipedia_articles[:,1]})
+wikipedia_df.to_csv('wikipedia_articles_df.csv', sep=';', quotechar='"', index=False)
+"""
+#TOKENS_ALPHANUMERIC = '[A-Za-z]+(?=\\s+)' # Create the token pattern: TOKENS_ALPHANUMERIC
+#TOKENS_ALPHANUMERIC = '[A-Za-z]{3,}(?=\\s+)' # Create the token pattern: TOKENS_ALPHANUMERIC, pattern con 3 chars forward
+#TOKENS_ALPHANUMERIC = '[A-Za-z]{3,}' # Create the token pattern: Palabras mayores de 3 letras alfanuméricas
+
+file = 'wikipedia_articles_df.csv'
+wikipedia_df = pd.read_csv(file, sep=';', quotechar='"', index_col='title')
+
+file = 'wikipedia-vocabulary-utf8.txt'
+vocabulary_df = pd.read_csv(file, names=['word'])
+word_vocabulary = vocabulary_df.word.values
+
+print("****************************************************")
+print("** Look and read the articles\n")
+
+titles = list(wikipedia_df.index)
+content = wikipedia_df.content.values
+
+print("****************************************************")
+print("** Counting words in the articles\n")
+
+np.random.seed(123) # Seed random number generator
+
+#tfidf = TfidfVectorizer(analyzer='word', token_pattern=TOKENS_ALPHANUMERIC, max_features=13125) # Create a TfidfVectorizer: tfidf
+tfidf = TfidfVectorizer(vocabulary=word_vocabulary) # Create a TfidfVectorizer: tfidf
+content_vectorizer = tfidf.fit_transform(content) # Apply fit_transform to document: csr_mat
+print(content_vectorizer.toarray()) # Print result of toarray() method
+print(content_vectorizer.toarray().shape) # Print result of toarray() method
+words = tfidf.get_feature_names() # Get the words: words
+print(words[:15]) # Print words
+
+print("****************************************************")
+print("** Applying reduction techniques\n")
+
+svd = TruncatedSVD(n_components=50) # Create a TruncatedSVD instance: svd
+kmeans = KMeans(n_clusters=6) # Create a KMeans instance: kmeans
+pipeline = make_pipeline(svd, kmeans) # Create a pipeline: pipeline
+
+print("****************************************************")
+tema = " Clustering the articles from Wikipedia"; print("** %s\n" % tema)
+
+pipeline.fit(content_vectorizer) # Fit the pipeline to articles
+labels = pipeline.predict(content_vectorizer) # Calculate the cluster labels: labels
+
+df = pd.DataFrame({'article': titles, 'label': labels}) # Create a DataFrame aligning labels and titles: df
+print(df.sort_values('label')) # Display df sorted by cluster label
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
