@@ -1,0 +1,381 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 26 22:36:32 2020
+
+@author: jacqueline.cortez
+Subject: Practicing Statistics Interview Questions in Python
+Chapter 2: Calculate some probabilities
+    In this chapter you'll learn to calculate various kinds of probabilities, such as the 
+    probability of the intersection of two events and the sum of probabilities of two events, 
+    and to simulate those situations. You'll also learn about conditional probability and how 
+    to apply Bayes' rule.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import numpy                         as np                                    #For making operations in lists
+
+from scipy.stats                     import binom                             #Generate binomial data
+from scipy.stats                     import find_repeats                      #To find repeated data in a sample. Statistical terms
+from scipy.stats                     import relfreq                           #To calculate the relative frequency of each outcome
+
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 1
+np.random.seed(SEED) 
+    
+
+print("****************************************************")
+topic = "3. Measuring a sample"; print("** %s\n" % topic)
+
+# Generate a sample that represents 1000 throws of two fair coin  
+sample_of_two_coin_flips = binom.rvs(n=2, p=.5, size=1000)
+
+# 1. From the provided samples in sample_of_two_coin_flips, get the probability of having 2 heads out of the 1,000 trials.
+count_2_heads = find_repeats(sample_of_two_coin_flips).counts[2] # Count how many times you got 2 heads from the sample data
+prob_2_heads = count_2_heads / len(sample_of_two_coin_flips) # Divide the number of heads by the total number of draws
+print("Get the probability of having 2 heads out of the 1,000 trials: {:,.2%}".format(prob_2_heads))
+
+# 2. Calculate the relative frequency from sample_of_two_coin_flips, set numbins as 3, and extract frequency.
+# Get the relative frequency from sample_of_two_coin_flips. Set numbins as 3. Extract frequency
+rel_freq = relfreq(sample_of_two_coin_flips, numbins=3).frequency
+print("\nCalculate the relative frequency from sample_of_two_coin_flips, set numbins as 3, and extract frequency: ", rel_freq)
+
+# 3. Calculate the probability of getting 0, 1, or 2 from a binomial distribution with n=2 and p=0.5.
+# Probability of getting 0, 1, or 2 from the distribution
+probabilities = binom.pmf([0, 1, 2], n=2, p=0.5)
+print("\nCalculate the probability of getting 0, 1, or 2 from a binomial distribution with n=2 and p=0.5: ", probabilities)
+
+    
+print("****************************************************")
+topic = "4. Joint probabilities"; print("** %s\n" % topic)
+
+#           ENGINE              GEARBOX
+# FAILS       0.01                0.005 
+# WORKS       0.99                0.995
+
+# Individual probabilities
+P_Eng_fails = 0.01
+P_Eng_works = 0.99
+P_GearB_fails = 0.005
+P_GearB_works = 0.995
+
+
+print("\nCalculate the probability that the engine and gear box both work.")
+P_both_works = P_Eng_works*P_GearB_works # Joint probability calculation
+print(P_both_works)
+
+
+print("\nCalculate the probability that one fails -- either engine or gear box -- but not both.")
+P_only_GearB_fails = P_GearB_fails*P_Eng_works # Joint probability calculation
+P_only_Eng_fails = P_Eng_fails*P_GearB_works
+P_one_fails = P_only_Eng_fails + P_only_GearB_fails # Calculate result
+print(P_one_fails)
+
+
+print("\nWhat is the probability that either both work or both fail?")
+P_EngW_GearBW = P_Eng_works*P_GearB_works # Joint probability calculation
+P_EngF_GearBF = P_Eng_fails*P_GearB_fails
+P_fails_or_works = P_EngW_GearBW + P_EngF_GearBF # Calculate result
+print(P_fails_or_works,"\n")
+ 
+    
+print("****************************************************")
+topic = "5. Deck of cards"; print("** %s\n" % topic)
+ 
+print("Calculate the probability of not getting an Ace.")
+P_Ace = 4/52 # Ace probability
+P_not_Ace = 1 - P_Ace # Not Ace probability
+print(P_not_Ace)
+
+
+print("\nCalculate the probability of getting a red card.")
+P_Hearts = 13/52 # Figure probabilities
+P_Diamonds = 13/52 # Probability of red calculation
+P_Red = P_Hearts + P_Diamonds
+print(P_Red)
+
+
+print("\nCalculate the probability of getting a Jack or a spade.")
+P_Jack = 4/52 # Figure probabilities
+P_Spade = 13/52
+P_Jack_n_Spade = 1/52 # Joint probability
+P_Jack_or_Spade = P_Jack + P_Spade - P_Jack_n_Spade # Probability of Jack or spade
+print(P_Jack_or_Spade)
+
+
+print("\nCalculate the probability of getting a King or a Queen.")
+P_King = 4/52 # Figure probabilities
+P_Queen = 4/52
+P_King_n_Queen = 0 # Joint probability
+P_King_or_Queen = P_King + P_Queen - P_King_n_Queen # Probability of King or Queen
+print(P_King_or_Queen)
+
+
+    
+print("****************************************************")
+topic = "7. Delayed flights"; print("** %s\n" % topic)
+
+#        Delayed	On time		Total
+# Tuesday     24	    114	      138
+# Friday	  11	    127	      138
+# Total	      35	    241	      276
+
+On_time = 241          # Needed quantities
+Total_departures = 276 
+Delayed_on_Tuesday = 24
+On_Tuesday = 138
+Delayed_on_Friday = 11
+On_Friday = 138
+ 
+print("What is the probability of a flight being on time?")
+P_On_time = On_time / Total_departures # Needed quantities
+print("{:,.2%}".format(P_On_time))
+
+print("\nEvery departure is on time with probability P_On_time. What is the probability of a flight being delayed?")
+P_Delayed = 1 - P_On_time # Probability calculation
+print("{:,.2%}".format(P_Delayed))
+
+print("\nGiven that it's Tuesday, what is the probability of a flight being delayed (P(Delayed|Tuesday))?")
+P_Delayed_g_Tuesday = Delayed_on_Tuesday / On_Tuesday # Probability calculation
+print("{:,.2%}".format(P_Delayed_g_Tuesday))
+
+print("\nGiven that it's Friday, what is the probability of a flight being delayed (P(Delayed|Friday))?")
+P_Delayed_g_Friday = Delayed_on_Friday / On_Friday
+print("{:,.2%}".format(P_Delayed_g_Friday))
+
+
+print("****************************************************")
+topic = "8. Contingency table"; print("** %s\n" % topic)
+    
+#           Red	    Black    Total
+# Ace    	  2	        2	     4
+# Non Ace	 24	       24	    48
+# Total	     26	       26	    52
+
+P_Red = 26/52 # Individual probabilities
+P_Red_n_Ace = 2/52
+P_Ace_given_Red = P_Red_n_Ace / P_Red # Conditional probability calculation
+print("Calculate P(Ace|Red): {:,.2%}.".format(P_Ace_given_Red))
+
+
+P_Ace = 4/52   # Individual probabilities
+P_Ace_n_Black = 2/52
+P_Black_given_Ace = P_Ace_n_Black / P_Ace  # Conditional probability calculation
+print("Calculate P(Black|Ace): {:,.2%}.".format(P_Black_given_Ace))
+
+
+P_Black = 26/52  # Individual probabilities
+P_Black_n_Non_ace = 24/52
+P_Non_ace_given_Black = P_Black_n_Non_ace / P_Black # Conditional probability calculation
+print("Calculate P(Non Ace|Black): {:,.2%}.".format(P_Non_ace_given_Black))
+
+
+P_Non_ace = 48/52  # Individual probabilities
+P_Non_ace_n_Red = 24/52
+P_Red_given_Non_ace = P_Non_ace_n_Red / P_Non_ace   # Conditional probability calculation
+print("Calculate P(Red|Non Ace): {:,.2%}.".format(P_Red_given_Non_ace))
+
+    
+print("****************************************************")
+topic = "9. More cards"; print("** %s\n" % topic)
+
+P_first_Jack = 4/52  # Needed probabilities
+P_Jack_given_Jack = 3/51
+P_two_Jacks = P_first_Jack * P_Jack_given_Jack  # Joint probability calculation
+print("Calculate the probability of getting two Jacks (P(Jack and Jack)): {:,.2%}.".format(P_two_Jacks))
+
+
+P_Spade = 13/52  # Needed probabilities
+P_Spade_n_Ace = 1/52
+P_Ace_given_Spade = P_Spade_n_Ace / P_Spade  # Conditional probability calculation
+print("Calculate P(Ace|Spade): {:,.2%}.".format(P_Ace_given_Spade))
+
+
+P_Face_card = 12/52  # Needed probabilities
+P_Face_card_n_Queen = 4/52
+P_Queen_given_Face_card = P_Face_card_n_Queen / P_Face_card  # Conditional probability calculation
+print("Calculate P(Queen|Face card): {:,.2%}.".format(P_Queen_given_Face_card))
+
+
+print("****************************************************")
+topic = "11. Formula 1 engines"; print("** %s\n" % topic)
+
+# Needed probabilities
+P_A = 0.7
+P_last5000_g_A = 0.99
+P_B = 0.3
+P_last5000_g_B = 0.95
+
+# Total probability calculation
+P_last_5000 = (P_A*P_last5000_g_A)  + (P_B*P_last5000_g_B)
+
+print("What is the chance that an engine will last more than 5,000 km?")
+print("{:,.2%}.".format(P_last_5000))
+
+    
+print("****************************************************")
+topic = "12. Voters"; print("** %s\n" % topic)
+
+# Individual probabilities
+P_X = .43
+P_Y = .25
+P_Z = .32
+
+# Conditional probabilities
+P_Support_g_X = .53
+P_Support_g_Y = .67
+P_Support_g_Z = .32
+
+print("What is the probability that the voter lives in state X and supports John Doe?")
+P_X_n_Support = P_X * P_Support_g_X      # Total probability calculation
+print("{:,.2%}.".format(P_X_n_Support))
+
+print("\nWhat is the probability that the voter lives in state Z and does not support John Doe?")
+P_NoSupport_g_Z = 1 - P_Support_g_Z      # Conditional probabilities
+P_Z_n_NoSupport = P_Z * P_NoSupport_g_Z  # Total probability calculation
+print("{:,.2%}.".format(P_Z_n_NoSupport))
+
+print("\nWhat is the total percentage of voters that support John Doe?")
+P_Support = P_X * P_Support_g_X + P_Y * P_Support_g_Y + P_Z * P_Support_g_Z  # Total probability calculation
+print("{:,.2%}.".format(P_Support))
+
+  
+print("****************************************************")
+topic = "15. Factories and parts"; print("** %s\n" % topic)
+
+# Individual probabilities & conditional probabilities
+P_V1 = .50
+P_V2 = .25
+P_V3 = .25
+P_D_g_V1 = .01
+P_D_g_V2 = .02
+P_D_g_V3 = .03
+
+# Probability of Damaged
+P_Damaged = (P_V1 * P_D_g_V1) + (P_V2 * P_D_g_V2) + (P_V3 * P_D_g_V3)
+
+print("What is the probability that the part was manufactured by V1? --> P(V1|D)")
+# Bayes' rule for P(V1|D)
+P_V1_g_D = (P_V1 * P_D_g_V1) / P_Damaged
+print("{:,.2%}.".format(P_V1_g_D))
+
+print("\nWhat is the probability that it was manufactured by V2?--> P(V2|D)")
+# Bayes' rule for P(V2|D)
+P_V2_g_D = (P_V2 * P_D_g_V2) / P_Damaged
+print("{:,.2%}.".format(P_V2_g_D))
+
+print("\nWhat is the probability that the part was manufactured by V3?--> P(V3|D)")
+# Bayes' rule for P(V3|D)
+P_V3_g_D = (P_V3 * P_D_g_V3) / P_Damaged
+print("{:,.2%}.".format(P_V3_g_D))
+    
+
+print("****************************************************")
+topic = "16. Swine flu blood test"; print("** %s\n" % topic)
+    
+print("What is the probability that you have swine flu? --> P(PSF|PP)")
+# CONFUSION MATRIX
+# --------------|-----------------------|---------------------
+# PREDICTION	   REALITY
+#---------------|-----------------------|---------------------
+#                  TRUE (PSF)             FALSE (PNSF)
+# TRUE (PP)        100%                   1% (false positive)
+# FALSE(PN)        0% (false negative)    99%
+# --------------|-----------------------|---------------------
+# PROPOSITION:
+# PSF = Have a swine flue -------------> 1/9000
+# PNSF= Don't have a swine flue
+# PP = Test positive
+# PN = Test negative
+# P(PP|PNSF) = 1% -----------> P(PN|PNSF) = 99%%
+# P(PN|PSF)  = 0% -----------> P(PP|PSF)  = 100%
+#
+#              P(PSF)P(PP|PSF)
+# P(PSF|PP) = -----------------
+#                   P(PP)
+# Individual probabilities & conditional probabilities
+# Individual probabilities & conditional probabilities
+P_Swine_flu = 1/350
+P_no_Swine_flu = 1 - P_Swine_flu
+P_Positive_g_Swine_flu = 1
+P_Positive_g_no_Swine_flu = 0.01
+# Probability of Positive
+P_Positive = (P_Swine_flu * P_Positive_g_Swine_flu) + (P_no_Swine_flu * P_Positive_g_no_Swine_flu)
+# Bayes' rule for P(Swine_flu|Positive)
+P_Swine_flu_g_Positive = (P_Swine_flu * P_Positive_g_Swine_flu) / P_Positive
+print("{:,.2%}.".format(P_Swine_flu_g_Positive))
+
+
+print("\nYou went to Miami and 1 in 350 people came back with swine flu. Calculate the new probability that you'll test positive. --> P(PSF|PP)")
+# CONFUSION MATRIX
+# --------------|-----------------------|---------------------
+# PREDICTION	   REALITY
+#---------------|-----------------------|---------------------
+#                  TRUE (PSF)             FALSE (PNSF)
+# TRUE (PP)        100%                   1% (false positive)
+# FALSE(PN)        0% (false negative)    99%
+# --------------|-----------------------|---------------------
+# PROPOSITION:
+# PSF = Have a swine flue -------------> 1/350
+# PNSF= Don't have a swine flue
+# PP = Test positive
+# PN = Test negative
+# P(PP|PNSF) = 1% -----------> P(PN|PNSF) = 99%%
+# P(PN|PSF)  = 0% -----------> P(PP|PSF)  = 100%
+#
+#              P(PSF)P(PP|PSF)
+# P(PSF|PP) = -----------------
+#                   P(PP)
+# Individual probabilities & conditional probabilities
+P_Swine_flu = 1./350
+P_no_Swine_flu = 1 - P_Swine_flu
+P_Positive_g_Swine_flu = 1
+P_Positive_g_no_Swine_flu = 0.01
+# Probability of Positive
+P_Positive = (P_Swine_flu * P_Positive_g_Swine_flu) + (P_no_Swine_flu * P_Positive_g_no_Swine_flu)
+# Bayes' rule for P(Swine_flu|Positive)
+P_Swine_flu_g_Positive = (P_Swine_flu * P_Positive_g_Swine_flu) / P_Positive
+print("{:,.2%}.".format(P_Swine_flu_g_Positive))
+
+
+print("\nIf the probability of a false positive is 2%, what is the new probability that you have swine flu after your vacation? --> P(PSF|PP)")
+# CONFUSION MATRIX
+# --------------|-----------------------|---------------------
+# PREDICTION	   REALITY
+#---------------|-----------------------|---------------------
+#                  TRUE (PSF)             FALSE (PNSF)
+# TRUE (PP)        100%                   1% (false positive)
+# FALSE(PN)        0% (false negative)    99%
+# --------------|-----------------------|---------------------
+# PROPOSITION:
+# PSF = Have a swine flue -------------> 1/350
+# PNSF= Don't have a swine flue
+# PP = Test positive
+# PN = Test negative
+# P(PP|PNSF) = 2% -----------> P(PN|PNSF) = 98%%
+# P(PN|PSF)  = 0% -----------> P(PP|PSF)  = 100%
+#
+#              P(PSF)P(PP|PSF)
+# P(PSF|PP) = -----------------
+#                   P(PP)
+# Individual probabilities & conditional probabilities
+P_Swine_flu = 1./350
+P_no_Swine_flu = 1 - P_Swine_flu
+P_Positive_g_Swine_flu = 1
+P_Positive_g_no_Swine_flu = .02
+# Probability of Positive
+P_Positive = P_Swine_flu * P_Positive_g_Swine_flu + P_no_Swine_flu * P_Positive_g_no_Swine_flu
+# Bayes' rule for P(Swine_flu|Positive)
+P_Swine_flu_g_Positive = (P_Swine_flu * P_Positive_g_Swine_flu) / P_Positive
+print("{:,.2%}.".format(P_Swine_flu_g_Positive))
+
+    
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
