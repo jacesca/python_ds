@@ -1,0 +1,70 @@
+# Import packages
+from urllib.request import urlopen, Request
+
+# Specify the url
+url = "http://www.datacamp.com/teach/documentation"
+
+# This packages the request: request
+request=Request(url)
+
+# Sends the request and catches the response: response
+response=urlopen(request)
+
+# Print the datatype of response
+print(type(response))
+
+print(response)
+
+print(next(response))
+print(next(response))
+
+while True:
+    try :
+        print(next(response))
+    except :
+        break
+
+# Be polite and close the response!
+response.close()
+________________________________________________________
+OUT:
+<class 'http.client.HTTPResponse'>
+
+<http.client.HTTPResponse object at 0x7fdb2c2fba20>
+
+b'<!doctype html>\n'
+b'<html lang="en" data-direction="ltr">\n'
+
+b'  <head>\n'
+
+b'    <link href="https://fonts.intercomcdn.com" rel="preconnect" crossorigin>\n'
+
+...
+b'  </body>\n'
+
+b'</html>\n'
+________________________________________________________
+INSTRUCTION:
+1. Import the functions urlopen and Request from the 
+   subpackage urllib.request.
+2. Package the request to the url 
+	"http://www.datacamp.com/teach/documentation" 
+   using the function Request() and assign it to request.
+3. Send the request and catch the response in the variable 
+   response with the function urlopen().
+4. Run the rest of the code to see the datatype of response 
+   and to close the connection!
+________________________________________________________
+GUIDE:
+Performing HTTP requests in Python using urllib
+Now that you know the basics behind HTTP GET requests, 
+it's time to perform some of your own. In this interactive 
+exercise, you will ping our very own DataCamp servers to 
+perform a GET request to extract information from our 
+teach page, 
+	"http://www.datacamp.com/teach/documentation".
+
+In the next exercise, you'll extract the HTML itself. 
+Right now, however, you are going to package and send 
+the request and then catch the response.
+________________________________________________________

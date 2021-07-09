@@ -1,0 +1,726 @@
+# Import package
+import requests
+
+# Specify the url: url
+url="http://www.datacamp.com/teach/documentation"
+
+# Packages the request, send the request and catch the response: r
+r = requests.get(url)
+
+# Extract the response: text
+text = r.text
+
+print(type(r))
+
+# Print the html
+print(text)
+________________________________________________________
+OUT:
+
+<class 'requests.models.Response'>
+
+<!doctype html>
+<html lang="en" data-direction="ltr">
+  <head>
+    <link href="https://fonts.intercomcdn.com" rel="preconnect" crossorigin>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-39297847-9" async="async" nonce="+a32bjg0AO1Xb3JxsvrenlyQkHOSixvYmFN7MIMiMDc="></script>
+      <script nonce="+a32bjg0AO1Xb3JxsvrenlyQkHOSixvYmFN7MIMiMDc=">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-39297847-9');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DataCamp Help Center</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="intercom:trackingEvent" content="{&quot;name&quot;:&quot;Viewed Help Center&quot;,&quot;metadata&quot;:{&quot;action&quot;:&quot;viewed&quot;,&quot;object&quot;:&quot;educate_home&quot;,&quot;place&quot;:&quot;help_center&quot;,&quot;owner&quot;:&quot;educate&quot;}}" />
+
+    <link rel="stylesheet" media="all" href="https://intercom.help/_assets/application-0441d80c2b83ac7d1c1718dd24a12e4c5bca5f1e5392638de75fab7980be5b86.css" />
+    <link rel="canonical" href="http://instructor-support.datacamp.com/"/>
+
+        <link href="https://static.intercomassets.com/assets/educate/educate-favicon-64x64-at-2x-52016a3500a250d0b118c0a04ddd13b1a7364a27759483536dd1940bccdefc20.png" rel="shortcut icon" type="image/png" />
+      <style>
+        .header, .avatar__image-extra { background-color: #263e63; }
+        .article a, .c__primary { color: #263e63; }
+        .avatar__fallback { background-color: #263e63; }
+        article a.intercom-h2b-button { background-color: #263e63; border: 0; }
+      </style>
+
+      <meta property="og:title" content="DataCamp Help Center" />
+  <meta name="twitter:title" content="DataCamp Help Center" />
+
+
+<meta property="og:type" content="website" />
+<meta property="og:image" content="" />
+
+<meta name="twitter:image" content="" />
+
+  </head>
+  <body class="">
+    <header class="header">
+  <div class="container header__container o__ltr" dir="ltr">
+    <div class="content">
+      <div class="mo o__centered o__reversed header__meta_wrapper">
+        <div class="mo__body">
+          <div class="header__logo">
+            <a href="/">
+                <img alt="DataCamp Help Center" src="https://downloads.intercomcdn.com/i/o/81221/856b63d438031754b681746b/4ea2737e4266936fb423911d9c587812.png" />
+            </a>
+          </div>
+        </div>
+        <div class="mo__aside">
+          <div class="header__home__url">
+              <a target="_blank" rel='noopener' href="http://www.datacamp.com/teach"><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><title>Group 65</title><g stroke="#FFF" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 6.73v6.77H.5v-11h7.615M4.5 9.5l7-7M13.5 5.5v-5h-5"/></g></svg><span>Go to DataCamp</span></a>
+          </div>
+        </div>
+      </div>
+          <h1 class="header__headline">Advice and answers from the DataCamp Team</h1>
+        <form action="/" autocomplete="off" class="header__form search">
+          <input type="text" autocomplete="off" class="search__input js__search-input o__ltr" placeholder="Search for articles..." tabindex="1" name="q" value="">
+          <div class="search_icons">
+            <button type="submit" class="search__submit o__ltr"></button>
+            <a class="search__clear-text__icon">
+              <svg class="interface-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                <path d="M8.018 6.643L5.375 4 4 5.375l2.643 2.643L4 10.643 5.375 12l2.643-2.625L10.625 12 12 10.643 9.357 8.018 12 5.375 10.643 4z" />
+              </svg>
+            </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+    <div class="container">
+      <div class="content educate_content"><section class="section">
+    <div class="g__space">
+      <a href="/getting-started" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="chat-star" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linejoin="round"><path d="M20 34.942c-2.083-.12-4.292-.42-6-.942L3 39l4-9c-3.858-3.086-6-7.246-6-12C1 8.61 10.328 1 21.835 1 33.343 1 43 8.61 43 18c0 1.044-.117 2.065-.342 3.057"></path><path d="M36.016 25L40 33h7l-6 5 3 9-8-5.494L28 47l3-9-6-5h7l4.016-8z"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Getting Started</h2>
+            <p class="paper__preview">Everything you need to know to begin your DataCamp journey!</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2352718/square_128/Rebecca_Robins_-_Headshot-1535969735.jpg?1535969735" alt="Becca Robins avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2678519/square_128/pic2-1539176502.JPG?1539176502" alt="Jen Bricker avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2637958/square_128/YR_Headshot-1539175806.JPG?1539175806" alt="Yashas Roy avatar" class="avatar__image">
+
+      <span class="avatar__image avatar__fallback">+2</span>
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        11 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Becca Robins,</span> <span class='c__darker'> Jen Bricker,</span> <span class='c__darker'> Yashas Roy</span> and 2 others
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/courses" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="devices-laptop" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M41 31H7V11h34v20z"></path><path d="M3 35V10a3 3 0 0 1 3-3h36a3 3 0 0 1 3 3v25m-16 0v2H19v-2H1v4a2 2 0 0 0 2 2h42a2 2 0 0 0 2-2v-4H29z" stroke-linejoin="round"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Courses</h2>
+            <p class="paper__preview">Everything you need to know about creating DataCamp courses.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2637958/square_128/YR_Headshot-1539175806.JPG?1539175806" alt="Yashas Roy avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2247397/square_128/IMG_2763_final_square_small-1532522734.jpg?1532522734" alt="Nick Carchedi avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2366194/square_128/richie-in-hairnet-1537451295.JPG?1537451295" alt="Richie Cotton avatar" class="avatar__image">
+
+      <span class="avatar__image avatar__fallback">+7</span>
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        81 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Yashas Roy,</span> <span class='c__darker'> Nick Carchedi,</span> <span class='c__darker'> Richie Cotton</span> and 7 others
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/daily-practice" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="tools-dashboard" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M27 31a3 3 0 0 1-6 0 3 3 0 0 1 6 0zm-.88-2.12l9.9-9.9M5 32h4m34 .002L39 32m2.553-8.27l-3.696 1.53M31.27 13.447l-1.53 3.695M24 12v4m-7.27-2.553l1.53 3.695m-7.694.422l2.826 2.83M6.447 23.73l3.695 1.53"></path><path d="M24 8C11.297 8 1 18.3 1 31v9h46v-9C47 18.3 36.703 8 24 8z"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Daily Practice</h2>
+            <p class="paper__preview">Everything you need to know about creating DataCamp Daily Practice.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2734728/square_128/Anneleen_Beckers-xtra-small-1541624054.jpg?1541624054" alt="Anneleen Beckers avatar" class="avatar__image">
+
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        13 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Anneleen Beckers</span>
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/projects" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="book-opened2"><path d="M24 11c0-3.866 10.297-7 23-7v33c-12.703 0-23 3.134-23 7 0-3.866-10.3-7-23-7V4c12.7 0 23 3.134 23 7zm0 0v32m-5-27.52c-3.22-1.232-7.773-2.128-13-2.48m13 8.48c-3.22-1.232-7.773-2.128-13-2.48m13 8.48c-3.22-1.232-7.773-2.128-13-2.48m13 8.48c-3.22-1.23-7.773-2.127-13-2.48m23-15.52c3.223-1.232 7.773-2.128 13-2.48m-13 8.48c3.223-1.232 7.773-2.128 13-2.48m-13 8.48c3.223-1.232 7.773-2.128 13-2.48m-13 8.48c3.223-1.23 7.773-2.127 13-2.48" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Projects</h2>
+            <p class="paper__preview">Everything you need to know about creating DataCamp projects.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2360843/square_128/20170928_DavidV_ByBBImagery-022-1380-1537479799.jpg?1537479799" alt="David Venturi avatar" class="avatar__image">
+
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        19 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> David Venturi</span>
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/course-editor-basics" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="book-bookmark" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M35 31l-6-6-6 6V7h12v24z"></path><path d="M35 9h6v38H11a4 4 0 0 1-4-4V5" stroke-linejoin="round"></path><path d="M39 9V1H11a4 4 0 0 0 0 8h12" stroke-linejoin="round"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Course Editor Basics</h2>
+            <p class="paper__preview">Everything you need to know to get going with our online course editor.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2352718/square_128/Rebecca_Robins_-_Headshot-1535969735.jpg?1535969735" alt="Becca Robins avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2247397/square_128/IMG_2763_final_square_small-1532522734.jpg?1532522734" alt="Nick Carchedi avatar" class="avatar__image">
+
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        5 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Becca Robins</span> and <span class='c__darker'> Nick Carchedi</span>
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/tips-and-tricks" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="comms-mail" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linejoin="round"><path d="M47 3L1 22l18 7L47 3z"></path><path d="M47 3l-8 37-20-11L47 3zM19 29v16l7-12"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Tips &amp; Tricks</h2>
+            <p class="paper__preview">Become a DataCamp wizard!</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2352718/square_128/Rebecca_Robins_-_Headshot-1535969735.jpg?1535969735" alt="Becca Robins avatar" class="avatar__image">
+
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        6 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Becca Robins</span>
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/frequently-asked-questions-faq" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="chat-question" fill="none" fill-rule="evenodd"><path d="M47 21.268c0 10.363-10.297 18.765-23 18.765-2.835 0-5.55-.418-8.058-1.184L2.725 45 7.9 34.668c-4.258-3.406-6.9-8.15-6.9-13.4C1 10.904 11.297 2.502 24 2.502s23 8.402 23 18.766z" stroke-width="2" stroke-linejoin="round"></path><path d="M25 28.502a2 2 0 1 0 0 4 2 2 0 0 0 0-4" fill="#231F1F"></path><path d="M19 17.75c0-3.312 2.686-6.124 6-6.124 3.313 0 6 2.626 6 5.938 0 3.315-2.687 5.938-6 5.938V26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Frequently Asked Questions (FAQ)</h2>
+            <p class="paper__preview">Common questions that arise during content creation.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2352718/square_128/Rebecca_Robins_-_Headshot-1535969735.jpg?1535969735" alt="Becca Robins avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2366194/square_128/richie-in-hairnet-1537451295.JPG?1537451295" alt="Richie Cotton avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2637958/square_128/YR_Headshot-1539175806.JPG?1539175806" alt="Yashas Roy avatar" class="avatar__image">
+
+      <span class="avatar__image avatar__fallback">+3</span>
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        48 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Becca Robins,</span> <span class='c__darker'> Richie Cotton,</span> <span class='c__darker'> Yashas Roy</span> and 3 others
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="g__space">
+      <a href="/miscellaneous" class="paper ">
+        <div class="collection o__ltr">
+          <div class="collection__photo">
+            <svg role='img' viewBox='0 0 48 48'><g id="tools-edit"><path d="M14.932 43.968L2 47l3.033-12.93 31.2-31.203a4 4 0 0 1 5.658 0l4.247 4.243a4 4 0 0 1 0 5.656L14.932 43.968zm29.84-29.735L34.82 4.28m7.125 12.782L31.992 7.11M15.436 43.465l-9.9-9.9" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+          </div>
+          <div class="collection_meta" dir="ltr">
+            <h2 class="t__h3 c__primary">Miscellaneous</h2>
+            <p class="paper__preview">Have a question for DataCamp, but not about creating content? You&#39;ll probably find the answer here.</p>
+            <div class="avatar">
+  <div class="avatar__photo avatars__images o__ltr">
+        <img src="https://static.intercomassets.com/avatars/2352718/square_128/Rebecca_Robins_-_Headshot-1535969735.jpg?1535969735" alt="Becca Robins avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2830289/square_128/IMG_0665_a-1545331304.jpg?1545331304" alt="Lisa Monteleone avatar" class="avatar__image">
+
+        <img src="https://static.intercomassets.com/avatars/2859053/square_128/gabriel_about_pic-1546620603.jpg?1546620603" alt="Gabriel de Selding avatar" class="avatar__image">
+
+  </div>
+  <div class="avatar__info">
+    <div>
+      <span class="c__darker">
+        9 articles in this collection
+      </span>
+      <br>
+      Written by <span class='c__darker'> Becca Robins,</span> <span class='c__darker'> Lisa Monteleone,</span> and <span class='c__darker'> Gabriel de Selding</span>
+    </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </a>
+    </div>
+</section>
+</div>
+    </div>
+    <footer class="footer">
+  <div class="container">
+    <div class="content">
+      <div class="u__cf"  dir="ltr">
+        <div class="footer__logo">
+          <a href="/">
+              <img alt="DataCamp Help Center" src="https://downloads.intercomcdn.com/i/o/81221/856b63d438031754b681746b/4ea2737e4266936fb423911d9c587812.png" />
+          </a>
+        </div>
+        <div class="footer__advert logo">
+          <img src="https://intercom.help/_assets/intercom-a6a6ac0f033657af1aebe2e9e15b94a3cd5eabf6ae8b9916df6ea49099a894d8.png" alt="Intercom" />
+          <a href="https://www.intercom.com/intercom-link?company=DataCamp&amp;solution=customer-support&amp;utm_campaign=intercom-link&amp;utm_content=We+run+on+Intercom&amp;utm_medium=help-center&amp;utm_referrer=http%3A%2F%2Finstructor-support.datacamp.com%2F&amp;utm_source=desktop-web">We run on Intercom</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+  <script nonce="+a32bjg0AO1Xb3JxsvrenlyQkHOSixvYmFN7MIMiMDc=">
+    window.intercomSettings = {"app_id":"ug0ps1rq"};
+</script>
+  <script nonce="+a32bjg0AO1Xb3JxsvrenlyQkHOSixvYmFN7MIMiMDc=">
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src="https://widget.intercom.io/widget/ug0ps1rq";var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+</script>
+
+    
+
+    <script src="https://intercom.help/_assets/application-b74dd4f6e4e3e41a050fadeef9097d80c9776bf8d414c6bb086d10aa8d82441b.js" nonce="+a32bjg0AO1Xb3JxsvrenlyQkHOSixvYmFN7MIMiMDc="></script>
+  </body>
+</html>
+________________________________________________________
+INSTRUCTION:
+1. Import the package requests.
+2. Assign the URL of interest to the variable url.
+3. Package the request to the URL, send the request and 
+   catch the response with a single function requests.get(), 
+   assigning the response to the variable r.
+4. Use the text attribute of the object r to return the 
+   HTML of the webpage as a string; store the result in 
+   a variable text.
+5. Hit submit to print the HTML of the webpage.
+________________________________________________________
+GUIDE:
+Performing HTTP requests in Python using requests
+Now that you've got your head and hands around making 
+HTTP requests using the urllib package, you're going to 
+figure out how to do the same using the higher-level 
+requests library. You'll once again be pinging DataCamp 
+servers for their "http://www.datacamp.com/teach/documentation" 
+page.
+
+Note that unlike in the previous exercises using urllib, 
+you don't have to close the connection when using requests!
+________________________________________________________
+IPYTHONSHELL:
+In [1]: import requests
+
+In [2]: help (requests.models)
+Help on module requests.models in requests:
+
+NAME
+    requests.models
+
+DESCRIPTION
+    requests.models
+    ~~~~~~~~~~~~~~~
+    
+    This module contains the primary objects that power Requests.
+
+CLASSES
+    builtins.object
+        RequestEncodingMixin
+            PreparedRequest(RequestEncodingMixin, RequestHooksMixin)
+        RequestHooksMixin
+            Request
+        Response
+    
+    class PreparedRequest(RequestEncodingMixin, RequestHooksMixin)
+     |  The fully mutable :class:`PreparedRequest <PreparedRequest>` object,
+     |  containing the exact bytes that will be sent to the server.
+     |  
+     |  Generated from either a :class:`Request <Request>` object or manually.
+     |  
+     |  Usage::
+     |  
+     |    >>> import requests
+     |    >>> req = requests.Request('GET', 'http://httpbin.org/get')
+     |    >>> r = req.prepare()
+     |    <PreparedRequest [GET]>
+     |  
+     |    >>> s = requests.Session()
+     |    >>> s.send(r)
+     |    <Response [200]>
+     |  
+     |  Method resolution order:
+     |      PreparedRequest
+     |      RequestEncodingMixin
+     |      RequestHooksMixin
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __repr__(self)
+     |      Return repr(self).
+     |  
+     |  copy(self)
+     |  
+     |  prepare(self, method=None, url=None, headers=None, files=None, data=None, params=None, auth=None, cookies=None, hooks=None, json=None)
+     |      Prepares the entire request with the given parameters.
+     |  
+     |  prepare_auth(self, auth, url='')
+     |      Prepares the given HTTP auth data.
+     |  
+     |  prepare_body(self, data, files, json=None)
+     |      Prepares the given HTTP body data.
+     |  
+     |  prepare_content_length(self, body)
+     |      Prepare Content-Length header based on request method and body
+     |  
+     |  prepare_cookies(self, cookies)
+     |      Prepares the given HTTP cookie data.
+     |      
+     |      This function eventually generates a ``Cookie`` header from the
+     |      given cookies using cookielib. Due to cookielib's design, the header
+     |      will not be regenerated if it already exists, meaning this function
+     |      can only be called once for the life of the
+     |      :class:`PreparedRequest <PreparedRequest>` object. Any subsequent calls
+     |      to ``prepare_cookies`` will have no actual effect, unless the "Cookie"
+     |      header is removed beforehand.
+     |  
+     |  prepare_headers(self, headers)
+     |      Prepares the given HTTP headers.
+     |  
+     |  prepare_hooks(self, hooks)
+     |      Prepares the given hooks.
+     |  
+     |  prepare_method(self, method)
+     |      Prepares the given HTTP method.
+     |  
+     |  prepare_url(self, url, params)
+     |      Prepares the given HTTP URL.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from RequestEncodingMixin:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  path_url
+     |      Build the path URL to use.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from RequestHooksMixin:
+     |  
+     |  deregister_hook(self, event, hook)
+     |      Deregister a previously registered hook.
+     |      Returns True if the hook existed, False if not.
+     |  
+     |  register_hook(self, event, hook)
+     |      Properly register a hook.
+    
+    class Request(RequestHooksMixin)
+     |  A user-created :class:`Request <Request>` object.
+     |  
+     |  Used to prepare a :class:`PreparedRequest <PreparedRequest>`, which is sent to the server.
+     |  
+     |  :param method: HTTP method to use.
+     |  :param url: URL to send.
+     |  :param headers: dictionary of headers to send.
+     |  :param files: dictionary of {filename: fileobject} files to multipart upload.
+     |  :param data: the body to attach to the request. If a dictionary is provided, form-encoding will take place.
+     |  :param json: json for the body to attach to the request (if files or data is not specified).
+     |  :param params: dictionary of URL parameters to append to the URL.
+     |  :param auth: Auth handler or (user, pass) tuple.
+     |  :param cookies: dictionary or CookieJar of cookies to attach to this request.
+     |  :param hooks: dictionary of callback hooks, for internal usage.
+     |  
+     |  Usage::
+     |  
+     |    >>> import requests
+     |    >>> req = requests.Request('GET', 'http://httpbin.org/get')
+     |    >>> req.prepare()
+     |    <PreparedRequest [GET]>
+     |  
+     |  Method resolution order:
+     |      Request
+     |      RequestHooksMixin
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, method=None, url=None, headers=None, files=None, data=None, params=None, auth=None, cookies=None, hooks=None, json=None)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __repr__(self)
+     |      Return repr(self).
+     |  
+     |  prepare(self)
+     |      Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from RequestHooksMixin:
+     |  
+     |  deregister_hook(self, event, hook)
+     |      Deregister a previously registered hook.
+     |      Returns True if the hook existed, False if not.
+     |  
+     |  register_hook(self, event, hook)
+     |      Properly register a hook.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from RequestHooksMixin:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class RequestEncodingMixin(builtins.object)
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  path_url
+     |      Build the path URL to use.
+    
+    class RequestHooksMixin(builtins.object)
+     |  Methods defined here:
+     |  
+     |  deregister_hook(self, event, hook)
+     |      Deregister a previously registered hook.
+     |      Returns True if the hook existed, False if not.
+     |  
+     |  register_hook(self, event, hook)
+     |      Properly register a hook.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class Response(builtins.object)
+     |  The :class:`Response <Response>` object, which contains a
+     |  server's response to an HTTP request.
+     |  
+     |  Methods defined here:
+     |  
+     |  __bool__(self)
+     |      Returns true if :attr:`status_code` is 'OK'.
+     |  
+     |  __getstate__(self)
+     |  
+     |  __init__(self)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __iter__(self)
+     |      Allows you to use a response as an iterator.
+     |  
+     |  __nonzero__(self)
+     |      Returns true if :attr:`status_code` is 'OK'.
+     |  
+     |  __repr__(self)
+     |      Return repr(self).
+     |  
+     |  __setstate__(self, state)
+     |  
+     |  close(self)
+     |      Releases the connection back to the pool. Once this method has been
+     |      called the underlying ``raw`` object must not be accessed again.
+     |      
+     |      *Note: Should not normally need to be called explicitly.*
+     |  
+     |  iter_content(self, chunk_size=1, decode_unicode=False)
+     |      Iterates over the response data.  When stream=True is set on the
+     |      request, this avoids reading the content at once into memory for
+     |      large responses.  The chunk size is the number of bytes it should
+     |      read into memory.  This is not necessarily the length of each item
+     |      returned as decoding can take place.
+     |      
+     |      chunk_size must be of type int or None. A value of None will
+     |      function differently depending on the value of `stream`.
+     |      stream=True will read data as it arrives in whatever size the
+     |      chunks are received. If stream=False, data is returned as
+     |      a single chunk.
+     |      
+     |      If decode_unicode is True, content will be decoded using the best
+     |      available encoding based on the response.
+     |  
+     |  iter_lines(self, chunk_size=512, decode_unicode=None, delimiter=None)
+     |      Iterates over the response data, one line at a time.  When
+     |      stream=True is set on the request, this avoids reading the
+     |      content at once into memory for large responses.
+     |      
+     |      .. note:: This method is not reentrant safe.
+     |  
+     |  json(self, **kwargs)
+     |      Returns the json-encoded content of a response, if any.
+     |      
+     |      :param \*\*kwargs: Optional arguments that ``json.loads`` takes.
+     |      :raises ValueError: If the response body does not contain valid json.
+     |  
+     |  raise_for_status(self)
+     |      Raises stored :class:`HTTPError`, if one occurred.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  apparent_encoding
+     |      The apparent encoding, provided by the chardet library
+     |  
+     |  content
+     |      Content of the response, in bytes.
+     |  
+     |  is_permanent_redirect
+     |      True if this Response one of the permanent versions of redirect
+     |  
+     |  is_redirect
+     |      True if this Response is a well-formed HTTP redirect that could have
+     |      been processed automatically (by :meth:`Session.resolve_redirects`).
+     |  
+     |  links
+     |      Returns the parsed header links of the response, if any.
+     |  
+     |  ok
+     |  
+     |  text
+     |      Content of the response, in unicode.
+     |      
+     |      If Response.encoding is None, encoding will be guessed using
+     |      ``chardet``.
+     |      
+     |      The encoding of the response content is determined based solely on HTTP
+     |      headers, following RFC 2616 to the letter. If you can take advantage of
+     |      non-HTTP knowledge to make a better guess at the encoding, you should
+     |      set ``r.encoding`` appropriately before accessing this property.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __attrs__ = ['_content', 'status_code', 'headers', 'url', 'history', '...
+
+DATA
+    CONTENT_CHUNK_SIZE = 10240
+    DEFAULT_REDIRECT_LIMIT = 30
+    ITER_CHUNK_SIZE = 512
+    REDIRECT_STATI = (301, 302, 303, 307, 308)
+    basestring = (<class 'str'>, <class 'bytes'>)
+    codes = <lookup 'status_codes'>
+    is_py2 = False
+
+FILE
+    /usr/local/lib/python3.6/dist-packages/requests/models.py
