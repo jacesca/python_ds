@@ -1,0 +1,19 @@
+#Regular expressions
+#Format a number with comma separators and round to 2 decimal places
+
+In [212]: "$ {0:,.2f}".format(2083525.34561)
+
+	Out[212]:
+	'$ 2,083,525.35'
+
+#-------------------------------------------------
+#FOR MATPLOTLIB
+#-------------------------------------------------
+import matplotlib as mpl              #To format numbers with ax.yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.0f}')) or ax.get_xaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+import matplotlib.pyplot as plt       #For creating charts
+
+fig, ax = plt.subplots(1, 1)
+_ = ax.plot(x_theor, y_theor)
+_ = ax.plot(x, y, marker='.', linestyle='none')
+ax.xaxis.set_major_formatter(mpl.ticker.StrMethodFormatter('{x:,.0f}'))
+#ax.get_xaxis().set_major_formatter(mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))

@@ -1,0 +1,252 @@
+# Import pandas
+import pandas as pd
+
+# Load 'sales-jan-2015.csv' into a DataFrame: jan
+jan = pd.read_csv("sales-jan-2015.csv", parse_dates=True, index_col="Date")
+
+# Load 'sales-feb-2015.csv' into a DataFrame: feb
+feb = pd.read_csv("sales-feb-2015.csv", parse_dates=True, index_col="Date")
+
+# Load 'sales-mar-2015.csv' into a DataFrame: mar
+mar = pd.read_csv("sales-mar-2015.csv", parse_dates=True, index_col="Date")
+
+# Extract the 'Units' column from jan: jan_units
+jan_units = jan['Units']
+
+# Extract the 'Units' column from feb: feb_units
+feb_units = feb['Units']
+
+# Extract the 'Units' column from mar: mar_units
+mar_units = mar['Units']
+
+# Append feb_units and then mar_units to jan_units: quarter1
+quarter1 = jan_units.append(feb_units).append(mar_units)
+
+# Print the first slice from quarter1
+print(quarter1.loc['jan 27, 2015':'feb 2, 2015'])
+
+# Print the second slice from quarter1
+print(quarter1.loc["2015-02-26":"2015-03-07"])
+
+# Compute & print total sales in quarter1
+print(quarter1.sum())
+________________________________________________________
+OUT:	
+	Date
+	2015-01-27 07:11:55    18
+	2015-02-02 08:33:01     3
+	2015-02-02 20:54:49     9
+	Name: Units, dtype: int64
+
+	Date
+	2015-02-26 08:57:45     4
+	2015-02-26 08:58:51     1
+	2015-03-06 10:11:45    17
+	2015-03-06 02:03:56    17
+	Name: Units, dtype: int64
+
+	642
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: !dir
+
+	sales-feb-2015.csv  sales-jan-2015.csv	sales-mar-2015.csv
+
+AFTER EXECUTE THE EXCERCISE:
+In [3]: [type(jan), type(feb), type(mar)]
+
+	Out[3]: 
+[pandas.core.frame.DataFrame,
+ 
+                 pandas.core.frame.DataFrame,
+ 
+                 pandas.core.frame.DataFrame]
+
+In [4]: jan.shape
+	Out[4]: (20, 3)
+
+In [5]: jan.head()
+	Out[5]: 
+	                       Company   Product  Units
+	Date                                           
+	2015-01-21 19:13:21  Streeplex  Hardware     11
+	2015-01-09 05:23:51  Streeplex   Service      8
+	2015-01-06 17:19:34    Initech  Hardware     17
+	2015-01-02 09:51:06      Hooli  Hardware     16
+	2015-01-11 14:51:02      Hooli  Hardware     11
+
+In [6]: jan.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 20 entries, 2015-01-21 19:13:21 to 2015-01-16 19:20:46
+	Data columns (total 3 columns):
+	Company    20 non-null object
+	Product    20 non-null object
+	Units      20 non-null int64
+	dtypes: int64(1), object(2)
+	memory usage: 1.2+ KB
+
+In [7]: feb.shape
+	Out[7]: (20, 3)
+
+In [8]: feb.head()
+	Out[8]: 
+	                       Company   Product  Units
+	Date                                           
+	2015-02-26 08:57:45  Streeplex   Service      4
+	2015-02-16 12:09:19      Hooli  Software     10
+	2015-02-03 14:14:18    Initech  Software     13
+	2015-02-02 08:33:01      Hooli  Software      3
+	2015-02-25 00:29:00    Initech   Service     10
+	
+In [9]: feb.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 20 entries, 2015-02-26 08:57:45 to 2015-02-21 20:41:47
+	Data columns (total 3 columns):
+	Company    20 non-null object
+	Product    20 non-null object
+	Units      20 non-null int64
+	dtypes: int64(1), object(2)
+	memory usage: 640.0+ bytes
+
+In [10]: mar.shape
+	Out[10]: (20, 3)
+	
+In [11]: mar.head()
+	Out[11]: 
+	                       Company   Product  Units
+	Date                                           
+	2015-03-22 14:42:25  Mediacore  Software      6
+	2015-03-12 18:33:06    Initech   Service     19
+	2015-03-22 03:58:28  Streeplex  Software      8
+	2015-03-15 00:53:12      Hooli  Hardware     19
+	2015-03-17 19:25:37      Hooli  Hardware     10
+	
+In [12]: mar.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 20 entries, 2015-03-22 14:42:25 to 2015-03-13 16:25:24
+	Data columns (total 3 columns):
+	Company    20 non-null object
+	Product    20 non-null object
+	Units      20 non-null int64
+	dtypes: int64(1), object(2)
+	memory usage: 1.2+ KB
+
+In [13]: [type(jan_units), type(feb_units), type(mar_units)]
+	Out[13]: [pandas.core.series.Series,
+		  pandas.core.series.Series,
+		  pandas.core.series.Series]
+
+In [14]: jan_units.shape
+	Out[14]: (20,)
+
+In [15]: jan_units.describe()
+	Out[15]: 
+	count    20.000000
+	mean     12.400000
+	std       4.935372
+	min       1.000000
+	25%       8.000000
+	50%      13.000000
+	75%      16.250000
+	max      19.000000
+	Name: Units, dtype: float64
+	
+In [16]: jan_units.head()
+	Out[16]: 
+	Date
+	2015-01-21 19:13:21    11
+	2015-01-09 05:23:51     8
+	2015-01-06 17:19:34    17
+	2015-01-02 09:51:06    16
+	2015-01-11 14:51:02    11
+	Name: Units, dtype: int64
+	
+In [17]: feb_units.shape
+	Out[17]: (20,)
+	
+In [18]: feb_units.head()
+	Out[18]: 
+	Date
+	2015-02-26 08:57:45     4
+	2015-02-16 12:09:19    10
+	2015-02-03 14:14:18    13
+	2015-02-02 08:33:01     3
+	2015-02-25 00:29:00    10
+	Name: Units, dtype: int64
+
+In [19]: mar_units.shape
+	Out[19]: (20,)
+	
+In [20]: mar_units.head()
+	Out[20]: 
+	Date
+	2015-03-22 14:42:25     6
+	2015-03-12 18:33:06    19
+	2015-03-22 03:58:28     8
+	2015-03-15 00:53:12    19
+	2015-03-17 19:25:37    10
+	Name: Units, dtype: int64
+
+In [21]: type(quarter1)
+	
+Out[21]: pandas.core.series.Series
+
+In [22]: quarter1.index
+	Out[22]: 
+	DatetimeIndex(['2015-01-21 19:13:21', '2015-01-09 05:23:51', '2015-01-06 17:19:34', '2015-01-02 09:51:06', '2015-01-11 14:51:02', '2015-01-01 07:31:20', '2015-01-24 08:01:16', '2015-01-25 15:40:07',
+	               '2015-01-13 05:36:12', '2015-01-03 18:00:19', '2015-01-16 00:33:47', '2015-01-16 07:21:12', '2015-01-20 19:49:24', '2015-01-26 01:50:25', '2015-01-15 02:38:25', '2015-01-06 13:47:37',
+	               '2015-01-15 15:33:40', '2015-01-27 07:11:55', '2015-01-20 11:28:02', '2015-01-16 19:20:46', '2015-02-26 08:57:45', '2015-02-16 12:09:19', '2015-02-03 14:14:18', '2015-02-02 08:33:01',
+	               '2015-02-25 00:29:00', '2015-02-05 01:53:06', '2015-02-09 08:57:30', '2015-02-11 20:03:08', '2015-02-04 21:52:45', '2015-02-09 13:09:55', '2015-02-07 22:58:10', '2015-02-11 22:50:44',
+	               '2015-02-26 08:58:51', '2015-02-05 22:05:03', '2015-02-04 15:36:29', '2015-02-19 16:02:58', '2015-02-19 10:59:33', '2015-02-02 20:54:49', '2015-02-21 05:01:26', '2015-02-21 20:41:47',
+	               '2015-03-22 14:42:25', '2015-03-12 18:33:06', '2015-03-22 03:58:28', '2015-03-15 00:53:12', '2015-03-17 19:25:37', '2015-03-16 05:54:06', '2015-03-25 10:18:10', '2015-03-25 16:42:42',
+	               '2015-03-26 05:20:04', '2015-03-06 10:11:45', '2015-03-22 21:14:39', '2015-03-17 19:38:12', '2015-03-28 19:20:38', '2015-03-13 04:41:32', '2015-03-06 02:03:56', '2015-03-13 11:40:16',
+	               '2015-03-27 08:29:45', '2015-03-21 06:42:41', '2015-03-15 08:50:45', '2015-03-13 16:25:24'],
+	              dtype='datetime64[ns]', name='Date', freq=None)
+
+In [23]: quarter1.describe()
+	Out[23]: 
+	count    60.000000
+	mean     10.700000
+	std       5.462662
+	min       1.000000
+	25%       7.000000
+	50%      10.000000
+	75%      16.000000
+	max      19.000000
+	Name: Units, dtype: float64
+________________________________________________________
+INSTRUCTION:
+
+1. Read the files 'sales-jan-2015.csv', 'sales-feb-2015.csv' 
+   and 'sales-mar-2015.csv' into the DataFrames jan, feb, and 
+   mar respectively.
+2. Use parse_dates=True and index_col='Date'.
+3. Extract the 'Units' column of jan, feb, and mar to create 
+   the Series jan_units, feb_units, and mar_units respectively.
+4. Construct the Series quarter1 by appending feb_units to 
+   jan_units and then appending mar_units to the result. Use 
+   chained calls to the .append() method to do this.
+5. Verify that quarter1 has the individual Series stacked 
+   vertically. To do this:
+6. Print the slice containing rows from jan 27, 2015 to 
+   feb 2, 2015.
+7. Print the slice containing rows from feb 26, 2015 to 
+   mar 7, 2015.
+8. Compute and print the total number of units sold from 
+   the Series quarter1. This has been done for you, so hit 
+   'Submit Answer' to see the result!
+________________________________________________________
+GUIDE:
+
+Appending pandas Series
+
+In this exercise, you'll load sales data from the months 
+January, February, and March into DataFrames. Then, you'll 
+extract Series with the 'Units' column from each and append 
+them together with method chaining using .append().
+
+To check that the stacking worked, you'll print slices from 
+these Series, and finally, you'll add the result to figure 
+out the total units sold in the first quarter.
+________________________________________________________

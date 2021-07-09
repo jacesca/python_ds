@@ -1,0 +1,147 @@
+import pandas as pd
+from glob import glob
+
+#Establece los archivos a leer
+filenames = glob("01.08 *.csv")
+#comprobando los 51 archivos csv
+print("Numero de archivos recuperados: ",len(filenames))
+
+#Lee los archivos seleccionados #index_col="Nombre"
+dfs = [pd.read_csv(f, header=None, usecols=[1,2,3,4], names=["Genero","Desde","Nombre","Total"]) for f in filenames]
+
+#Concatena en un solo dataframes
+df = pd.concat(dfs, ignore_index=True)
+#Imprime el tamaño del dataframe concatenado
+print("\nTamaño del dataframe concatenado: ",df.shape)
+#Imprime las primeras 5 filas del dataframe concatenado
+print("\nPrimeras 2 filas del dataframe concatenado:")
+print(df.head(2))
+
+#Agrupa por Nombre y Género
+df=df.groupby(["Nombre","Genero"]).agg({"Desde":min,"Total":sum})
+#Imprime el tamaño del dataframe agrupado
+print("\nTamaño del dataframe agrupado: ",df.shape)
+print("\nPrimeras 2 filas del dataframe agrupado:")
+print(df.head(2))
+
+dfm = df.loc[(slice(None),"M"),:]
+print("\nTamaño del dataframe con nombres masculinos: ", dfm.shape)
+#print("\nPrimeras 2 filas del dataframe:")
+#print(dfm.head(2))
+
+dff = df.loc[(slice(None),"F"),:]
+print("\nTamaño del dataframe con nombres femeninos: ", dff.shape)
+#print("\nPrimeras 2 filas del dataframe:")
+#print(dff.head(2))
+
+nameF = ["Julieta", "Fernanda", "Jacqueline", "Gabriela"]
+for name in nameF:
+    mask = df.index.get_level_values("Nombre").str.contains(name)
+    print("\n¿Cuántas veces se repitió el nombre '", name,"'? ")
+    print(df.loc[(mask,"F"),:])
+
+nameM = ["Jose","Lisandro"]
+for name in nameM:
+    mask = df.index.get_level_values("Nombre")==name
+    print("\n¿Cuántas veces se repitió el nombre '", name,"'? ")
+    print(df.loc[(mask,"M"),:])
+
+print("\nLos 5 nombres femeninos menos comunes:")
+print(dff.sort_values("Total").head())
+
+print("\nLos 5 nombres femeninos más comunes:")
+print(dff.sort_values("Total",ascending=False).head())
+
+print("\nLos 5 nombres masculinos menos comunes:")
+print(dfm.sort_values("Total").head())
+
+print("\nLos 5 nombres masculinos más comunes:")
+print(dfm.sort_values("Total",ascending=False).head())
+______________________________________________________________
+Out:
+	Numero de archivos recuperados:  51
+	
+	Tamaño del dataframe concatenado:  (5933561, 4)
+	
+	Primeras 2 filas del dataframe concatenado:
+	  Genero  Desde Nombre  Total
+	0      F   1910   Mary     14
+	1      F   1910  Annie     12
+	
+	Tamaño del dataframe agrupado:  (34325, 2)
+	
+	Primeras 2 filas del dataframe agrupado:
+	               Desde  Total
+	Nombre Genero              
+	Aaban  M        2013     12
+	Aadan  M        2008     23
+	
+	Tamaño del dataframe con nombres masculinos:  (13656, 2)
+	
+	Tamaño del dataframe con nombres femeninos:  (20669, 2)
+	
+	¿Cuántas veces se repitió el nombre ' Julieta '? 
+	                Desde  Total
+	Nombre  Genero              
+	Julieta F        1916   4772
+	
+	¿Cuántas veces se repitió el nombre ' Fernanda '? 
+	                 Desde  Total
+	Nombre   Genero              
+	Fernanda F        1918  13627
+	
+	¿Cuántas veces se repitió el nombre ' Jacqueline '? 
+	                   Desde   Total
+	Nombre     Genero               
+	Jacqueline F        1910  418973
+	
+	¿Cuántas veces se repitió el nombre ' Gabriela '? 
+	                 Desde  Total
+	Nombre   Genero              
+	Gabriela F        1915  76358
+	
+	¿Cuántas veces se repitió el nombre ' Jose '? 
+	               Desde   Total
+	Nombre Genero               
+	Jose   M        1910  554196
+	
+	¿Cuántas veces se repitió el nombre ' Lisandro '? 
+	                 Desde  Total
+	Nombre   Genero              
+	Lisandro M        1971    940
+
+	Los 5 nombres femeninos menos comunes:
+                 Desde  Total
+	Nombre   Genero              
+	Lakema   F        1978      5
+	Snezana  F        1976      5
+	Calamity F        1956      5
+	Itasca   F        1919      5
+	Smrithi  F        2011      5
+	
+	Los 5 nombres femeninos más comunes:
+	                  Desde    Total
+	Nombre    Genero                
+	Mary      F        1910  3738739
+	Patricia  F        1910  1568753
+	Elizabeth F        1910  1529014
+	Jennifer  F        1932  1465268
+	Linda     F        1910  1447553
+	
+	Los 5 nombres masculinos menos comunes:
+	                    Desde  Total
+	Nombre      Genero              
+	Zyshonne    M        1998      5
+	Joseramon   M        1988      5
+	Joseth      M        2008      5
+	Josgar      M        2009      5
+	Joshuajames M        1999      5
+
+	Los 5 nombres masculinos más comunes:
+	                Desde    Total
+	Nombre  Genero                
+	James   M        1910  4983519
+	John    M        1910  4860258
+	Robert  M        1910  4728727
+	Michael M        1910  4337408
+	William M        1910  3876159

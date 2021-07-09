@@ -1,0 +1,129 @@
+import pandas as pd
+
+# Perform the first merge: merge_default
+merge_default = pd.merge(sales_and_managers, revenue_and_sales)
+
+# Print merge_default
+print(merge_default)
+
+# Perform the second merge: merge_outer
+merge_outer = pd.merge(sales_and_managers, revenue_and_sales, how="outer")
+
+# Print merge_outer
+print(merge_outer)
+
+# Perform the third merge: merge_outer_on
+merge_outer_on = pd.merge(sales_and_managers, revenue_and_sales, on=["city", "state"], how="outer")
+
+# Print merge_outer_on
+print(merge_outer_on)
+________________________________________________________
+OUT:	
+	        city state  units     branch  branch_id   manager  revenue
+	0  Mendocino    CA      1  Mendocino       47.0     Brett    200.0
+	1     Denver    CO      4     Denver       20.0      Joel     83.0
+	2     Austin    TX      2     Austin       10.0  Charlers    100.0
+
+
+	          city state  units       branch  branch_id   manager  revenue
+	0    Mendocino    CA      1    Mendocino       47.0     Brett    200.0
+	1       Denver    CO      4       Denver       20.0      Joel     83.0
+	2       Austin    TX      2       Austin       10.0  Charlers    100.0
+	3  Springfield    MO      5  Springfield       31.0     Sally      NaN
+	4  Springfield    IL      1          NaN        NaN       NaN      NaN
+	5  Springfield    IL      1          NaN       30.0       NaN      4.0
+	6  Springfield    MO      5          NaN        NaN       NaN      NaN
+
+
+	          city state  units_x       branch  branch_id_x   manager  branch_id_y  revenue  units_y
+	0    Mendocino    CA        1    Mendocino         47.0     Brett         47.0    200.0        1
+	1       Denver    CO        4       Denver         20.0      Joel         20.0     83.0        4
+	2       Austin    TX        2       Austin         10.0  Charlers         10.0    100.0        2
+	3  Springfield    MO        5  Springfield         31.0     Sally          NaN      NaN        5
+	4  Springfield    IL        1          NaN          NaN       NaN         30.0      4.0        1
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: revenue.shape, managers.shape, sales.shape, 
+        revenue_and_sales.shape, sales_and_managers.shape
+	Out[1]: ((4, 4), (4, 4), (5, 3), (5, 5), (5, 6))
+
+In [2]: revenue
+	Out[2]: 
+	           city  branch_id state  revenue
+	 0       Austin         10    TX      100
+	 1       Denver         20    CO       83
+	 2  Springfield         30    IL        4
+	 3    Mendocino         47    CA      200
+
+In [3]: managers
+	Out[3]: 
+	         branch  branch_id state   manager
+	 0       Austin         10    TX  Charlers
+	 1       Denver         20    CO      Joel
+	 2    Mendocino         47    CA     Brett
+	 3  Springfield         31    MO     Sally
+
+In [4]: sales
+	Out[4]: 
+	           city state  units
+	 0    Mendocino    CA      1
+	 1       Denver    CO      4
+	 2       Austin    TX      2
+	 3  Springfield    MO      5
+	 4  Springfield    IL      1
+
+In [5]: revenue_and_sales
+	Out[5]: 
+	           city  branch_id state  revenue  units
+	 0       Austin       10.0    TX    100.0      2
+	 1       Denver       20.0    CO     83.0      4
+	 2  Springfield       30.0    IL      4.0      1
+	 3    Mendocino       47.0    CA    200.0      1
+	 4  Springfield        NaN    MO      NaN      5,
+
+In [6]: sales_and_managers
+	Out[6]: 
+	           city state  units       branch  branch_id   manager
+	 0    Mendocino    CA      1    Mendocino       47.0     Brett
+	 1       Denver    CO      4       Denver       20.0      Joel
+	 2       Austin    TX      2       Austin       10.0  Charlers
+	 3  Springfield    MO      5  Springfield       31.0     Sally
+	 4  Springfield    IL      1          NaN        NaN       NaN
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Merge sales_and_managers with revenue_and_sales. Store the 
+   result as merge_default.
+2. Print merge_default. This has been done for you.
+3. Merge sales_and_managers with revenue_and_sales using how='outer'. 
+   Store the result as merge_outer.
+4. Print merge_outer. This has been done for you.
+5. Merge sales_and_managers with revenue_and_sales only on 
+   ['city','state'] using an outer join. Store the result as 
+   merge_outer_on and hit 'Submit Answer' to see what the 
+   merged DataFrames look like!
+
+________________________________________________________
+GUIDE:
+
+Merging DataFrames with outer join
+
+This exercise picks up where the previous one left off. 
+The DataFrames revenue, managers, and sales are pre-loaded 
+into your namespace (and, of course, pandas is imported as pd). 
+Moreover, the merged DataFrames revenue_and_sales and 
+sales_and_managers have been pre-computed exactly as you did 
+in the previous exercise.
+
+The merged DataFrames contain enough information to construct 
+a DataFrame with 5 rows with all known information correctly 
+aligned and each branch listed only once. You will try to 
+merge the merged DataFrames on all matching keys (which 
+computes an inner join by default). You can compare the 
+result to an outer join and also to an outer join with 
+restricted subset of columns as keys.
+________________________________________________________

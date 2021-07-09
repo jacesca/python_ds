@@ -1,0 +1,77 @@
+# Merge revenue with managers on 'city': merge_by_city
+merge_by_city = pd.merge(revenue, managers, on="city")
+
+# Print merge_by_city
+print(merge_by_city)
+
+# Merge revenue with managers on 'branch_id': merge_by_id
+merge_by_id = pd.merge(revenue, managers, on="branch_id")
+
+# Print merge_by_id
+print(merge_by_id)
+________________________________________________________
+OUT:	
+	          city  branch_id_x  revenue  branch_id_y  manager
+	0       Austin           10      100           10  Charles
+	1       Denver           20       83           20     Joel
+	2  Springfield           30        4           31    Sally
+	3    Mendocino           47      200           47    Brett
+
+	      city_x  branch_id  revenue     city_y  manager
+	0     Austin         10      100     Austin  Charles
+	1     Denver         20       83     Denver     Joel
+	2  Mendocino         47      200  Mendocino    Brett
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: revenue.shape, managers.shape
+	Out[1]: ((4, 3), (4, 3))
+
+In [2]: [revenue, managers]
+	Out[2]: 
+	[          city  branch_id  revenue
+	 0       Austin         10      100
+	 1       Denver         20       83
+	 2  Springfield         30        4
+	 3    Mendocino         47      200,
+	
+	           city  branch_id  manager
+	 0       Austin         10  Charles
+	 1       Denver         20     Joel
+	 2    Mendocino         47    Brett
+	 3  Springfield         31    Sally]
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Using pd.merge(), merge the DataFrames revenue and 
+   managers on the 'city' column of each. Store the result 
+   as merge_by_city.
+2. Print the DataFrame merge_by_city. This has been done 
+   for you.
+3. Merge the DataFrames revenue and managers on the 'branch_id' 
+   column of each. Store the result as merge_by_id.
+4. Print the DataFrame merge_by_id. This has been done for you, 
+   so hit 'Submit Answer' to see the result!
+________________________________________________________
+GUIDE:
+
+Merging on a specific column
+This exercise follows on the last one with the DataFrames 
+revenue and managers for your company. You expect your 
+company to grow and, eventually, to operate in cities with 
+the same name on different states. As such, you decide that 
+every branch should have a numerical branch identifier. Thus, 
+you add a branch_id column to both DataFrames. Moreover, new 
+cities have been added to both the revenue and managers 
+DataFrames as well. pandas has been imported as pd and both 
+DataFrames are available in your namespace.
+
+At present, there should be a 1-to-1 relationship between the 
+city and branch_id fields. In that case, the result of a merge 
+on the city columns ought to give you the same output as a merge 
+on the branch_id columns. Do they? Can you spot an ambiguity in 
+one of the DataFrames?
+________________________________________________________

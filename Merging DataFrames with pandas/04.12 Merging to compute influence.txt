@@ -1,0 +1,141 @@
+# Import pandas
+import pandas as pd
+
+print("Head of reshaped:")
+print(reshaped.head())
+
+# Merge reshaped and hosts: merged
+merged = pd.merge(reshaped, hosts, how="inner")
+
+# Print first 5 rows of merged
+print("Head of merged: (Just Host)")
+print(merged.head())
+
+# Set Index of merged and sort it: influence
+influence = merged.set_index("Edition").sort_index()
+
+# Print first 5 rows of influence
+#print(influence.head())
+print("Influence: (Index sorted)")
+print(influence)
+________________________________________________________
+OUT:
+	Head of reshaped:
+	   Edition  NOC  Change
+	0     1896  AFG     NaN
+	1     1900  AFG     NaN
+	2     1904  AFG     NaN
+	3     1908  AFG     NaN
+	4     1912  AFG     NaN
+
+
+	Head of merged: (Just Host)
+	    Edition  NOC      Change
+	0      1956  AUS   54.615063
+	1      2000  AUS   12.554986
+	2      1920  BEL   54.757887
+	3      1976  CAN   -2.143977
+	4      2008  CHN   13.251332
+	5      1992  ESP   32.943248
+
+
+	Influence: (Index sorted)
+	         NOC      Change
+	Edition                 
+	1896     GRE         NaN
+	1900     FRA  198.002486
+	1904     USA  199.651245
+	1908     GBR  134.489218
+	1912     SWE   71.896226
+	1920     BEL   54.757887
+	1924     FRA    2.046362
+	1928     NED   36.315243
+	1932     USA    3.739184
+	1936     GER   24.108011
+	1948     GBR   -3.635059
+	1952     FIN    0.121662
+	1956     AUS   54.615063
+	1960     ITA    5.596174
+	1964     JPN   23.526654
+	1968     MEX    7.546289
+	1972     FRG   35.228623
+	1976     CAN   -2.143977
+	1980     URS    9.538213
+	1984     USA    1.304939
+	1988     KOR   70.070727
+	1992     ESP   32.943248
+	1996     USA   -1.010378
+	2000     AUS   12.554986
+	2004     GRE   -2.478635
+	2008     CHN   13.251332
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: reshaped.shape
+	Out[1]: (3588, 3)
+
+In [2]: reshaped.head()
+	Out[2]: 
+	   Edition  NOC  Change
+	0     1896  AFG     NaN
+	1     1900  AFG     NaN
+	2     1904  AFG     NaN
+	3     1908  AFG     NaN
+	4     1912  AFG     NaN
+
+In [3]: reshaped.index
+	Out[3]: RangeIndex(start=0, stop=3588, step=1)
+
+In [4]: hosts.shape
+	Out[4]: (26, 2)
+
+In [5]: hosts.head()
+	Out[5]: 
+	    Edition  NOC
+	0      1896  GRE
+	1      1900  FRA
+	2      1904  USA
+	3      1908  GBR
+	4      1912  SWE
+
+In [6]: hosts.index
+	Out[6]: RangeIndex(start=0, stop=26, step=1)
+
+In [7]: reshaped.columns, hosts.columns
+	
+Out[7]: 
+	
+(Index(['Edition', 'NOC', 'Change'], dtype='object'),
+
+	 Index(['Edition', 'NOC'], dtype='object'))
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Merge reshaped and hosts using an inner join. Remember, 
+   how='inner' is the default behavior for pd.merge().
+2. Print the first 5 rows of the DataFrame merged. This has 
+   been done for you. You should see that the rows are jumbled 
+   chronologically.
+3. Set the index of merged to be 'Edition' and sort the index.
+4. Print the first 5 rows of the DataFrame influence. This has 
+   been done for you, so hit 'Submit Answer' to see the results!
+________________________________________________________
+GUIDE:
+
+Merging to compute influence
+This exercise starts off with the DataFrames reshaped and 
+hosts in the namespace.
+
+Your task is to merge the two DataFrames and tidy the result.
+
+The end result is a DataFrame summarizing the fractional change 
+in the expanding mean of the percentage of medals won for the 
+host country in each Olympic edition.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-datahttp://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
+________________________________________________________

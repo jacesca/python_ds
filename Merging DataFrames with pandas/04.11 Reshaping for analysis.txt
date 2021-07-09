@@ -1,0 +1,291 @@
+# Import pandas
+import pandas as pd
+print("Fractions_change:")
+print(fractions_change)
+#create a new data frame with fractions_change for CHN
+df_chn = pd.DataFrame({"Edition":fractions_change["Edition"],"fractions_change_chn":fractions_change["CHN"]})
+
+# Reshape fractions_change: reshaped
+reshaped = pd.melt(fractions_change, id_vars="Edition", value_name="Change")
+
+# Print reshaped.shape and fractions_change.shape
+print("Size of reshaped vs fractions_change:")
+print(reshaped.shape, fractions_change.shape)
+print("Head of reshaped:")
+print(reshaped.head())
+print("Tail of reshaped:")
+print(reshaped.tail())
+
+# Extract rows from reshaped where 'NOC' == 'CHN': chn
+chn = reshaped[reshaped.NOC=="CHN"]
+
+# Print last 5 rows of chn
+#print(chn.tail())
+
+#Print chn
+print("CHN subset from reshaped:")
+print(chn)
+#create a new column in df_chn with reshaped for CHN
+df_chn["reshaped_chn"] = chn.reset_index()["Change"]
+# Print the transformation through CHN data in this process
+print("CHN Transformation:")
+print(df_chn)
+________________________________________________________
+OUT:
+	Fractions_change:
+	NOC  Edition  AFG  AHO        ALG        ANZ  ...       VIE         YUG        ZAM        ZIM        ZZX
+	0       1896  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN        NaN
+	1       1900  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN  33.561198
+	2       1904  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN -22.642384
+	3       1908  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN   0.000000
+	4       1912  NaN  NaN        NaN -26.092774  ...       NaN         NaN        NaN        NaN   0.000000
+	5       1920  NaN  NaN        NaN   0.000000  ...       NaN         NaN        NaN        NaN   0.000000
+	6       1924  NaN  NaN        NaN   0.000000  ...       NaN         NaN        NaN        NaN   0.000000
+	7       1928  NaN  NaN        NaN   0.000000  ...       NaN  323.521127        NaN        NaN   0.000000
+	8       1932  NaN  NaN        NaN   0.000000  ...       NaN    0.000000        NaN        NaN   0.000000
+	9       1936  NaN  NaN        NaN   0.000000  ...       NaN  -29.357594        NaN        NaN   0.000000
+	10      1948  NaN  NaN        NaN   0.000000  ...       NaN   47.596769        NaN        NaN   0.000000
+	11      1952  NaN  NaN        NaN   0.000000  ...       NaN   34.043608        NaN        NaN   0.000000
+	12      1956  NaN  NaN        NaN   0.000000  ...       NaN   15.677209        NaN        NaN   0.000000
+	13      1960  NaN  NaN        NaN   0.000000  ...       NaN    3.488616        NaN        NaN   0.000000
+	14      1964  NaN  NaN        NaN   0.000000  ...       NaN   -0.920274        NaN        NaN   0.000000
+	15      1968  NaN  NaN        NaN   0.000000  ...       NaN    8.564598        NaN        NaN   0.000000
+	16      1972  NaN  NaN        NaN   0.000000  ...       NaN   -1.191550        NaN        NaN   0.000000
+	17      1976  NaN  NaN        NaN   0.000000  ...       NaN   -1.323044        NaN        NaN   0.000000
+	18      1980  NaN  NaN        NaN   0.000000  ...       NaN   12.034867        NaN        NaN   0.000000
+	19      1984  NaN  NaN        NaN   0.000000  ...       NaN   16.657914        NaN   0.000000   0.000000
+	20      1988  NaN  NaN   0.000000   0.000000  ...       NaN    6.102727   0.000000   0.000000   0.000000
+	21      1992  NaN  0.0  -7.214076   0.000000  ...       NaN    0.000000   0.000000   0.000000   0.000000
+	22      1996  NaN  0.0   8.959211   0.000000  ...       NaN   -2.667732 -10.758472   0.000000   0.000000
+	23      2000  NaN  0.0  19.762488   0.000000  ...       NaN   -2.696445   0.000000   0.000000   0.000000
+	24      2004  NaN  0.0   0.000000   0.000000  ...  0.000000    0.000000   0.000000 -43.491929   0.000000
+	25      2008  NaN  0.0  -8.197807   0.000000  ... -0.661117    0.000000   0.000000 -23.316533   0.000000
+	[26 rows x 139 columns]
+	
+	Size of reshaped vs fractions_change:
+	(3588, 3) (26, 139)
+
+	Head of reshaped:
+	   Edition  NOC  Change
+	0     1896  AFG     NaN
+	1     1900  AFG     NaN
+	2     1904  AFG     NaN
+	3     1908  AFG     NaN
+	4     1912  AFG     NaN
+
+	Tail of reshaped:
+	      Edition  NOC  Change
+	3583     1992  ZZX     0.0
+	3584     1996  ZZX     0.0
+	3585     2000  ZZX     0.0
+	3586     2004  ZZX     0.0
+	3587     2008  ZZX     0.0
+
+	CHN subset from reshaped:
+	     Edition  NOC     Change
+	546     1896  CHN        NaN
+	547     1900  CHN        NaN
+	548     1904  CHN        NaN
+	549     1908  CHN        NaN
+	550     1912  CHN        NaN
+	551     1920  CHN        NaN
+	552     1924  CHN        NaN
+	553     1928  CHN        NaN
+	554     1932  CHN        NaN
+	555     1936  CHN        NaN
+	556     1948  CHN        NaN
+	557     1952  CHN        NaN
+	558     1956  CHN        NaN
+	559     1960  CHN        NaN
+	560     1964  CHN        NaN
+	561     1968  CHN        NaN
+	562     1972  CHN        NaN
+	563     1976  CHN        NaN
+	564     1980  CHN        NaN
+	565     1984  CHN        NaN
+	566     1988  CHN -17.093773
+	567     1992  CHN   4.240630
+	568     1996  CHN   7.860247
+	569     2000  CHN  -3.851278
+	570     2004  CHN   0.128863
+	571     2008  CHN  13.251332
+
+	CHN Transformation:
+	    Edition  fractions_change_chn  reshaped_chn
+	0      1896                   NaN           NaN
+	1      1900                   NaN           NaN
+	2      1904                   NaN           NaN
+	3      1908                   NaN           NaN
+	4      1912                   NaN           NaN
+	5      1920                   NaN           NaN
+	6      1924                   NaN           NaN
+	7      1928                   NaN           NaN
+	8      1932                   NaN           NaN
+	9      1936                   NaN           NaN
+	10     1948                   NaN           NaN
+	11     1952                   NaN           NaN
+	12     1956                   NaN           NaN
+	13     1960                   NaN           NaN
+	14     1964                   NaN           NaN
+	15     1968                   NaN           NaN
+	16     1972                   NaN           NaN
+	17     1976                   NaN           NaN
+	18     1980                   NaN           NaN
+	19     1984                   NaN           NaN
+	20     1988            -17.093773    -17.093773
+	21     1992              4.240630      4.240630
+	22     1996              7.860247      7.860247
+	23     2000             -3.851278     -3.851278
+	24     2004              0.128863      0.128863
+	25     2008             13.251332     13.251332
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+##################################################################
+# fractions_change                                               #
+##################################################################
+In [1]: fractions_change.shape
+	Out[1]: (26, 139)
+
+In [2]: fractions_change
+	Out[2]: 
+	NOC  Edition  AFG  AHO        ALG        ANZ  ...       VIE         YUG        ZAM        ZIM        ZZX
+	0       1896  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN        NaN
+	1       1900  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN  33.561198
+	2       1904  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN -22.642384
+	3       1908  NaN  NaN        NaN        NaN  ...       NaN         NaN        NaN        NaN   0.000000
+	4       1912  NaN  NaN        NaN -26.092774  ...       NaN         NaN        NaN        NaN   0.000000
+	5       1920  NaN  NaN        NaN   0.000000  ...       NaN         NaN        NaN        NaN   0.000000
+	6       1924  NaN  NaN        NaN   0.000000  ...       NaN         NaN        NaN        NaN   0.000000
+	7       1928  NaN  NaN        NaN   0.000000  ...       NaN  323.521127        NaN        NaN   0.000000
+	8       1932  NaN  NaN        NaN   0.000000  ...       NaN    0.000000        NaN        NaN   0.000000
+	9       1936  NaN  NaN        NaN   0.000000  ...       NaN  -29.357594        NaN        NaN   0.000000
+	10      1948  NaN  NaN        NaN   0.000000  ...       NaN   47.596769        NaN        NaN   0.000000
+	11      1952  NaN  NaN        NaN   0.000000  ...       NaN   34.043608        NaN        NaN   0.000000
+	12      1956  NaN  NaN        NaN   0.000000  ...       NaN   15.677209        NaN        NaN   0.000000
+	13      1960  NaN  NaN        NaN   0.000000  ...       NaN    3.488616        NaN        NaN   0.000000
+	14      1964  NaN  NaN        NaN   0.000000  ...       NaN   -0.920274        NaN        NaN   0.000000
+	15      1968  NaN  NaN        NaN   0.000000  ...       NaN    8.564598        NaN        NaN   0.000000
+	16      1972  NaN  NaN        NaN   0.000000  ...       NaN   -1.191550        NaN        NaN   0.000000
+	17      1976  NaN  NaN        NaN   0.000000  ...       NaN   -1.323044        NaN        NaN   0.000000
+	18      1980  NaN  NaN        NaN   0.000000  ...       NaN   12.034867        NaN        NaN   0.000000
+	19      1984  NaN  NaN        NaN   0.000000  ...       NaN   16.657914        NaN   0.000000   0.000000
+	20      1988  NaN  NaN   0.000000   0.000000  ...       NaN    6.102727   0.000000   0.000000   0.000000
+	21      1992  NaN  0.0  -7.214076   0.000000  ...       NaN    0.000000   0.000000   0.000000   0.000000
+	22      1996  NaN  0.0   8.959211   0.000000  ...       NaN   -2.667732 -10.758472   0.000000   0.000000
+	23      2000  NaN  0.0  19.762488   0.000000  ...       NaN   -2.696445   0.000000   0.000000   0.000000
+	24      2004  NaN  0.0   0.000000   0.000000  ...  0.000000    0.000000   0.000000 -43.491929   0.000000
+	25      2008  NaN  0.0  -8.197807   0.000000  ... -0.661117    0.000000   0.000000 -23.316533   0.000000
+	[26 rows x 139 columns]
+
+In [3]: fractions_change.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 26 entries, 0 to 25
+	Columns: 139 entries, Edition to ZZX
+	dtypes: float64(138), int64(1)
+	memory usage: 28.3 KB
+	
+In [4]: fractions_change.columns
+	Out[4]: 
+	Index(['Edition', 'AFG', 'AHO', 'ALG', 'ANZ', 'ARG', 'ARM', 'AUS', 'AUT', 'AZE',
+	       ...
+	       'URS', 'URU', 'USA', 'UZB', 'VEN', 'VIE', 'YUG', 'ZAM', 'ZIM', 'ZZX'], dtype='object', name='NOC', length=139)
+
+In [5]: fractions_change.index
+	Out[5]: RangeIndex(start=0, stop=26, step=1)
+	
+##################################################################
+# hosts                                                          #
+##################################################################
+In [6]: hosts.shape
+	Out[6]: (26, 2)
+
+In [7]: hosts
+	Out[7]: 
+	    Edition  NOC
+	0      1896  GRE
+	1      1900  FRA
+	2      1904  USA
+	3      1908  GBR
+	4      1912  SWE
+	5      1920  BEL
+	6      1924  FRA
+	7      1928  NED
+	8      1932  USA
+	9      1936  GER
+	10     1948  GBR
+	11     1952  FIN
+	12     1956  AUS
+	13     1960  ITA
+	14     1964  JPN
+	15     1968  MEX
+	16     1972  FRG
+	17     1976  CAN
+	18     1980  URS
+	19     1984  USA
+	20     1988  KOR
+	21     1992  ESP
+	22     1996  USA
+	23     2000  AUS
+	24     2004  GRE
+	25     2008  CHN
+	
+In [8]: hosts.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 26 entries, 0 to 25
+	Data columns (total 2 columns):
+	Edition    26 non-null int64
+	NOC        26 non-null object
+	dtypes: int64(1), object(1)
+	memory usage: 496.0+ bytes
+
+In [9]: hosts.columns
+	Out[9]: Index(['Edition', 'NOC'], dtype='object')
+
+In [10]: hosts.index
+	Out[10]: RangeIndex(start=0, stop=26, step=1)
+
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Create a DataFrame reshaped by reshaping the DataFrame 
+   fractions_change with pd.melt().
+2. You'll need to use the keyword argument id_vars='Edition' 
+   to set the identifier variable.
+3. You'll also need to use the keyword argument value_name='Change' 
+   to set the measured variables.
+4. Print the shape of the DataFrames reshaped and fractions_change. 
+   This has been done for you.
+5. Create a DataFrame chn by extracting all the rows from 
+   reshaped in which the three letter code for each country 
+   ('NOC') is 'CHN'.
+6. Print the last 5 rows of the DataFrame chn using the 
+   .tail() method. This has been done for you, so hit 
+   'Submit Answer' to see the results!
+________________________________________________________
+GUIDE:
+
+Reshaping for analysis
+
+This exercise starts off with fractions_change and hosts 
+already loaded.
+
+Your task here is to reshape the fractions_change DataFrame 
+for later analysis.
+
+Initially, fractions_change is a wide DataFrame of 26 rows 
+(one for each Olympic edition) and 139 columns (one for the 
+edition and 138 for the competing countries).
+
+On reshaping with pd.melt(), as you will see, the result 
+is a tall DataFrame with 3588 rows and 3 columns that 
+summarizes the fractional change in the expanding mean 
+of the percentage of medals won for each country in blocks.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-datahttp://pandas.pydata.org/pandas-docs/stable/user_guide/computation.html
+________________________________________________________

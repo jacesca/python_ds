@@ -1,0 +1,114 @@
+import pandas as pd
+
+# Initialize empty list: units
+units = []
+
+# Build the list of Series
+for month in [jan, feb, mar]:
+    units.append(month["Units"])
+    
+# Concatenate the list: quarter1
+quarter1 = pd.concat(units, axis="rows")
+
+# Print slices from quarter1
+print(quarter1.loc['jan 27, 2015':'feb 2, 2015'])
+print(quarter1.loc['feb 26, 2015':'mar 7, 2015'])
+________________________________________________________
+OUT:	
+	Date
+	2015-01-27 07:11:55    18
+	2015-02-02 08:33:01     3
+	2015-02-02 20:54:49     9
+	Name: Units, dtype: int64
+
+	Date
+	2015-02-26 08:57:45     4
+	2015-02-26 08:58:51     1
+	2015-03-06 10:11:45    17
+	2015-03-06 02:03:56    17
+	Name: Units, dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: !dir
+	sales-feb-2015.csv  sales-jan-2015.csv	sales-mar-2015.csv
+
+In [2]: [type(jan), type(feb), type(mar)]
+	Out[2]: 
+	[pandas.core.frame.DataFrame,
+	 pandas.core.frame.DataFrame,
+	 pandas.core.frame.DataFrame]
+
+In [3]: [jan.shape, feb.shape, mar.shape]
+	Out[3]: [(20, 3), (20, 3), (20, 3)]
+
+In [4]: [jan.index, feb.index, mar.index]
+	Out[4]: 
+	[DatetimeIndex(['2015-01-21 19:13:21', '2015-01-09 05:23:51', '2015-01-06 17:19:34', '2015-01-02 09:51:06', '2015-01-11 14:51:02', '2015-01-01 07:31:20', '2015-01-24 08:01:16', '2015-01-25 15:40:07',
+	                '2015-01-13 05:36:12', '2015-01-03 18:00:19', '2015-01-16 00:33:47', '2015-01-16 07:21:12', '2015-01-20 19:49:24', '2015-01-26 01:50:25', '2015-01-15 02:38:25', '2015-01-06 13:47:37',
+	                '2015-01-15 15:33:40', '2015-01-27 07:11:55', '2015-01-20 11:28:02', '2015-01-16 19:20:46'],
+	               dtype='datetime64[ns]', name='Date', freq=None),
+	 DatetimeIndex(['2015-02-26 08:57:45', '2015-02-16 12:09:19', '2015-02-03 14:14:18', '2015-02-02 08:33:01', '2015-02-25 00:29:00', '2015-02-05 01:53:06', '2015-02-09 08:57:30', '2015-02-11 20:03:08',
+	                '2015-02-04 21:52:45', '2015-02-09 13:09:55', '2015-02-07 22:58:10', '2015-02-11 22:50:44', '2015-02-26 08:58:51', '2015-02-05 22:05:03', '2015-02-04 15:36:29', '2015-02-19 16:02:58',
+	                '2015-02-19 10:59:33', '2015-02-02 20:54:49', '2015-02-21 05:01:26', '2015-02-21 20:41:47'],
+	               dtype='datetime64[ns]', name='Date', freq=None),
+	 DatetimeIndex(['2015-03-22 14:42:25', '2015-03-12 18:33:06', '2015-03-22 03:58:28', '2015-03-15 00:53:12', '2015-03-17 19:25:37', '2015-03-16 05:54:06', '2015-03-25 10:18:10', '2015-03-25 16:42:42',
+	                '2015-03-26 05:20:04', '2015-03-06 10:11:45', '2015-03-22 21:14:39', '2015-03-17 19:38:12', '2015-03-28 19:20:38', '2015-03-13 04:41:32', '2015-03-06 02:03:56', '2015-03-13 11:40:16',
+	                '2015-03-27 08:29:45', '2015-03-21 06:42:41', '2015-03-15 08:50:45', '2015-03-13 16:25:24'],
+	               dtype='datetime64[ns]', name='Date', freq=None)]
+
+In [5]: [jan.columns, feb.columns, mar.columns]
+	Out[5]: 
+	[Index(['Company', 'Product', 'Units'], dtype='object'),
+	 Index(['Company', 'Product', 'Units'], dtype='object'),
+	 Index(['Company', 'Product', 'Units'], dtype='object')]
+
+AFTER EXECUTE THE EXCERCISE:
+In [13]: quarter1.shape
+
+	Out[13]: (60,)
+
+
+
+In [14]: type(units)
+	
+Out[14]: list
+
+In [15]: quarter1.sum()
+	
+Out[15]: 642
+________________________________________________________
+INSTRUCTION:
+
+1. Create an empty list called units. This has been done 
+   for you.
+2. Use a for loop to iterate over [jan, feb, mar]:
+   - In each iteration of the loop, append the 'Units' 
+     column of each DataFrame to units.
+3. Concatenate the Series contained in the list units into 
+   a longer Series called quarter1 using pd.concat().
+   - Specify the keyword argument axis='rows' to stack the 
+   Series vertically.
+4. Verify that quarter1 has the individual Series stacked 
+   vertically by printing slices. This has been done for 
+   you, so hit 'Submit Answer' to see the result!
+________________________________________________________
+GUIDE:
+
+Concatenating pandas Series along row axis
+
+Having learned how to append Series, you'll now learn how 
+to achieve the same result by concatenating Series instead. 
+You'll continue to work with the sales data you've seen 
+previously. This time, the DataFrames jan, feb, and mar have 
+been pre-loaded.
+
+Your job is to use pd.concat() with a list of Series to achieve 
+the same result that you would get by chaining calls to .append().
+
+You may be wondering about the difference between pd.concat() 
+and pandas' .append() method. One way to think of the difference 
+is that .append() is a specific case of a concatenation, while 
+pd.concat() gives you more flexibility, as you'll see in later 
+exercises.
+________________________________________________________

@@ -1,0 +1,70 @@
+GUIDE:
+
+Appending Series with nonunique Indices
+The Series bronze and silver, which have been printed in the 
+IPython Shell, represent the 5 countries that won the most 
+bronze and silver Olympic medals respectively between 1896 & 2008. 
+The Indexes of both Series are called Country and the values are 
+the corresponding number of medals won.
+
+	bronze
+	Country
+	United States     1052.0
+	Soviet Union       584.0
+	United Kingdom     505.0
+	France             475.0
+	Germany            454.0
+	Name: Total, dtype: float64
+
+	silver
+	Country
+	United States     1195.0
+	Soviet Union       627.0
+	United Kingdom     591.0
+	France             461.0
+	Italy              394.0
+	Name: Total, dtype: float64
+
+If you were to run the command combined = bronze.append(silver), 
+how many rows would combined have? And how many rows would 
+combined.loc['United States'] return? Find out for yourself by 
+running these commands in the IPython Shell.
+________________________________________________________
+ANSWER:
+	combined has 10 rows and combined.loc['United States'] has 2 rows.
+________________________________________________________
+IPYTHONSHELL:
+In [1]: bronze.shape
+	Out[1]: (5,)
+
+	In [2]: silver.shape
+Out[2]: (5,)
+
+In [3]: combined = bronze.append(silver)
+
+In [4]: combined
+	Out[4]: 
+	Country
+	United States     1052.0
+	Soviet Union       584.0
+	United Kingdom     505.0
+	France             475.0
+	Germany            454.0
+	United States     1195.0
+	Soviet Union       627.0
+	United Kingdom     591.0
+	France             461.0
+	Italy              394.0
+	Name: Total, dtype: float64
+
+In [5]: combined["United States"]
+	Out[5]: 
+	United States    1052.0
+	United States    1195.0
+	Name: Total, dtype: float64
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________
+

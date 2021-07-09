@@ -1,0 +1,68 @@
+import pandas as pd
+
+# Add 'state' column to revenue: revenue['state']
+revenue['state'] = ['TX','CO','IL','CA']
+
+# Add 'state' column to managers: managers['state']
+managers['state'] = ['TX','CO','CA','MO']
+
+# Merge revenue & managers on 'branch_id', 'city', & 'state': combined
+combined = pd.merge(revenue, managers, on=['branch_id', 'city', 'state'])
+
+# Print combined
+print(combined)
+________________________________________________________
+OUT:	
+	        city  branch_id  revenue state   manager
+	0     Austin         10      100    TX  Charlers
+	1     Denver         20       83    CO      Joel
+	2  Mendocino         47      200    CA     Brett
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: revenue.shape, managers.shape
+	Out[1]: ((4, 3), (4, 3))
+
+In [2]: revenue, managers
+	Out[2]: 
+	(          city  branch_id  revenue
+	 0       Austin         10      100
+	 1       Denver         20       83
+	 2  Springfield         30        4
+	 3    Mendocino         47      200,
+
+	           city  branch_id   manager
+	 0       Austin         10  Charlers
+	 1       Denver         20      Joel
+	 2    Mendocino         47     Brett
+	 3  Springfield         31     Sally)
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Create a column called 'state' in the DataFrame revenue, 
+   consisting of the list ['TX','CO','IL','CA'].
+2. Create a column called 'state' in the DataFrame managers, 
+   consisting of the list ['TX','CO','CA','MO'].
+3. Merge the DataFrames revenue and managers using three columns:
+   'branch_id', 'city', and 'state'. Pass them in as a list to 
+   the on paramater of pd.merge().
+________________________________________________________
+GUIDE:
+
+Merging on multiple columns
+Another strategy to disambiguate cities with identical names 
+is to add information on the states in which the cities are 
+located. To this end, you add a column called state to both 
+DataFrames from the preceding exercises. Again, pandas has 
+been pre-imported as pd and the revenue and managers DataFrames 
+are in your namespace.
+
+Your goal in this exercise is to use pd.merge() to merge 
+DataFrames using multiple columns (using 'branch_id', 'city', 
+and 'state' in this case).
+
+Are you able to match all your company's branches correctly?
+________________________________________________________

@@ -1,0 +1,52 @@
+Adding unaligned DataFrames
+The DataFrames january and february, which have been 
+printed in the IPython Shell, represent the sales a 
+company made in the corresponding months.
+january
+
+	                  Units
+	Company                
+	Acme Corporation     19
+	Hooli                17
+	Initech              20
+	Mediacore            10
+	Streeplex            13
+	
+	february
+	                  Units
+	Company                
+	Acme Corporation     15
+	Hooli                 3
+	Mediacore            13
+	Vandelay Inc         25
+
+The Indexes in both DataFrames are called Company, 
+identifying which company bought that quantity of units. 
+The column Units is the number of units sold.
+
+If you were to add these two DataFrames by executing 
+the command total = january + february, how many rows 
+would the resulting DataFrame have? Try this in the 
+IPython Shell and find out for yourself.
+________________________________________________________
+ANSWER:
+	6 rows.
+________________________________________________________
+IPYTHONSHELL:
+In [1]: january.shape
+	Out[1]: (5, 1)
+
+In [2]: february.shape
+	Out[2]: (4, 1)
+
+In [3]: january + february
+	Out[3]: 
+	                  Units
+	Company                
+	Acme Corporation   34.0
+	Hooli              20.0
+	Initech             NaN
+	Mediacore          23.0
+	Streeplex           NaN
+	Vandelay Inc        NaN
+________________________________________________________

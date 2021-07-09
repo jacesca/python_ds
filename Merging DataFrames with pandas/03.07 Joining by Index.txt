@@ -1,0 +1,70 @@
+Joining by Index
+The DataFrames revenue and managers are displayed in the IPython Shell. 
+Here, they are indexed by 'branch_id'.
+
+	#revenue
+	                  city state  revenue
+	branch_id                            
+	10              Austin    TX      100
+	20              Denver    CO       83
+	30         Springfield    IL        4
+	47           Mendocino    CA      200
+
+	#manager
+	                branch state   manager
+	branch_id                             
+	10              Austin    TX  Charlers
+	20              Denver    CO      Joel
+	47           Mendocino    CA     Brett
+	31         Springfield    MO     Sally
+
+Choose the function call below that will join the DataFrames on their 
+indexes and return 5 rows with index labels [10, 20, 30, 31, 47]. 
+Explore each of them in the IPython Shell to get a better understanding 
+of their functionality.
+________________________________________________________
+ANSWER:
+Right:
+	revenue.join(managers, lsuffix='_rev', rsuffix='_mng', how='outer')
+
+Wrong:
+	pd.merge(revenue, managers, on='branch_id')
+	pd.merge(managers, revenue, how='left')
+	managers.join(revenue, lsuffix='_mgn', rsuffix='_rev', how='left')
+________________________________________________________
+IPYTHONSHELL:
+In [1]: pd.merge(revenue, managers, on='branch_id')
+	Out[1]: 
+	                city state_x  revenue     branch state_y   manager
+	branch_id                                                         
+	10            Austin      TX      100     Austin      TX  Charlers
+	20            Denver      CO       83     Denver      CO      Joel
+	47         Mendocino      CA      200  Mendocino      CA     Brett
+
+In [2]: pd.merge(managers, revenue, how='left')
+	Out[2]: 
+	        branch state   manager       city  revenue
+	0       Austin    TX  Charlers     Austin    100.0
+	1       Denver    CO      Joel     Denver     83.0
+	2    Mendocino    CA     Brett  Mendocino    200.0
+	3  Springfield    MO     Sally        NaN      NaN
+
+In [3]: revenue.join(managers, lsuffix='_rev', rsuffix='_mng', how='outer')
+	Out[3]: 
+                  city state_rev  revenue       branch state_mng   manager
+	branch_id                                                                 
+	10              Austin        TX    100.0       Austin        TX  Charlers
+	20              Denver        CO     83.0       Denver        CO      Joel
+	30         Springfield        IL      4.0          NaN       NaN       NaN
+	31                 NaN       NaN      NaN  Springfield        MO     Sally
+	47           Mendocino        CA    200.0    Mendocino        CA     Brett
+
+In [4]: managers.join(revenue, lsuffix='_mgn', rsuffix='_rev', how='left')
+	Out[4]: 
+	                branch state_mgn   manager       city state_rev  revenue
+	branch_id                                                               
+	10              Austin        TX  Charlers     Austin        TX    100.0
+	20              Denver        CO      Joel     Denver        CO     83.0
+	47           Mendocino        CA     Brett  Mendocino        CA    200.0
+	31         Springfield        MO     Sally        NaN       NaN      NaN
+________________________________________________________

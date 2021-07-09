@@ -1,0 +1,118 @@
+# Import pandas
+import pandas as pd
+
+# Read 'sp500.csv' into a DataFrame: sp500
+sp500 = pd.read_csv("sp500.csv",index_col="Date",parse_dates=True)
+#print(sp500.head())
+#print(sp500.info())
+
+# Read 'exchange.csv' into a DataFrame: exchange
+exchange = pd.read_csv("exchange.csv",index_col="Date",parse_dates=True)
+#print(exchange.head())
+#print(exchange.info())
+
+# Subset 'Open' & 'Close' columns from sp500: dollars
+dollars = sp500[["Open","Close"]]
+
+# Print the head of dollars
+print(dollars.head())
+
+# Convert dollars to pounds: pounds
+pounds = dollars.multiply(exchange["GBP/USD"],axis="rows")
+
+# Print the head of pounds
+print(pounds.head())
+________________________________________________________
+OUT:	
+	                   Open         High          Low        Close      Volume    Adj Close
+	Date                                                                                   
+	2015-01-02  2058.899902  2072.360107  2046.040039  2058.199951  2708700000  2058.199951
+	2015-01-05  2054.439941  2054.439941  2017.339966  2020.579956  3799120000  2020.579956
+	2015-01-06  2022.150024  2030.250000  1992.439941  2002.609985  4460110000  2002.609985
+	2015-01-07  2005.550049  2029.609985  2005.550049  2025.900024  3805480000  2025.900024
+	2015-01-08  2030.609985  2064.080078  2030.609985  2062.139893  3934010000  2062.139893
+
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 252 entries, 2015-01-02 to 2015-12-31
+	Data columns (total 6 columns):
+	Open         252 non-null float64
+	High         252 non-null float64
+	Low          252 non-null float64
+	Close        252 non-null float64
+	Volume       252 non-null int64
+	Adj Close    252 non-null float64
+	dtypes: float64(5), int64(1)
+	memory usage: 13.8 KB
+	None
+
+	            GBP/USD
+	Date               
+	2015-01-02  0.65101
+	2015-01-05  0.65644
+	2015-01-06  0.65896
+	2015-01-07  0.66344
+	2015-01-08  0.66151
+	
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 250 entries, 2015-01-02 to 2015-12-31
+	Data columns (total 1 columns):
+	GBP/USD    250 non-null float64
+	dtypes: float64(1)
+	memory usage: 3.9 KB
+	None
+
+	                   Open        Close
+	Date                                
+	2015-01-02  2058.899902  2058.199951
+	2015-01-05  2054.439941  2020.579956
+	2015-01-06  2022.150024  2002.609985
+	2015-01-07  2005.550049  2025.900024
+	2015-01-08  2030.609985  2062.139893
+
+	                   Open        Close
+	Date                                
+	2015-01-02  1340.364425  1339.908750
+	2015-01-05  1348.616555  1326.389506
+	2015-01-06  1332.515980  1319.639876
+	2015-01-07  1330.562125  1344.063112
+	2015-01-08  1343.268811  1364.126161
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: !dir
+
+	exchange.csv  sp500.csv
+
+AFTER EXECUTE THE EXCERCISE:
+________________________________________________________
+INSTRUCTION:
+
+1. Read the DataFrames sp500 & exchange from the files 
+   'sp500.csv' & 'exchange.csv' respectively..
+2. Use parse_dates=True and index_col='Date'.
+3. Extract the columns 'Open' & 'Close' from the 
+   DataFrame sp500 as a new DataFrame dollars and print 
+   the first 5 rows.
+4. Construct a new DataFrame pounds by converting US 
+   dollars to British pounds. You'll use the .multiply() 
+   method of dollars with exchange['GBP/USD'] and 
+   axis='rows'
+5. Print the first 5 rows of the new DataFrame pounds. 
+   This has been done for you, so hit 'Submit Answer' 
+   to see the results!.
+________________________________________________________
+GUIDE:
+
+Converting currency of stocks
+In this exercise, stock prices in US Dollars for the 
+S&P 500 in 2015 have been obtained from Yahoo Finance. 
+The files sp500.csv for sp500 and exchange.csv for the 
+exchange rates are both provided to you.
+
+Using the daily exchange rate to Pounds Sterling, your 
+task is to convert both the Open and Close column prices.
+________________________________________________________
+DATA SOURCE:
+
+https://finance.yahoo.com/
+________________________________________________________

@@ -1,0 +1,149 @@
+# Make the list of tuples: month_list
+month_list = [('january', jan), ('february', feb), ('march', mar)]
+
+# Create an empty dictionary: month_dict
+month_dict = {}
+
+for month_name, month_data in month_list:
+
+    # Group month_data: month_dict[month_name]
+    month_dict[month_name] = month_data.groupby('Company').sum()
+
+# Concatenate data in month_dict: sales
+sales = pd.concat(month_dict)
+
+# Print sales
+print(sales)
+
+# Print all sales by Mediacore
+idx = pd.IndexSlice
+print(sales.loc[idx[:, 'Mediacore'], :])
+________________________________________________________
+OUT:	
+	                          Units
+	         Company               
+	february Acme Coporation     34
+	         Hooli               30
+	         Initech             30
+	         Mediacore           45
+	         Streeplex           37
+	january  Acme Coporation     76
+	         Hooli               70
+	         Initech             37
+	         Mediacore           15
+	         Streeplex           50
+	march    Acme Coporation      5
+	         Hooli               37
+	         Initech             68
+	         Mediacore           68
+	         Streeplex           40
+
+	
+	                    Units
+	         Company         
+	february Mediacore     45
+	january  Mediacore     15
+	march    Mediacore     68	
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: !dir
+
+In [2]: jan.shape, feb.shape, mar.shape
+	Out[2]: ((20, 4), (20, 4), (20, 4))
+
+In [3]: jan, feb, mar
+	Out[3]: 
+	(                   Date          Company   Product  Units
+	 0   2015-01-21 19:13:21        Streeplex  Hardware     11
+	 1   2015-01-09 05:23:51        Streeplex   Service      8
+	 2   2015-01-06 17:19:34          Initech  Hardware     17
+	 3   2015-01-02 09:51:06            Hooli  Hardware     16
+	 4   2015-01-11 14:51:02            Hooli  Hardware     11
+	 5   2015-01-01 07:31:20  Acme Coporation  Software     18
+	 6   2015-01-24 08:01:16          Initech  Software      1
+	 7   2015-01-25 15:40:07          Initech   Service      6
+	 8   2015-01-13 05:36:12            Hooli   Service      7
+	 9   2015-01-03 18:00:19            Hooli   Service     19
+	 10  2015-01-16 00:33:47            Hooli  Hardware     17
+	 11  2015-01-16 07:21:12          Initech   Service     13
+	 12  2015-01-20 19:49:24  Acme Coporation  Hardware     12
+	 13  2015-01-26 01:50:25  Acme Coporation  Software     14
+	 14  2015-01-15 02:38:25  Acme Coporation   Service     16
+	 15  2015-01-06 13:47:37  Acme Coporation  Software     16
+	 16  2015-01-15 15:33:40        Mediacore  Hardware      7
+	 17  2015-01-27 07:11:55        Streeplex   Service     18
+	 18  2015-01-20 11:28:02        Streeplex  Software     13
+	 19  2015-01-16 19:20:46        Mediacore   Service      8,
+	                    Date          Company   Product  Units
+	 0   2015-02-26 08:57:45        Streeplex   Service      4
+	 1   2015-02-16 12:09:19            Hooli  Software     10
+	 2   2015-02-03 14:14:18          Initech  Software     13
+	 3   2015-02-02 08:33:01            Hooli  Software      3
+	 4   2015-02-25 00:29:00          Initech   Service     10
+	 5   2015-02-05 01:53:06  Acme Coporation  Software     19
+	 6   2015-02-09 08:57:30        Streeplex   Service     19
+	 7   2015-02-11 20:03:08          Initech  Software      7
+	 8   2015-02-04 21:52:45  Acme Coporation  Hardware     14
+	 9   2015-02-09 13:09:55        Mediacore  Software      7
+	 10  2015-02-07 22:58:10  Acme Coporation  Hardware      1
+	 11  2015-02-11 22:50:44            Hooli  Software      4
+	 12  2015-02-26 08:58:51        Streeplex   Service      1
+	 13  2015-02-05 22:05:03            Hooli   Service     10
+	 14  2015-02-04 15:36:29        Streeplex  Software     13
+	 15  2015-02-19 16:02:58        Mediacore   Service     10
+	 16  2015-02-19 10:59:33        Mediacore  Hardware     16
+	 17  2015-02-02 20:54:49        Mediacore  Hardware      9
+	 18  2015-02-21 05:01:26        Mediacore  Software      3
+	 19  2015-02-21 20:41:47            Hooli  Hardware      3,
+	                    Date          Company   Product  Units
+	 0   2015-03-22 14:42:25        Mediacore  Software      6
+	 1   2015-03-12 18:33:06          Initech   Service     19
+	 2   2015-03-22 03:58:28        Streeplex  Software      8
+	 3   2015-03-15 00:53:12            Hooli  Hardware     19
+	 4   2015-03-17 19:25:37            Hooli  Hardware     10
+	 5   2015-03-16 05:54:06        Mediacore  Software      3
+	 6   2015-03-25 10:18:10          Initech  Hardware      9
+	 7   2015-03-25 16:42:42        Streeplex  Hardware     12
+	 8   2015-03-26 05:20:04        Streeplex  Software      3
+	 9   2015-03-06 10:11:45        Mediacore  Software     17
+	 10  2015-03-22 21:14:39          Initech  Hardware     11
+	 11  2015-03-17 19:38:12            Hooli  Hardware      8
+	 12  2015-03-28 19:20:38  Acme Coporation   Service      5
+	 13  2015-03-13 04:41:32        Streeplex  Hardware      8
+	 14  2015-03-06 02:03:56        Mediacore  Software     17
+	 15  2015-03-13 11:40:16          Initech  Software     11
+	 16  2015-03-27 08:29:45        Mediacore  Software      6
+	 17  2015-03-21 06:42:41        Mediacore  Hardware     19
+	 18  2015-03-15 08:50:45          Initech  Hardware     18
+	 19  2015-03-13 16:25:24        Streeplex  Software      9)
+
+AFTER EXECUTE THE EXCERCISE:
+
+________________________________________________________
+INSTRUCTION:
+
+1. Construct a new DataFrame february with MultiIndexed 
+   columns by concatenating the list dataframes.
+2. Use axis=1 to stack the DataFrames horizontally and the 
+   keyword argument keys=['Hardware', 'Software', 'Service'] 
+   to construct a hierarchical Index from each DataFrame.
+3. Print summary information from the new DataFrame february 
+   using the .info() method. This has been done for you.
+4. Create an alias called idx for pd.IndexSlice.
+5. Extract a slice called slice_2_8 from february 
+   (using .loc[] & idx) that comprises rows between 
+   Feb. 2, 2015 to Feb. 8, 2015 from columns under 'Company'.
+6. Print the slice_2_8. This has been done for you, so hit 
+   'Submit Answer' to see the sliced data!
+________________________________________________________
+GUIDE:
+
+Concatenating DataFrames from a dict
+You're now going to revisit the sales data you worked with 
+earlier in the chapter. Three DataFrames jan, feb, and mar 
+have been pre-loaded for you. Your task is to aggregate the 
+sum of all sales over the 'Company' column into a single 
+DataFrame. You'll do this by constructing a dictionary of 
+these DataFrames and then concatenating them.
+________________________________________________________

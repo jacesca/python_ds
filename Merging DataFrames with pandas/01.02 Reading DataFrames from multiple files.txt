@@ -1,0 +1,111 @@
+# Import pandas
+import pandas as pd
+
+# Read 'Bronze.csv' into a DataFrame: bronze
+bronze = pd.read_csv("Bronze.csv")
+
+# Read 'Silver.csv' into a DataFrame: silver
+silver = pd.read_csv("Silver.csv")
+
+# Read 'Gold.csv' into a DataFrame: gold
+gold = pd.read_csv("Gold.csv")
+
+# Print the first five rows of gold
+print(gold.head())
+
+# Print the first five rows of silver
+print(silver.head())
+
+# Print the first five rows of bronze
+print(bronze.head())
+________________________________________________________
+OUT:	
+	   NOC         Country   Total
+	0  USA   United States  2088.0
+	1  URS    Soviet Union   838.0
+	2  GBR  United Kingdom   498.0
+	3  FRA          France   378.0
+	4  GER         Germany   407.0
+
+
+	   NOC         Country   Total
+	0  USA   United States  1195.0
+	1  URS    Soviet Union   627.0
+	2  GBR  United Kingdom   591.0
+	3  FRA          France   461.0
+	4  GER         Germany   350.0
+
+
+	   NOC         Country   Total
+	0  USA   United States  1052.0
+	1  URS    Soviet Union   584.0
+	2  GBR  United Kingdom   505.0
+	3  FRA          France   475.0
+	4  GER         Germany   454.0
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+
+In [1]: !dir
+	
+Bronze.csv  Gold.csv  Silver.csv
+
+AFTER EXECUTE THE EXCERCISE:
+In [3]: gold.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 138 entries, 0 to 137
+	Data columns (total 3 columns):
+	NOC        138 non-null object
+	Country    138 non-null object
+	Total      96 non-null float64
+	dtypes: float64(1), object(2)
+	memory usage: 3.3+ KB
+
+In [4]: silver.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 138 entries, 0 to 137
+	Data columns (total 3 columns):
+	NOC        138 non-null object
+	Country    138 non-null object
+	Total      119 non-null float64
+	dtypes: float64(1), object(2)
+	memory usage: 3.3+ KB
+
+In [5]: bronze.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 138 entries, 0 to 137
+	Data columns (total 3 columns):
+	NOC        138 non-null object
+	Country    138 non-null object
+	Total      119 non-null float64
+	dtypes: float64(1), object(2)
+	memory usage: 3.3+ KB
+________________________________________________________
+INSTRUCTION:
+
+1. Import pandas as pd.
+2. Read the file 'Bronze.csv' into a DataFrame called bronze.
+3. Read the file 'Silver.csv' into a DataFrame called silver.
+4. Read the file 'Gold.csv' into a DataFrame called gold.
+5. Print the first 5 rows of the DataFrame gold. This has been 
+   done for you, so hit 'Submit Answer' to see the results.
+________________________________________________________
+GUIDE:
+
+Reading DataFrames from multiple files
+When data is spread among several files, you usually invoke 
+pandas' read_csv() (or a similar data import function) multiple 
+times to load the data into several DataFrames.
+
+The data files for this example have been derived from a list of 
+Olympic medals awarded between 1896 & 2008 compiled by the Guardian.
+
+The column labels of each DataFrame are NOC, Country, & Total 
+where NOC is a three-letter code for the name of the country and 
+Total is the number of medals of that type won (bronze, silver, 
+or gold).
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

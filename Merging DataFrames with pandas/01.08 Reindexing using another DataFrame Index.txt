@@ -1,0 +1,313 @@
+# Import pandas
+import pandas as pd
+
+# Reindex names_1981 with index of names_1881: common_names
+common_names = names_1981.reindex(names_1881.index)
+
+# Print shape of common_names
+print(common_names.shape)
+print(common_names.head())
+
+# Drop rows with null counts: common_names
+common_names = common_names.dropna()
+
+# Print shape of new common_names
+print(common_names.shape)
+print(common_names.head())
+________________________________________________________
+OUT:	
+	(1935, 1)
+	                    count
+	name      gender         
+	Mary      F       11030.0
+	Anna      F        5182.0
+	Emma      F         532.0
+	Elizabeth F       20168.0
+	Margaret  F        2791.0
+
+	(1587, 1)
+	                    count
+	name      gender         
+	Mary      F       11030.0
+	Anna      F        5182.0
+	Emma      F         532.0
+	Elizabeth F       20168.0
+	Margaret  F        2791.0
+________________________________________________________
+IPYTHONSHELL:
+BEFORE EXECUTE THE EXCERCISE:
+In [1]: names_1881.head()
+	Out[1]: 
+	                  count
+	name      gender       
+	Mary      F        6919
+	Anna      F        2698
+	Emma      F        2034
+	Elizabeth F        1852
+	Margaret  F        1658
+
+In [2]: names_1981.head()
+	Out[2]: 
+                 count
+	name     gender       
+	Jennifer F       57032
+	Jessica  F       42519
+	Amanda   F       34370
+	Sarah    F       28162
+	Melissa  F       28003
+
+AFTER EXECUTE THE EXCERCISE:
+In [4]: type(common_names.index)
+	Out[4]: pandas.core.indexes.multi.MultiIndex
+
+In [5]: type(common_names.index.values)
+	Out[5]: numpy.ndarray
+
+In [6]: common_names.index.names
+
+	Out[6]: FrozenList(['name', 'gender'])
+
+# Getting one level of index, only one of the multindex
+In [7]: common_names.index.get_level_values("name")
+	Out[7]: 
+	Index(['Mary', 'Anna', 'Emma', 'Elizabeth', 'Margaret', 
+               'Minnie', 'Ida', 'Annie', 'Bertha', 'Alice',
+	       ...
+	       'Urban', 'Vaughn', 'Waverly', 'Webster', 'Weldon', 
+               'Wells', 'Wiliam', 'Wilton', 'Wing', 'Wright'],
+	      dtype='object', name='name', length=1587)
+
+# Findin the unique values of the level in the multindex level
+In [8]: common_names.index.get_level_values("name").unique()
+	Out[8]: 
+	Index(['Mary', 'Anna', 'Emma', 'Elizabeth', 'Margaret', 
+               'Minnie', 'Ida', 'Annie', 'Bertha', 'Alice',
+	       ...
+	       'Urban', 'Vaughn', 'Waverly', 'Webster', 'Weldon', 
+               'Wells', 'Wiliam', 'Wilton', 'Wing', 'Wright'],
+	      dtype='object', name='name', length=1525)
+
+In [9]: common_names.index.get_level_values("gender")
+	Out[22]: 
+	Index(['F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F',
+	       ...
+	       'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'], 
+              dtype='object', name='gender', length=1587)
+
+In [10]: common_names.index.get_level_values("gender").unique()
+	Out[23]: Index(['F', 'M'], dtype='object', name='gender')
+
+###########################################################
+#                                                         #
+# Looking form common names since 1881                    #
+#                                                         #
+###########################################################
+In [11]: mask_gabriela=common_names.index.get_level_values("name").str.startswith("Gab")
+
+In [12]: common_names.loc[mask_gabriela]
+	Out[12]: 
+	                 count
+	name    gender        
+	Gabriel M       3372.0
+	Gabe    M         32.0
+
+In [13]: common_names.loc[(mask_gabriela,"F"),:]
+	Out[13]: 
+	Empty DataFrame
+	Columns: [count]
+	Index: []
+
+In [14]: mask_julieta=common_names.index.get_level_values("name").str.startswith("Jul")
+
+In [15]: common_names.loc[mask_julieta]
+	Out[15]: 
+	                  count
+	name     gender        
+	Julia    F       3665.0
+	Julie    F       8562.0
+	Juliet   F        179.0
+	Juliette F        110.0
+	Juliana  F        279.0
+	Julius   M        513.0
+	Julian   M        869.0
+	Jules    M         45.0
+	Jule     M          8.0
+	Julious  M          6.0
+	Juluis   M          8.0
+
+In [16]: mask_jacqueline=common_names.index.get_level_values("name").str.startswith("Ja")
+
+In [17]: common_names.loc[mask_jacqueline]
+	Out[17]: 
+	                  count
+	name    gender         
+	Jane    F         762.0
+	Janie   F         338.0
+	Janet   F        1569.0
+	James   F         272.0
+	Janette F         328.0
+	Jannie  F          26.0
+	James   M       38295.0
+	Jacob   M        9333.0
+	Jack    M        1608.0
+	Jay     M        1781.0
+	Jake    M         590.0
+	Jasper  M         194.0
+	Jackson M         297.0
+	Jason   M       41903.0
+	Jared   M        5863.0
+
+In [18]: common_names.loc[(mask_jacqueline,"F"),:]
+	Out[18]: 
+	                 count
+	name    gender        
+	Jane    F        762.0
+	Janie   F        338.0
+	Janet   F       1569.0
+	James   F        272.0
+	Janette F        328.0
+	Jannie  F         26.0
+
+###########################################################
+#                                                         #
+# Looking form common names in 1981                       #
+#                                                         #
+###########################################################
+In [43]: mask_gabriela=names_1981.index.get_level_values("name").str.startswith("Gab")
+
+In [44]: names_1981.loc[(mask_gabriela,"F"),:]
+	Out[44]: 
+	                  count
+	name      gender       
+	Gabriela  F         595
+	Gabrielle F         586
+	Gabriella F         141
+	Gabriel   F          55
+	Gabriele  F          11
+
+In [48]: names_1981.loc[(mask_julieta,"F"),:]
+	Out[48]: 
+	                  count
+	name      gender       
+	Julie     F        8562
+	Julia     F        3665
+	Juliana   F         279
+	Julianne  F         278
+	Juliet    F         179
+	Julianna  F         155
+	Julissa   F         125
+	Juliette  F         110
+	Juli      F         103
+	Juliann   F          63
+	Julieann  F          43
+	Julian    F          37
+	Julisa    F          34
+	Julieanne F          33
+	Juliane   F          32
+	Julienne  F          27
+	Julieta   F          23
+	Julieanna F          15
+	Julita    F          11
+	Julietta  F          10
+	Julina    F           9
+	Juline    F           9
+	Juliene   F           7
+	Juliza    F           6
+	Julio     F           5
+	Julius    F           5
+
+In [53]: mask_jacqueline=names_1981.index.get_level_values("name").str.startswith("Jacq")
+
+In [54]: names_1981.loc[(mask_jacqueline,"F"),:]
+	Out[54]: 
+	                    count
+	name        gender       
+	Jacqueline  F        4332
+	Jacquelyn   F        1148
+	Jacquelynn  F          83
+	Jacqulyn    F          80
+	Jacquelin   F          79
+	Jacquline   F          70
+	Jacque      F          47
+	Jacquelyne  F          43
+	Jacquetta   F          33
+	Jacqui      F          24
+	Jacqualyn   F          21
+	Jacqualine  F          19
+	Jacqlyn     F          14
+	Jacquie     F          14
+	Jacquelene  F          13
+	Jacquese    F          11
+	Jacquelynne F           9
+	Jacquiline  F           9
+	Jacquita    F           9
+	Jacques     F           8
+	Jacquette   F           8
+	Jacqulene   F           8
+	Jacquilyn   F           7
+	Jacquella   F           6
+	Jacquelina  F           5
+	Jacqulin    F           5
+	Jacqulynn   F           5
+________________________________________________________
+INSTRUCTION:
+
+1. Create a new DataFrame common_names by reindexing 
+   names_1981 using the Index of the DataFrame names_1881 
+   of older names.
+2. Print the shape of the new common_names DataFrame. 
+   This has been done for you. It should be the same as 
+   that of names_1881.
+3. Drop the rows of common_names that have null counts 
+   using the .dropna() method. These rows correspond to 
+   names that fell out of fashion between 1881 & 1981.
+4. Print the shape of the reassigned common_names 
+   DataFrame. This has been done for you, so hit 
+   'Submit Answer' to see the result!
+________________________________________________________
+GUIDE:
+
+Reindexing using another DataFrame Index
+Another common technique is to reindex a DataFrame using 
+the Index of another DataFrame. The DataFrame .reindex() 
+method can accept the Index of a DataFrame or Series as 
+input. You can access the Index of a DataFrame with its 
+.index attribute.
+
+The Baby Names Dataset from data.gov summarizes counts of 
+names (with genders) from births registered in the US 
+since 1881. In this exercise, you will start with two 
+baby-names DataFrames names_1981 and names_1881 loaded 
+for you.
+
+The DataFrames names_1981 and names_1881 both have a 
+MultiIndex with levels name and gender giving unique 
+labels to counts in each row. If you're interested in 
+seeing how the MultiIndexes were set up, names_1981 and 
+names_1881 were read in using the following commands:
+
+	names_1981 = pd.read_csv('names1981.csv', header=None, 
+	                         names=['name','gender','count'], 
+	                         index_col=(0,1))
+	names_1881 = pd.read_csv('names1881.csv', header=None, 
+	                         names=['name','gender','count'], 
+	                         index_col=(0,1))
+
+As you can see by looking at their shapes, which have 
+been printed in the IPython Shell, the DataFrame 
+corresponding to 1981 births is much larger, reflecting 
+the greater diversity of names in 1981 as compared to 1881.
+
+	Shape of names_1981 DataFrame: (19455, 1)
+
+	Shape of names_1881 DataFrame: (1935, 1)
+
+Your job here is to use the DataFrame .reindex() and 
+.dropna() methods to make a DataFrame common_names 
+counting names from 1881 that were still popular in 1981.
+________________________________________________________
+DATA SOURCE:
+
+https://www.data.gov/developers/baby-names-dataset/
+https://www.data.gov/
+________________________________________________________
