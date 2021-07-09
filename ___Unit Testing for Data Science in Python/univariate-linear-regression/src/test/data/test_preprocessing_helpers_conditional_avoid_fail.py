@@ -5,7 +5,7 @@ import sys
 from data.preprocessing_helpers import convert_to_int
 
 class TestConvertToInt(object):
-    @pytest.mark.skipif(sys.version_info > (2, 7), reason="Requires Python > 2.7")
+    @pytest.mark.skipif(sys.version_info > (2, 7), reason="Requires Python 2.7 or lower.")
     def test_with_no_comma(self):
         """Only runs on Python 2.7 or lower"""
         test_argument = "756"
