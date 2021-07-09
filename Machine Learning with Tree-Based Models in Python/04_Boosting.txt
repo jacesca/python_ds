@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug 21 23:09:49 2019
+
+@author: jacqueline.cortez
+
+Capítulo 4. Boosting
+Introduction:
+    Boosting refers to an ensemble method in which several models are trained sequentially with each model learning 
+    from the errors of its predecessors. In this chapter, you'll be introduced to the two boosting methods of AdaBoost 
+    and Gradient Boosting.
+"""
+import pandas as pd                                                                 #For loading tabular data
+
+
+from sklearn.ensemble import AdaBoostClassifier                                     #For learning machine - surpervised
+from sklearn.ensemble import GradientBoostingRegressor                              #For learning machine - surpervised
+from sklearn.metrics import mean_squared_error as MSE                               #For learning machine
+from sklearn.metrics import roc_auc_score                                           #For learning machine
+from sklearn.model_selection import train_test_split                                #For learning machine
+from sklearn.tree import DecisionTreeClassifier                                     #For learning machine - supervised
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+SEED = 1
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'indian_liver_patient.csv'
+liver_df = pd.read_csv(file)
+liver_df.dropna(inplace=True)
+liver_df['Dataset'] = liver_df.Dataset.map({1: 1, 2: 0})
+liver_df['Is_male'] = liver_df.Gender.map({'Female':0,'Male':1})
+liver_X = liver_df.drop(['Dataset', 'Gender'], axis=1)
+liver_y = liver_df.Dataset
+
+file = 'bikes.csv'
+bikes_df = pd.read_csv(file)
+bikes_X = bikes_df.drop(['cnt'], axis=1)
+bikes_y = bikes_df.cnt
+
+print("****************************************************")
+tema = "2. Define the bagging classifier"; print("** %s\n" % tema)
+
+dt = DecisionTreeClassifier(max_depth=2, random_state=SEED) # Instantiate dt
+ada = AdaBoostClassifier(base_estimator=dt, n_estimators=180, random_state=SEED) # Instantiate ada
+
+print("****************************************************")
+tema = "3. Train the AdaBoost classifier"; print("** %s\n" % tema)
+
+liver_X_train, liver_X_test, liver_y_train, liver_y_test = train_test_split(liver_X, liver_y, stratify=liver_y, test_size=0.2, random_state=SEED)
+ada.fit(liver_X_train, liver_y_train) # Fit ada to the training set
+liver_y_pred_proba = ada.predict_proba(liver_X_test)[:,1] # Compute the probabilities of obtaining the positive class
+
+print(liver_y_pred_proba)
+
+print("****************************************************")
+tema = "4. Evaluate the AdaBoost classifier"; print("** %s\n" % tema)
+
+ada_roc_auc = roc_auc_score(liver_y_test, liver_y_pred_proba) # Evaluate test-set roc_auc_score
+print('ROC AUC score: {:.6f}'.format(ada_roc_auc)) # Print roc_auc_score
+
+print("****************************************************")
+tema = "6. Define the GB regressor"; print("** %s\n" % tema)
+
+SEED=2
+
+gb = GradientBoostingRegressor(max_depth=4, n_estimators=200, random_state=SEED) # Instantiate gb
+print(gb)
+
+print("****************************************************")
+tema = "7. Train the GB regressor"; print("** %s\n" % tema)
+
+bikes_X_train, bikes_X_test, bikes_y_train, bikes_y_test = train_test_split(bikes_X, bikes_y, test_size=0.2, random_state=SEED)
+
+gb.fit(bikes_X_train, bikes_y_train) # Fit gb to the training set
+bikes_y_pred = gb.predict(bikes_X_test) # Predict test set labels
+
+print("****************************************************")
+tema = "8. Evaluate the GB regressor"; print("** %s\n" % tema)
+
+mse_test = MSE(bikes_y_test, bikes_y_pred) # Compute MSE
+rmse_test = mse_test ** (1/2) # Compute RMSE
+print('Test set RMSE of gb: {:.6f}'.format(rmse_test)) # Print RMSE
+
+print("****************************************************")
+tema = "10. Regression with SGB"; print("** %s\n" % tema)
+
+sgbr = GradientBoostingRegressor(max_depth=4, subsample=0.9, max_features=0.75, n_estimators=200, random_state=2) # Instantiate sgbr
+
+print("****************************************************")
+tema = "11. Train the SGB regressor"; print("** %s\n" % tema)
+
+sgbr.fit(bikes_X_train, bikes_y_train) # Fit sgbr to the training set
+bikes_y_pred = sgbr.predict(bikes_X_test) # Predict test set labels
+
+print("****************************************************")
+tema = "12. Evaluate the SGB regressor"; print("** %s\n" % tema)
+
+mse_test = MSE(bikes_y_test, bikes_y_pred) # Compute test set MSE
+rmse_test = mse_test ** (1/2) # Compute test set RMSE
+print('Test set RMSE of sgbr: {:.3f}'.format(rmse_test)) # Print rmse_test
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

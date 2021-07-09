@@ -1,0 +1,221 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 18 22:46:23 2019
+
+@author: jacqueline.cortez
+
+Capítulo 1. Classification and Regression Trees
+Introduction:
+    Classification and Regression Trees (CART) are a set of supervised learning models used for problems involving 
+    classification and regression. In this chapter, you'll be introduced to the CART algorithm.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import matplotlib.pyplot as plt                                                     #For creating charts
+import seaborn as sns                                                               #For visualizing data
+
+
+from sklearn.linear_model import LinearRegression                                   #For learning machine
+from sklearn.linear_model import LogisticRegression                                 #For learning machine
+from sklearn.metrics import accuracy_score                                          #For learning machine
+from sklearn.metrics import mean_squared_error as MSE                               #For learning machine
+from sklearn.model_selection import train_test_split                                #For learning machine
+from sklearn.pipeline import make_pipeline                                          #For learning machine - unsurpervised
+from sklearn.preprocessing import StandardScaler                                    #For learning machine
+from sklearn.tree import DecisionTreeClassifier                                     #For learning machine - supervised
+from sklearn.tree import DecisionTreeRegressor                                      #For learning machine - supervised
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+#####################################################################################
+## plot_labeled_decision_regions
+#####################################################################################
+import mlxtend #Used in the function plot_labeled_decision_regions
+
+def plot_labeled_decision_regions(X,y, models, tema):    
+    '''
+    Function producing a scatter plot of the instances contained 
+    in the 2D dataset (X,y) along with the decision 
+    regions of two trained classification models contained in the
+    list 'models'.
+            
+    Parameters
+    ----------
+    X: pandas DataFrame corresponding to two numerical features 
+    y: pandas Series corresponding the class labels
+    models: list containing two trained classifiers 
+    
+    '''
+    if len(models) != 2:
+        raise Exception('''
+        Models should be a list containing only two trained classifiers.
+        ''')
+    if not isinstance(X, pd.DataFrame):
+        raise Exception('''
+        X has to be a pandas DataFrame with two numerical features.
+        ''')
+    if not isinstance(y, pd.Series):
+        raise Exception('''
+        y has to be a pandas Series corresponding to the labels.
+        ''')
+    fig, ax = plt.subplots(1, 2, figsize=(6.0,2.7), sharey=True)
+    for i, model in enumerate(models):
+        mlxtend.plot_decision_regions(X.values,y.values, model, legend= 2, ax = ax[i])
+        ax[i].set_title(model.__class__.__name__)
+        ax[i].set_xlabel(X.columns[0])
+        if i == 0:
+            ax[i].set_ylabel(X.columns[1])
+        ax[i].set_ylim(X.values[:,1].min(), X.values[:,1].max())
+        ax[i].set_xlim(X.values[:,0].min(), X.values[:,0].max())
+    plt.tight_layout()
+    plt.suptitle(tema)
+    plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+    plt.show()
+
+#####################################################################################
+        
+
+SEED = 1
+
+
+
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'wbc.csv'
+wbc_df = pd.read_csv(file, index_col='id')
+WBC_radius_point_X = wbc_df[['radius_mean', 'concave points_mean']]
+WBC_X = wbc_df.drop(['diagnosis', 'Unnamed: 32'], axis=1)
+WBC_y = wbc_df.diagnosis.map({'B':0, 'M':1})
+
+file = 'auto.csv'
+auto_df = pd.read_csv(file)
+auto_X = auto_df.drop(['mpg'], axis=1)
+auto_X = pd.get_dummies(auto_X, prefix_sep='_')#, drop_first=True)
+auto_y = auto_df.mpg
+
+
+
+
+print("****************************************************")
+tema = "01. Decision tree for classification"; print("** %s\n" % tema)
+
+#Make a scatter plot from two features: radius mean and cocave points mean
+sns.set() # Set default Seaborn style
+#plt.figure()
+g=sns.relplot(x="radius_mean", y="concave points_mean", data=wbc_df, kind="scatter", hue='diagnosis', style='diagnosis', palette={'B': 'blue', 'M': 'red'}, markers={'B': 's', 'M': '^'}, alpha=0.6)
+#plt.xlabel('Xs')
+#plt.ylabel('Ys')
+plt.title('Breast Cancer Dataset in 2D')
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+WBC_X_train, WBC_X_test, WBC_y_train, WBC_y_test = train_test_split(WBC_radius_point_X, WBC_y, test_size=0.2, stratify=WBC_y, random_state=SEED)
+
+
+
+print("****************************************************")
+tema = "02. Train your first classification tree"; print("** %s\n" % tema)
+
+WBC_dt = DecisionTreeClassifier(max_depth=6, random_state=SEED) # Instantiate a DecisionTreeClassifier 'dt' with a maximum depth of 6
+WBC_dt.fit(WBC_X_train, WBC_y_train) # Fit dt to the training set
+WBC_y_pred = WBC_dt.predict(WBC_X_test) # Predict test set labels
+
+print("Prediction: {}; Reality: {}".format(WBC_y_pred[0:5], WBC_y_test.head().values))
+print("Accuracy: {}".format(accuracy_score(WBC_y_test, WBC_y_pred)))
+
+
+
+print("****************************************************")
+tema = "03. Evaluate the classification tree"; print("** %s\n" % tema)
+
+# Compute test set accuracy  
+acc = accuracy_score(WBC_y_test, WBC_y_pred)
+print("Test set accuracy: {:.2f}".format(acc))
+
+
+
+print("****************************************************")
+tema = "04. Logistic regression vs classification tree"; print("** %s\n" % tema)
+
+WBC_logreg = LogisticRegression(solver='liblinear', random_state=SEED) # Instatiate logreg
+WBC_logreg.fit(WBC_X_train, WBC_y_train) # Fit logreg to the training set
+clfs = [WBC_logreg, WBC_dt] # Define a list called clfs containing the two classifiers logreg and dt
+
+plot_labeled_decision_regions(WBC_X_test, WBC_y_test, clfs, tema) # Review the decision regions of the two classifiers
+
+
+
+print("****************************************************")
+tema = "07. Using entropy as a criterion"; print("** %s\n" % tema)
+
+WBC_X_train, WBC_X_test, WBC_y_train, WBC_y_test = train_test_split(WBC_X, WBC_y, test_size=0.2, stratify=WBC_y, random_state=SEED)
+
+dt_entropy = DecisionTreeClassifier(max_depth=8, criterion='entropy', random_state=SEED) # Instantiate dt_entropy, set 'entropy' as the information criterion
+dt_entropy.fit(WBC_X_train, WBC_y_train) # Fit dt_entropy to the training set
+WBC_y_pred = dt_entropy.predict(WBC_X_test) # Predict test set labels
+
+print("Prediction: {}; Reality: {}".format(WBC_y_pred[0:5], WBC_y_test.head().values))
+print("Accuracy achieved by using entropy: {}".format(accuracy_score(WBC_y_test, WBC_y_pred)))
+
+
+
+print("****************************************************")
+tema = "08. Entropy vs Gini index"; print("** %s\n" % tema)
+
+dt_gini = DecisionTreeClassifier(max_depth=8, criterion='gini', random_state=SEED) # Instantiate dt_entropy, set 'entropy' as the information criterion
+dt_gini.fit(WBC_X_train, WBC_y_train) # Fit dt_entropy to the training set
+WBC_y_pred = dt_gini.predict(WBC_X_test) # Predict test set labels
+
+print("Prediction: {}; Reality: {}".format(WBC_y_pred[0:5], WBC_y_test.head().values))
+print("Accuracy achieved by using the gini index: {}".format(accuracy_score(WBC_y_test, WBC_y_pred)))
+
+
+
+
+print("****************************************************")
+tema = "10. Train your first regression tree"; print("** %s\n" % tema)
+
+SEED = 3
+
+auto_X_train, auto_X_test, auto_y_train, auto_y_test = train_test_split(auto_X, auto_y, test_size=0.2, random_state=SEED)
+scalar = StandardScaler()
+tree = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.13, random_state=SEED)
+pipeline = make_pipeline(scalar, tree)
+pipeline.fit(auto_X_train, auto_y_train) # Fit dt to the training set
+
+
+
+print("****************************************************")
+tema = "11. Evaluate the regression tree"; print("** %s\n" % tema)
+
+auto_y_pred = pipeline.predict(auto_X_test) # Compute y_pred
+auto_mse_dt = MSE(auto_y_test, auto_y_pred) # Compute mse_dt
+auto_rmse_dt = auto_mse_dt**(1/2) # Compute rmse_dt
+
+print("Test set RMSE of dt: {}".format(auto_rmse_dt)) # Print rmse_dt
+
+
+
+print("****************************************************")
+tema = "12. Linear regression vs regression tree"; print("** %s\n" % tema)
+
+lr = LinearRegression()
+pipeline = make_pipeline(scalar, lr)
+pipeline.fit(auto_X_train, auto_y_train) # Fit dt to the training set
+auto_y_pred = pipeline.predict(auto_X_test) # Compute y_pred
+auto_mse_lr = MSE(auto_y_test, auto_y_pred) # Compute mse_dt
+auto_rmse_lr = auto_mse_lr**(1/2) # Compute rmse_dt
+
+print("Test set RMSE of dt: {}".format(auto_rmse_lr)) # Print rmse_dt
+
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,107 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 22 20:55:20 2019
+
+@author: jacqueline.cortez
+
+Capítulo 5. Model Tuning
+Introduction:
+    The hyperparameters of a machine learning model are parameters that are not learned from data. 
+    They should be set prior to fitting the model to the training set. In this chapter, you'll learn how 
+    to tune the hyperparameters of a tree-based model using grid search cross validation.
+"""
+import pandas as pd                                                                 #For loading tabular data
+
+from sklearn.ensemble import RandomForestRegressor                                  #For learning machine - unsurpervised
+from sklearn.metrics import mean_squared_error as MSE                               #For learning machine
+from sklearn.metrics import roc_auc_score                                           #For learning machine
+from sklearn.model_selection import GridSearchCV                                    #For learning machine
+from sklearn.model_selection import train_test_split                                #For learning machine
+from sklearn.preprocessing import StandardScaler                                    #For learning machine
+from sklearn.tree import DecisionTreeClassifier                                     #For learning machine - supervised
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+SEED = 1
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'indian_liver_patient.csv'
+liver_df = pd.read_csv(file)
+liver_df.dropna(inplace=True)
+#liver_df['Gender'] = liver_df.Gender.map({'Female':0,'Male':1})
+liver_df['Dataset'] = liver_df.Dataset.map({1: 1, 2: 0})
+scaler = StandardScaler()
+liver_df_standarized = liver_df.drop(['Gender','Dataset'], axis=1)
+liver_df_standarized = pd.DataFrame(data=scaler.fit_transform(liver_df_standarized), columns=liver_df_standarized.columns)
+liver_df_standarized['Is_Male'] = liver_df.Gender.map({'Female':0,'Male':1}).values
+liver_df_standarized['Liver_Disease'] = liver_df['Dataset'].values
+liver_X = liver_df_standarized.drop(['Liver_Disease'], axis=1)
+liver_y = liver_df_standarized.Liver_Disease
+
+file = 'bikes.csv'
+bikes_df = pd.read_csv(file)
+bikes_X = bikes_df.drop(['cnt'], axis=1)
+bikes_y = bikes_df.cnt
+
+print("****************************************************")
+tema = "3. Set the tree's hyperparameter grid"; print("** %s\n" % tema)
+
+# Define params_dt
+params_dt = {'max_depth': [2,3,4], 
+             'min_samples_leaf':[0.12, 0.14, 0.16, 0.18]}
+
+print("****************************************************")
+tema = "4. Search for the optimal tree"; print("** %s\n" % tema)
+
+dt = DecisionTreeClassifier(random_state=SEED) # Instantiate dt
+grid_dt = GridSearchCV(estimator=dt, param_grid=params_dt, scoring='roc_auc', cv=5, n_jobs=-1, iid=True) # Instantiate grid_dt
+
+print("****************************************************")
+tema = "5. Evaluate the optimal tree"; print("** %s\n" % tema)
+
+liver_X_train, liver_X_test, liver_y_train, liver_y_test = train_test_split(liver_X, liver_y, stratify=liver_y, test_size=0.2, random_state=SEED)
+grid_dt.fit(liver_X_train, liver_y_train)
+
+print("Best hyperparameters: \n", grid_dt.best_params_)
+print("Best ROC score: ", grid_dt.best_score_)
+
+best_model = grid_dt.best_estimator_ # Extract the best estimator
+liver_y_pred_proba = grid_dt.predict_proba(liver_X_test)[:,1] # Predict the test set probabilities of the positive class
+test_roc_auc = roc_auc_score(liver_y_test, liver_y_pred_proba) # Compute test_roc_auc
+print('Test set ROC AUC score: {:.6f}'.format(test_roc_auc)) # Print test_roc_auc
+
+print("****************************************************")
+tema = "8. Evaluate the optimal tree"; print("** %s\n" % tema)
+
+SEED = 2
+
+rf = RandomForestRegressor(random_state=SEED)
+params_rf = {'n_estimators':[100, 350, 500], 'max_features':['log2', 'auto', 'sqrt'], 'min_samples_leaf':[2,10,30]} # Define the dictionary 'params_rf'
+
+print("****************************************************")
+tema = "9. Search for the optimal forest"; print("** %s\n" % tema)
+
+bikes_X_train, bikes_X_test, bikes_y_train, bikes_y_test = train_test_split(bikes_X, bikes_y, test_size=0.2, random_state=SEED)
+
+grid_rf = GridSearchCV(estimator=rf, param_grid=params_rf, scoring='neg_mean_squared_error', cv=3, verbose=1, n_jobs=-1, iid=True) # Instantiate grid_rf
+grid_rf.fit(bikes_X_train, bikes_y_train)
+
+print("Best hyperparameters: \n", grid_dt.best_params_)
+print("Best score: ", grid_dt.best_score_)
+
+print("****************************************************")
+tema = "10. Evaluate the optimal forest"; print("** %s\n" % tema)
+
+best_model = grid_rf.best_estimator_ # Extract the best estimator
+bikes_y_pred = best_model.predict(bikes_X_test) # Predict test set labels
+rmse_test = MSE(bikes_y_test, bikes_y_pred)**(1/2) # Compute rmse_test
+print('Test RMSE of best model: {:.3f}'.format(rmse_test)) # Print rmse_test
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
