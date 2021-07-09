@@ -1,0 +1,108 @@
+# Slice the columns from the starting column to 'Obama': left_columns
+left_columns = election.loc[:,:"Obama"]
+
+# Print the output of left_columns.head()
+print(left_columns.head())
+
+# Slice the columns from 'Obama' to 'winner': middle_columns
+middle_columns = election.loc[:,"Obama":"winner"]
+
+# Print the output of middle_columns.head()
+print(middle_columns.head())
+
+# Slice the columns from 'Romney' to the end: 'right_columns'
+right_columns = election.loc[:,"Romney":]
+
+# Print the output of right_columns.head()
+print(right_columns.head())
+________________________________________________________
+OUT:
+	          state   total      Obama
+	county                            
+	Adams        PA   41973  35.482334
+	Allegheny    PA  614671  56.640219
+	Armstrong    PA   28322  30.696985
+	Beaver       PA   80015  46.032619
+	Bedford      PA   21444  22.057452
+
+	               Obama     Romney  winner
+	county                                 
+	Adams      35.482334  63.112001  Romney
+	Allegheny  56.640219  42.185820   Obama
+	Armstrong  30.696985  67.901278  Romney
+	Beaver     46.032619  52.637630  Romney
+	Bedford    22.057452  76.986570  Romney
+
+	              Romney  winner  voters
+	county                              
+	Adams      63.112001  Romney   61156
+	Allegheny  42.185820   Obama  924351
+	Armstrong  67.901278  Romney   42147
+	Beaver     52.637630  Romney  115157
+	Bedford    76.986570  Romney   32189	
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.head()
+	Out[1]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [2]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+
+In [3]: election.columns
+	Out[5]: Index(['state', 'total', 'Obama', 'Romney', 
+                       'winner', 'voters'], 
+                    dtype='object')
+
+In [4]: election.index
+	Out[6]: Index(['Adams', 'Allegheny', 'Armstrong', 'Beaver', 'Bedford', 'Berks', 
+                       'Blair', 'Bradford', 'Bucks', 'Butler', 'Cambria', 'Cameron', 
+                       'Carbon', 'Centre', 'Chester', 'Clarion', 'Clearfield', 'Clinton', 
+                       'Columbia', 'Crawford', 'Cumberland', 'Dauphin', 'Delaware', 'Elk', 
+                       'Erie', 'Fayette', 'Forest', 'Franklin', 'Fulton', 'Greene', 
+                       'Huntingdon', 'Indiana', 'Jefferson', 'Juniata', 'Lackawanna', 'Lancaster', 
+                       'Lawrence', 'Lebanon', 'Lehigh', 'Luzerne', 'Lycoming', 'McKean', 
+                       'Mercer', 'Mifflin', 'Monroe', 'Montgomery', 'Montour', 'Northampton', 
+                       'Northumberland', 'Perry', 'Philadelphia', 'Pike', 'Potter', 
+                       'Schuylkill', 'Snyder', 'Somerset', 'Sullivan', 'Susquehanna', 'Tioga', 
+                       'Union', 'Venango', 'Warren', 'Washington', 'Wayne', 'Westmoreland', 
+                       'Wyoming', 'York'],
+      dtype='object', name='county')
+________________________________________________________
+INSTRUCTION:
+1. Slice the columns from the starting column to 'Obama' 
+   and assign the result to left_columns
+2. Slice the columns from 'Obama' to 'winner' and assign 
+   the result to middle_columns
+3. Slice the columns from 'Romney' to the end and assign 
+   the result to right_columns
+4. The code to print the first 5 rows of left_columns, 
+   middle_columns, and right_columns has been written, 
+   so hit 'Submit Answer' to see the results!
+________________________________________________________
+GUIDE:
+Slicing columns
+Similar to row slicing, columns can be sliced by value. 
+In this exercise, your job is to slice column names 
+from the Pennsylvania election results DataFrame using 
+.loc[].
+
+It has been pre-loaded for you as election, with the 
+index set to 'county'.
+________________________________________________________

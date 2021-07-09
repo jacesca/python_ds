@@ -1,0 +1,68 @@
+In [1]: import pandas as pd
+
+In [2]: weather = pd.DataFrame({"Temperature":[53.1,70.0,34.9,28.7,32.3,
+                                               72.8,70.1,35.0,62.6,39.8,
+                                               55.4,63.7]},
+                                        index=["Apr","Aug","Dec","Feb",
+                                               "Jan","Jul","Jun","Mar",
+                                               "May","Nov","Oct","Sep"])
+In [3]: weather
+	Out [3]:
+	     Temperature
+	Apr         53.1
+	Aug         70.0
+	Dec         34.9
+	Feb         28.7
+	Jan         32.3
+	Jul         72.8
+	Jun         70.1
+	Mar         35.0
+	May         62.6
+	Nov         39.8
+	Oct         55.4
+	Sep         63.7
+
+In [4]: weather.T
+	Out [4]:
+	              Apr   Aug   Dec   Feb   Jan   Jul   Jun   Mar   May   Nov   Oct   Sep
+	Temperature  53.1  70.0  34.9  28.7  32.3  72.8  70.1  35.0  62.6  39.8  55.4  63.7
+
+In [5]: weather2 = pd.DataFrame({"Month":["Apr","Aug","Dec","Feb","Jan","Jul","Jun","Mar","May","Nov","Oct","Sep"], "Temperature":[53.1,70.0,34.9,28.7,32.3,72.8,70.1,35.0,62.6,39.8,55.4,63.7]})
+
+In [6]: weather2
+	Out [6]:
+	   Month  Temperature
+	0    Apr         53.1
+	1    Aug         70.0
+	2    Dec         34.9
+	3    Feb         28.7
+	4    Jan         32.3
+	5    Jul         72.8
+	6    Jun         70.1
+	7    Mar         35.0
+	8    May         62.6
+	9    Nov         39.8
+	10   Oct         55.4
+	11   Sep         63.7
+
+In [7]: weather2.T
+	Out [7]:
+	               0    1     2     3     4     5     6    7     8     9     10    11
+	Month         Apr  Aug   Dec   Feb   Jan   Jul   Jun  Mar   May   Nov   Oct   Sep
+	Temperature  53.1   70  34.9  28.7  32.3  72.8  70.1   35  62.6  39.8  55.4  63.7
+
+In [8]: weather.idxmax()
+	Out [8]:
+	Temperature    Jul
+	dtype: object
+
+In [9]: weather.idxmin()
+	Out [9]:
+	Temperature    Feb
+	dtype: object	
+
+In [10]: weather2["Temperature"].idxmax()
+	Out [10]: 5
+
+In [11]: weather2["Temperature"].idxmin()
+	Out [11]: 3

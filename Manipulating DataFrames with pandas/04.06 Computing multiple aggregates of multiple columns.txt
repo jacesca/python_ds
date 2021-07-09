@@ -1,0 +1,155 @@
+# Group titanic by 'pclass': by_class
+by_class = titanic.groupby("pclass")
+print(by_class)
+
+
+# Select 'age' and 'fare'
+by_class_sub = by_class[['age','fare']]
+print("by_class_sub:",by_class_sub)
+
+# Aggregate by_class_sub by 'max' and 'median': aggregated
+aggregated = by_class_sub.agg(["max","median"])
+print("aggregated:",aggregated)
+
+# Print the maximum age in each class
+print(aggregated.loc[:, ('age','max')])
+
+# Print the median fare in each class
+print(aggregated.loc[:, ("fare","median")])
+________________________________________________________
+OUT:
+	by_class:
+	<pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f8985538f98>
+
+
+	by_class_sub: 
+	<pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f8977189438>
+
+
+	aggregated:
+	          age             fare         
+	         max median       max   median
+	pclass                                
+	1       80.0   39.0  512.3292  60.0000
+	2       70.0   29.0   73.5000  15.0458
+	3       74.0   24.0   69.5500   8.0500
+
+
+	pclass
+	1    80.0
+	2    70.0
+	3    74.0
+	Name: (age, max), dtype: float64
+
+
+	pclass
+	1    60.0000
+	2    15.0458
+	3     8.0500
+	Name: (fare, median), dtype: float64
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: titanic.shape
+	Out[1]: (1309, 14)
+
+In [2]: titanic.head()
+	Out[2]: 
+	   pclass  survived                                             name     sex    age  ...    cabin  embarked boat   body                        home.dest
+	0       1         1                    Allen, Miss. Elisabeth Walton  female  29.00  ...       B5         S    2    NaN                     St Louis, MO
+	1       1         1                   Allison, Master. Hudson Trevor    male   0.92  ...  C22 C26         S   11    NaN  Montreal, PQ / Chesterville, ON
+	2       1         0                     Allison, Miss. Helen Loraine  female   2.00  ...  C22 C26         S  NaN    NaN  Montreal, PQ / Chesterville, ON
+	3       1         0             Allison, Mr. Hudson Joshua Creighton    male  30.00  ...  C22 C26         S  NaN  135.0  Montreal, PQ / Chesterville, ON
+	4       1         0  Allison, Mrs. Hudson J C (Bessie Waldo Daniels)  female  25.00  ...  C22 C26         S  NaN    NaN  Montreal, PQ / Chesterville, ON
+	
+	[5 rows x 14 columns]
+
+In [3]: titanic.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 1309 entries, 0 to 1308
+	Data columns (total 14 columns):
+	pclass       1309 non-null int64
+	survived     1309 non-null int64
+	name         1309 non-null object
+	sex          1309 non-null object
+	age          1046 non-null float64
+	sibsp        1309 non-null int64
+	parch        1309 non-null int64
+	ticket       1309 non-null object
+	fare         1308 non-null float64
+	cabin        295 non-null object
+	embarked     1307 non-null object
+	boat         486 non-null object
+	body         121 non-null float64
+	home.dest    745 non-null object
+	dtypes: float64(3), int64(4), object(7)
+	memory usage: 143.2+ KB
+
+In [4]: titanic.columns
+	Out[4]: Index(['pclass', 'survived', 'name', 'sex', 
+                       'age', 'sibsp', 'parch', 'ticket', 
+                       'fare', 'cabin', 'embarked', 'boat', 
+                       'body', 'home.dest'], 
+                      dtype='object')
+
+In [14]: titanic["pclass"].unique()
+	Out[14]: array([1, 2, 3])
+
+In [15]: titanic["pclass"].value_counts()
+	Out[15]: 
+	3    709
+	1    323
+	2    277
+	Name: pclass, dtype: int64
+
+In [16]: titanic["embarked"].unique()
+	Out[16]: array(['S', 'C', nan, 'Q'], dtype=object)
+
+In [17]: titanic["embarked"].value_counts()
+	Out[17]: 
+	S    914
+	C    270
+	Q    123
+	Name: embarked, dtype: int64
+
+In [18]: titanic["age"].value_counts().head()
+	Out[18]: 
+	24.0    47
+	22.0    43
+	21.0    41
+	30.0    40
+	18.0    39
+	Name: age, dtype: int64
+________________________________________________________
+INSTRUCTION:
+
+1. Group titanic by 'pclass' and save the result as 
+   by_class.
+2. Select the 'age' and 'fare' columns from by_class 
+   and save the result as by_class_sub.
+3. Aggregate by_class_sub using 'max' and 'median'. 
+   You'll have to pass 'max' and 'median' in the form 
+   of a list to .agg().
+4. Use .loc[] to print all of the rows and the column 
+   specification ('age','max'). This has been done for 
+   you.
+5. Use .loc[] to print all of the rows and the column 
+   specification ('fare','median').
+________________________________________________________
+GUIDE:
+
+Computing multiple aggregates of multiple columns
+
+The .agg() method can be used with a tuple or list of 
+aggregations as input. When applying multiple 
+aggregations on multiple columns, the aggregated DataFrame 
+has a multi-level column index.
+
+In this exercise, you're going to group passengers on the 
+Titanic by 'pclass' and aggregate the 'age' and 'fare' 
+columns by the functions 'max' and 'median'. You'll then 
+use multi-level selection to find the oldest passenger per 
+class and the median fare price per class.
+
+The DataFrame has been pre-loaded as titanic.
+________________________________________________________

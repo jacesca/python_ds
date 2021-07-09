@@ -1,0 +1,91 @@
+# Write a function to convert degrees Fahrenheit to degrees Celsius: to_celsius
+def to_celsius(F):
+    return 5/9*(F - 32)
+
+# Apply the function over 'Mean TemperatureF' and 'Mean Dew PointF': df_celsius
+df_celsius = weather.loc[:,['Mean TemperatureF','Mean Dew PointF']].apply(to_celsius)
+
+# Reassign the columns df_celsius
+df_celsius.columns = ['Mean TemperatureC', 'Mean Dew PointC']
+
+# Print the output of df_celsius.head()
+print(df_celsius.head())
+________________________________________________________
+OUT:
+	   Mean TemperatureC  Mean Dew PointC
+	0          -2.222222        -2.777778
+	1          -6.111111       -11.111111
+	2          -4.444444        -9.444444
+	3          -2.222222        -7.222222
+	4          -1.111111        -6.666667	
+________________________________________________________
+IPYTHONSHELL:
+In [1]: weather.shape
+	Out[1]: (365, 23)
+
+In [2]: weather.head()
+	Out[2]: 
+	       Date  Max TemperatureF  Mean TemperatureF  Min TemperatureF  Max Dew PointF  ...  Max Gust SpeedMPH  PrecipitationIn   CloudCover  Events  WindDirDegrees
+	0  2013-1-1                32                 28                21              30  ...                NaN             0.00            8    Snow             277
+	1  2013-1-2                25                 21                17              14  ...                NaN             0.00            4     NaN             272
+	2  2013-1-3                32                 24                16              19  ...               26.0             0.00            3     NaN             229
+	3  2013-1-4                30                 28                27              21  ...               32.0             0.00            4     NaN             250
+	4  2013-1-5                34                 30                25              23  ...               23.0             0.21            5     NaN             221
+	[5 rows x 23 columns]
+
+In [3]: weather.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 365 entries, 0 to 364
+	Data columns (total 23 columns):
+	Date                         365 non-null object
+	Max TemperatureF             365 non-null int64
+	Mean TemperatureF            365 non-null int64
+	Min TemperatureF             365 non-null int64
+	Max Dew PointF               365 non-null int64
+	Mean Dew PointF              365 non-null int64
+	Min DewpointF                365 non-null int64
+	Max Humidity                 365 non-null int64
+	Mean Humidity                365 non-null int64
+	Min Humidity                 365 non-null int64
+	Max Sea Level PressureIn     365 non-null float64
+	Mean Sea Level PressureIn    365 non-null float64
+	Min Sea Level PressureIn     365 non-null float64
+	Max VisibilityMiles          365 non-null int64
+	Mean VisibilityMiles         365 non-null int64
+	Min VisibilityMiles          365 non-null int64
+	Max Wind SpeedMPH            365 non-null int64
+	Mean Wind SpeedMPH           365 non-null int64
+	Max Gust SpeedMPH            244 non-null float64
+	PrecipitationIn              365 non-null float64
+	 CloudCover                  365 non-null int64
+	Events                       207 non-null object
+	WindDirDegrees               365 non-null int64
+	dtypes: float64(5), int64(16), object(2)
+	memory usage: 65.7+ KB
+________________________________________________________
+INSTRUCTION:
+1. Apply the to_celsius() function over the 
+   ['Mean TemperatureF','Mean Dew PointF'] 
+   columns of the weather DataFrame.
+2. Reassign the columns of df_celsius to 
+   ['Mean TemperatureC','Mean Dew PointC'].
+3. Hit 'Submit Answer' to see the new DataFrame 
+   with the converted units.
+________________________________________________________
+GUIDE:
+Using apply() to transform a column
+The .apply() method can be used on a pandas DataFrame to 
+apply an arbitrary Python function to every element. In 
+this exercise you'll take daily weather data in 
+Pittsburgh in 2013 obtained from Weather Underground.
+
+A function to convert degrees Fahrenheit to degrees 
+Celsius has been written for you. Your job is to use 
+the .apply() method to perform this conversion on the 
+'Mean TemperatureF' and 'Mean Dew PointF' columns of 
+the weather DataFrame.
+________________________________________________________
+DATA SOURCE:
+
+https://www.wunderground.com/history
+________________________________________________________

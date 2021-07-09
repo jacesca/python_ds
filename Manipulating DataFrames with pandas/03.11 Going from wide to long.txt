@@ -1,0 +1,68 @@
+# Melt users: skinny
+
+skinny = pd.melt(users, id_vars=["weekday","city"])
+
+
+
+# Print skinny
+
+print(skinny)
+________________________________________________________
+OUT:
+	  weekday    city  variable  value
+	0     Sun  Austin  visitors    139
+	1     Sun  Dallas  visitors    237
+	2     Mon  Austin  visitors    326
+	3     Mon  Dallas  visitors    456
+	4     Sun  Austin   signups      7
+	5     Sun  Dallas   signups     12
+	6     Mon  Austin   signups      3
+	7     Mon  Dallas   signups      5
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 4)
+
+In [2]: users
+	Out[2]: 
+	  weekday    city  visitors  signups
+	0     Sun  Austin       139        7
+	1     Sun  Dallas       237       12
+	2     Mon  Austin       326        3
+	3     Mon  Dallas       456        5
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 4 entries, 0 to 3
+	Data columns (total 4 columns):
+	weekday     4 non-null object
+	city        4 non-null object
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2), object(2)
+	memory usage: 208.0+ bytes
+
+In [4]: users.columns
+	Out[4]: Index(['weekday', 'city', 'visitors', 'signups'], 
+                     dtype='object')
+________________________________________________________
+INSTRUCTION:
+
+1. Define a DataFrame skinny where you melt the 
+   'visitors' and 'signups' columns of users into a 
+   single column.
+2. Print skinny to verify the results. Note the value 
+   column that had the cell values in users.
+________________________________________________________
+GUIDE:
+
+Going from wide to long
+You can move multiple columns into a single column 
+(making the data long and skinny) by "melting" multiple 
+columns. In this exercise, you will practice doing this.
+
+The users DataFrame has been pre-loaded for you. As 
+always, explore it in the IPython Shell and note the 
+index.
+________________________________________________________

@@ -1,0 +1,110 @@
+###########################################################
+#                                                         #
+# SOLVING THE EXCERCISE                                   #
+#                                                         #
+###########################################################
+# Use a pivot table to display the count of each column: count_by_weekday1
+count_by_weekday1 = users.pivot_table(index="weekday",aggfunc="count")
+
+# Print count_by_weekday
+print(count_by_weekday1)
+
+# Replace 'aggfunc='count'' with 'aggfunc=len': count_by_weekday2
+count_by_weekday2 = users.pivot_table(index="weekday",aggfunc=len)
+print(count_by_weekday2)
+
+# Verify that the same result is obtained
+print('==========================================')
+print(count_by_weekday1.equals(count_by_weekday2))
+________________________________________________________
+OUT:
+
+	         city  signups  visitors
+	weekday                         
+	Mon         2        2         2
+	Sun         2        2         2
+	
+	         city  signups  visitors
+	weekday                         
+	Mon         2        2         2
+	Sun         2        2         2
+	==========================================
+	True
+
+
+###########################################################
+#                                                         #
+# TESTING USING COLUMNS PARAMETER IN PIVOT_TABLE          #
+#                                                         #
+###########################################################
+# Use a pivot table to display the count of each column: count_by_weekday1
+count_by_weekday1 = users.pivot_table(index="weekday",columns="city",aggfunc="count")
+
+# Print count_by_weekday
+print(count_by_weekday1)
+
+# Replace 'aggfunc='count'' with 'aggfunc=len': count_by_weekday2
+count_by_weekday2 = users.pivot_table(index="weekday",columns="city",aggfunc=len)
+print(count_by_weekday2)
+
+# Verify that the same result is obtained
+print('==========================================')
+print(count_by_weekday1.equals(count_by_weekday2))
+________________________________________________________
+OUT:
+	        signups        visitors       
+	city     Austin Dallas   Austin Dallas
+	weekday                               
+	Mon           1      1        1      1
+	Sun           1      1        1      1
+
+	        signups        visitors       
+	city     Austin Dallas   Austin Dallas
+	weekday                               
+	Mon           1      1        1      1
+	Sun           1      1        1      1
+	==========================================
+	True
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 4)
+
+In [2]: users
+	Out[2]: 
+	  weekday    city  visitors  signups
+	0     Sun  Austin       139        7
+	1     Sun  Dallas       237       12
+	2     Mon  Austin       326        3
+	3     Mon  Dallas       456        5
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 4 entries, 0 to 3
+	Data columns (total 4 columns):
+	weekday     4 non-null object
+	city        4 non-null object
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2), object(2)
+	memory usage: 208.0+ bytes
+________________________________________________________
+INSTRUCTION:
+
+1. Define a DataFrame count_by_weekday1 that shows the 
+   count of each column with the parameter 
+   aggfunc='count'. The index here is 'weekday'.
+2. Print count_by_weekday1. This has been done for you.
+3. Replace aggfunc='count' with aggfunc=len and verify 
+   you obtain the same result.
+________________________________________________________
+GUIDE:
+
+Using other aggregations in pivot tables
+You can also use aggregation functions within a pivot 
+table by specifying the aggfunc parameter. In this 
+exercise, you will practice using the 'count' and len 
+aggregation functions - which produce the same result - 
+on the users DataFrame.
+________________________________________________________

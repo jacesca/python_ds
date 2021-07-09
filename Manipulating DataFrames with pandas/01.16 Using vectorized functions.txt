@@ -1,0 +1,96 @@
+# Import zscore from scipy.stats
+from scipy.stats import zscore
+
+# Call zscore with election['turnout'] as input: turnout_zscore
+turnout_zscore = zscore(election.turnout)
+
+# Print the type of turnout_zscore
+print(type(turnout_zscore))
+
+# Assign turnout_zscore to a new column: election['turnout_zscore']
+election["turnout_zscore"] = turnout_zscore
+
+# Print the output of election.head()
+print(election.head())
+________________________________________________________
+OUT:
+	<class 'numpy.ndarray'>
+	          state   total      Obama     Romney  winner  voters    turnout     margin  turnout_zscore
+	county                                                                                             
+	Adams        PA   41973  35.482334  63.112001  Romney   61156  68.632677  27.629667        0.853734
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351  66.497575  14.454399        0.439846
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147  67.198140  37.204293        0.575650
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157  69.483401   6.605012        1.018647
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189  66.619031  54.929118        0.463391
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.shape
+	Out[1]: (67, 8)
+
+In [2]: election.head()
+	Out[2]: 
+	          state   total      Obama     Romney  winner  voters    turnout     margin
+	county                                                                             
+	Adams        PA   41973  35.482334  63.112001  Romney   61156  68.632677  27.629667
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351  66.497575  14.454399
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147  67.198140  37.204293
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157  69.483401   6.605012
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189  66.619031  54.929118
+
+In [3]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 8 columns):
+	state      67 non-null object
+	total      67 non-null int64
+	Obama      67 non-null float64
+	Romney     67 non-null float64
+	winner     67 non-null object
+	voters     67 non-null int64
+	turnout    67 non-null float64
+	margin     67 non-null float64
+	dtypes: float64(4), int64(2), object(2)
+	memory usage: 7.2+ KB
+________________________________________________________
+INSTRUCTION:
+1. Import zscore from scipy.stats.
+2. Call zscore with election['turnout'] as input .
+3. Print the output of type(turnout_zscore). This has 
+   been done for you.
+4. Assign turnout_zscore to a new column in election as 
+   'turnout_zscore'.
+5. Print the output of election.head(). This has been 
+   done for you, so hit 'Submit Answer' to view the 
+   result.
+________________________________________________________
+GUIDE:
+Using vectorized functions
+When performance is paramount, you should avoid using 
+.apply() and .map() because those constructs perform 
+Python for-loops over the data stored in a pandas 
+Series or DataFrame. By using vectorized functions 
+instead, you can loop over the data at the same speed 
+as compiled code (C, Fortran, etc.)! NumPy, SciPy and 
+pandas come with a variety of vectorized functions 
+(called Universal Functions or UFuncs in NumPy).
+
+You can even write your own vectorized functions, but 
+for now we will focus on the ones distributed by NumPy 
+and pandas.
+
+In this exercise you're going to import the zscore 
+function from scipy.stats and use it to compute the 
+deviation in voter turnout in Pennsylvania from the 
+mean in fractions of the standard deviation. In 
+statistics, the z-score is the number of standard 
+deviations by which an observation is above the mean 
+- so if it is negative, it means the observation is 
+below the mean.
+
+Instead of using .apply() as you did in the earlier 
+exercises, the zscore UFunc will take a pandas Series 
+as input and return a NumPy array. You will then assign 
+the values of the NumPy array to a new column in the 
+DataFrame. You will be working with the election 
+DataFrame - it has been pre-loaded for you.
+________________________________________________________

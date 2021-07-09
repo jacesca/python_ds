@@ -1,0 +1,71 @@
+# Pivot users with signups indexed by weekday and city: signups_pivot
+signups_pivot = users.pivot(index="weekday",columns="city",values="signups")
+
+# Print signups_pivot
+print(signups_pivot)
+
+# Pivot users pivoted by both signups and visitors: pivot
+pivot = users.pivot(index="weekday",columns="city")
+
+# Print the pivoted DataFrame
+print(pivot)
+________________________________________________________
+OUT:
+	city     Austin  Dallas
+	weekday                
+	Mon           3       5
+	Sun           7      12
+
+
+	        visitors        signups       
+	city      Austin Dallas  Austin Dallas
+	weekday                               
+	Mon          326    456       3      5
+	Sun          139    237       7     12
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 4)
+
+In [2]: users
+	Out[2]: 
+	  weekday    city  visitors  signups
+	0     Sun  Austin       139        7
+	1     Sun  Dallas       237       12
+	2     Mon  Austin       326        3
+	3     Mon  Dallas       456        5
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 4 entries, 0 to 3
+	Data columns (total 4 columns):
+	weekday     4 non-null object
+	city        4 non-null object
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2), object(2)
+	memory usage: 208.0+ bytes
+________________________________________________________
+INSTRUCTION:
+
+1. Pivot the users DataFrame with the 'signups' indexed 
+   by 'weekday' in the rows and 'city' in the columns.
+2. Print the new DataFrame. This has been done for you.
+3. Pivot the users DataFrame with both 'signups' and 
+   'visitors' pivoted - that is, all the variables. This 
+   will happen automatically if you do not specify an 
+   argument for the values parameter of .pivot().
+4. Print the pivoted DataFrame. This has been done for 
+   you, so hit 'Submit Answer' to see the result.
+________________________________________________________
+GUIDE:
+
+Pivoting all variables
+If you do not select any particular variables, all of 
+them will be pivoted. In this case - with the users 
+DataFrame - both 'visitors' and 'signups' will be pivoted, 
+creating hierarchical column labels.
+
+You will explore this for yourself now in this exercise.
+________________________________________________________

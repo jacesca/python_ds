@@ -1,0 +1,65 @@
+IPython Shell:
+
+In [01]: import pandas as pd
+
+In [02]: sales = pd.DataFrame({"weekday":["Sun","Sun","Mon","Mon"],
+        	               "city":["Austin","Dallas","Austin","Dallas"],
+                 	       "bread":[139,237,326,456],
+                 	       "butter":[20,45,70,98]})
+
+In [03]: customers = pd.Series(["Dave","Alice","Bob","Alice"])
+
+In [04]: sales.groupby(customers)["bread"].sum()
+	Out [04]:
+	Alice    693
+	Bob      326
+	Dave     139
+	Name: bread, dtype: int64
+
+In [05]: Isales.groupby(customers)[["bread","butter"]].agg("sum")
+	Out [05]:
+	       bread  butter
+	Alice    693     143
+	Bob      326      70
+	Dave     139      20
+
+In [06]: sales
+	Out [06]:
+	  weekday    city  bread  butter
+	0     Sun  Austin    139      20
+	1     Sun  Dallas    237      45
+	2     Mon  Austin    326      70
+	3     Mon  Dallas    456      98
+
+In [07]: sales.groupby(customers)[["bread","butter"]]
+              .agg({"bread":"sum","butter":"mean"})
+	Out [07]:
+	       bread  butter
+	Alice    693    71.5
+	Bob      326    70.0
+	Dave     139    20.0
+
+In [08]: def data_range(series):
+         return series.max() - series.min()
+
+In [09]: sales.groupby(customers)[["bread","butter"]]
+              .agg({"bread":"sum","butter":data_range})
+	Out [09]:
+	       bread  butter
+	Alice    693      53
+	Bob      326       0
+	Dave     139       0
+
+In [10]: sales.groupby(customers)[["bread","butter"]].agg({"bread":"sum","butter":"max"})
+	Out [10]:
+	       bread  butter
+	Alice    693      98
+	Bob      326      70
+	Dave     139      20
+
+In [11]: sales.groupby(customers)[["bread","butter"]].agg({"bread":"sum","butter":"min"})
+	Out [11]:
+	       bread  butter
+	Alice    693      45
+	Bob      326      70
+	Dave     139      20

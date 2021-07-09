@@ -1,0 +1,73 @@
+# Unstack users by 'city': bycity
+bycity = users.unstack(level="city")
+
+# Print the bycity DataFrame
+print(bycity)
+
+# Stack bycity by 'city' and print it
+print(bycity.stack(level="city"))
+________________________________________________________
+OUT:
+	        visitors        signups       
+	city      Austin Dallas  Austin Dallas
+	weekday                               
+	Mon          326    456       3      5
+	Sun          139    237       7     12
+
+
+	                visitors  signups
+	weekday city                     
+	Mon     Austin       326        3
+	        Dallas       456        5
+	Sun     Austin       139        7
+	        Dallas       237       12
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 2)
+
+In [2]: users
+	Out[2]: 
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	       Sun           139        7
+	Dallas Mon           456        5
+	       Sun           237       12
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	MultiIndex: 4 entries, (Austin, Mon) to (Dallas, Sun)
+	Data columns (total 2 columns):
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2)
+	memory usage: 373.0+ bytes
+
+In [4]: users.index
+	Out[4]: 
+	MultiIndex(levels=[['Austin', 'Dallas'], ['Mon', 'Sun']],
+	           codes=[[0, 0, 1, 1], [0, 1, 0, 1]],
+	           names=['city', 'weekday'])
+________________________________________________________
+INSTRUCTION:
+
+1. Define a DataFrame bycity with the 'city' level of 
+   users unstacked.
+2. Print the bycity DataFrame to see the new data layout. 
+   This has been done for you.
+3. Stack bycity by 'city' and print it to check if you 
+   get the same layout as the original users DataFrame.
+________________________________________________________
+GUIDE:
+
+Stacking & unstacking II
+You are now going to continue working with the users 
+DataFrame. As always, first explore it in the IPython 
+Shell to see the layout and note the index.
+
+Your job in this exercise is to unstack and then stack 
+the 'city' level, as you did previously for 'weekday'. 
+Note that you won't get the same DataFrame.
+________________________________________________________

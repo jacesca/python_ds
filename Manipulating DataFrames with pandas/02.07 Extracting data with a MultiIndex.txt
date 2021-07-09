@@ -1,0 +1,81 @@
+# Print sales.loc[['CA', 'TX']]
+print(sales.loc[["CA","TX"]])
+
+# Print sales['CA':'TX']
+print(sales["CA":"TX"])
+________________________________________________________
+OUT:
+	state month                  
+	CA    1        47  12.0    17
+	      2       110  50.0    31
+	TX    1       132   NaN    52
+	      2       205  60.0    55
+	             eggs  salt  spam
+
+	state month                  
+	CA    1        47  12.0    17
+	      2       110  50.0    31
+	NY    1       221  89.0    72
+	      2        77  87.0    20
+	TX    1       132   NaN    52
+	      2       205  60.0    55
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: sales.shape
+	Out[1]: (6, 3)
+
+In [2]: sales
+	Out[2]: 
+	             eggs  salt  spam
+	state month                  
+	CA    1        47  12.0    17
+	      2       110  50.0    31
+	NY    1       221  89.0    72
+	      2        77  87.0    20
+	TX    1       132   NaN    52
+	      2       205  60.0    55
+
+In [3]: sales.info()
+	<class 'pandas.core.frame.DataFrame'>
+	MultiIndex: 6 entries, (CA, 1) to (TX, 2)
+	Data columns (total 3 columns):
+	eggs    6 non-null int64
+	salt    5 non-null float64
+	spam    6 non-null int64
+	dtypes: float64(1), int64(2)
+	memory usage: 464.0+ bytes
+
+In [4]: sales.index
+	Out[4]: 
+	MultiIndex(levels=[['CA', 'NY', 'TX'], [1, 2]],
+	           codes=[[0, 0, 1, 1, 2, 2], [0, 1, 0, 1, 0, 1]],
+	           names=['state', 'month'])
+
+In [5]: sales.index.name
+
+In [6]: sales.index.names
+	Out[6]: FrozenList(['state', 'month'])
+
+In [7]: sales.columns
+	Out[7]: Index(['eggs', 'salt', 'spam'], dtype='object')
+________________________________________________________
+INSTRUCTION:
+1. Print sales.loc[['CA', 'TX']]. Note how New York is excluded.
+2. Print sales['CA':'TX']. Note how New York is included.
+________________________________________________________
+GUIDE:
+Extracting data with a MultiIndex
+In the video, Dhavide explained the concept of a hierarchical 
+index, or a MultiIndex. You will now practice working with these 
+types of indexes.
+
+The sales DataFrame you have been working with has been extended 
+to now include State information as well. In the IPython Shell, 
+print the new sales DataFrame to inspect the data. Take note of 
+the MultiIndex!
+
+Extracting elements from the outermost level of a MultiIndex 
+is just like in the case of a single-level Index. You can use 
+the .loc[] accessor as Dhavide demonstrated in the video.
+________________________________________________________

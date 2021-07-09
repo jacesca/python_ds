@@ -1,0 +1,272 @@
+# Group medals by 'NOC': country_grouped
+country_grouped = medals.groupby("NOC")
+
+# Compute the number of distinct sports in which each country won medals: Nsports
+Nsports = country_grouped["Sport"].nunique()
+
+# Sort the values of Nsports in descending order
+Nsports = Nsports.sort_values(ascending=False)
+
+# Print the top 15 rows of Nsports
+print(Nsports.head(15))
+________________________________________________________
+OUT:	
+	NOC
+	USA    34
+	GBR    31
+	FRA    28
+	GER    26
+	CHN    24
+	AUS    22
+	ESP    22
+	CAN    22
+	SWE    21
+	URS    21
+	ITA    21
+	NED    20
+	RUS    20
+	JPN    20
+	DEN    19
+	Name: Sport, dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: medals.shape
+	Out[1]: (29216, 10)
+
+In [2]: medals.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 29216 entries, 0 to 29215
+	Data columns (total 10 columns):
+	City            29216 non-null object
+	Edition         29216 non-null int64
+	Sport           29216 non-null object
+	Discipline      29216 non-null object
+	Athlete         29216 non-null object
+	NOC             29216 non-null object
+	Gender          29216 non-null object
+	Event           29216 non-null object
+	Event_gender    29216 non-null object
+	Medal           29216 non-null object
+	dtypes: int64(1), object(9)
+	memory usage: 2.2+ MB
+
+In [3]: medals.head()
+	Out[3]: 
+	     City  Edition     Sport Discipline             Athlete  NOC Gender                       Event Event_gender   Medal
+	0  Athens     1896  Aquatics   Swimming       HAJOS, Alfred  HUN    Men              100m freestyle            M    Gold
+	1  Athens     1896  Aquatics   Swimming    HERSCHMANN, Otto  AUT    Men              100m freestyle            M  Silver
+	2  Athens     1896  Aquatics   Swimming   DRIVAS, Dimitrios  GRE    Men  100m freestyle for sailors            M  Bronze
+	3  Athens     1896  Aquatics   Swimming  MALOKINIS, Ioannis  GRE    Men  100m freestyle for sailors            M    Gold
+	4  Athens     1896  Aquatics   Swimming  CHASAPIS, Spiridon  GRE    Men  100m freestyle for sailors            M  Silver
+
+In [4]: medals["Gender"].unique()
+	Out[4]: array(['Men', 'Women'], dtype=object)
+		
+In [5]: medals["Event_gender"].unique()
+	Out[5]: array(['M', 'X', 'W'], dtype=object)
+		
+In [6]: medals.groupby("Event_gender")["Gender"].agg({"Women":lambda gr: gr[gr=="Women"].count(),"Men":lambda gr: gr[gr=="Men"].count()})
+	Out[6]: 
+	              Women    Men
+	Event_gender              
+	M                 0  20067
+	W              7277      1
+	X               218   1653
+
+In [7]: medals.groupby(["Event_gender","Gender"])["Athlete"].count()
+	Out[7]: 
+	Event_gender  Gender
+	M             Men       20067
+	W             Men           1
+	              Women      7277
+	X             Men        1653
+	              Women       218
+	Name: Athlete, dtype: int64
+
+In [8]: medals[((medals.Event_gender=="W") & (medals.Gender=="Men"))]
+	Out[8]: 
+	         City  Edition      Sport Discipline            Athlete  NOC Gender     Event Event_gender   Medal
+	23675  Sydney     2000  Athletics  Athletics  CHEPCHUMBA, Joyce  KEN    Men  marathon            W  Bronze
+
+In [9]: medals["Sport"].unique()
+	
+Out[9]: 
+	
+array(['Aquatics', 'Athletics', 'Cycling', 'Fencing', 
+               'Gymnastics', 'Shooting', 'Tennis', 
+               'Weightlifting', 'Wrestling', 'Archery',
+       
+               'Basque Pelota', 'Cricket', 'Croquet', 
+               'Equestrian', 'Football', 'Golf', 'Polo', 
+               'Rowing', 'Rugby', 'Sailing', 'Tug of War',
+       
+               'Boxing', 'Lacrosse', 'Roque', 'Hockey', 
+               'Jeu de paume', 'Rackets',
+ 'Skating', 
+               'Water Motorsports', 'Modern Pentathlon', 
+               'Ice Hockey',
+ 'Basketball', 'Canoe / Kayak', 
+               'Handball', 'Judo', 'Volleyball',
+ 'Table Tennis', 
+               'Badminton', 'Baseball', 'Softball', 'Taekwondo',
+       
+               'Triathlon'], dtype=object)
+
+In [10]: medals["Sport"].value_counts()
+	Out[10]: 
+	Aquatics             3828
+	Athletics            3448
+	Rowing               2523
+	Gymnastics           2214
+	Fencing              1547
+	Football             1387
+	Hockey               1325
+	Wrestling            1140
+	Shooting             1105
+	Sailing              1061
+	Cycling              1025
+	Canoe / Kayak        1002
+	Basketball            940
+	Volleyball            910
+	Equestrian            894
+	Handball              886
+	Boxing                842
+	Weightlifting         548
+	Judo                  435
+	Baseball              335
+	Archery               305
+	Tennis                272
+	Rugby                 192
+	Softball              180
+	Modern Pentathlon     174
+	Badminton             120
+	Table Tennis          120
+	Tug of War             94
+	Taekwondo              80
+	Polo                   66
+	Lacrosse               59
+	Golf                   30
+	Skating                27
+	Ice Hockey             27
+	Cricket                24
+	Triathlon              18
+	Rackets                10
+	Croquet                 8
+	Water Motorsports       5
+	Basque Pelota           4
+	Jeu de paume            3
+	Roque                   3
+	Name: Sport, dtype: int64
+
+In [11]: medals.groupby("NOC")["Sport"].agg(lambda gr: len(gr.unique()))
+	Out[11]: 
+	NOC
+	AFG     1
+	AHO     1
+	ALG     3
+	ANZ     5
+	       ..
+	YUG    14
+	ZAM     2
+	ZIM     2
+	ZZX     6
+	Name: Sport, Length: 138, dtype: int64
+
+In [12]: medals.groupby("NOC")["Sport"]
+               .agg(lambda gr: len(gr.unique())).sort_values()
+	Out[12]: 
+	NOC
+	AFG     1
+	DJI     1
+	       ..
+	CHN    24
+	GER    26
+	FRA    28
+	GBR    31
+	USA    34
+	Name: Sport, Length: 138, dtype: int64
+
+In [13]: medals.groupby("NOC")["Sport"]
+               .agg(lambda gr: len(gr.unique()))
+               .sort_values(ascending=False)
+	Out[13]: 
+	NOC
+	USA    34
+	GBR    31
+	FRA    28
+	       ..
+	ECU     1
+	DJI     1
+	AFG     1
+	Name: Sport, Length: 138, dtype: int64
+
+In [14]: medals.groupby("NOC")["Sport"]
+               .agg(lambda gr: len(gr.unique()))
+               .sort_values(ascending=False).head(15)
+	Out[14]: 
+	NOC
+	USA    34
+	GBR    31
+	FRA    28
+	GER    26
+	CHN    24
+	AUS    22
+	ESP    22
+	CAN    22
+	SWE    21
+	URS    21
+	ITA    21
+	NED    20
+	RUS    20
+	JPN    20
+	DEN    19
+	Name: Sport, dtype: int64
+
+In [15]: medals.groupby("NOC")["Sport"].nunique()
+               .sort_values(ascending=False).head(15)
+	Out[15]: 
+	NOC
+	USA    34
+	GBR    31
+	FRA    28
+	GER    26
+	CHN    24
+	AUS    22
+	ESP    22
+	CAN    22
+	SWE    21
+	URS    21
+	ITA    21
+	NED    20
+	RUS    20
+	JPN    20
+	DEN    19
+	Name: Sport, dtype: int64
+________________________________________________________
+INSTRUCTION:
+
+1. Group medals by 'NOC'.
+2. Compute the number of distinct sports in which each 
+   country won medals. To do this, select the 'Sport' 
+   column from country_grouped and apply .nunique().
+3. Sort Nsports in descending order with .sort_values() 
+   and ascending=False.
+4. Print the first 15 rows of Nsports. This has been 
+   done for you, so hit 'Submit Answer' to see the 
+   result.
+________________________________________________________
+GUIDE:
+
+Using .nunique() to rank by distinct sports
+
+You may want to know which countries won medals in 
+the most distinct sports. The .nunique() method is 
+the principal aggregation here. Given a categorical 
+Series S, S.nunique() returns the number of distinct 
+categories.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

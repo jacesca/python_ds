@@ -1,0 +1,144 @@
+# Extract all rows for which the 'Edition' is between 1952 & 1988: during_cold_war
+during_cold_war = (medals.Edition >= 1952) & (medals.Edition <= 1988)
+
+# Extract rows for which 'NOC' is either 'USA' or 'URS': is_usa_urs
+is_usa_urs = medals.NOC.isin(["USA","URS"])
+
+# Use during_cold_war and is_usa_urs to create the DataFrame: cold_war_medals
+cold_war_medals = medals.loc[during_cold_war & is_usa_urs]
+
+# Group cold_war_medals by 'NOC'
+country_grouped = cold_war_medals.groupby("NOC")
+
+# Create Nsports
+Nsports = country_grouped["Sport"].nunique().sort_values(ascending=False)
+
+# Print Nsports
+print(Nsports)
+________________________________________________________
+OUT:	
+	NOC
+	URS    21
+	USA    20
+	Name: Sport, dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: medals.shape
+	Out[1]: (29216, 10)
+
+In [2]: medals.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 29216 entries, 0 to 29215
+	Data columns (total 10 columns):
+	City            29216 non-null object
+	Edition         29216 non-null int64
+	Sport           29216 non-null object
+	Discipline      29216 non-null object
+	Athlete         29216 non-null object
+	NOC             29216 non-null object
+	Gender          29216 non-null object
+	Event           29216 non-null object
+	Event_gender    29216 non-null object
+	Medal           29216 non-null object
+	dtypes: int64(1), object(9)
+	memory usage: 2.2+ MB
+
+In [3]: medals.head()
+	Out[3]: 
+	     City  Edition     Sport Discipline             Athlete  NOC Gender                       Event Event_gender   Medal
+	0  Athens     1896  Aquatics   Swimming       HAJOS, Alfred  HUN    Men              100m freestyle            M    Gold
+	1  Athens     1896  Aquatics   Swimming    HERSCHMANN, Otto  AUT    Men              100m freestyle            M  Silver
+	2  Athens     1896  Aquatics   Swimming   DRIVAS, Dimitrios  GRE    Men  100m freestyle for sailors            M  Bronze
+	3  Athens     1896  Aquatics   Swimming  MALOKINIS, Ioannis  GRE    Men  100m freestyle for sailors            M    Gold
+	4  Athens     1896  Aquatics   Swimming  CHASAPIS, Spiridon  GRE    Men  100m freestyle for sailors            M  Silver
+
+In [4]: medals[((medals.Edition>=1952) | (medals.Edition<=1988))]
+              .groupby("NOC")["Sport"].nunique()
+	Out[4]: 
+	NOC
+	AFG     1
+	AHO     1
+	ALG     3
+	ANZ     5
+	ARG    17
+	       ..
+	YUG    14
+	ZAM     2
+	ZIM     2
+	ZZX     6
+	Name: Sport, Length: 138, dtype: int64
+
+In [5]: medals[(((medals.Edition>=1952) & (medals.Edition<=1988)) 
+              & ((medals.NOC=="USA") | (medals.NOC=="URS")))]
+              .groupby("NOC")["Sport"].nunique()
+	Out[5]: 
+	NOC
+	URS    21
+	USA    20
+	Name: Sport, dtype: int64
+
+In [6]: medals[(((medals.Edition>=1952) & (medals.Edition<=1988)) 
+               & (medals.NOC.isin(["USA","URS"])))]
+               .groupby("NOC")["Sport"].nunique()
+	Out[6]: 
+	NOC
+	URS    21
+	USA    20
+	Name: Sport, dtype: int64
+
+In [7]: medals.loc[(((medals.Edition>=1952) & (medals.Edition<=1988)) 
+                   & (medals.NOC.isin(["USA","URS"])))]
+                   .groupby("NOC")["Sport"].nunique()
+	Out[7]: 
+	NOC
+	URS    21
+	USA    20
+	Name: Sport, dtype: int64
+________________________________________________________
+INSTRUCTION:
+
+1. Using medals, create a Boolean Series called 
+   during_cold_war that is True when 'Edition' 
+   is >= 1952 and <= 1988.
+2. Using medals, create a Boolean Series called 
+   is_usa_urs that is True when 'NOC' is either 
+   'USA' or 'URS'.
+3. Filter the medals DataFrame using during_cold_war 
+   and is_usa_urs to create a new DataFrame called 
+   cold_war_medals.
+4. Group cold_war_medals by 'NOC'.
+5. Create a Series Nsports from country_grouped 
+   using indexing & chained methods:
+   a) Extract the column 'Sport'.
+   b) Use .nunique() to get the number of unique 
+      elements in each group;
+   c) Apply .sort_values(ascending=False) to rearrange 
+      the Series.
+6. Print the final Series Nsports. This has been done 
+   for you, so hit 'Submit Answer' to see the result!
+________________________________________________________
+GUIDE:
+
+Counting USA vs. USSR Cold War Olympic Sports
+
+The Olympic competitions between 1952 and 1988 took 
+place during the height of the Cold War between the 
+United States of America (USA) & the Union of Soviet 
+Socialist Republics (USSR). Your goal in this exercise 
+is to aggregate the number of distinct sports in which 
+the USA and the USSR won medals during the Cold War 
+years.
+
+The construction is mostly the same as in the 
+preceding exercise. There is an additional filtering 
+stage beforehand in which you reduce the original 
+DataFrame medals by extracting data from the Cold 
+War period that applies only to the US or to the 
+USSR. The relevant country codes in the DataFrame, 
+which has been pre-loaded as medals, are 'USA' & 'URS'.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

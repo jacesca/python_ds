@@ -1,0 +1,165 @@
+# Select the 'NOC' column of medals: country_names
+country_names = medals["NOC"]
+print(country_names.head())
+
+# Count the number of medals won by each country: medal_counts
+medal_counts = country_names.value_counts()
+
+# Print top 15 countries ranked by medals
+print(medal_counts.head(15))
+
+print(medals["NOC"].value_counts().head(15))
+________________________________________________________
+OUT:
+	
+	0    HUN
+	1    AUT
+	2    GRE
+	3    GRE
+	4    GRE
+
+	Name: NOC, dtype: object
+	USA    4335
+	URS    2049
+	GBR    1594
+	FRA    1314
+	ITA    1228
+	GER    1211
+	AUS    1075
+	HUN    1053
+	SWE    1021
+	GDR     825
+	NED     782
+	JPN     704
+	CHN     679
+	RUS     638
+	ROU     624
+	Name: NOC, dtype: int64
+
+	USA    4335
+	URS    2049
+	GBR    1594
+	FRA    1314
+	ITA    1228
+	GER    1211
+	AUS    1075
+	HUN    1053
+	SWE    1021
+	GDR     825
+	NED     782
+	JPN     704
+	CHN     679
+	RUS     638
+	ROU     624
+	Name: NOC, dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: medals.shape
+	Out[1]: (29216, 10)
+
+In [2]: medals.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 29216 entries, 0 to 29215
+	Data columns (total 10 columns):
+	City            29216 non-null object
+	Edition         29216 non-null int64
+	Sport           29216 non-null object
+	Discipline      29216 non-null object
+	Athlete         29216 non-null object
+	NOC             29216 non-null object
+	Gender          29216 non-null object
+	Event           29216 non-null object
+	Event_gender    29216 non-null object
+	Medal           29216 non-null object
+	dtypes: int64(1), object(9)
+	memory usage: 2.2+ MB
+
+In [3]: medals.head()
+	Out[3]: 
+	     City  Edition     Sport Discipline             Athlete  NOC Gender                       Event Event_gender   Medal
+	0  Athens     1896  Aquatics   Swimming       HAJOS, Alfred  HUN    Men              100m freestyle            M    Gold
+	1  Athens     1896  Aquatics   Swimming    HERSCHMANN, Otto  AUT    Men              100m freestyle            M  Silver
+	2  Athens     1896  Aquatics   Swimming   DRIVAS, Dimitrios  GRE    Men  100m freestyle for sailors            M  Bronze
+	3  Athens     1896  Aquatics   Swimming  MALOKINIS, Ioannis  GRE    Men  100m freestyle for sailors            M    Gold
+	4  Athens     1896  Aquatics   Swimming  CHASAPIS, Spiridon  GRE    Men  100m freestyle for sailors            M  Silver
+
+In [4]: medals.groupby("NOC")["Medal"].count()
+	Out[4]: 
+	NOC
+	AFG       1
+	AHO       1
+	ALG      14
+	ANZ      29
+	ARG     239
+	ARM       9
+	AUS    1075
+	       ... 
+	ZAM       2
+	ZIM      23
+	ZZX      48
+	Name: Medal, Length: 138, dtype: int64
+
+In [5]: medals.groupby("NOC")["Medal"].count().sort_values()
+	Out[5]: 
+	NOC
+	AFG       1
+	MRI       1
+	MKD       1
+	       ... 
+	URS    2049
+	USA    4335
+	Name: Medal, Length: 138, dtype: int64
+
+In [6]: medals.groupby("NOC")["Medal"].count()
+              .sort_values(ascending=False).head(15)
+	Out[6]: 
+	NOC
+	USA    4335
+	URS    2049
+	GBR    1594
+	FRA    1314
+	ITA    1228
+	GER    1211
+	AUS    1075
+	HUN    1053
+	SWE    1021
+	GDR     825
+	NED     782
+	JPN     704
+	CHN     679
+	RUS     638
+	ROU     624
+	Name: Medal, dtype: int64
+________________________________________________________
+INSTRUCTION:
+
+1. Extract the 'NOC' column from the DataFrame medals 
+   and assign the result to country_names. Notice that 
+   this Series has repeated entries for every medal 
+   (of any type) a country has won in any Edition of 
+   the Olympics.
+2. Create a Series medal_counts by applying 
+   .value_counts() to the Series country_names.
+3. Print the top 15 countries ranked by total number 
+   of medals won. This has been done for you, so hit 
+   'Submit Answer' to see the result.
+________________________________________________________
+GUIDE:
+
+Using .value_counts() for ranking
+For this exercise, you will use the pandas Series method 
+.value_counts() to determine the top 15 countries ranked 
+by total number of medals.
+
+Notice that .value_counts() sorts by values by default. 
+The result is returned as a Series of counts indexed by 
+unique entries from the original Series with values 
+(counts) ranked in descending order.
+
+The DataFrame has been pre-loaded for you as medals.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

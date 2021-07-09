@@ -1,0 +1,127 @@
+# Stack 'city' back into the index of bycity: newusers
+newusers = bycity.stack(level="city")
+print(newusers)
+
+# Swap the levels of the index of newusers: newusers
+newusers = newusers.swaplevel("weekday","city")
+
+# Print newusers and verify that the index is not sorted
+print(newusers)
+
+# Sort the index of newusers: newusers
+newusers = newusers.sort_index()
+
+# Print newusers and verify that the index is now sorted
+print(newusers)
+
+# Verify that the new DataFrame is equal to the original
+print(newusers.equals(users))
+________________________________________________________
+OUT:
+	                visitors  signups
+	weekday city                     
+	Mon     Austin       326        3
+	        Dallas       456        5
+	Sun     Austin       139        7
+	        Dallas       237       12
+
+
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	Dallas Mon           456        5
+	Austin Sun           139        7
+	Dallas Sun           237       12
+
+
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	       Sun           139        7
+	Dallas Mon           456        5
+	       Sun           237       12
+
+
+	True
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 2)
+
+In [2]: users
+	Out[2]: 
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	       Sun           139        7
+	Dallas Mon           456        5
+	       Sun           237       12
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	MultiIndex: 4 entries, (Austin, Mon) to (Dallas, Sun)
+	Data columns (total 2 columns):
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2)
+	memory usage: 373.0+ bytes
+
+In [4]: users.index
+	Out[4]: 
+	MultiIndex(levels=[['Austin', 'Dallas'], ['Mon', 'Sun']],
+	           codes=[[0, 0, 1, 1], [0, 1, 0, 1]],
+	           names=['city', 'weekday'])
+
+In [5]: bycity.shape
+	Out[5]: (2, 4)
+
+In [6]: bycity
+	Out[6]: 
+	        visitors        signups       
+	city      Austin Dallas  Austin Dallas
+	weekday                               
+	Mon          326    456       3      5
+	Sun          139    237       7     12
+
+In [7]: bycity.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 2 entries, Mon to Sun
+	Data columns (total 4 columns):
+	(visitors, Austin)    2 non-null int64
+	(visitors, Dallas)    2 non-null int64
+	(signups, Austin)     2 non-null int64
+	(signups, Dallas)     2 non-null int64
+	dtypes: int64(4)
+	memory usage: 160.0+ bytes
+
+In [8]: bycity.index
+	Out[8]: Index(['Mon', 'Sun'], dtype='object', name='weekday')
+________________________________________________________
+INSTRUCTION:
+
+1. Define a DataFrame newusers with the 'city' level 
+   stacked back into the index of bycity.
+2. Swap the levels of the index of newusers.
+3. Print newusers and verify that the index is not 
+   sorted. This has been done for you.
+4. Sort the index of newusers.
+5. Print newusers and verify that the index is now 
+   sorted. This has been done for you.
+6. Assert that newusers equals users. This has been 
+   done for you, so hit 'Submit Answer' to see the result.
+________________________________________________________
+GUIDE:
+
+Restoring the index order
+Continuing from the previous exercise, you will now use 
+.swaplevel(0, 1) to flip the index levels. Note they 
+won't be sorted. To sort them, you will have to follow 
+up with a .sort_index(). You will then obtain the 
+original DataFrame. Note that an unsorted index leads 
+to slicing failures.
+
+To begin, print both users and bycity in the IPython 
+Shell. The goal here is to convert bycity back to 
+something that looks like users.
+________________________________________________________

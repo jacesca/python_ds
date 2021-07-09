@@ -1,0 +1,93 @@
+# Slice the row labels 'Perry' to 'Potter': p_counties
+p_counties = election.loc["Perry":"Potter",:]
+
+# Print the p_counties DataFrame
+print(p_counties)
+
+# Slice the row labels 'Potter' to 'Perry' in reverse order: p_counties_rev
+p_counties_rev = election.loc["Potter":"Perry":-1,:]
+
+# Print the p_counties_rev DataFrame
+print(p_counties_rev)
+________________________________________________________
+OUT:
+	             state   total      Obama     Romney  winner   voters
+	county                                                           
+	Perry           PA   18240  29.769737  68.591009  Romney    27245
+	Philadelphia    PA  653598  85.224251  14.051451   Obama  1099197
+	Pike            PA   23164  43.904334  54.882576  Romney    41840
+	Potter          PA    7205  26.259542  72.158223  Romney    10913
+
+	             state   total      Obama     Romney  winner   voters
+	county                                                           
+	Potter          PA    7205  26.259542  72.158223  Romney    10913
+	Pike            PA   23164  43.904334  54.882576  Romney    41840
+	Philadelphia    PA  653598  85.224251  14.051451   Obama  1099197
+	Perry           PA   18240  29.769737  68.591009  Romney    27245
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.head()
+	Out[1]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [2]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+
+In [3]: election.columns
+	Out[5]: Index(['state', 'total', 'Obama', 'Romney', 
+                       'winner', 'voters'], 
+                    dtype='object')
+
+In [4]: election.index
+	Out[6]: Index(['Adams', 'Allegheny', 'Armstrong', 'Beaver', 'Bedford', 'Berks', 
+                       'Blair', 'Bradford', 'Bucks', 'Butler', 'Cambria', 'Cameron', 
+                       'Carbon', 'Centre', 'Chester', 'Clarion', 'Clearfield', 'Clinton', 
+                       'Columbia', 'Crawford', 'Cumberland', 'Dauphin', 'Delaware', 'Elk', 
+                       'Erie', 'Fayette', 'Forest', 'Franklin', 'Fulton', 'Greene', 
+                       'Huntingdon', 'Indiana', 'Jefferson', 'Juniata', 'Lackawanna', 'Lancaster', 
+                       'Lawrence', 'Lebanon', 'Lehigh', 'Luzerne', 'Lycoming', 'McKean', 
+                       'Mercer', 'Mifflin', 'Monroe', 'Montgomery', 'Montour', 'Northampton', 
+                       'Northumberland', 'Perry', 'Philadelphia', 'Pike', 'Potter', 
+                       'Schuylkill', 'Snyder', 'Somerset', 'Sullivan', 'Susquehanna', 'Tioga', 
+                       'Union', 'Venango', 'Warren', 'Washington', 'Wayne', 'Westmoreland', 
+                       'Wyoming', 'York'],
+      dtype='object', name='county')
+________________________________________________________
+INSTRUCTION:
+1. Slice the row labels 'Perry' to 'Potter' and assign 
+   the output to p_counties.
+2. Print the p_counties DataFrame. This has been done 
+   for you.
+3. Slice the row labels 'Potter' to 'Perry' in reverse 
+   order. To do this for hypothetical row labels 'a' 
+   and 'b', you could use a stepsize of -1 like so: 
+   df.loc['b':'a':-1].
+4. Print the p_counties_rev DataFrame. This has also 
+   been done for you, so hit 'Submit Answer' to see the 
+   result of your slicing!
+________________________________________________________
+GUIDE:
+Slicing rows
+The Pennsylvania US election results data set that you 
+have been using so far is ordered by county name. This 
+means that county names can be sliced alphabetically. 
+In this exercise, you're going to perform slicing on 
+the county names of the election DataFrame from the 
+previous exercises, which has been pre-loaded for you.
+________________________________________________________

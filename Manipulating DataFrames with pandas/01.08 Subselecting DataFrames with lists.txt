@@ -1,0 +1,85 @@
+# Create the list of row labels: rows
+rows = ['Philadelphia', 'Centre', 'Fulton']
+
+# Create the list of column labels: cols
+cols = ['winner', 'Obama', 'Romney']
+
+# Create the new DataFrame: three_counties
+three_counties = election.loc[rows, cols]
+
+# Print the three_counties DataFrame
+print(three_counties)
+________________________________________________________
+OUT:
+	              winner      Obama     Romney
+	county                                    
+	Philadelphia   Obama  85.224251  14.051451
+	Centre        Romney  48.948416  48.977486
+	Fulton        Romney  21.096291  77.748861	
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.head()
+	Out[1]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [2]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+
+In [3]: election.columns
+	Out[5]: Index(['state', 'total', 'Obama', 'Romney', 
+                       'winner', 'voters'], 
+                    dtype='object')
+
+In [4]: election.index
+	Out[6]: Index(['Adams', 'Allegheny', 'Armstrong', 'Beaver', 'Bedford', 'Berks', 
+                       'Blair', 'Bradford', 'Bucks', 'Butler', 'Cambria', 'Cameron', 
+                       'Carbon', 'Centre', 'Chester', 'Clarion', 'Clearfield', 'Clinton', 
+                       'Columbia', 'Crawford', 'Cumberland', 'Dauphin', 'Delaware', 'Elk', 
+                       'Erie', 'Fayette', 'Forest', 'Franklin', 'Fulton', 'Greene', 
+                       'Huntingdon', 'Indiana', 'Jefferson', 'Juniata', 'Lackawanna', 'Lancaster', 
+                       'Lawrence', 'Lebanon', 'Lehigh', 'Luzerne', 'Lycoming', 'McKean', 
+                       'Mercer', 'Mifflin', 'Monroe', 'Montgomery', 'Montour', 'Northampton', 
+                       'Northumberland', 'Perry', 'Philadelphia', 'Pike', 'Potter', 
+                       'Schuylkill', 'Snyder', 'Somerset', 'Sullivan', 'Susquehanna', 'Tioga', 
+                       'Union', 'Venango', 'Warren', 'Washington', 'Wayne', 'Westmoreland', 
+                       'Wyoming', 'York'],
+      dtype='object', name='county')
+________________________________________________________
+INSTRUCTION:
+1. Create the list of row labels 
+   ['Philadelphia', 'Centre', 'Fulton'] and assign it 
+   to rows.
+2. Create the list of column labels 
+   ['winner', 'Obama', 'Romney'] and assign it to cols.
+3. Create a new DataFrame by selecting with rows and 
+   cols in .loc[] and assign it to three_counties.
+4. Print the three_counties DataFrame. This has been 
+   done for you, so hit 'Submit Answer` to see your 
+   new DataFrame.
+________________________________________________________
+GUIDE:
+Subselecting DataFrames with lists
+You can use lists to select specific row and column 
+labels with the .loc[] accessor. In this exercise, your 
+job is to select the counties 
+['Philadelphia', 'Centre', 'Fulton'] and the columns 
+['winner','Obama','Romney'] from the election DataFrame, 
+which has been pre-loaded for you with the index set 
+to 'county'.
+________________________________________________________

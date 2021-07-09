@@ -1,0 +1,39 @@
+Index values and names
+Which one of the following index operations does not 
+raise an error?
+
+The sales DataFrame which you have seen in the videos 
+of the previous chapter has been pre-loaded for you 
+and is available for exploration in the IPython Shell.
+
+       eggs  salt  spam
+month                  
+Jan      47  12.0    17
+Feb     110  50.0    31
+Mar     221  89.0    72
+Apr      77  87.0    20
+May     132   NaN    52
+Jun     205  60.0    55
+________________________________________________________
+ANSWER:
+	without error
+		sales.index = range(len(sales))
+
+	with error
+		sales.index[0] = 'JAN'
+		sales.index[0] = sales.index[0].upper()
+________________________________________________________
+IPYTHONSHELL:
+In [1]: sales.shape
+	Out[1]: (6, 3)
+
+In [2]: sales.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 6 entries, Jan to Jun
+	Data columns (total 3 columns):
+	eggs    6 non-null int64
+	salt    5 non-null float64
+	spam    6 non-null int64
+	dtypes: float64(1), int64(2)
+	memory usage: 352.0+ bytes
+________________________________________________________

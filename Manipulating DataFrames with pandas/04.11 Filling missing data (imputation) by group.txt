@@ -1,0 +1,134 @@
+# Llena valores vacíos con el valor de la mediana de la serie,
+# agrupada por sexo y clase (sex, pclass)
+
+# Create a groupby object: by_sex_class
+by_sex_class = titanic.groupby(["sex","pclass"])
+print(type(by_sex_class))
+print (by_sex_class["name"])
+print (by_sex_class["name"].transform((lambda x: len(x))).shape)
+print (by_sex_class["name"].transform((lambda x: len(x))).head())
+
+# Write a function that imputes median
+def impute_median(series):
+    return series.fillna(series.median())
+
+# Impute age and assign to titanic['age']
+titanic.age = titanic.age.transform(impute_median)
+
+# Print the output of titanic.tail(10)
+print(titanic.tail(10))
+________________________________________________________
+OUT:
+	<class 'pandas.core.groupby.generic.DataFrameGroupBy'>
+	
+	<pandas.core.groupby.generic.SeriesGroupBy object at 0x7fcac301b278>
+
+	(1309,)
+
+	1304    216
+	1305    216
+	1306    493
+	1307    493
+	1308    493
+	Name: name, dtype: int64
+
+	      pclass  survived                                     name     sex   age  ...  cabin  embarked boat   body home.dest
+	1299       3         0                      Yasbeck, Mr. Antoni    male  27.0  ...    NaN         C    C    NaN       NaN
+	1300       3         1  Yasbeck, Mrs. Antoni (Selini Alexander)  female  15.0  ...    NaN         C  NaN    NaN       NaN
+	1301       3         0                     Youseff, Mr. Gerious    male  45.5  ...    NaN         C  NaN  312.0       NaN
+	1302       3         0                        Yousif, Mr. Wazli    male  25.0  ...    NaN         C  NaN    NaN       NaN
+	1303       3         0                    Yousseff, Mr. Gerious    male  25.0  ...    NaN         C  NaN    NaN       NaN
+	1304       3         0                     Zabour, Miss. Hileni  female  14.5  ...    NaN         C  NaN  328.0       NaN
+	1305       3         0                    Zabour, Miss. Thamine  female  22.0  ...    NaN         C  NaN    NaN       NaN
+	1306       3         0                Zakarian, Mr. Mapriededer    male  26.5  ...    NaN         C  NaN  304.0       NaN
+	1307       3         0                      Zakarian, Mr. Ortin    male  27.0  ...    NaN         C  NaN    NaN       NaN
+	1308       3         0                       Zimmerman, Mr. Leo    male  29.0  ...    NaN         S  NaN    NaN       NaN
+	[10 rows x 14 columns]
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: titanic.shape
+	Out[1]: (1309, 14)
+
+In [2]: titanic.tail(10)
+	Out[2]: 
+	      pclass  survived                                     name     sex   age  ...  cabin  embarked boat   body home.dest
+	1299       3         0                      Yasbeck, Mr. Antoni    male  27.0  ...    NaN         C    C    NaN       NaN
+	1300       3         1  Yasbeck, Mrs. Antoni (Selini Alexander)  female  15.0  ...    NaN         C  NaN    NaN       NaN
+	1301       3         0                     Youseff, Mr. Gerious    male  45.5  ...    NaN         C  NaN  312.0       NaN
+	1302       3         0                        Yousif, Mr. Wazli    male   NaN  ...    NaN         C  NaN    NaN       NaN
+	1303       3         0                    Yousseff, Mr. Gerious    male   NaN  ...    NaN         C  NaN    NaN       NaN
+	1304       3         0                     Zabour, Miss. Hileni  female  14.5  ...    NaN         C  NaN  328.0       NaN
+	1305       3         0                    Zabour, Miss. Thamine  female   NaN  ...    NaN         C  NaN    NaN       NaN
+	1306       3         0                Zakarian, Mr. Mapriededer    male  26.5  ...    NaN         C  NaN  304.0       NaN
+	1307       3         0                      Zakarian, Mr. Ortin    male  27.0  ...    NaN         C  NaN    NaN       NaN
+	1308       3         0                       Zimmerman, Mr. Leo    male  29.0  ...    NaN         S  NaN    NaN       NaN
+	[10 rows x 14 columns]
+
+In [3]: titanic.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 1309 entries, 0 to 1308
+	Data columns (total 14 columns):
+	pclass       1309 non-null int64
+	survived     1309 non-null int64
+	name         1309 non-null object
+	sex          1309 non-null object
+	age          1046 non-null float64
+	sibsp        1309 non-null int64
+	parch        1309 non-null int64
+	ticket       1309 non-null object
+	fare         1308 non-null float64
+	cabin        295 non-null object
+	embarked     1307 non-null object
+	boat         486 non-null object
+	body         121 non-null float64
+	home.dest    745 non-null object
+	dtypes: float64(3), int64(4), object(7)
+	memory usage: 143.2+ KB
+
+In [4]: titanic.columns
+	Out[4]: Index(['pclass', 'survived', 'name', 
+                       'sex', 'age', 'sibsp', 'parch', 
+                       'ticket', 'fare', 'cabin', 
+                       'embarked', 'boat', 'body', 
+                       'home.dest'], 
+                      dtype='object')
+________________________________________________________
+INSTRUCTION:
+
+1. Group titanic by 'sex' and 'pclass'. Save the result 
+   as by_sex_class.
+2. Write a function called impute_median() that fills 
+   missing values with the median of a series. This 
+   has been done for you.
+3. Call .transform() with impute_median on the 'age' 
+   column of by_sex_class.
+4. Print the output of titanic.tail(10). This has been 
+   done for you - hit 'Submit Answer' to see how the 
+   missing values have now been imputed.
+________________________________________________________
+GUIDE:
+
+Filling missing data (imputation) by group
+Many statistical and machine learning packages cannot 
+determine the best action to take when missing data 
+entries are encountered. Dealing with missing data is 
+natural in pandas (both in using the default behavior 
+and in defining a custom behavior). In Chapter 1, you 
+practiced using the .dropna() method to drop missing 
+values. Now, you will practice imputing missing values. 
+You can use .groupby() and .transform() to fill missing 
+data appropriately for each group.
+
+Your job is to fill in missing 'age' values for 
+passengers on the Titanic with the median age from 
+their 'gender' and 'pclass'. To do this, you'll group 
+by the 'sex' and 'pclass' columns and transform each 
+group with a custom function to call .fillna() and 
+impute the median value.
+
+The DataFrame has been pre-loaded as titanic. Explore 
+it in the IPython Shell by printing the output of 
+titanic.tail(10). Notice in particular the NaNs in the 
+'age' column.
+________________________________________________________

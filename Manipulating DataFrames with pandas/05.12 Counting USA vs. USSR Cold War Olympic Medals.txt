@@ -1,0 +1,192 @@
+# Create the pivot table: medals_won_by_country
+medals_won_by_country = medals.pivot_table(index="Edition", columns="NOC", values="Athlete", aggfunc="count")
+
+# Slice medals_won_by_country: cold_war_usa_urs_medals
+cold_war_usa_urs_medals = medals_won_by_country.loc[1952:1988, ["USA","URS"]]
+
+# Create most_medals 
+most_medals = cold_war_usa_urs_medals.idxmax(axis="columns")
+
+# Print most_medals.value_counts()
+print(most_medals.value_counts())
+________________________________________________________
+OUT:	
+	URS    8
+	USA    2
+	dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: medals.shape
+	Out[1]: (29216, 10)
+
+In [2]: medals.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 29216 entries, 0 to 29215
+	Data columns (total 10 columns):
+	City            29216 non-null object
+	Edition         29216 non-null int64
+	Sport           29216 non-null object
+	Discipline      29216 non-null object
+	Athlete         29216 non-null object
+	NOC             29216 non-null object
+	Gender          29216 non-null object
+	Event           29216 non-null object
+	Event_gender    29216 non-null object
+	Medal           29216 non-null object
+	dtypes: int64(1), object(9)
+	memory usage: 2.2+ MB
+
+In [3]: medals.head()
+	Out[3]: 
+	     City  Edition     Sport Discipline             Athlete  NOC Gender                       Event Event_gender   Medal
+	0  Athens     1896  Aquatics   Swimming       HAJOS, Alfred  HUN    Men              100m freestyle            M    Gold
+	1  Athens     1896  Aquatics   Swimming    HERSCHMANN, Otto  AUT    Men              100m freestyle            M  Silver
+	2  Athens     1896  Aquatics   Swimming   DRIVAS, Dimitrios  GRE    Men  100m freestyle for sailors            M  Bronze
+	3  Athens     1896  Aquatics   Swimming  MALOKINIS, Ioannis  GRE    Men  100m freestyle for sailors            M    Gold
+	4  Athens     1896  Aquatics   Swimming  CHASAPIS, Spiridon  GRE    Men  100m freestyle for sailors            M  Silver
+
+# Pivot table with years ('Edition') on the index and countries 
+# ('NOC') on the columns. The entries will be the total number 
+# of medals each country won that year.
+In [4]: medals.pivot_table(index="Edition", columns="NOC", 
+                           values="Medal", aggfunc="count")
+	Out[4]: 
+	NOC      AFG  AHO  ALG   ANZ   ARG  ...  VIE   YUG  ZAM   ZIM   ZZX
+	Edition                             ...                            
+	1896     NaN  NaN  NaN   NaN   NaN  ...  NaN   NaN  NaN   NaN   6.0
+	1900     NaN  NaN  NaN   NaN   NaN  ...  NaN   NaN  NaN   NaN  34.0
+	1904     NaN  NaN  NaN   NaN   NaN  ...  NaN   NaN  NaN   NaN   8.0
+	1908     NaN  NaN  NaN  19.0   NaN  ...  NaN   NaN  NaN   NaN   NaN
+	1912     NaN  NaN  NaN  10.0   NaN  ...  NaN   NaN  NaN   NaN   NaN
+	1920     NaN  NaN  NaN   NaN   NaN  ...  NaN   NaN  NaN   NaN   NaN
+	1924     NaN  NaN  NaN   NaN  11.0  ...  NaN   2.0  NaN   NaN   NaN
+	1928     NaN  NaN  NaN   NaN  32.0  ...  NaN  12.0  NaN   NaN   NaN
+	1932     NaN  NaN  NaN   NaN   4.0  ...  NaN   NaN  NaN   NaN   NaN
+	1936     NaN  NaN  NaN   NaN  11.0  ...  NaN   1.0  NaN   NaN   NaN
+	1948     NaN  NaN  NaN   NaN  12.0  ...  NaN  16.0  NaN   NaN   NaN
+	1952     NaN  NaN  NaN   NaN   6.0  ...  NaN  24.0  NaN   NaN   NaN
+	1956     NaN  NaN  NaN   NaN   2.0  ...  NaN  23.0  NaN   NaN   NaN
+	1960     NaN  NaN  NaN   NaN   4.0  ...  NaN  17.0  NaN   NaN   NaN
+	1964     NaN  NaN  NaN   NaN   1.0  ...  NaN  15.0  NaN   NaN   NaN
+	1968     NaN  NaN  NaN   NaN   2.0  ...  NaN  29.0  NaN   NaN   NaN
+	1972     NaN  NaN  NaN   NaN   1.0  ...  NaN  18.0  NaN   NaN   NaN
+	1976     NaN  NaN  NaN   NaN   NaN  ...  NaN  19.0  NaN   NaN   NaN
+	1980     NaN  NaN  NaN   NaN   NaN  ...  NaN  57.0  NaN  16.0   NaN
+	1984     NaN  NaN  2.0   NaN   NaN  ...  NaN  87.0  1.0   NaN   NaN
+	1988     NaN  1.0  NaN   NaN  13.0  ...  NaN  63.0  NaN   NaN   NaN
+	1992     NaN  NaN  2.0   NaN   2.0  ...  NaN   NaN  NaN   NaN   NaN
+	1996     NaN  NaN  3.0   NaN  20.0  ...  NaN  26.0  1.0   NaN   NaN
+	2000     NaN  NaN  5.0   NaN  20.0  ...  1.0  26.0  NaN   NaN   NaN
+	2004     NaN  NaN  NaN   NaN  47.0  ...  NaN   NaN  NaN   3.0   NaN
+	2008     1.0  NaN  2.0   NaN  51.0  ...  1.0   NaN  NaN   4.0   NaN
+	[26 rows x 138 columns]
+
+# Slice the Cold War period and subset the 'USA' and 'URS' columns.
+In [5]: medals.pivot_table(index="Edition", columns="NOC", 
+                           values="Medal", aggfunc="count")
+              .loc[1952:1988,["USA","URS"]]
+	Out[5]: 
+	NOC        USA    URS
+	Edition              
+	1952     130.0  117.0
+	1956     118.0  169.0
+	1960     112.0  169.0
+	1964     150.0  174.0
+	1968     149.0  188.0
+	1972     155.0  211.0
+	1976     155.0  285.0
+	1980       NaN  442.0
+	1984     333.0    NaN
+	1988     193.0  294.0
+
+#.idxmax() returns the index of the maximizing element. 
+# The argument axis=columns or axis=1 is required for column 
+# operations.
+In [6]: medals.pivot_table(index="Edition", columns="NOC", 
+                           values="Medal", aggfunc="count")
+              .loc[1952:1988,["USA","URS"]]
+              .idxmax(axis="columns")
+	Out[6]: 
+	Edition
+	1952    USA
+	1956    URS
+	1960    URS
+	1964    URS
+	1968    URS
+	1972    URS
+	1976    URS
+	1980    URS
+	1984    USA
+	1988    URS
+	dtype: object
+# Use .value_counts() to count the number of occurrences of each.
+In [7]: medals.pivot_table(index="Edition", columns="NOC", 
+                           values="Medal", aggfunc="count")
+              .loc[1952:1988,["USA","URS"]]
+              .idxmax(axis="columns")
+              .value_counts()
+	Out[7]: 
+	URS    8
+	USA    2
+	dtype: int64
+________________________________________________________
+INSTRUCTION:
+
+1. Construct medals_won_by_country using 
+   medals.pivot_table().
+   a) The index should be the years ('Edition') & the 
+      columns should be country ('NOC')
+   b) The values should be 'Athlete' (which captures 
+      every medal regardless of kind) & the aggregation 
+      method should be 'count' (which captures the total 
+      number of medals won).
+2. Create cold_war_usa_urs_medals by slicing the pivot 
+   table medals_won_by_country. Your slice should contain 
+   the editions from years 1952:1988 and only the columns 
+   'USA' & 'URS' from the pivot table.
+3. Create the Series most_medals by applying the 
+   .idxmax() method to cold_war_usa_urs_medals. Be 
+   sure to use axis='columns'.
+4. Print the result of applying .value_counts() to 
+   most_medals. The result reported gives the number 
+   of times each of the USA or the USSR won more 
+   Olympic medals in total than the other between 
+   1952 and 1988.
+________________________________________________________
+GUIDE:
+
+Counting USA vs. USSR Cold War Olympic Medals
+For this exercise, you want to see which country, the 
+USA or the USSR, won the most medals consistently over 
+the Cold War period.
+
+There are several steps involved in carrying out this 
+computation.
+
+- You'll need a pivot table with years ('Edition') on 
+  the index and countries ('NOC') on the columns. The 
+  entries will be the total number of medals each 
+  country won that year. If the country won no medals 
+  in a given edition, expect a NaN in that entry of 
+  the pivot table.
+- You'll need to slice the Cold War period and subset 
+  the 'USA' and 'URS' columns.
+- You'll need to make a Series from this slice of the 
+  pivot table that tells which country won the most 
+  medals in that edition using .idxmax(axis='columns'). 
+  If .max() returns the maximum value of Series or 
+  1D array, .idxmax() returns the index of the 
+  maximizing element. The argument axis=columns or 
+  axis=1 is required because, by default, this 
+  aggregation would be done along columns for a 
+  DataFrame.
+- The final Series contains either 'USA' or 'URS' 
+  according to which country won the most medals in 
+  each Olympic edition. You can use .value_counts() 
+  to count the number of occurrences of each.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

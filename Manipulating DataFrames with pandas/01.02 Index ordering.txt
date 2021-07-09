@@ -1,0 +1,77 @@
+Index ordering
+In this exercise, the DataFrame election is provided 
+for you. It contains the 2012 US election results for 
+the state of Pennsylvania with county names as row 
+indices. Your job is to select 'Bedford' county and 
+the'winner' column. Which method is the preferred way?
+
+Feel free to explore the DataFrame in the IPython Shell.
+________________________________________________________
+ANSWER:
+	election.loc['Bedford', 'winner']
+________________________________________________________
+IPYTHONSHELL:
+In [1]: type(election)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: election.shape
+	Out[2]: (67, 6)
+
+In [3]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+
+In [4]: election.head()
+	Out[4]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [5]: election.columns
+	Out[5]: Index(['state', 'total', 'Obama', 'Romney', 
+                       'winner', 'voters'], 
+                    dtype='object')
+
+In [6]: election.index
+	Out[6]: Index(['Adams', 'Allegheny', 'Armstrong', 
+                       'Beaver', 'Bedford', 'Berks', 
+                       'Blair', 'Bradford', 'Bucks', 
+                       'Butler', 'Cambria', 'Cameron', 
+                       'Carbon', 'Centre', 'Chester', 
+                       'Clarion', 'Clearfield', 'Clinton', 
+                       'Columbia', 'Crawford', 'Cumberland', 
+                       'Dauphin', 'Delaware', 'Elk', 
+                       'Erie', 'Fayette', 'Forest', 
+                       'Franklin', 'Fulton', 'Greene', 
+                       'Huntingdon', 'Indiana', 'Jefferson', 
+                       'Juniata', 'Lackawanna', 'Lancaster', 
+                       'Lawrence', 'Lebanon', 'Lehigh', 
+                       'Luzerne', 'Lycoming', 'McKean', 
+                       'Mercer', 'Mifflin', 'Monroe', 
+                       'Montgomery', 'Montour', 'Northampton', 
+                       'Northumberland', 'Perry', 
+                       'Philadelphia', 'Pike', 'Potter', 
+                       'Schuylkill', 'Snyder', 'Somerset', 
+                       'Sullivan', 'Susquehanna', 'Tioga', 
+                       'Union', 'Venango', 'Warren', 
+                       'Washington', 'Wayne', 'Westmoreland', 
+                       'Wyoming', 'York'],
+      dtype='object', name='county')
+
+In [7]: election.loc["Bedford","winner"]
+
+	Out[7]: 'Romney'
+________________________________________________________

@@ -1,0 +1,65 @@
+# Create the dictionary: red_vs_blue
+red_vs_blue = {"Obama":"blue","Romney":"red"}
+
+# Use the dictionary to map the 'winner' column to the new column: election['color']
+election['color'] = election.winner.map(red_vs_blue)
+
+# Print the output of election.head()
+print(election.head())
+________________________________________________________
+OUT:
+	          state   total      Obama     Romney  winner  voters color
+	county                                                             
+	Adams        PA   41973  35.482334  63.112001  Romney   61156   red
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351  blue
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147   red
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157   red
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189   red	
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.shape
+	Out[1]: (67, 6)
+
+In [2]: election.head()
+	Out[2]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [3]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+________________________________________________________
+INSTRUCTION:
+1. Create a dictionary with the key:value pairs 
+   'Obama':'blue' and 'Romney':'red'.
+2. Use the .map() method on the 'winner' column using 
+   the red_vs_blue dictionary you created.
+3. Print the output of election.head(). This has been 
+   done for you, so hit 'Submit Answer' to see the new 
+   column!
+________________________________________________________
+GUIDE:
+Using .map() with a dictionary
+The .map() method is used to transform values according 
+to a Python dictionary look-up. In this exercise you'll 
+practice this method while returning to working with the 
+election DataFrame, which has been pre-loaded for you.
+
+Your job is to use a dictionary to map the values 'Obama' 
+and 'Romney' in the 'winner' column to the values 'blue' 
+and 'red', and assign the output to the new column 'color'.
+________________________________________________________

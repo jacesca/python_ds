@@ -1,0 +1,115 @@
+# Select the 'age' and 'cabin' columns: df
+df = titanic.loc[:,["age","cabin"]]
+
+# Print the shape of df
+print(df.shape)
+
+# Drop rows in df with how='any' and print the shape
+print(df.dropna(how="any").shape)
+
+# Drop rows in df with how='all' and print the shape
+print(df.dropna(how="all").shape)
+
+# Drop columns in titanic with less than 1000 non-missing values
+print(titanic.dropna(thresh=1000, axis='columns').info())
+________________________________________________________
+OUT:
+	(1309, 2)
+
+	(272, 2)
+
+	(1069, 2)
+
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 1309 entries, 0 to 1308
+	Data columns (total 10 columns):
+	pclass      1309 non-null int64
+	survived    1309 non-null int64
+	name        1309 non-null object
+	sex         1309 non-null object
+	age         1046 non-null float64
+	sibsp       1309 non-null int64
+	parch       1309 non-null int64
+	ticket      1309 non-null object
+	fare        1308 non-null float64
+	embarked    1307 non-null object
+	dtypes: float64(2), int64(4), object(4)
+	memory usage: 102.3+ KB
+	None	
+________________________________________________________
+IPYTHONSHELL:
+In [1]: titanic.shape
+	Out[1]: (1309, 14)
+
+In [2]: titanic.head()
+	Out[2]: 
+	   pclass  survived                                             name     sex    age  ...    cabin  embarked boat   body                        home.dest
+	0       1         1                    Allen, Miss. Elisabeth Walton  female  29.00  ...       B5         S    2    NaN                     St Louis, MO
+	1       1         1                   Allison, Master. Hudson Trevor    male   0.92  ...  C22 C26         S   11    NaN  Montreal, PQ / Chesterville, ON
+	2       1         0                     Allison, Miss. Helen Loraine  female   2.00  ...  C22 C26         S  NaN    NaN  Montreal, PQ / Chesterville, ON
+	3       1         0             Allison, Mr. Hudson Joshua Creighton    male  30.00  ...  C22 C26         S  NaN  135.0  Montreal, PQ / Chesterville, ON
+	4       1         0  Allison, Mrs. Hudson J C (Bessie Waldo Daniels)  female  25.00  ...  C22 C26         S  NaN    NaN  Montreal, PQ / Chesterville, ON
+	[5 rows x 14 columns]
+
+In [3]: titanic.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 1309 entries, 0 to 1308
+	Data columns (total 14 columns):
+	pclass       1309 non-null int64
+	survived     1309 non-null int64
+	name         1309 non-null object
+	sex          1309 non-null object
+	age          1046 non-null float64
+	sibsp        1309 non-null int64
+	parch        1309 non-null int64
+	ticket       1309 non-null object
+	fare         1308 non-null float64
+	cabin        295 non-null object
+	embarked     1307 non-null object
+	boat         486 non-null object
+	body         121 non-null float64
+	home.dest    745 non-null object
+	dtypes: float64(3), int64(4), object(7)
+	memory usage: 143.2+ KB
+________________________________________________________
+INSTRUCTION:
+1. Select the 'age' and 'cabin' columns of titanic and 
+   create a new DataFrame df.
+2. Print the shape of df. This has been done for you.
+3. Drop rows in df with how='any' and print the shape.
+4. Drop rows in df with how='all' and print the shape.
+5. Drop columns from the titanic DataFrame that have 
+   less than 1000 non-missing values by specifying the 
+   thresh and axis keyword arguments. Print the output 
+   of .info() from this.
+________________________________________________________
+GUIDE:
+Filtering using NaNs
+In certain scenarios, it may be necessary to remove rows 
+and columns with missing data from a DataFrame. The 
+.dropna() method is used to perform this action. You'll 
+now practice using this method on a dataset obtained 
+from Vanderbilt University, which consists of data from 
+passengers on the Titanic.
+
+The DataFrame has been pre-loaded for you as titanic. 
+Explore it in the IPython Shell and you will note that 
+there are many NaNs. You will focus specifically on the 
+'age' and 'cabin' columns in this exercise. Your job is 
+to use .dropna() to remove rows where any of these two 
+columns contains missing data and rows where all of 
+these two columns contain missing data.
+
+You'll also use the .shape attribute, which returns 
+the number of rows and columns in a tuple from a 
+DataFrame, or the number of rows from a Series, to see 
+the effect of dropping missing values from a DataFrame.
+
+Finally, you'll use the thresh= keyword argument to drop 
+columns from the full dataset that have less than 1000 
+non-missing values.
+________________________________________________________
+DATA SOURCE:
+
+http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.html
+________________________________________________________

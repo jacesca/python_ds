@@ -1,0 +1,84 @@
+# Unstack users by 'weekday': byweekday
+byweekday = users.unstack(level="weekday")
+
+# Print the byweekday DataFrame
+print(byweekday)
+print(byweekday.columns)
+
+# Stack byweekday by 'weekday' and print it
+print(byweekday.stack(level="weekday"))
+________________________________________________________
+OUT:
+	        visitors      signups    
+	weekday      Mon  Sun     Mon Sun
+	city                             
+	Austin       326  139       3   7
+	Dallas       456  237       5  12
+
+	MultiIndex(levels=[['visitors', 'signups'], ['Mon', 'Sun']],
+	           codes=[[0, 0, 1, 1], [0, 1, 0, 1]],
+	           names=[None, 'weekday'])
+
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	       Sun           139        7
+	Dallas Mon           456        5
+	       Sun           237       12
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: users.shape
+	Out[1]: (4, 2)
+
+In [2]: users
+	Out[2]: 
+	                visitors  signups
+	city   weekday                   
+	Austin Mon           326        3
+	       Sun           139        7
+	Dallas Mon           456        5
+	       Sun           237       12
+
+In [3]: users.info()
+	<class 'pandas.core.frame.DataFrame'>
+	MultiIndex: 4 entries, (Austin, Mon) to (Dallas, Sun)
+	Data columns (total 2 columns):
+	visitors    4 non-null int64
+	signups     4 non-null int64
+	dtypes: int64(2)
+	memory usage: 373.0+ bytes
+
+In [4]: users.index
+	Out[4]: 
+	MultiIndex(levels=[['Austin', 'Dallas'], ['Mon', 'Sun']],
+	           codes=[[0, 0, 1, 1], [0, 1, 0, 1]],
+	           names=['city', 'weekday'])
+________________________________________________________
+INSTRUCTION:
+
+1. Define a DataFrame byweekday with the 'weekday' level 
+   of users unstacked.
+2. Print the byweekday DataFrame to see the new data 
+   layout. This has been done for you.
+3. Stack byweekday by 'weekday' and print it to check if 
+   you get the same layout as the original users DataFrame.
+________________________________________________________
+GUIDE:
+
+Stacking & unstacking I
+You are now going to practice stacking and unstacking D
+ataFrames. The users DataFrame you have been working with 
+in this chapter has been pre-loaded for you, this time 
+with a MultiIndex. Explore it in the IPython Shell to see 
+the data layout. Pay attention to the index, and notice 
+that the index levels are ['city', 'weekday']. So 
+'weekday' - the second entry - has position 1. This position 
+is what corresponds to the level parameter in .stack() and 
+.unstack() calls. Alternatively, you can specify 'weekday' 
+as the level instead of its position.
+
+Your job in this exercise is to unstack users by 'weekday'. 
+You will then use .stack() on the unstacked DataFrame to 
+see if you get back the original layout of users.
+________________________________________________________

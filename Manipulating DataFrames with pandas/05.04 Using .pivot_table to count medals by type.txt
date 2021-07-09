@@ -1,0 +1,243 @@
+# Construct the pivot table: counted
+counted = medals.pivot_table(index="NOC", columns="Medal", values="Athlete", aggfunc="count")
+print(counted.head())
+
+# Create the new column: counted['totals']
+counted['totals'] = counted.sum(axis="columns")
+print(counted.head())
+
+# Sort counted by the 'totals' column
+counted = counted.sort_values("totals", ascending=False)
+
+# Print the top 15 rows of counted
+print(counted.head(15))
+________________________________________________________
+OUT:	
+	Medal  Bronze  Gold  Silver
+	NOC                        
+	AFG       1.0   NaN     NaN
+	AHO       NaN   NaN     1.0
+	ALG       8.0   4.0     2.0
+	ANZ       5.0  20.0     4.0
+	ARG      88.0  68.0    83.0
+
+
+	Medal  Bronze  Gold  Silver  totals
+	NOC                                
+	AFG       1.0   NaN     NaN     1.0
+	AHO       NaN   NaN     1.0     1.0
+	ALG       8.0   4.0     2.0    14.0
+	ANZ       5.0  20.0     4.0    29.0
+	ARG      88.0  68.0    83.0   239.0
+
+
+	Medal  Bronze    Gold  Silver  totals
+	NOC                                  
+	USA    1052.0  2088.0  1195.0  4335.0
+	URS     584.0   838.0   627.0  2049.0
+	GBR     505.0   498.0   591.0  1594.0
+	FRA     475.0   378.0   461.0  1314.0
+	ITA     374.0   460.0   394.0  1228.0
+	GER     454.0   407.0   350.0  1211.0
+	AUS     413.0   293.0   369.0  1075.0
+	HUN     345.0   400.0   308.0  1053.0
+	SWE     325.0   347.0   349.0  1021.0
+	GDR     225.0   329.0   271.0   825.0
+	NED     320.0   212.0   250.0   782.0
+	JPN     270.0   206.0   228.0   704.0
+	CHN     193.0   234.0   252.0   679.0
+	RUS     240.0   192.0   206.0   638.0
+	ROU     282.0   155.0   187.0   624.0
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: medals.shape
+	Out[1]: (29216, 10)
+
+In [2]: medals.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 29216 entries, 0 to 29215
+	Data columns (total 10 columns):
+	City            29216 non-null object
+	Edition         29216 non-null int64
+	Sport           29216 non-null object
+	Discipline      29216 non-null object
+	Athlete         29216 non-null object
+	NOC             29216 non-null object
+	Gender          29216 non-null object
+	Event           29216 non-null object
+	Event_gender    29216 non-null object
+	Medal           29216 non-null object
+	dtypes: int64(1), object(9)
+	memory usage: 2.2+ MB
+
+In [3]: medals.head()
+	Out[3]: 
+	     City  Edition     Sport Discipline             Athlete  NOC Gender                       Event Event_gender   Medal
+	0  Athens     1896  Aquatics   Swimming       HAJOS, Alfred  HUN    Men              100m freestyle            M    Gold
+	1  Athens     1896  Aquatics   Swimming    HERSCHMANN, Otto  AUT    Men              100m freestyle            M  Silver
+	2  Athens     1896  Aquatics   Swimming   DRIVAS, Dimitrios  GRE    Men  100m freestyle for sailors            M  Bronze
+	3  Athens     1896  Aquatics   Swimming  MALOKINIS, Ioannis  GRE    Men  100m freestyle for sailors            M    Gold
+	4  Athens     1896  Aquatics   Swimming  CHASAPIS, Spiridon  GRE    Men  100m freestyle for sailors            M  Silver
+
+In [4]: medals["NOC"].value_counts().head(15)
+	Out[4]: 
+	USA    4335
+	URS    2049
+	GBR    1594
+	FRA    1314
+	ITA    1228
+	GER    1211
+	AUS    1075
+	HUN    1053
+	SWE    1021
+	GDR     825
+	NED     782
+	JPN     704
+	CHN     679
+	RUS     638
+	ROU     624
+	Name: NOC, dtype: int64
+
+In [5]: medals.pivot_table(index="NOC",columns="Medal",
+                           values="Athlete",aggfunc="count")
+	Out[5]: 
+	Medal  Bronze    Gold  Silver
+	NOC                          
+	AFG       1.0     NaN     NaN
+	AHO       NaN     NaN     1.0
+	ALG       8.0     4.0     2.0
+	ANZ       5.0    20.0     4.0
+	..        ...     ...     ...
+	YUG     118.0   143.0   174.0
+	ZAM       1.0     NaN     1.0
+	ZIM       1.0    18.0     4.0
+	ZZX      10.0    23.0    15.0
+	[138 rows x 3 columns]
+
+In [6]: medals.pivot_table(index="NOC",columns="Medal",
+                           values="Athlete",aggfunc="count",
+                           margins=True,margins_name="Total")
+	Out[6]: 
+	Medal  Bronze    Gold  Silver  Total
+	NOC                                 
+	AFG       1.0     NaN     NaN      1
+	AHO       NaN     NaN     1.0      1
+	ALG       8.0     4.0     2.0     14
+	...       ...     ...     ...    ...
+	ZAM       1.0     NaN     1.0      2
+	ZIM       1.0    18.0     4.0     23
+	ZZX      10.0    23.0    15.0     48
+	Total  9689.0  9850.0  9677.0  29216
+	[139 rows x 4 columns]
+
+In [7]: medals.pivot_table(index="NOC",columns="Medal",
+                           values="Athlete",aggfunc="count",
+                           margins=True,margins_name="Total")
+              .nlargest(n=16,columns="Total")
+	Out[7]: 
+	Medal  Bronze    Gold  Silver  Total
+	NOC                                 
+	Total  9689.0  9850.0  9677.0  29216
+	USA    1052.0  2088.0  1195.0   4335
+	URS     584.0   838.0   627.0   2049
+	GBR     505.0   498.0   591.0   1594
+	FRA     475.0   378.0   461.0   1314
+	ITA     374.0   460.0   394.0   1228
+	GER     454.0   407.0   350.0   1211
+	AUS     413.0   293.0   369.0   1075
+	HUN     345.0   400.0   308.0   1053
+	SWE     325.0   347.0   349.0   1021
+	GDR     225.0   329.0   271.0    825
+	NED     320.0   212.0   250.0    782
+	JPN     270.0   206.0   228.0    704
+	CHN     193.0   234.0   252.0    679
+	RUS     240.0   192.0   206.0    638
+	ROU     282.0   155.0   187.0    624
+
+In [8]: medals.pivot_table(index="NOC",columns="Medal",
+                           values="Athlete",aggfunc="count",
+                           margins=True,margins_name="Total")
+               .nlargest(n=16,columns="Total")
+               .iloc[1:16,:]
+	Out[8]: 
+	Medal  Bronze    Gold  Silver  Total
+	NOC                                 
+	USA    1052.0  2088.0  1195.0   4335
+	URS     584.0   838.0   627.0   2049
+	GBR     505.0   498.0   591.0   1594
+	FRA     475.0   378.0   461.0   1314
+	ITA     374.0   460.0   394.0   1228
+	GER     454.0   407.0   350.0   1211
+	AUS     413.0   293.0   369.0   1075
+	HUN     345.0   400.0   308.0   1053
+	SWE     325.0   347.0   349.0   1021
+	GDR     225.0   329.0   271.0    825
+	NED     320.0   212.0   250.0    782
+	JPN     270.0   206.0   228.0    704
+	CHN     193.0   234.0   252.0    679
+	RUS     240.0   192.0   206.0    638
+	ROU     282.0   155.0   187.0    624
+
+In [9]: medals.pivot_table(index="NOC",columns="Medal",
+                           values="Athlete",aggfunc="count",
+                           margins=True,margins_name="Total")
+               .sort_values("Total",ascending=False)
+               .iloc[1:16,:]
+	Out[9]: 
+	Medal  Bronze    Gold  Silver  Total
+	NOC                                 
+	USA    1052.0  2088.0  1195.0   4335
+	URS     584.0   838.0   627.0   2049
+	GBR     505.0   498.0   591.0   1594
+	FRA     475.0   378.0   461.0   1314
+	ITA     374.0   460.0   394.0   1228
+	GER     454.0   407.0   350.0   1211
+	AUS     413.0   293.0   369.0   1075
+	HUN     345.0   400.0   308.0   1053
+	SWE     325.0   347.0   349.0   1021
+	GDR     225.0   329.0   271.0    825
+	NED     320.0   212.0   250.0    782
+	JPN     270.0   206.0   228.0    704
+	CHN     193.0   234.0   252.0    679
+	RUS     240.0   192.0   206.0    638
+	ROU     282.0   155.0   187.0    624
+________________________________________________________
+INSTRUCTION:
+
+1. Construct a pivot table counted from the DataFrame 
+   medals aggregating by count. Use 'NOC' as the index, 
+   'Athlete' for the values, and 'Medal' for the columns.
+2. Modify the DataFrame counted by adding a column 
+   counted['totals']. The new column 'totals' should 
+   contain the result of taking the sum along the columns 
+   (i.e., use .sum(axis='columns')).
+3. Overwrite the DataFrame counted by sorting it with the 
+   .sort_values() method. Specify the keyword argument 
+   ascending=False.
+4. Print the first 15 rows of counted using .head(15). 
+   This has been done for you, so hit 'Submit Answer' to 
+   see the result.
+________________________________________________________
+GUIDE:
+
+Using .pivot_table() to count medals by type
+
+Rather than ranking countries by total medals won and 
+showing that list, you may want to see a bit more detail. 
+You can use a pivot table to compute how many separate 
+bronze, silver and gold medals each country won. That 
+pivot table can then be used to repeat the previous 
+computation to rank by total medals won.
+
+In this exercise, you will use .pivot_table() first to 
+aggregate the total medals by type. Then, you can use 
+.sum() along the columns of the pivot table to produce 
+a new column. When the modified pivot table is sorted 
+by the total medals column, you can display the results 
+from the last exercise with a bit more detail.
+________________________________________________________
+DATA SOURCE:
+
+https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data
+________________________________________________________

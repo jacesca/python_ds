@@ -1,0 +1,103 @@
+# Assign the row position of election.loc['Bedford']: x
+x = list(election.index).index("Bedford")
+
+
+# Assign the column position of election['winner']: y
+y = list(election.columns).index("winner")
+
+# Print the boolean equivalence
+print(election.iloc[x, y] == election.loc['Bedford', 'winner'])
+________________________________________________________
+OUT:
+	True
+________________________________________________________
+IPYTHONSHELL:
+In [1]: election.head()
+	Out[1]: 
+	          state   total      Obama     Romney  winner  voters
+	county                                                       
+	Adams        PA   41973  35.482334  63.112001  Romney   61156
+	Allegheny    PA  614671  56.640219  42.185820   Obama  924351
+	Armstrong    PA   28322  30.696985  67.901278  Romney   42147
+	Beaver       PA   80015  46.032619  52.637630  Romney  115157
+	Bedford      PA   21444  22.057452  76.986570  Romney   32189
+
+In [2]: election.info()
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 67 entries, Adams to York
+	Data columns (total 6 columns):
+	state     67 non-null object
+	total     67 non-null int64
+	Obama     67 non-null float64
+	Romney    67 non-null float64
+	winner    67 non-null object
+	voters    67 non-null int64
+	dtypes: float64(2), int64(2), object(2)
+	memory usage: 6.2+ KB
+
+In [3]: election.columns
+	Out[5]: Index(['state', 'total', 'Obama', 'Romney', 
+                       'winner', 'voters'], 
+                    dtype='object')
+
+In [4]: election.index
+	Out[6]: Index(['Adams', 'Allegheny', 'Armstrong', 'Beaver', 'Bedford', 'Berks', 
+                       'Blair', 'Bradford', 'Bucks', 'Butler', 'Cambria', 'Cameron', 
+                       'Carbon', 'Centre', 'Chester', 'Clarion', 'Clearfield', 'Clinton', 
+                       'Columbia', 'Crawford', 'Cumberland', 'Dauphin', 'Delaware', 'Elk', 
+                       'Erie', 'Fayette', 'Forest', 'Franklin', 'Fulton', 'Greene', 
+                       'Huntingdon', 'Indiana', 'Jefferson', 'Juniata', 'Lackawanna', 'Lancaster', 
+                       'Lawrence', 'Lebanon', 'Lehigh', 'Luzerne', 'Lycoming', 'McKean', 
+                       'Mercer', 'Mifflin', 'Monroe', 'Montgomery', 'Montour', 'Northampton', 
+                       'Northumberland', 'Perry', 'Philadelphia', 'Pike', 'Potter', 
+                       'Schuylkill', 'Snyder', 'Somerset', 'Sullivan', 'Susquehanna', 'Tioga', 
+                       'Union', 'Venango', 'Warren', 'Washington', 'Wayne', 'Westmoreland', 
+                       'Wyoming', 'York'],
+      dtype='object', name='county')
+
+In [5]: type(list(election.columns))
+
+	Out[5]: list
+
+In [6]: list(election.columns).index("winner")
+	
+Out[6]: 4
+
+In [7]: list(election.index).index("Bedford")
+
+	Out[7]: 4
+________________________________________________________
+INSTRUCTION:
+1. Explore the DataFrame in the IPython Shell using 
+   election.head().
+2. Assign the row position of election.loc['Bedford'] 
+   to x.
+3. Assign the column position of election['winner'] 
+   to y.
+4. Hit 'Submit Answer' to print the boolean equivalence 
+   of the .loc and .iloc selections.
+________________________________________________________
+GUIDE:
+Positional and labeled indexing
+Given a pair of label-based indices, sometimes it's 
+necessary to find the corresponding positions. In this 
+exercise, you will use the Pennsylvania election results 
+again. The DataFrame is provided for you as election.
+
+Find x and y such that 
+election.iloc[x, y] == election.loc['Bedford', 'winner']. 
+That is, what is the row position of 'Bedford', and the 
+column position of 'winner'? Remember that the first 
+position in Python is 0, not 1!
+
+To answer this question, first explore the DataFrame 
+using election.head() in the IPython Shell and inspect 
+it with your eyes.
+
+This course introduces a lot of new concepts, so if 
+you ever need a quick refresher, download the 
+Pandas Cheat Sheet and keep it handy!
+________________________________________________________
+LINK:
+https://datacamp-community-prod.s3.amazonaws.com/9f0f2ae1-8bd8-4302-a67b-e17f3059d9e8
+________________________________________________________

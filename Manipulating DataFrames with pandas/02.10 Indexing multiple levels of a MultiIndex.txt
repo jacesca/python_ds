@@ -1,0 +1,113 @@
+# Look up data for NY in month 1: NY_month1
+NY_month1 = sales.loc[("NY",1)]
+print("NY_month1:")
+print(NY_month1)
+
+# Look up data for CA and TX in month 2: CA_TX_month2
+CA_TX_month2 = sales.loc[(["CA","TX"],2),:]
+print("\nCA_TX_month2:")
+print(CA_TX_month2)
+
+# Look up data for all states in month 2: all_month2
+all_month2 = sales.loc[(slice(None),2),:]
+print("\nall_month2:")
+print(all_month2)
+
+# Look up data for all states in month 1: all_month1
+# Using pd.IndexSlice
+idx = pd.IndexSlice
+all_month1 = sales.loc[idx[:,1],:]
+print("\nall_month1:")
+print(all_month1)
+________________________________________________________
+OUT:
+	NY_month1:
+	eggs    221.0
+	salt     89.0
+	spam     72.0
+	Name: (NY, 1), dtype: float64
+	
+	CA_TX_month2:
+	             eggs  salt  spam
+	state month                  
+	CA    2       110  50.0    31
+	TX    2       205  60.0    55
+	
+	all_month2:
+	             eggs  salt  spam
+	state month                  
+	CA    2       110  50.0    31
+	NY    2        77  87.0    20
+	TX    2       205  60.0    55
+	
+	all_month1:
+	             eggs  salt  spam
+	state month                  
+	CA    1        47  12.0    17
+	NY    1       221  89.0    72
+	TX    1       132   NaN    52
+________________________________________________________
+IPYTHONSHELL:
+
+In [1]: sales.shape
+	Out[1]: (6, 3)
+
+In [2]: sales
+	Out[2]: 
+	             eggs  salt  spam
+	state month                  
+	CA    1        47  12.0    17
+	      2       110  50.0    31
+	NY    1       221  89.0    72
+	      2        77  87.0    20
+	TX    1       132   NaN    52
+	      2       205  60.0    55
+
+In [3]: sales.info()
+	<class 'pandas.core.frame.DataFrame'>
+	MultiIndex: 6 entries, (CA, 1) to (TX, 2)
+	Data columns (total 3 columns):
+	eggs    6 non-null int64
+	salt    5 non-null float64
+	spam    6 non-null int64
+	dtypes: float64(1), int64(2)
+	memory usage: 464.0+ bytes
+
+In [4]: sales.index
+	Out[4]: 
+	MultiIndex(levels=[['CA', 'NY', 'TX'], [1, 2]],
+	           codes=[[0, 0, 1, 1, 2, 2], [0, 1, 0, 1, 0, 1]],
+	           names=['state', 'month'])
+________________________________________________________
+INSTRUCTION:
+1. Look up data for the New York column ('NY') in month 1.
+2. Look up data for the California and Texas columns 
+   ('CA', 'TX') in month 2.
+3. Look up data for all states in month 2. Use 
+   (slice(None), 2) to extract all rows in month 2.
+________________________________________________________
+GUIDE:
+Indexing multiple levels of a MultiIndex
+Looking up indexed data is fast and efficient. And you 
+have already seen that lookups based on the outermost 
+level of a MultiIndex work just like lookups on DataFrames 
+that have a single-level Index.
+
+Looking up data based on inner levels of a MultiIndex can 
+be a bit trickier. In this exercise, you will use your 
+sales DataFrame to do some increasingly complex lookups.
+
+The trickiest of all these lookups are when you want to 
+access some inner levels of the index. In this case, you 
+need to use slice(None) in the slicing parameter for the 
+outermost dimension(s) instead of the usual :, or use 
+pd.IndexSlice. You can refer to the pandas documentation 
+for more details. For example, in the video, Dhavide used 
+the following code to extract rows from all Symbols for 
+the dates Oct. 3rd through 4th inclusive:
+
+stocks.loc[(slice(None), slice('2016-10-03', '2016-10-04')), :]
+
+Pay particular attention to the tuple (slice(None), 
+slice('2016-10-03', '2016-10-04')).
+________________________________________________________
