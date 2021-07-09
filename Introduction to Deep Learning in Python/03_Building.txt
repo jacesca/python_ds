@@ -1,0 +1,102 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 24 22:12:08 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Building deep learning models with keras
+Introduction:
+    In this chapter, you'll use the Keras library to build deep learning models for both regression and classification. 
+    You'll learn about the Specify-Compile-Fit workflow that you can use to make predictions, and by the end of the 
+    chapter, you'll have all the tools necessary to build deep neural networks.
+"""
+import pandas as pd                                                                 #For loading tabular data
+
+
+
+
+
+from sklearn.metrics import roc_auc_score                                           #For learning machine
+from sklearn.model_selection import train_test_split                                #For learning machine
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.models import Sequential                                                 #For DeapLearning
+from keras.models import load_model                                                 #For DeapLearning
+from keras.utils import to_categorical                                              #For DeapLearning
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'hourly_wages.csv'
+wages_df = pd.read_csv(file)
+wages_predictors = wages_df.drop(['wage_per_hour'], axis=1)
+wages_target = wages_df.wage_per_hour.values
+
+file = 'titanic_all_numeric.csv'
+titanic_df = pd.read_csv(file)
+titanic_predictors = titanic_df.drop(['survived'], axis=1).values
+#titanic_target = titanic_df.survived.values
+
+SEED = 42
+
+print("****************************************************")
+tema = "3. Specifying a model"; print("** %s\n" % tema)
+
+n_cols = wages_predictors.shape[1] # Save the number of columns in predictors: n_cols
+
+wages_model = Sequential() # Set up the model: model
+wages_model.add(Dense(50, activation='relu', input_shape=(n_cols,))) # Add the first layer
+wages_model.add(Dense(32, activation='relu')) # Add the second layer
+wages_model.add(Dense(1)) # Add the output layer
+
+print("****************************************************")
+tema = "5. Compiling the model"; print("** %s\n" % tema)
+
+wages_model.compile(optimizer='adam', loss='mean_squared_error') # Compile the model
+print("Loss function: " + wages_model.loss) # Verify that model contains information from compiling
+
+print("****************************************************")
+tema = "6. Fitting the model"; print("** %s\n" % tema)
+
+wages_model.fit(wages_predictors, wages_target, epochs=10) # Fit the model
+
+print("****************************************************")
+tema = "9. Last steps in classification models"; print("** %s\n" % tema)
+
+titanic_target = to_categorical(titanic_df.survived) # Convert the target to categorical: target
+n_cols = titanic_predictors.shape[1] # Save the number of columns in predictors: n_cols
+titanic_X_train, titanic_X_test, titanic_y_train, titanic_y_test = train_test_split(titanic_predictors, titanic_target, test_size=0.1, random_state=SEED)
+
+titanic_model = Sequential() # Set up the model
+titanic_model.add(Dense(32, activation='relu', input_shape=(n_cols,))) # Add the first layer
+titanic_model.add(Dense(2, activation='softmax')) # Add the output layer
+titanic_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+titanic_model.fit(titanic_X_train, titanic_y_train, epochs=10) # Fit the model
+
+print("****************************************************")
+tema = "10. Using models"; print("** %s\n" % tema)
+
+file_out = 'titanic_model.h5' #Save the model
+titanic_model.save(file_out)
+
+titanic_model = load_model(file_out) #Get bacj the model
+print(titanic_model.summary())
+
+print("****************************************************")
+tema = "11. Making predictions"; print("** %s\n" % tema)
+
+predictions = titanic_model.predict(titanic_X_test) # Calculate predictions: predictions
+predicted_prob_true = predictions[:,1] # Calculate predicted probability of survival: predicted_prob_true
+print("Predicted values:\n", predicted_prob_true) # print predicted_prob_true
+print("Actual values:\n", titanic_y_test[:,1]) # print predicted_prob_true
+
+test_roc_auc = roc_auc_score(titanic_y_test[:,1], predicted_prob_true) # Compute test_roc_auc
+print('Test set ROC AUC score: {:.6f}'.format(test_roc_auc)) # Print test_roc_auc
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

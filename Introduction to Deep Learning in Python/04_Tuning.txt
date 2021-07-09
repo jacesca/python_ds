@@ -1,0 +1,171 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 25 13:32:04 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Fine-tuning keras models
+Introduction:
+    In this chapter, you'll use the Keras library to build deep learning models for both regression and classification. 
+    You'll learn about the Specify-Compile-Fit workflow that you can use to make predictions, and by the end of the 
+    chapter, you'll have all the tools necessary to build deep neural networks.
+"""
+import pandas as pd                                                                 #For loading tabular data
+import numpy as np                                                                  #For making operations in lists
+import matplotlib.pyplot as plt                                                     #For creating charts
+import seaborn as sns                                                               #For visualizing data
+
+from keras.callbacks import EarlyStopping                                           #For DeapLearning
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.models import Sequential                                                 #For DeapLearning
+from keras.optimizers import SGD                                                    #For DeapLearning
+from keras.utils import to_categorical                                              #For DeapLearning
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+SEED = 42
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = 'titanic_all_numeric.csv'
+titanic_df = pd.read_csv(file)
+titanic_predictors = titanic_df.drop(['survived'], axis=1).values
+#titanic_target = titanic_df.survived.values
+titanic_target = to_categorical(titanic_df.survived) # Convert the target to categorical: target
+n_cols = titanic_predictors.shape[1] # Save the number of columns in predictors: n_cols
+input_shape = (n_cols,)
+
+file = 'mnist.csv'
+mnist_df = pd.read_csv(file, header=None)
+mnist_predictors = mnist_df.drop([0], axis=1).values
+mnist_target = to_categorical(mnist_df[0]) # Convert the target to categorical: target
+mnist_n_cols = mnist_predictors.shape[1] # Save the number of columns in predictors: n_cols
+mnist_input_shape = (mnist_n_cols,)
+
+
+print("****************************************************")
+tema = "3. Changing optimization parameters"; print("** %s" % tema)
+
+lr_to_test = [0.000001, 0.01, 1] # Create list of learning rates: lr_to_test
+for lr in lr_to_test: # Loop over learning rates
+    print('\n\nTesting model with learning rate: %f\n'%lr )
+    
+    #model = get_new_model() # Build new model to test, unaffected by previous models
+    titanic_model = Sequential() # Set up the model
+    titanic_model.add(Dense(100, activation='relu', input_shape=input_shape)) # Add the first layer
+    titanic_model.add(Dense(100, activation='relu')) # Add the first layer
+    titanic_model.add(Dense(2, activation='softmax')) # Add the output layer
+    
+    my_optimizer = SGD(lr=lr) # Create SGD optimizer with specified learning rate: my_optimizer
+    
+    titanic_model.compile(optimizer=my_optimizer, loss='categorical_crossentropy') # Compile the model
+    titanic_model.fit(titanic_predictors, titanic_target, epochs=10) # Fit the model
+    
+print("****************************************************")
+tema = "5. Evaluating model accuracy on validation dataset"; print("** %s\n" % tema)
+
+titanic_model = Sequential() # Specify the model
+titanic_model.add(Dense(100, activation='relu', input_shape = input_shape))
+titanic_model.add(Dense(100, activation='relu'))
+titanic_model.add(Dense(2, activation='softmax'))
+
+titanic_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+hist = titanic_model.fit(titanic_predictors, titanic_target, epochs=10, validation_split=0.3) # Fit the model
+
+print("****************************************************")
+tema = "6. Early stopping: Optimizing the optimization"; print("** %s\n" % tema)
+
+early_stopping_monitor = EarlyStopping(patience=2) # Define early_stopping_monitor
+
+model = Sequential() # Specify the model
+model.add(Dense(100, activation='relu', input_shape = input_shape))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(2, activation='softmax'))
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+model.fit(titanic_predictors, titanic_target, validation_split=0.3, epochs=30, callbacks=[early_stopping_monitor]) # Fit the model
+
+print("****************************************************")
+tema = "7. Experimenting with wider networks"; print("** %s\n" % tema)
+
+np.random.seed(SEED)
+
+early_stopping_monitor = EarlyStopping(patience=2) # Define early_stopping_monitor
+
+model_1 = Sequential() # Create the new model: model_2
+model_1.add(Dense(10, activation='relu', input_shape=input_shape)) # Add the first and second layers
+model_1.add(Dense(10, activation='relu'))
+model_1.add(Dense(2, activation='softmax')) # Add the output layer
+model_1.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile model_2
+
+model_2 = Sequential() # Create the new model: model_2
+model_2.add(Dense(100, activation='relu', input_shape=input_shape)) # Add the first and second layers
+model_2.add(Dense(100, activation='relu'))
+model_2.add(Dense(2, activation='softmax')) # Add the output layer
+model_2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile model_2
+
+model_1_training = model_1.fit(titanic_predictors, titanic_target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False) # Fit model_1
+model_2_training = model_2.fit(titanic_predictors, titanic_target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False) # Fit model_2
+
+sns.set() # Set default Seaborn style
+#plt.figure()
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b') # Create the plot
+plt.xlabel('Epochs')
+plt.ylabel('Validation score')
+plt.title('Features Importances')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.35, bottom=None, right=None, top=0.88, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+tema = "8. Adding layers to a network"; print("** %s\n" % tema)
+
+input_shape = (n_cols,) # The input shape to use in the first hidden layer
+
+model_1 = Sequential() # Create the new model: model_2
+model_1.add(Dense(50, activation='relu', input_shape=input_shape)) # Add the first, second, and third hidden layers
+model_1.add(Dense(2, activation='softmax')) # Add the output layer
+
+model_2 = Sequential() # Create the new model: model_2
+model_2.add(Dense(50, activation='relu', input_shape=input_shape)) # Add the first, second, and third hidden layers
+model_2.add(Dense(50, activation='relu'))
+model_2.add(Dense(50, activation='relu'))
+model_2.add(Dense(2, activation='softmax')) # Add the output layer
+
+model_1.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile model_1
+model_2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile model_2
+
+model_1_training = model_1.fit(titanic_predictors, titanic_target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False) # Fit model 1
+model_2_training = model_2.fit(titanic_predictors, titanic_target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False) # Fit model 2
+
+sns.set() # Set default Seaborn style
+plt.figure()
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b') # Create the plot
+plt.xlabel('Epochs')
+plt.ylabel('Validation score')
+plt.title('Features Importances')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.35, bottom=None, right=None, top=0.88, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+tema = "12. Building your own digit recognition model"; print("** %s\n" % tema)
+
+mnist_model = Sequential() # Create the model: model
+mnist_model.add(Dense(50, activation='relu', input_shape=mnist_input_shape)) # Add the first hidden layer
+mnist_model.add(Dense(50, activation='relu')) # Add the second hidden layer
+mnist_model.add(Dense(10, activation='softmax')) # Add the output layer
+mnist_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+mnist_model.fit(mnist_predictors, mnist_target, validation_split=0.3, epochs=10) # Fit the model
+print("Loss function: ", mnist_model.loss) # Verify that model contains information from compiling
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,134 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 24 08:43:01 2019
+
+@author: jacqueline.cortez
+
+Chapter 1. Basics of deep learning and neural networks
+Introduction:
+    In this chapter, you'll become familiar with the fundamental concepts and terminology used in deep learning, 
+    and understand why deep learning techniques are so powerful today. You'll build simple neural networks and 
+    generate predictions with them.
+"""
+import numpy as np                                                                  #For making operations in lists
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined functions \n")
+
+def relu(input):
+    '''Define your relu activation function here'''
+    output = max(0, input) # Calculate the value for the output of the relu function: output
+    return(output) # Return the value just calculated
+
+
+def onelayer_predict_with_network(input_data_row, weights): # Define predict_with_network()
+    """Function to make prediction with one hidden layer"""
+    node_0_input = (input_data_row * weights['node_0']).sum() # Calculate node 0 value
+    node_0_output = relu(node_0_input)
+    
+    node_1_input = (input_data_row * weights['node_1']).sum() # Calculate node 1 value
+    node_1_output = relu(node_1_input)
+    
+    hidden_layer_outputs = np.array([node_0_output, node_1_output]) # Put node values into array: hidden_layer_outputs
+    
+    input_to_final_layer = (hidden_layer_outputs * weights['output']).sum() # Calculate model output
+    model_output = relu(input_to_final_layer)
+    return(model_output)# Return model output
+    
+
+def twolayer_predict_with_network(input_data, weights):
+    """Function to make prediction with two hidden layer"""
+    node_0_0_input = (input_data * weights['node_0_0']).sum() # Calculate node 0 in the first hidden layer
+    node_0_0_output = relu(node_0_0_input)
+    node_0_1_input = (input_data * weights['node_0_1']).sum() # Calculate node 1 in the first hidden layer
+    node_0_1_output = relu(node_0_1_input)
+    hidden_0_outputs = np.array([node_0_0_output, node_0_1_output]) # Put node values into array: hidden_0_outputs
+    
+    node_1_0_input = (hidden_0_outputs * weights['node_1_0']).sum() # Calculate node 0 in the second hidden layer
+    node_1_0_output = relu(node_1_0_input)
+    node_1_1_input = (hidden_0_outputs * weights['node_1_1']).sum() # Calculate node 1 in the second hidden layer
+    node_1_1_output = relu(node_1_1_input)
+    hidden_1_outputs = np.array([node_1_0_output, node_1_1_output]) # Put node values into array: hidden_1_outputs    
+    
+    model_output = (hidden_1_outputs * weights['output']).sum() # Calculate model output: model_output
+    
+    return(model_output) # Return model_output
+
+
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+print("****************************************************")
+tema = "4. Coding the forward propagation algorithm"; print("** %s\n" % tema)
+
+weights = {'node_0': np.array([2, 4]), 'node_1': np.array([ 4, -5]), 
+           'output': np.array([2, 7])}
+input_data = np.array([3, 5])
+
+node_0_value = (input_data * weights['node_0']).sum() # Calculate node 0 value: node_0_value
+node_1_value = (input_data * weights['node_1']).sum() # Calculate node 1 value: node_1_value
+
+hidden_layer_outputs = np.array([node_0_value, node_1_value]) # Put node values into array: hidden_layer_outputs
+
+output = (hidden_layer_outputs * weights['output']).sum() # Calculate output: output
+
+print('inout data: ', input_data)
+print('weights: \n', weights)
+print('hidden layers: ', hidden_layer_outputs)
+print(output) # Print output
+
+print("****************************************************")
+tema = "5. The Rectified Linear Activation Function"; print("** %s\n" % tema)
+
+weights = {'node_0': np.array([2, 4]), 'node_1': np.array([ 4, -5]), 
+           'output': np.array([2, 7])}
+input_data = np.array([3, 5])
+
+node_0_input = (input_data * weights['node_0']).sum() # Calculate node 0 value: node_0_output
+node_0_output = relu(node_0_input)
+
+node_1_input = (input_data * weights['node_1']).sum() # Calculate node 1 value: node_1_output
+node_1_output = relu(node_1_input)
+
+hidden_layer_outputs = np.array([node_0_output, node_1_output]) # Put node values into array: hidden_layer_outputs
+model_output = (hidden_layer_outputs * weights['output']).sum() # Calculate model output (do not apply relu)
+
+print('inout data: ', input_data)
+print('weights: \n', weights)
+print('Node inputs: [{}, {}]'.format(node_0_input, node_1_input))
+print('hidden layers output: ', hidden_layer_outputs)
+print(model_output) # Print model output
+
+print("****************************************************")
+tema = "7. Applying the network to many observations/rows of data"; print("** %s\n" % tema)
+
+weights = {'node_0': np.array([2, 4]), 'node_1': np.array([ 4, -5]), 
+           'output': np.array([2, 7])}
+input_data = [np.array([3, 5]), np.array([ 1, -1]), np.array([0, 0]), np.array([8, 4])]
+print('inout data: ', input_data)
+print('weights: \n', weights)
+
+results = [] # Create empty list to store prediction results
+for input_data_row in input_data:
+    results.append(onelayer_predict_with_network(input_data_row, weights)) # Append prediction to results
+    print('inout data: ', input_data_row)
+print(results) # Print results
+
+print("****************************************************")
+tema = "10.Multi-layer neural networks"; print("** %s\n" % tema)
+
+weights = {'node_0_0': np.array([2, 4]), 'node_0_1': np.array([ 4, -5]),
+           'node_1_0': np.array([-1,  2]), 'node_1_1': np.array([1, 2]), 
+           'output': np.array([2, 7])}
+input_data = np.array([3, 5])
+print('inout data: ', input_data)
+print('weights: \n', weights)
+
+output = twolayer_predict_with_network(input_data, weights)
+print(output)
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
