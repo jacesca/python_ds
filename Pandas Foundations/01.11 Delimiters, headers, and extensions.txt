@@ -1,0 +1,137 @@
+# Read the raw file as-is: df1
+df1 = pd.read_csv(file_messy)
+
+# Print the output of df1.head()
+#print(df1.head())
+print("******************* HEAD DF1 *******************")
+print(df1.head(10))
+print("******************* INFO DF1 *******************")
+print(df1.info())
+print("***************** COLUMNS DF1 ******************")
+print(df1.columns)
+print("************************************************")
+
+# Read in the file with the correct parameters: df2
+df2 = pd.read_csv(file_messy, delimiter=" ", header=3, comment="#")
+
+# Print the output of df2.head()
+#print(df2.head())
+print("\n******************* HEAD DF2 *******************")
+print(df2.head(10))
+print("******************* INFO DF2 *******************")
+print(df2.info())
+print("***************** COLUMNS DF2 ******************")
+print(df2.columns)
+print("************************************************")
+
+# Save the cleaned up DataFrame to a CSV file without the index
+df2.to_csv(file_clean, index=False)
+
+# Save the cleaned up DataFrame to an excel file without the index
+df2.to_excel('file_clean.xlsx', index=False)
+________________________________________________________
+OUT:
+	******************* HEAD DF1 *******************
+	                                                   The following stock data was collect on 2016-AUG-25 from an unknown source
+	These kind of comments are not very useful                                                  are they?                        
+	Probably should just throw this line away too          but not the next since those are column labels                        
+	name Jan Feb Mar Apr May Jun Jul Aug Sep Oct No...                                                NaN                        
+	# So that line you just read has all the column...                                                NaN                        
+	IBM 156.08 160.01 159.81 165.22 172.25 167.15 1...                                                NaN                        
+	MSFT 45.51 43.08 42.13 43.47 47.53 45.96 45.61 ...                                                NaN                        
+	# That MSFT is MicroSoft                                                                          NaN                        
+	GOOGLE 512.42 537.99 559.72 540.50 535.24 532.9...                                                NaN                        
+	APPLE 110.64 125.43 125.97 127.29 128.76 127.81...                                                NaN                        
+	# Maybe we should have bought some Apple stock ...                                                NaN                        
+	******************* INFO DF1 *******************
+	<class 'pandas.core.frame.DataFrame'>
+	Index: 10 entries, These kind of comments are not very useful to # Maybe we should have bought some Apple stock in 2008?
+	Data columns (total 1 columns):
+	The following stock data was collect on 2016-AUG-25 from an unknown source    2 non-null object
+	dtypes: object(1)
+	memory usage: 160.0+ bytes
+	None
+	***************** COLUMNS DF1 ******************
+	Index(['The following stock data was collect on 2016-AUG-25 from an unknown source'], dtype='object')
+	************************************************
+
+	******************* HEAD DF2 *******************
+	     name     Jan     Feb     Mar     Apr  ...     Aug     Sep     Oct     Nov     Dec
+	0     IBM  156.08  160.01  159.81  165.22  ...  152.77  145.36  146.11  137.21  137.96
+	1    MSFT   45.51   43.08   42.13   43.47  ...   45.51   43.56   48.70   53.88   55.40
+	2  GOOGLE  512.42  537.99  559.72  540.50  ...  636.84  617.93  663.59  735.39  755.35
+	3   APPLE  110.64  125.43  125.97  127.29  ...  113.39  112.80  113.36  118.16  111.73
+
+	[4 rows x 13 columns]
+	******************* INFO DF2 *******************
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 4 entries, 0 to 3
+	Data columns (total 13 columns):
+	name    4 non-null object
+	Jan     4 non-null float64
+	Feb     4 non-null float64
+	Mar     4 non-null float64
+	Apr     4 non-null float64
+	May     4 non-null float64
+	Jun     4 non-null float64
+	Jul     4 non-null float64
+	Aug     4 non-null float64
+	Sep     4 non-null float64
+	Oct     4 non-null float64
+	Nov     4 non-null float64
+	Dec     4 non-null float64
+	dtypes: float64(12), object(1)
+	memory usage: 496.0+ bytes
+	None
+	***************** COLUMNS DF2 ******************
+	Index(['name', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], dtype='object')
+	************************************************
+________________________________________________________
+IPYTHONSHELL:
+________________________________________________________
+INSTRUCTION:
+1. Use pd.read_csv() without using any keyword arguments 
+   to read file_messy into a pandas DataFrame df1.
+2. Use .head() to print the first 5 rows of df1 and see 
+   how messy it is. Do this in the IPython Shell first 
+   so you can see how modifying read_csv() can clean up 
+   this mess.
+3. Using the keyword arguments delimiter=' ', header=3 
+   and comment='#', use pd.read_csv() again to read 
+   file_messy into a new DataFrame df2.
+4. Print the output of df2.head() to verify the file was 
+   read correctly.
+5. Use the DataFrame method .to_csv() to save the 
+   DataFrame df2 to the variable file_clean. Be sure 
+   to specify index=False.
+6. Use the DataFrame method .to_excel() to save the 
+   DataFrame df2 to the file 'file_clean.xlsx'. Again, 
+   remember to specify index=False.
+________________________________________________________
+GUIDE:
+Delimiters, headers, and extensions
+Not all data files are clean and tidy. Pandas provides 
+methods for reading those not-so-perfect data files that 
+you encounter far too often.
+
+In this exercise, you have monthly stock data for four 
+companies downloaded from Yahoo Finance. The data is 
+stored as one row for each company and each column is 
+the end-of-month closing price. The file name is given 
+to you in the variable file_messy.
+
+In addition, this file has three aspects that may cause 
+trouble for lesser tools: multiple header lines, comment 
+records (rows) interleaved throughout the data rows, and 
+space delimiters instead of commas.
+
+Your job is to use pandas to read the data from this 
+problematic file_messy using non-default input options 
+with read_csv() so as to tidy up the mess at read time. 
+Then, write the cleaned up data to a CSV file with the 
+variable file_clean that has been prepared for you, as 
+you might do in a real data workflow.
+
+You can learn about the option input parameters needed 
+by using help() on the pandas function pd.read_csv().
+________________________________________________________

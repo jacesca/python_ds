@@ -1,0 +1,15 @@
+You can use the isna() method (or it's alias isnull() which is also compatible with older pandas versions < 0.21.0) and then sum to count the NaN values. For one column:
+
+In [1]: s = pd.Series([1,2,3, np.nan, np.nan])
+
+In [4]: s.isna().sum()   # or s.isnull().sum() for older pandas versions
+Out[4]: 2
+For several columns, it also works:
+
+In [5]: df = pd.DataFrame({'a':[1,2,np.nan], 'b':[np.nan,1,np.nan]})
+
+In [6]: df.isna().sum()
+Out[6]:
+a    1
+b    2
+dtype: int64

@@ -1,0 +1,169 @@
+# Compute the global mean and global standard deviation: global_mean, global_std
+global_mean = df.mean()
+global_std = df.std()
+
+# Filter the US population from the origin column: us
+us = df[df.origin=="US"]
+
+# Compute the US mean and US standard deviation: us_mean, us_std
+us_mean = us.mean()
+us_std = us.std()
+
+# Print the differences
+print("Mean differences between us_mean and global_mean:")
+print(us_mean - global_mean)
+
+print("\nStd differences between us_mean and global_mean:")
+print(us_std - global_std)
+
+data=pd.DataFrame({"global_mean":global_mean,"global_std":global_std,"us_mean":us_mean,"us_std":us_std,"Diff. in Mean (us-global)":us_mean - global_mean,"Diff. in std (us-global)":us_std - global_std})
+print("\nThe data evaluated in this excersice:\n",data)
+________________________________________________________
+OUT:
+Mean differences between us_mean and global_mean:
+mpg        -3.412449
+cyl         0.805612
+displ      53.100255
+hp         14.579592
+weight    394.905612
+accel      -0.551122
+yr         -0.387755
+dtype: float64
+
+Std differences between us_mean and global_mean:
+mpg       -1.364623
+cyl       -0.049788
+displ     -6.267657
+hp         1.406630
+weight   -54.055870
+accel     -0.022844
+yr        -0.023369
+dtype: float64
+
+The data evaluated in this excersice:
+         global_mean  global_std      us_mean      us_std  Diff. in Mean (us-global)  Diff. in std (us-global)
+mpg       23.445918    7.805007    20.033469    6.440384                  -3.412449                 -1.364623
+cyl        5.471939    1.705783     6.277551    1.655996                   0.805612                 -0.049788
+displ    194.411990  104.644004   247.512245   98.376347                  53.100255                 -6.267657
+hp       104.469388   38.491160   119.048980   39.897790                  14.579592                  1.406630
+weight  2977.584184  849.402560  3372.489796  795.346690                 394.905612                -54.055870
+accel     15.541327    2.758864    14.990204    2.736020                  -0.551122                 -0.022844
+yr        75.979592    3.683737    75.591837    3.660368                  -0.387755                 -0.023369
+________________________________________________________
+IPYTHONSHELL:
+In [1]: type(df)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: df.shape
+	Out[2]: (392, 9)
+
+In [3]: df.head()
+	Out[3]: 
+	    mpg  cyl  displ   hp  weight  accel  yr origin                       name
+	0  18.0    8  307.0  130    3504   12.0  70     US  chevrolet chevelle malibu
+	1  15.0    8  350.0  165    3693   11.5  70     US          buick skylark 320
+	2  18.0    8  318.0  150    3436   11.0  70     US         plymouth satellite
+	3  16.0    8  304.0  150    3433   12.0  70     US              amc rebel sst
+	4  17.0    8  302.0  140    3449   10.5  70     US                ford torino
+
+In [4]: df.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 392 entries, 0 to 391
+	Data columns (total 9 columns):
+	mpg       392 non-null float64
+	cyl       392 non-null int64
+	displ     392 non-null float64
+	hp        392 non-null int64
+	weight    392 non-null int64
+	accel     392 non-null float64
+	yr        392 non-null int64
+	origin    392 non-null object
+	name      392 non-null object
+	dtypes: float64(3), int64(4), object(2)
+	memory usage: 27.6+ KB
+
+In [5]: df.origin.describe()
+	Out[5]: 
+	count     392
+	unique      3
+	top        US
+	freq      245
+	Name: origin, dtype: object
+
+In [6]: df.origin.unique()
+	Out[6]: array(['US', 'Asia', 'Europe'], dtype=object)
+
+In [7]: df.mean()
+	Out[7]: 
+	mpg         23.445918
+	cyl          5.471939
+	displ      194.411990
+	hp         104.469388
+	weight    2977.584184
+	accel       15.541327
+	yr          75.979592
+	dtype: float64
+
+In [8]: df.std()
+	Out[8]: 
+	mpg         7.805007
+	cyl         1.705783
+	displ     104.644004
+	hp         38.491160
+	weight    849.402560
+	accel       2.758864
+	yr          3.683737
+	dtype: float64
+
+In [9]: df[df.origin=="US"].head()
+	Out[9]: 
+	    mpg  cyl  displ   hp  weight  accel  yr origin                       name
+	0  18.0    8  307.0  130    3504   12.0  70     US  chevrolet chevelle malibu
+	1  15.0    8  350.0  165    3693   11.5  70     US          buick skylark 320
+	2  18.0    8  318.0  150    3436   11.0  70     US         plymouth satellite
+	3  16.0    8  304.0  150    3433   12.0  70     US              amc rebel sst
+	4  17.0    8  302.0  140    3449   10.5  70     US                ford torino
+
+In [10]: df.loc[df.origin=="US",:].head()
+	Out[10]: 
+	    mpg  cyl  displ   hp  weight  accel  yr origin                       name
+	0  18.0    8  307.0  130    3504   12.0  70     US  chevrolet chevelle malibu
+	1  15.0    8  350.0  165    3693   11.5  70     US          buick skylark 320
+	2  18.0    8  318.0  150    3436   11.0  70     US         plymouth satellite
+	3  16.0    8  304.0  150    3433   12.0  70     US              amc rebel sst
+	4  17.0    8  302.0  140    3449   10.5  70     US                ford torino
+________________________________________________________
+INSTRUCTION:
+1. Compute the global mean and global standard deviations 
+   of df using the .mean() and .std() methods. Assign the 
+   results to global_mean and global_std.
+2. Filter the 'US' population from the 'origin' column and 
+   assign the result to us.
+3. Compute the US mean and US standard deviations of us 
+   using the .mean() and .std() methods. Assign the results 
+   to us_mean and us_std.
+4. Print the differences between us_mean and global_mean 
+   and us_std and global_std. This has already been done 
+   for you.
+________________________________________________________
+GUIDE:
+Separate and summarize
+Let's use population filtering to determine how the 
+automobiles in the US differ from the global average 
+and standard deviation. How does the distribution of 
+fuel efficiency (MPG) for the US differ from the 
+global average and standard deviation?
+
+In this exercise, you'll compute the means and standard 
+deviations of all columns in the full automobile dataset. 
+Next, you'll compute the same quantities for just the US 
+population and subtract the global values from the US 
+values.
+
+All necessary modules have been imported and the 
+DataFrame has been pre-loaded as df.
+________________________________________________________
+DATA SOURCE:
+
+http://archive.ics.uci.edu/ml/index.php
+________________________________________________________

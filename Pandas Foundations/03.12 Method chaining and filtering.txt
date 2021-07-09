@@ -1,0 +1,218 @@
+# Strip extra whitespace from the column names: df.columns
+print("Columns before strip extra whitespace:")
+print(df.columns)
+df.columns = df.columns.str.strip()
+print("Columns after strip extra whitespace:")
+print(df.columns)
+
+# Extract data for which the destination airport is Dallas: dallas
+dallas = df['Destination Airport'].str.contains("DAL")
+print("\nHead of dallas:")
+print(dallas.head())
+
+# Compute the total number of Dallas departures each day: daily_departures
+daily_departures = dallas.resample("D").count()
+print("\nData of daily_departures:")
+print(daily_departures)
+
+# Generate the summary statistics for daily Dallas departures: stats
+#stats = df[dallas].describe()
+stats = daily_departures.describe()
+print("\nStats from daily_departures:")
+print(stats)
+________________________________________________________
+OUT:
+	Columns before strip extra whitespace:
+	Index(['  Carrier Code', 
+               'Flight Number', 
+               'Tail Number', 
+               'Destination Airport ', 
+               'Scheduled Departure Time', 
+               'Actual Departure Time', 
+               'Scheduled Elapsed Time(Minutes)',
+	       'Actual Elapsed Time(Minutes)', 
+               'Departure Delay(Minutes)', 
+               'Wheels-off Time', 
+               'Taxi-out Time(Minutes)', 
+               'DelayCarrier(Minutes)', 
+               'DelayWeather(Minutes)',
+	       'DelayNational Aviation System(Minutes)', 
+               'DelaySecurity(Minutes)', 
+               'DelayLate Aircraft Arrival(Minutes)', 
+               'Unnamed: 17'],
+	      dtype='object')
+	
+	Columns after strip extra whitespace:
+	Index(['Carrier Code', 
+               'Flight Number', 
+               'Tail Number', 
+               'Destination Airport', 
+               'Scheduled Departure Time', 
+               'Actual Departure Time', 
+               'Scheduled Elapsed Time(Minutes)', 
+               'Actual Elapsed Time(Minutes)',
+	       'Departure Delay(Minutes)', 
+               'Wheels-off Time', 
+               'Taxi-out Time(Minutes)', 
+               'DelayCarrier(Minutes)', 
+               'DelayWeather(Minutes)', 
+               'DelayNational Aviation System(Minutes)', 
+               'DelaySecurity(Minutes)',
+	       'DelayLate Aircraft Arrival(Minutes)', 
+               'Unnamed: 17'],
+	      dtype='object')
+
+	Head of dallas:
+	Date (MM/DD/YYYY)
+	2015-07-01    False
+	2015-07-01    False
+	2015-07-01    False
+	2015-07-01    False
+	2015-07-01     True
+	Name: Destination Airport, dtype: object
+
+	Data of daily_departures:
+	Date (MM/DD/YYYY)
+	2015-07-01    10
+	2015-07-02    10
+	2015-07-03    11
+	2015-07-04     3
+	2015-07-05     9
+	2015-07-06    10
+	2015-07-07    10
+	2015-07-08    10
+	2015-07-09    10
+	2015-07-10    11
+	2015-07-11     5
+	2015-07-12     9
+	2015-07-13    10	
+	2015-07-14    10
+	2015-07-15    10
+	2015-07-16    10
+	2015-07-17    11
+	2015-07-18     5
+	2015-07-19     9
+	2015-07-20    10
+	2015-07-21    10
+	2015-07-22    10
+	2015-07-23    10
+	2015-07-24    11
+	2015-07-25     5
+	2015-07-26     9
+	2015-07-27    10
+	2015-07-28    10
+	2015-07-29    10
+	2015-07-30    10
+	2015-07-31    11
+	dtype: int64
+
+	Stats from daily_departures:
+	count    31.000000
+	mean      9.322581
+	std       1.989759
+	min       3.000000
+	25%       9.500000
+	50%      10.000000
+	75%      10.000000
+	max      11.000000
+	dtype: float64
+________________________________________________________
+IPYTHONSHELL:
+In [1]: type(df)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: df.shape
+	Out[2]: (1741, 17)
+
+In [3]: df.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 1741 entries, 2015-07-01 to NaT
+	Data columns (total 17 columns):
+	  Carrier Code                            1741 non-null object
+	Flight Number                             1740 non-null float64
+	Tail Number                               1740 non-null object
+	Destination Airport                       1740 non-null object
+	Scheduled Departure Time                  1740 non-null object
+	Actual Departure Time                     1740 non-null object
+	Scheduled Elapsed Time(Minutes)           1740 non-null float64
+	Actual Elapsed Time(Minutes)              1740 non-null float64
+	Departure Delay(Minutes)                  1740 non-null float64
+	Wheels-off Time                           1740 non-null object
+	Taxi-out Time(Minutes)                    1740 non-null float64
+	DelayCarrier(Minutes)                     1740 non-null float64
+	DelayWeather(Minutes)                     1740 non-null float64
+	DelayNational Aviation System(Minutes)    1740 non-null float64
+	DelaySecurity(Minutes)                    1740 non-null float64
+	DelayLate Aircraft Arrival(Minutes)       1740 non-null float64
+	Unnamed: 17                               0 non-null float64
+	dtypes: float64(11), object(6)
+	memory usage: 284.8+ KB
+
+In [4]: df.head()
+	Out[4]: 
+	                    Carrier Code  Flight Number Tail Number Destination Airport  Scheduled Departure Time  ... DelayWeather(Minutes)  DelayNational Aviation System(Minutes)  DelaySecurity(Minutes)  \
+	Date (MM/DD/YYYY)                                                                                          ...                                                                                         
+	2015-07-01                    WN          103.0      N8607M                  MDW                    06:30  ...                   0.0                                     0.0                     0.0   
+	2015-07-01                    WN          144.0      N8609A                  SAN                    20:55  ...                   0.0                                     0.0                     0.0   
+	2015-07-01                    WN          178.0      N646SW                  ELP                    20:30  ...                   0.0                                     0.0                     0.0   
+	2015-07-01                    WN          232.0      N204WN                  ATL                    05:45  ...                   0.0                                     0.0                     0.0   
+	2015-07-01                    WN          238.0      N233LV                  DAL                    12:30  ...                   0.0                                     0.0                     0.0   
+	
+	                   DelayLate Aircraft Arrival(Minutes) Unnamed: 17  
+	Date (MM/DD/YYYY)                                                   
+	2015-07-01                                         0.0         NaN  
+	2015-07-01                                         0.0         NaN  
+	2015-07-01                                         0.0         NaN  
+	2015-07-01                                         0.0         NaN  
+	2015-07-01                                         0.0         NaN  
+	[5 rows x 17 columns]
+
+In [5]: df.tail()
+	Out[5]: 
+	                                                    Carrier Code  Flight Number Tail Number Destination Airport  Scheduled Departure Time  ... DelayWeather(Minutes)  \
+	Date (MM/DD/YYYY)                                                                                                                          ...                         
+	2015-07-31                                                    WN         4913.0      N622SW                  TPA                    11:35  ...                   0.0   
+	2015-07-31                                                    WN         4924.0      N910WN                  LAX                    16:00  ...                   0.0   
+	2015-07-31                                                    WN         4927.0      N8327A                  DCA                    12:40  ...                   0.0   
+	2015-07-31                                                    WN         5888.0      N290WN                  DAL                    20:00  ...                   0.0   
+	NaT                  SOURCE: Bureau of Transportation Statistics            NaN         NaN                  NaN                      NaN  ...                   NaN   
+	
+	                   DelayNational Aviation System(Minutes)  DelaySecurity(Minutes)  DelayLate Aircraft Arrival(Minutes) Unnamed: 17  
+	Date (MM/DD/YYYY)                                                                                                                   
+	2015-07-31                                            0.0                     0.0                                  0.0         NaN  
+	2015-07-31                                            0.0                     0.0                                 36.0         NaN  
+	2015-07-31                                            0.0                     0.0                                 48.0         NaN  
+	2015-07-31                                            0.0                     0.0                                 58.0         NaN  
+	NaT                                                   NaN                     NaN                                  NaN         NaN  
+	[5 rows x 17 columns]
+________________________________________________________
+INSTRUCTION:
+1. Use .str.strip() to strip extra whitespace from 
+   df.columns. Assign the result back to df.columns.
+2. In the 'Destination Airport' column, extract all 
+   entries where Dallas ('DAL') is the destination 
+   airport. Use .str.contains('DAL') for this and 
+   store the result in dallas.
+3. Resample dallas such that you get the total number 
+   of departures each day. Store the result in 
+   daily_departures.
+4. Generate summary statistics for daily Dallas 
+   departures using .describe(). Store the result 
+   in stats.
+________________________________________________________
+GUIDE:
+Resample and roll with it
+As of pandas version 0.18.0, the interface for applying 
+rolling transformations to time series has become more 
+consistent and flexible, and feels somewhat like a 
+groupby (If you do not know what a groupby is, don't 
+worry, you will learn about it in the next course!).
+
+You can now flexibly chain together resampling and 
+rolling operations. In this exercise, the same weather 
+data from the previous exercises has been pre-loaded 
+for you. Your job is to extract one month of data, 
+resample to find the daily high temperatures, and 
+then use a rolling and aggregation operation to 
+smooth the data.
+________________________________________________________

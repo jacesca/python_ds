@@ -1,0 +1,186 @@
+# Extract temperature data for August: august
+august = df["Temperature"].loc["2010-Aug"]
+print("*** august ***")
+print(august.shape)
+print(august.describe())
+print(august.head())
+
+# Downsample to obtain only the daily highest temperatures in August: august_highs
+august_highs = august.resample("D").max()
+print("\n*** august_highs ***")
+print(august_highs.shape)
+print(august_highs.describe())
+print(august_highs.head())
+
+# Extract temperature data for February: february
+february = df["Temperature"].loc["2010-2"]
+print("\n*** february ***")
+print(february.shape)
+print(february.describe())
+print(february.head())
+
+# Downsample to obtain the daily lowest temperatures in February: february_lows
+february_lows = february.resample("D").min()
+print("\n*** february_lows ***")
+print(february_lows.shape)
+print(february_lows.describe())
+print(february_lows.head())
+________________________________________________________
+OUT:
+	*** august ***
+	(744,)
+	count    744.000000
+	mean      84.036156
+	std        7.204154
+	min       73.400000
+	25%       76.600000
+	50%       83.200000
+	75%       91.600000
+	max       95.300000
+	Name: Temperature, dtype: float64
+
+	Date
+	2010-08-01 00:00:00    79.0
+	2010-08-01 01:00:00    77.4
+	2010-08-01 02:00:00    76.4
+	2010-08-01 03:00:00    75.7
+	2010-08-01 04:00:00    75.1
+	Name: Temperature, dtype: float64
+
+	*** august_highs ***
+	(31,)
+
+	count    31.000000
+	mean     94.606452
+	std       0.630838
+	min      93.100000
+	25%      94.400000
+	50%      94.800000
+	75%      95.050000
+	max      95.300000
+	Name: Temperature, dtype: float64
+
+	Date
+	2010-08-01    95.0
+	2010-08-02    95.0
+	2010-08-03    95.1
+	2010-08-04    95.1
+	2010-08-05    95.1
+	Freq: D, Name: Temperature, dtype: float64
+
+	*** february ***
+	(672,)
+	count    672.000000
+	mean      53.987202
+	std        6.412684
+	min       43.800000
+	25%       48.600000
+	50%       52.650000
+	75%       59.625000
+	max       67.200000
+	Name: Temperature, dtype: float64
+
+	Date
+	2010-02-01 00:00:00    47.8
+	2010-02-01 01:00:00    46.8
+	2010-02-01 02:00:00    46.1
+	2010-02-01 03:00:00    45.5
+	2010-02-01 04:00:00    44.9
+	Name: Temperature, dtype: float64
+
+	*** february_lows ***
+	(28,)
+
+	count    28.000000
+	mean     46.292857
+	std       1.642024
+	min      43.800000
+	25%      44.675000
+	50%      46.750000
+	75%      47.700000
+	max      48.600000
+	Name: Temperature, dtype: float64
+
+	Date
+	2010-02-01    43.8
+	2010-02-02    44.3
+	2010-02-03    44.6
+	2010-02-04    44.5
+	2010-02-05    44.3
+	Freq: D, Name: Temperature, dtype: float64
+________________________________________________________
+IPYTHONSHELL:
+In [1]: type(df)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: df.shape
+	Out[2]: (8759, 3)
+
+In [3]: df.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 8759 entries, 2010-01-01 00:00:00 to 2010-12-31 23:00:00
+	Data columns (total 3 columns):
+	Temperature    8759 non-null float64
+	DewPoint       8759 non-null float64
+	Pressure       8759 non-null float64
+	dtypes: float64(3)
+	memory usage: 593.7 KB
+
+In [4]: df.head()
+	Out[4]: 
+	                     Temperature  DewPoint  Pressure
+	Date                                                
+	2010-01-01 00:00:00         46.2      37.5       1.0
+	2010-01-01 01:00:00         44.6      37.1       1.0
+	2010-01-01 02:00:00         44.1      36.9       1.0
+	2010-01-01 03:00:00         43.8      36.9       1.0
+	2010-01-01 04:00:00         43.5      36.8       1.0
+
+In [5]: df.tail()
+	Out[5]: 
+	                     Temperature  DewPoint  Pressure
+	Date                                                
+	2010-12-31 19:00:00         51.1      38.1       1.0
+	2010-12-31 20:00:00         49.0      37.9       1.0
+	2010-12-31 21:00:00         47.9      37.9       1.0
+	2010-12-31 22:00:00         46.9      37.9       1.0
+	2010-12-31 23:00:00         46.2      37.7       1.0
+
+In [6]: df.describe()
+	Out[6]: 
+	       Temperature     DewPoint  Pressure
+	count  8759.000000  8759.000000    8759.0
+	mean     68.077258    55.939057       1.0
+	std      13.773378    11.757706       0.0
+	min      41.800000    35.300000       1.0
+	25%      57.100000    44.400000       1.0
+	50%      68.700000    57.300000       1.0
+	75%      78.550000    67.800000       1.0
+	max      95.300000    72.900000       1.0
+________________________________________________________
+INSTRUCTION:
+1. Use partial string indexing to extract temperature 
+   data for August 2010 into august.
+2. Use the temperature data for August and downsample 
+   to find the daily maximum temperatures. Store the 
+   result in august_highs.
+3. Use partial string indexing to extract temperature 
+   data for February 2010 into february.
+4. Use the temperature data for February and downsample 
+   to find the daily minimum temperatures. Store the 
+   result in february_lows.
+________________________________________________________
+GUIDE:
+Separating and resampling
+With pandas, you can resample in different ways on 
+different subsets of your data. For example, resampling 
+different months of data with different aggregations. 
+In this exercise, the data set containing hourly 
+temperature data from the last exercise has been 
+pre-loaded.
+
+Your job is to resample the data using a variety of 
+aggregation methods. The DataFrame is available in 
+the workspace as df. You will be working with the 
+'Temperature' column.
+________________________________________________________

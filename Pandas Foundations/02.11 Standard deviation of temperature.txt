@@ -1,0 +1,165 @@
+# Print the mean of the January and March data
+print("January's mean:\n",january.mean(),
+      "\nMarch's mean:\n",march.mean())
+#print(january.mean(), march.mean())
+
+# Print the standard deviation of the January and March data
+print("\nJanuary's std:\n",january.std(),
+      "\nMarch's std:\n",march.std())
+#print(january.std(),march.std())
+________________________________________________________
+OUT:
+January's mean:
+ Temperature    32.354839
+dtype: float64 
+March's mean:
+ Temperature    35.0
+dtype: float64
+
+January's std:
+ Temperature    13.583196
+dtype: float64 
+March's std:
+ Temperature    7.478859
+dtype: float64
+________________________________________________________
+IPAYTHONSHELL:
+In [1]: type(january)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: type(march)
+	Out[2]: pandas.core.frame.DataFrame
+
+In [3]: january.shape
+	Out[3]: (31, 2)
+
+In [4]: march.shape
+	Out[4]: (31, 2)
+
+In [5]: january.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 31 entries, 0 to 30
+	Data columns (total 2 columns):
+	Date           31 non-null object
+	Temperature    31 non-null int64
+	dtypes: int64(1), object(1)
+	memory usage: 576.0+ bytes
+
+In [6]: march.info()
+	<class 'pandas.core.frame.DataFrame'>
+	RangeIndex: 31 entries, 0 to 30
+	Data columns (total 2 columns):
+	Date           31 non-null object
+	Temperature    31 non-null int64
+	dtypes: int64(1), object(1)
+	memory usage: 576.0+ bytes
+
+In [7]: january
+	Out[7]: 
+	          Date  Temperature
+	0   2013-01-01           28
+	1   2013-01-02           21
+	2   2013-01-03           24
+	3   2013-01-04           28
+	4   2013-01-05           30
+	5   2013-01-06           34
+	6   2013-01-07           29
+	7   2013-01-08           31
+	8   2013-01-09           36
+	9   2013-01-10           34
+	10  2013-01-11           47
+	11  2013-01-12           55
+	12  2013-01-13           62
+	13  2013-01-14           44
+	14  2013-01-15           30
+	15  2013-01-16           32
+	16  2013-01-17           32
+	17  2013-01-18           24
+	18  2013-01-19           42
+	19  2013-01-20           35
+	20  2013-01-21           18
+	21  2013-01-22            9
+	22  2013-01-23           11
+	23  2013-01-24           16
+	24  2013-01-25           16
+	25  2013-01-26           23
+	26  2013-01-27           23
+	27  2013-01-28           40
+	28  2013-01-29           59
+	29  2013-01-30           58
+	30  2013-01-31           32
+
+In [8]: march
+	Out[8]: 
+	          Date  Temperature
+	0   2013-03-01           28
+	1   2013-03-02           26
+	2   2013-03-03           24
+	3   2013-03-04           28
+	4   2013-03-05           32
+	5   2013-03-06           34
+	6   2013-03-07           36
+	7   2013-03-08           32
+	8   2013-03-09           40
+	9   2013-03-10           55
+	10  2013-03-11           55
+	11  2013-03-12           40
+	12  2013-03-13           32
+	13  2013-03-14           30
+	14  2013-03-15           38
+	15  2013-03-16           36
+	16  2013-03-17           32
+	17  2013-03-18           34
+	18  2013-03-19           36
+	19  2013-03-20           32
+	20  2013-03-21           22
+	21  2013-03-22           28
+	22  2013-03-23           34
+	23  2013-03-24           34
+	24  2013-03-25           32
+	25  2013-03-26           34
+	26  2013-03-27           34
+	27  2013-03-28           37
+	28  2013-03-29           43
+	29  2013-03-30           43
+	30  2013-03-31           44
+
+In [9]: january.describe()
+	Out[9]: 
+	       Temperature
+	count    31.000000
+	mean     32.354839
+	std      13.583196
+	min       9.000000
+	25%      23.500000
+	50%      31.000000
+	75%      38.000000
+	max      62.000000
+
+In [10]: march.describe()
+	Out[10]: 
+	       Temperature
+	count    31.000000
+	mean     35.000000
+	std       7.478859
+	min      22.000000
+	25%      32.000000
+	50%      34.000000
+	75%      37.500000
+	max      55.000000
+________________________________________________________
+INSTRUCTION:
+1. Compute and print the means of the January and March data using the .mean() method.
+2. Compute and print the standard deviations of the January and March data using the .std() method.
+________________________________________________________
+GUIDE:
+Standard deviation of temperature
+Let's use the mean and standard deviation to explore differences in temperature distributions in Pittsburgh in 2013. The data has been obtained from Weather Underground.
+
+In this exercise, you're going to compare the distribution of daily temperatures in January and March. You'll compute the mean and standard deviation for these two months. You will notice that while the mean values are similar, the standard deviations are quite different, meaning that one month had a larger fluctuation in temperature than the other.
+
+The DataFrames have been pre-loaded for you as january, which contains the January data, and march, which contains the March data.
+________________________________________________________
+SOURCE OF DATA:
+https://www.wunderground.com/history/
+________________________________________________________

@@ -1,0 +1,138 @@
+# Downsample to 6 hour data and aggregate by mean: df1
+df1 = df["Temperature"].resample("6h").mean()
+print("*** df1 ***")
+print(df1.shape)
+print(df1.describe())
+print(df1.head())
+
+# Downsample to daily data and count the number of data points: df2
+df2 = df["Temperature"].resample("D").count()
+print("*** df2 ***")
+print(df2.shape)
+print(df2.describe())
+print(df2.head())
+________________________________________________________
+OUT:
+	*** df1 ***
+	(1460,)
+
+	count    1460.000000
+	mean       68.075760
+	std        13.444778
+	min        43.750000
+	25%        57.495833
+	50%        68.908333
+	75%        79.054167
+	max        94.016667
+		Name: Temperature, dtype: float64
+
+	Date
+	2010-01-01 00:00:00    44.200000
+	2010-01-01 06:00:00    45.933333
+	2010-01-01 12:00:00    57.766667
+	2010-01-01 18:00:00    49.450000
+	2010-01-02 00:00:00    44.516667
+	Freq: 6H, Name: Temperature, dtype: float64
+
+	*** df2 ***
+	(365,)
+
+	count    365.000000
+	mean      23.997260
+	std        0.052342
+	min       23.000000
+	25%       24.000000
+	50%       24.000000
+	75%       24.000000
+	max       24.000000
+	Name: Temperature, dtype: float64
+
+	Date
+	2010-01-01    24
+	2010-01-02    24
+	2010-01-03    24
+	2010-01-04    24
+	2010-01-05    24
+	Freq: D, Name: Temperature, dtype: int64
+________________________________________________________
+IPYTHONSHELL:
+In [1]: type(df)
+	Out[1]: pandas.core.frame.DataFrame
+
+In [2]: df.shape
+	Out[2]: (8759, 3)
+	
+In [3]: df.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 8759 entries, 2010-01-01 00:00:00 to 2010-12-31 23:00:00
+	Data columns (total 3 columns):
+	Temperature    8759 non-null float64
+	DewPoint       8759 non-null float64
+	Pressure       8759 non-null float64
+	dtypes: float64(3)
+	memory usage: 593.7 KB
+
+In [4]: df.describe()
+	Out[4]: 
+	       Temperature     DewPoint  Pressure
+	count  8759.000000  8759.000000    8759.0
+	mean     68.077258    55.939057       1.0
+	std      13.773378    11.757706       0.0
+	min      41.800000    35.300000       1.0
+	25%      57.100000    44.400000       1.0
+	50%      68.700000    57.300000       1.0
+	75%      78.550000    67.800000       1.0
+	max      95.300000    72.900000       1.0
+
+In [5]: df.head()
+	Out[5]: 
+	                     Temperature  DewPoint  Pressure
+	Date                                                
+	2010-01-01 00:00:00         46.2      37.5       1.0
+	2010-01-01 01:00:00         44.6      37.1       1.0
+	2010-01-01 02:00:00         44.1      36.9       1.0
+	2010-01-01 03:00:00         43.8      36.9       1.0
+	2010-01-01 04:00:00         43.5      36.8       1.0
+
+In [6]: df.tail()
+	Out[6]: 
+	                     Temperature  DewPoint  Pressure
+	Date                                                
+	2010-12-31 19:00:00         51.1      38.1       1.0
+	2010-12-31 20:00:00         49.0      37.9       1.0
+	2010-12-31 21:00:00         47.9      37.9       1.0
+	2010-12-31 22:00:00         46.9      37.9       1.0
+	2010-12-31 23:00:00         46.2      37.7       1.0
+________________________________________________________
+INSTRUCTION:
+1. Downsample the 'Temperature' column of df to 6 hour 
+   data using .resample('6h') and .mean(). Assign the 
+   result to df1.
+2. Downsample the 'Temperature' column of df to daily 
+   data using .resample('D') and then count the number 
+   of data points in each day with .count(). Assign 
+   the result df2.
+________________________________________________________
+GUIDE:
+Resampling and frequency
+Pandas provides methods for resampling time series 
+data. When downsampling or upsampling, the syntax 
+is similar, but the methods called are different. 
+Both use the concept of 'method chaining' - 
+df.method1().method2().method3() 
+- to direct the output from one method call to the 
+input of the next, and so on, as a sequence of 
+operations, one feeding into the next.
+
+For example, if you have hourly data, and just 
+need daily data, pandas will not guess how to 
+throw out the 23 of 24 points. You must specify 
+this in the method. One approach, for instance, 
+could be to take the mean, as in 
+df.resample('D').mean().
+
+In this exercise, a data set containing hourly 
+temperature data has been pre-loaded for you. 
+Your job is to resample the data using a variety 
+of aggregation methods to answer a few questions.
+________________________________________________________

@@ -1,0 +1,161 @@
+# Extract the hour from 9pm to 10pm on '2010-10-11': ts1
+ts1 = ts0.loc['2010-10-11 21:00:00':'2010-10-11 22:00:00']
+print("ts1:")
+print("Shape: ",ts1.shape)
+print("Head:\n",ts1.head())
+print("First element: ",ts1.iloc[0]," (",ts1["2010-10-11 21:00:00"],")")
+print("Last element: ",ts1.iloc[-1]," (",ts1["2010-10-11 22:00:00"],")")
+
+# Extract '2010-07-04' from ts0: ts2
+ts2 = ts0["July 4th, 2010"]
+print("\nts2:")
+print("Shape: ",ts2.shape)
+print("Head:\n",ts2.head())
+print("Tail:\n",ts2.tail())
+print("First element: ",ts2.iloc[0]," (",ts2["2010-07-04 00:00:00"],")")
+print("Last element: ",ts2.iloc[-1]," (",ts2["2010-07-04 23:00:00"],")")
+
+# Extract data from '2010-12-15' to '2010-12-31': ts3
+ts3 = ts0["2010-12-15":"2010-12-31"]
+print("\nts3:")
+print("Shape: ",ts3.shape)
+print("Head:\n",ts3.head())
+print("Tail:\n",ts3.tail())
+print("First element: ",ts3.iloc[0]," (",ts3["2010-12-15 00:00:00"],")")
+print("Last element: ",ts3.iloc[-1]," (",ts3["2010-12-31 23:00:00"],")")
+________________________________________________________
+OUT:
+	ts1:
+	Shape:  (2,)
+	Head:
+	 Date
+	2010-10-11 21:00:00    69.0
+	2010-10-11 22:00:00    67.7
+	Name: Temperature, dtype: float64
+	First element:  69.0  ( 69.0 )
+	Last element:  67.7  ( 67.7 )
+
+	ts2:
+	Shape:  (24,)
+	Head:
+	 Date
+	2010-07-04 00:00:00    77.6
+	2010-07-04 01:00:00    76.3
+	2010-07-04 02:00:00    75.5
+	2010-07-04 03:00:00    74.9
+	2010-07-04 04:00:00    74.6
+	Name: Temperature, dtype: float64
+	Tail:
+	 Date
+	2010-07-04 19:00:00    87.3
+	2010-07-04 20:00:00    84.0
+	2010-07-04 21:00:00    81.8
+	2010-07-04 22:00:00    80.0
+	2010-07-04 23:00:00    78.5
+	Name: Temperature, dtype: float64
+	First element:  77.6  ( 77.6 )
+	Last element:  78.5  ( 78.5 )
+
+	ts3:
+	Shape:  (408,)
+	Head:
+	 Date
+	2010-12-15 00:00:00    48.0
+	2010-12-15 01:00:00    47.2
+	2010-12-15 02:00:00    46.5
+	2010-12-15 03:00:00    46.0
+	2010-12-15 04:00:00    45.6
+	Name: Temperature, dtype: float64
+	Tail:
+	 Date
+	2010-12-31 19:00:00    51.1
+	2010-12-31 20:00:00    49.0
+	2010-12-31 21:00:00    47.9
+	2010-12-31 22:00:00    46.9
+	2010-12-31 23:00:00    46.2
+	Name: Temperature, dtype: float64
+	First element:  48.0  ( 48.0 )
+	Last element:  46.2  ( 46.2 )
+________________________________________________________
+IPYTHONSHELL:
+In [1]: df.info()
+	<class 'pandas.core.frame.DataFrame'>
+	DatetimeIndex: 8759 entries, 2010-01-01 00:00:00 to 2010-12-31 23:00:00
+	Data columns (total 3 columns):
+	Temperature    8759 non-null float64
+	DewPoint       8759 non-null float64
+	Pressure       8759 non-null float64
+	dtypes: float64(3)
+	memory usage: 593.7 KB
+
+In [2]: df.head()
+	Out[2]: 
+	                     Temperature  DewPoint  Pressure
+	Date                                                
+	2010-01-01 00:00:00         46.2      37.5       1.0
+	2010-01-01 01:00:00         44.6      37.1       1.0
+	2010-01-01 02:00:00         44.1      36.9       1.0
+	2010-01-01 03:00:00         43.8      36.9       1.0
+	2010-01-01 04:00:00         43.5      36.8       1.0
+
+In [3]: df.shape
+	Out[3]: (8759, 3)
+
+In [4]: ts0.shape
+	Out[4]: (8759,)
+
+In [5]: ts0.head()
+	Out[5]: 
+	Date
+	2010-01-01 00:00:00    46.2
+	2010-01-01 01:00:00    44.6
+	2010-01-01 02:00:00    44.1
+	2010-01-01 03:00:00    43.8
+	2010-01-01 04:00:00    43.5
+	Name: Temperature, dtype: float64
+
+In [6]: ts0.describe()
+	Out[6]: 
+	count    8759.000000
+	mean       68.077258
+	std        13.773378
+	min        41.800000
+	25%        57.100000
+	50%        68.700000
+	75%        78.550000
+	max        95.300000
+	Name: Temperature, dtype: float64
+________________________________________________________
+INSTRUCTION:
+1. Extract data from ts0 for a single hour - the hour 
+   from 9pm to 10pm on 2010-10-11. Assign it to ts1.
+2. Extract data from ts0 for a single day - July 4th, 
+   2010 - and assign it to ts2.
+3. Extract data from ts0 for the second half of December 
+   2010 - 12/15/2010 to 12/31/2010. Assign it to ts3.
+________________________________________________________
+GUIDE:
+Partial string indexing and slicing
+Pandas time series support "partial string" indexing. 
+What this means is that even when passed only a portion 
+of the datetime, such as the date but not the time, 
+pandas is remarkably good at doing what one would expect. 
+Pandas datetime indexing also supports a wide variety of 
+commonly used datetime string formats, even when mixed.
+
+In this exercise, a time series that contains hourly 
+weather data has been pre-loaded for you. This data was 
+read using the parse_dates=True option in read_csv() 
+with index_col="Dates" so that the Index is indeed a 
+DatetimeIndex.
+
+All data from the 'Temperature' column has been 
+extracted into the variable ts0. Your job is to use a 
+variety of natural date strings to extract one or more 
+values from ts0.
+
+After you are done, you will have three new variables 
+- ts1, ts2, and ts3. You can slice these further to 
+extract only the first and last entries of each. Try 
+doing this after your submission for more practice.
+________________________________________________________
