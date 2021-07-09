@@ -1,0 +1,119 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 19 18:12:55 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Advanced Model Architectures
+Introduction:
+    It's time to get introduced to more advanced architectures! You will create an autoencoder 
+    to reconstruct noisy images, visualize convolutional neural network activations, use deep 
+    pre-trained models to classify images and learn more about recurrent neural networks and 
+    working with text as you build a network that predicts the next word in a sentence.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+from glob                            import glob                              #For using with pathnames matching
+
+from keras.applications.resnet50     import decode_predictions                #For DeapLearning
+from keras.applications.resnet50     import preprocess_input                  #For DeapLearning
+from keras.applications.resnet50     import ResNet50                          #For DeapLearning
+from keras.preprocessing             import image                             #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.compat.v1.set_random_seed(SEED) #Instead of tf.set_random_seed, because it is deprecated.
+
+plt.rcParams['figure.max_open_warning'] = 60
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    """
+    model_display function make a plot of the defined model. This function need the followin parameters:
+        model: the model to plot.
+        sup_title: the text that is going to be printed as suptitle in the plot.
+        file_name: the file where to save the image.
+    """
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+print("****************************************************")
+tema = "9. Preparing your input image"; print("** %s\n" % tema)
+
+file = 'img_dog.png'
+img = image.load_img(file, target_size=(224, 224)) # Load the image with the right target size for your model
+img_array = image.img_to_array(img) # Turn it into an array
+img_expanded = np.expand_dims(img_array, axis=0) # Expand the dimensions of the image
+img_ready = preprocess_input(img_expanded) # Pre-process the img in the same way original images were
+
+print("****************************************************")
+tema = "10. Using a real world model"; print("** %s\n" % tema)
+
+model = ResNet50(weights='imagenet') # Instantiate a ResNet50 model with imagenet weights
+model.summary()
+#model_display(model, sup_title=tema, file_name='04_10_model.png')
+
+preds = model.predict(img_ready) # Predict with ResNet50 on your already processed img
+predicted_object = decode_predictions(preds, top=3)[0]
+print('Predicted:', predicted_object) # Decode predictions
+
+file = 'img_dog.png'
+data = plt.imread(file) # Load the image
+plt.imshow(data) # Display the image
+plt.xlabel('ResNet50 thinks\nits a {}'.format(predicted_object[0][1]))
+plt.suptitle("{}\nResNet50 Model".format(tema))
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.9, wspace=None, hspace=None)
+plt.show()
+
+
+# Making more predictions
+filenames = glob("img_*.jpg") # Set the files to read
+number_imgs = np.min([4, len(filenames)])
+print("Number of files to read: ", number_imgs)
+
+plt.figure(figsize=(10, 4))
+for i in range(number_imgs):
+    plt.subplot(1, number_imgs, i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    data = plt.imread(filenames[i]) # Load the image
+    plt.imshow(data) # Display the image
+    
+    img = image.load_img(filenames[i], target_size=(224, 224)) # Load the image with the right target size for your model
+    img_array = image.img_to_array(img) # Turn it into an array
+    img_expanded = np.expand_dims(img_array, axis=0) # Expand the dimensions of the image
+    img_ready = preprocess_input(img_expanded) # Pre-process the img in the same way original images were
+    img_prediction = model.predict(img_ready)
+    predicted_object = decode_predictions(img_prediction, top=1)[0][0][1]
+    plt.xlabel('ResNet50 thinks\nits a {}'.format(predicted_object))
+
+plt.suptitle("{}\nResNet50 Model".format(tema))
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

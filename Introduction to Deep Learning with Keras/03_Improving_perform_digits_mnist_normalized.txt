@@ -1,0 +1,175 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 15 13:00:20 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Improving Your Model Performance
+Introduction:
+    In the previous chapters, you've trained a lot of models! You will now learn how to interpret 
+    learning curves to understand your models as they train. You will also visualize the effects of 
+    activation functions, batch-sizes, and batch-normalization. 
+    Finally, you will learn how to perform automatic hyperparameter optimization to your Keras models 
+    using sklearn.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+#from keras.datasets                  import mnist                             #For DeapLearning
+from keras.layers                    import BatchNormalization                #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+from sklearn                         import datasets                          #For learning machine
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_compare(train, validation, metrics, sup_title):
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.suptitle(sup_title)
+    plt.show()
+
+def plot_results(train_accs, test_accs, train_sizes, sup_title):
+    plt.figure()
+    plt.plot(train_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(train_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.xticks(train_sizes); 
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('Training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+    plt.suptitle(sup_title)
+    plt.show()
+    
+def compare_histories_acc(h1,h2,metric='acc',ylabel='Accuracy',sup_title=''):
+    plt.figure()
+    plt.plot(h1.history[metric])
+    plt.plot(h1.history['val_{}'.format(metric)])
+    plt.plot(h2.history[metric])
+    plt.plot(h2.history['val_{}'.format(metric)])
+    plt.title("Batch Normalization Effects")
+    plt.xlabel('Epoch')
+    plt.ylabel(ylabel)
+    plt.legend(['Train', 'Test', 'Train with Batch Normalization', 'Test with Batch Normalization'], loc='best')
+    plt.suptitle(sup_title)
+    plt.show()
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+digits = datasets.load_digits()
+X_features = digits.images
+y_target   = digits.target
+
+x_train, x_test, y_train, y_test = train_test_split(X_features, y_target, stratify=y_target,
+                                                    test_size=0.2, random_state=SEED)
+#(x_train, y_train), (x_test, y_test) = mnist.load_data()
+#x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+#plt.pcolor(x_train[10],  cmap='gray') # Visualize the result
+#plt.imshow(x_train[10], cmap = plt.get_cmap(name = 'gray'))
+#plt.gca().invert_yaxis()
+#plt.title('Number: {}'.format(y_train[10]))
+#plt.suptitle(tema)
+#plt.gca().set_aspect('equal', adjustable='box')
+#plt.show()
+
+plt.figure(figsize=(10, 4))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    #plt.imshow(x_train[i], cmap=plt.get_cmap(name='gray'))
+    plt.xlabel('Number: {}'.format(y_train[i]))
+plt.suptitle("Number MNIST Database")
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.5, hspace=0.5)
+plt.show()
+
+X_train = x_train.reshape(len(x_train), 64)
+X_test  =  x_test.reshape(len(x_test ), 64)
+y_target_train = to_categorical(y_train)
+y_target_test = to_categorical(y_test)
+
+#X_train = x_train.reshape(len(x_train), 784)
+#X_test  =  x_test.reshape(len(x_test ), 784)
+
+print("****************************************************")
+tema = "11. Batch normalizing a familiar model"; print("** %s\n" % tema)
+
+# Build your deep network
+batchnorm_model = Sequential()
+batchnorm_model.add(Dense(50, input_shape=(64,), activation='relu', kernel_initializer='normal', name='Dense_1'))
+batchnorm_model.add(BatchNormalization(name='Normalized_1'))
+batchnorm_model.add(Dense(50, activation='relu', kernel_initializer='normal', name='Dense_2'))
+batchnorm_model.add(BatchNormalization(name='Normalized_2'))
+batchnorm_model.add(Dense(50, activation='relu', kernel_initializer='normal', name='Dense_3'))
+batchnorm_model.add(BatchNormalization(name='Normalized_3'))
+batchnorm_model.add(Dense(10, activation='softmax', kernel_initializer='normal', name='Output'))
+
+# Compile your model with sgd
+batchnorm_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+
+model_display(batchnorm_model, "{} - with Batch Normalization".format(tema), file_name='03_11_model.png')
+
+print("****************************************************")
+tema = "12. Batch normalization effects"; print("** %s\n" % tema)
+
+# Build your deep network
+standard_model = Sequential()
+standard_model.add(Dense(50, input_shape=(64,), activation='relu', kernel_initializer='normal', name='Dense_1'))
+standard_model.add(Dense(50, activation='relu', kernel_initializer='normal', name='Dense_2'))
+standard_model.add(Dense(50, activation='relu', kernel_initializer='normal', name='Dense_3'))
+standard_model.add(Dense(10, activation='softmax', kernel_initializer='normal', name='Output'))
+
+# Compile your model with sgd
+standard_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+
+model_display(standard_model, "{} - in Standard mood".format(tema), file_name='03_12_model.png')
+
+history1 = standard_model.fit(X_train, y_target_train, validation_data=(X_test, y_target_test), epochs=10, verbose=0) # Train your standard model, storing its history
+history2 = batchnorm_model.fit(X_train, y_target_train, validation_data=(X_test, y_target_test), epochs=10, verbose=0) # Train the batch normalized model you recently built, store its history
+
+compare_histories_acc(history1, history2, metric='acc', ylabel='Accuracy', sup_title=tema) # Call compare_acc_histories passing in both model histories
+compare_histories_acc(history1, history2, metric='loss', ylabel='Categorical Crossentropy Loss Function', sup_title=tema) # Call compare_acc_histories passing in both model histories
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

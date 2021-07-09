@@ -1,0 +1,164 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 20 22:49:09 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Advanced Model Architectures
+Introduction:
+    It's time to get introduced to more advanced architectures! You will create an autoencoder 
+    to reconstruct noisy images, visualize convolutional neural network activations, use deep 
+    pre-trained models to classify images and learn more about recurrent neural networks and 
+    working with text as you build a network that predicts the next word in a sentence.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.layers                    import Embedding                         #For DeapLearning
+from keras.layers                    import LSTM                              #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.preprocessing.text        import Tokenizer                         #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.compat.v1.set_random_seed(SEED) #Instead of tf.set_random_seed, because it is deprecated.
+
+plt.rcParams['figure.max_open_warning'] = 60
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    """
+    model_display function make a plot of the defined model. This function need the followin parameters:
+        model: the model to plot.
+        sup_title: the text that is going to be printed as suptitle in the plot.
+        file_name: the file where to save the image.
+    """
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=True, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def clean_text(text):
+    replace_list = { '\n': ' ',
+                      '«': '',
+                      '»': '',
+                      ',': ' ,',
+                      '.': ' .',
+                      '!': ' !',
+                      '?': ' ?',
+                      '*': '',
+                    '\s+': ' '}
+
+    text = text.lower()
+    for s in replace_list:
+        text = text.replace(s, replace_list[s])
+    text = ' '.join(text.split())
+    return text
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+#data = np.loadtxt(filename, delimiter='\n', dtype=str)
+filename = 'A Margarita Debayle.txt'
+with open(filename, mode='r', encoding='utf8') as file:
+    text = file.read()
+text = clean_text(text)
+ 
+print("****************************************************")
+tema = "12. Text prediction with LSTMs"; print("** %s\n" % tema)
+
+words = text.split() # Split text into an array of words 
+print("{}\n{} words found in text.\n".format(words, len(words)))
+
+seq_len = 4 # Define the sequence lenght
+
+lines = [] # Make lines of 4 words each, moving one word at a time
+for i in range(seq_len, len(words)):
+    lines.append(' '.join(words[i-seq_len:i]))
+
+tokenizer = Tokenizer(filters = '"#$%&()*+-/:;<=>@[\]^_`{|}~') # Instantiate a Tokenizer, then fit it on the lines
+tokenizer.fit_on_texts(lines)
+
+sequences = np.array(tokenizer.texts_to_sequences(lines)) # Turn lines into a sequence of numbers
+
+print("{} Lines in total, first 5 elements: \n{}.\n".format(len(lines), lines[:5]))
+print("{} Sequences in total, first 5 elements: \n{}.\n".format(len(sequences), sequences[:5]))
+
+#To detect anomalies to integrate in the clean function.
+for i, seq in enumerate(sequences):
+    if len(seq)!=4:
+        print(len(seq)," ", seq, " ", lines[i])
+        
+vocab_size = len(tokenizer.index_word) + 1
+
+X_train, y_train = sequences[:, :3], sequences[:, 3]
+y_target_train = to_categorical(y_train, num_classes=vocab_size)
+
+print("****************************************************")
+tema = "13. Build your LSTM model"; print("** %s\n" % tema)
+
+model = Sequential(name='Text Predictions')
+model.add(Embedding(input_dim=vocab_size, output_dim=8, input_length=3, name='Embedding')) # Add an Embedding layer with the right parameters
+model.add(LSTM(32, name='LSTM')) # Add a 32 unit LSTM layer
+model.add(Dense(32, activation='relu', name='Dense')) # Add a hidden Dense layer of 32 units and an output layer of vocab_size with softmax
+model.add(Dense(vocab_size, activation='softmax', name='Output'))
+model.compile(loss='mse', optimizer='adam')
+
+model_display(model, sup_title=tema, file_name='04_13_model.png')
+
+print("****************************************************")
+tema = "14. Decode your predictions"; print("** %s\n" % tema)
+
+def predict_text(model, tokenizer, test_text):
+    if len(test_text.split())!=3:
+        print('Text input should be 3 words!')
+        return False
+    
+    # Turn the test_text into a sequence of numbers
+    test_seq = tokenizer.texts_to_sequences([test_text])
+    test_seq = np.array(test_seq)
+    
+    # Get the model prediction from the test_seq
+    pred = model.predict(test_seq)
+    #print(pred)
+    pred = pred.argmax(axis=1)[0]
+        
+    # Return the word associated to the prediction
+    return tokenizer.index_word[pred]
+
+print("****************************************************")
+tema = "15. Test your model!"; print("** %s\n" % tema)
+
+model.fit(X_train, y_target_train, epochs=100, shuffle=False, verbose=0)
+predictor = lambda x: '{} ... [{}]'.format(x, predict_text(model, tokenizer, x))
+print(predictor('margarita está en'))
+print(predictor('el kiosko de'))
+print(predictor('pluma y flor'))
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

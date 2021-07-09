@@ -1,0 +1,122 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Sep 14 14:36:55 2019
+
+@author: jacqueline.cortez
+
+Chapter 2. Going Deeper
+Introduction:
+    By the end of this chapter, you will know how to solve binary, multi-class, and multi-label problems with neural networks. 
+    All of this by solving problems like detecting fake dollar bills, deciding who threw which dart at a board, and building an 
+    intelligent system to water your farm. You will also be able to plot model training metrics and to stop training and save your 
+    models when they no longer improve.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import seaborn           as sns                                               #For visualizing data
+import tensorflow as tf                                                       #For DeapLearning
+
+from pandas.api.types                import CategoricalDtype                  #For categorical data
+
+from keras.callbacks                 import EarlyStopping                     #For DeapLearning
+from keras.callbacks                 import ModelCheckpoint                   #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def learning_curve_compare(train, validation, metrics):
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.show()
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'banknotes.csv'
+banknotes = pd.read_csv(file)
+banknotes['label'] = banknotes['class'].replace({0:'real', 1:'fake'})
+
+cats = CategoricalDtype(categories=['real', 'fake']) #,  ordered=True #Create categorical type data to use
+banknotes['label'] = banknotes['label'].astype(cats) # Change the data type of 'rating' to category
+
+print("****************************************************")
+tema = "2. Exploring dollar bills"; print("** %s\n" % tema)
+
+g = sns.pairplot(banknotes[['variace', 'skewness', 'curtosis', 'entropy', 'label']], hue='label') # Use pairplot and set the hue to be our class
+g.fig.set_figheight(4) #Height and width of sns plot
+g.fig.set_figwidth(10)
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.15, right=None, top=0.88, wspace=None, hspace=None)
+plt.show() # Show the plot
+
+print('Dataset stats: \n', banknotes.describe()) # Describe the data
+print('\nObservations per class: \n{}'.format(banknotes['label'].value_counts())) # Count the number of observations of each class
+
+print("****************************************************")
+tema = "3. A binary classification model"; print("** %s\n" % tema)
+
+model = Sequential() # Create a sequential model
+model.add(Dense(1, input_shape=(4,), activation='sigmoid', name='Dense')) # Add a dense layer 
+model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy']) # Compile your model
+
+model.summary() # Display a summary of your model
+plot_model(model, to_file='02_03_model.png', show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('02_03_model.png') # Display the image
+plt.imshow(data)
+plt.axis('off');
+plt.title('The model in the fake/real predictions dollar bills')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "4. Is this dollar bill fake?"; print("** %s\n" % tema)
+tema = "15. Early stopping your model"; print("** %s\n" % tema)
+tema = "16. A combination of callbacks"; print("** %s\n" % tema)
+
+X_train, X_test, y_train, y_test = train_test_split(banknotes[['variace', 'skewness', 'curtosis', 'entropy']].values,  # Create training and test sets
+                                                    banknotes['class'].values, 
+                                                    stratify=banknotes['class'].values,
+                                                    test_size=0.5, random_state=SEED)
+
+monitor_val_loss = EarlyStopping(monitor='val_loss', patience=5) # Define a callback to monitor val_acc
+modelCheckpoint = ModelCheckpoint('02_16_model_dollar_fake.hdf5', save_best_only=True) # Save the best model as best_banknote_model.hdf5
+
+training = model.fit(X_train, y_train, 
+                     epochs=50, validation_split=0.2, callbacks=[monitor_val_loss, modelCheckpoint]) # Train your model for 20 epochs
+accuracy = model.evaluate(X_test, y_test)[1] # Evaluate your model accuracy on the test set
+
+print('Accuracy:',accuracy) # Print accuracy
+
+learning_curve_compare(training.history['loss'], training.history['val_loss'], metrics='Loss') # Plot train vs test loss during training
+learning_curve_compare(training.history['acc'], training.history['val_acc'], metrics='Accuracy') # Plot train vs test accuracy during training
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

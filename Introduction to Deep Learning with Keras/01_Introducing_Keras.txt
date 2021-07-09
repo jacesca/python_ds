@@ -1,0 +1,165 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 13 22:09:21 2019
+
+@author: jacqueline.cortez
+
+Chapter 1. Introducing Keras
+Introduction:
+    In this first chapter, you will get introduced to neural networks, understand what kind of 
+    problems they can solve, and when to use them. You will also build several networks and save 
+    the earth by training a regression model that approximates the orbit of a meteor that is 
+    approaching us!
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import matplotlib.pyplot as plt                                               #For creating charts
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.optimizers                import Adam                              #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def plot_orbit(model_preds, name, tema):
+    plt.figure()
+    axeslim = int(len(model_preds)/2)
+    plt.plot(np.arange(-axeslim, axeslim + 1),
+             np.arange(-axeslim, axeslim + 1)**2, 
+             color="mediumslateblue", alpha=0.5)
+    plt.plot(np.arange(-axeslim, axeslim + 1), model_preds, color="orange", alpha=0.5)
+    plt.xlabel('Time step')
+    plt.ylabel('Coordinate')
+    plt.axis([-40, 41, -5, 550])
+    plt.legend(["Scientist's Orbit", 'Your orbit'],loc="lower left")
+    plt.title("{} Model orbit vs Scientist's Orbit".format(name))
+    plt.suptitle(tema)
+    plt.show()
+  
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'meteor_orbit_train.csv'
+orbit_data_train = pd.read_csv(file, sep=';')
+X_feature = orbit_data_train.Time_step.values
+y_coordinate = orbit_data_train.Coordinate.values 
+
+plt.plot(X_feature, y_coordinate)
+plt.xlabel('Time step')
+plt.ylabel('Coordinate')
+plt.title('The data register by the scientist')
+plt.suptitle(tema)
+plt.show()
+
+print("****************************************************")
+tema = "9. Specifying a model"; print("** %s\n" % tema)
+
+model = Sequential() # Instantiate a Sequential model
+model.add(Dense(50, input_shape=(1,), activation='relu', name="Dense")) # Add a Dense layer with 50 neurons and an input of 1 neuron
+model.add(Dense(50, activation='relu', name="Dense_2")) # Add two Dense layers with 50 neurons and relu activation
+model.add(Dense(50, activation='relu', name="Dense_3")) 
+model.add(Dense(1, name='Output')) # End your model with a Dense layer and no activation
+
+model.summary() # Summarize your model
+plot_model(model, to_file='01_09_model.png', show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('01_09_model.png') # Display the image
+plt.imshow(data)
+plt.axis('off');
+plt.title('A simple regression model to predict the meteor impact')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "10. Training"; print("** %s\n" % tema)
+
+model.compile(optimizer=Adam(lr=0.01), loss='mse') # Compile your model
+print("Training started..., this can take a while:")
+
+training = model.fit(X_feature, y_coordinate, epochs=30) # Fit your model on your data for 30 epochs
+print("Final lost value:",model.evaluate(X_feature, y_coordinate)) # Evaluate your model 
+
+plt.figure()
+plt.plot(training.history['loss']) # Plot the training loss 
+plt.ylabel('loss function: mse')
+plt.xlabel('epochs')
+plt.title('Evaluation results in each epoch')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "11. Predicting the orbit!"; print("** %s\n" % tema)
+
+ten_min_orbit = model.predict(np.arange(-10, 11)) # Predict the twenty minutes orbit
+plot_orbit(ten_min_orbit, name='10 min', tema=tema) # Plot the twenty minute orbit 
+
+twenty_min_orbit = model.predict(np.arange(-20, 21)) # Predict the twenty minutes orbit
+plot_orbit(twenty_min_orbit, name='20 min', tema=tema) # Plot the twenty minute orbit 
+
+eighty_min_orbit = model.predict(np.arange(-40, 41)) # Predict the eighty minute orbit
+plot_orbit(eighty_min_orbit, '40 min', tema=tema) # Plot the eighty minute orbit 
+
+plt.figure()
+plt.plot(X_feature, y_coordinate, 'b--', alpha=0.5, label='Data register by scientist')
+plt.plot(np.arange(-10, 11), ten_min_orbit, color='red', alpha=0.5, label='Predictions')
+plt.xlabel('Time step')
+plt.ylabel('Coordinate')
+plt.legend()
+plt.title('Showing predictions')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
+
+
+
+"""
+print("****************************************************")
+tema = "5. Hello nets!"; print("** %s\n" % tema)
+
+model = Sequential() # Create a Sequential model
+model.add(Dense(10, input_shape=(2,), activation="relu")) # Add an input layer and a hidden layer with 10 neurons
+model.add(Dense(1)) # Add a 1-neuron output layer
+model.summary() # Summarise your model
+
+"""
+"""
+print("****************************************************")
+tema = "6. Counting parameters"; print("** %s\n" % tema)
+
+model = Sequential() # Instantiate a new Sequential model
+model.add(Dense(5, input_shape=(3,), activation="relu")) # Add a Dense layer with five neurons and three inputs
+model.add(Dense(1)) # Add a final Dense layer with one neuron and no activation
+model.summary() # Summarize your model
+"""
+"""
+print("****************************************************")
+tema = "7. Build as shown!"; print("** %s\n" % tema)
+
+model = Sequential() # Instantiate a Sequential model
+model.add(Dense(3, input_shape=(2,), activation='relu')) # Build the input and hidden layer
+model.add(Dense(1)) # Add the ouput layer
+model.summary() # Summarize your model
+"""

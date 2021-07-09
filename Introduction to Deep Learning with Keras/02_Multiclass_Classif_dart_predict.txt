@@ -1,0 +1,146 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Sep 14 20:42:57 2019
+
+@author: jacqueline.cortez
+
+Chapter 2. Going Deeper
+Introduction:
+    By the end of this chapter, you will know how to solve binary, multi-class, and multi-label problems with neural networks. 
+    All of this by solving problems like detecting fake dollar bills, deciding who threw which dart at a board, and building an 
+    intelligent system to water your farm. You will also be able to plot model training metrics and to stop training and save your 
+    models when they no longer improve.
+    MULTICLASS CLASSIFICATION EXAMPLE CODE
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import seaborn           as sns                                               #For visualizing data
+import tensorflow as tf                                                       #For DeapLearning
+
+#from pandas.api.types                import CategoricalDtype                  #For categorical data
+
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+np.set_printoptions(suppress=True)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_display(training, loss_name):
+    plt.figure()
+    plt.plot(training.history['loss']) # Plot the training loss 
+    plt.ylabel(loss_name)
+    plt.xlabel('epochs')
+    plt.title('Evaluation results in each epoch')
+    plt.suptitle(tema)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'darts.csv'
+darts_df = pd.read_csv(file)
+#cats = CategoricalDtype(categories=darts_df.competitor.unique().tolist()) #,  ordered=True #Create categorical type data to use
+#darts_df['competitor'] = darts_df['competitor'].astype(cats) # Change the data type of 'rating' to category
+
+print('Dataset stats: \n', darts_df.describe()) # Describe the data
+print('\nObservations per class: \n{}'.format(darts_df['competitor'].value_counts())) # Count the number of observations of each class
+
+g = sns.relplot(x='xCoord', y='yCoord', data=darts_df, hue='competitor',
+                kind='scatter', alpha=0.4) # Use pairplot and set the hue to be our class
+plt.xticks(fontsize=8) #Fontsize in sns plot
+plt.yticks(fontsize=8)
+plt.title('Dataset: {}'.format(file))
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.88, wspace=None, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = "6. A multi-class model"; print("** %s\n" % tema)
+
+model = Sequential() # Instantiate a sequential model
+model.add(Dense(128, input_shape=(2,), activation='relu', name='Dense')) # Add 3 dense layers of 128, 64 and 32 neurons each
+model.add(Dense(64, activation='relu', name='Dense_2'))
+model.add(Dense(32, activation='relu', name='Dense_3'))
+model.add(Dense(4, activation='softmax', name='Output')) # Add a dense layer with as many neurons as competitors
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy']) # Compile your model using categorical_crossentropy loss
+
+model_display(model, tema, file_name='02_06_model.png')
+
+print("****************************************************")
+tema = "7. Prepare your dataset"; print("** %s\n" % tema)
+
+darts_df.competitor = pd.Categorical(darts_df.competitor) # Transform into a categorical variable
+darts_df.competitor = darts_df.competitor.cat.codes # Assign a number to each category (label encoding)
+print('Label encoded competitors: \n{}'.format(darts_df.competitor.head())) # Print the label encoded competitors
+
+coordinates = darts_df.drop(['competitor'], axis=1) # Use to_categorical on your labels
+competitors = to_categorical(darts_df.competitor)
+print('\nOne-hot encoded competitors: \n{}'.format(competitors)) # Now print the to_categorical() result
+
+print("****************************************************")
+tema = "8. Training on dart throwers"; print("** %s\n" % tema)
+
+coord_train, coord_test, competitors_train, competitors_test = train_test_split(coordinates, competitors, # Create training and test sets
+                                                                                stratify=competitors,
+                                                                                test_size=0.2, random_state=SEED)
+
+training = model.fit(coord_train, competitors_train, epochs=200) # Train your model on the training data for 200 epochs
+accuracy = model.evaluate(coord_test, competitors_test)[1] # Evaluate your model accuracy on the test data
+
+print('Accuracy:', accuracy) # Print accuracy
+learning_curve_display(training, loss_name='categorical_crossentropy')
+
+print("****************************************************")
+tema = "9. Softmax predictions"; print("** %s\n" % tema)
+
+preds = model.predict(coord_test) # Predict on X_small_test
+print("{:45} | {}".format('Raw Model Predictions','True labels')) # Print preds vs true values
+for i, pred in enumerate(preds):
+    print("{} | {}".format(pred, competitors_test[i]))
+
+preds = [np.argmax(pred) for pred in preds] # Extract the indexes of the highest probable predictions
+print("{:10} | {}".format('Rounded Model Predictions','True labels')) # Print preds vs true values
+for i,pred in enumerate(preds):
+    print("{:25} | {}".format(pred, competitors_test[i]))
+
+print("Classes predicted: ", model.predict_classes(coord_test))  # Predict labels
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

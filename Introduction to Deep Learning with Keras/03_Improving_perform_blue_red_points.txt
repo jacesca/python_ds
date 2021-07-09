@@ -1,0 +1,167 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 15 22:13:44 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Improving Your Model Performance
+Introduction:
+    In the previous chapters, you've trained a lot of models! You will now learn how to interpret 
+    learning curves to understand your models as they train. You will also visualize the effects of 
+    activation functions, batch-sizes, and batch-normalization. 
+    Finally, you will learn how to perform automatic hyperparameter optimization to your Keras models 
+    using sklearn.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import seaborn           as sns                                               #For visualizing data
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_compare(train, validation, metrics, sup_title):
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.suptitle(sup_title)
+    plt.show()
+
+def plot_results(train_accs, test_accs, train_sizes, sup_title):
+    plt.figure()
+    plt.plot(train_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(train_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.xticks(train_sizes); 
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('Training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+    plt.suptitle(sup_title)
+    plt.show()
+
+def get_model():
+    model = Sequential()
+    model.add(Dense(4,input_shape=(2,), activation='relu', name='Dense_1'))
+    model.add(Dense(1,activation="sigmoid", name='Output'))
+    model.compile('sgd', loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+    
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'points_dataset.csv'
+points_df = pd.read_csv(file, sep=';')
+
+print('Point Dataset info: \n',  points_df.info()) # Describe the data
+print('\nPoint Dataset stats: \n', points_df.describe(include='all')) # Describe the data
+print('\nPoint Dataset head: \n', points_df.head()) # Describe the data
+  
+g = sns.relplot(x='x_coord', y='y_coord', data=points_df, hue='Point',
+                kind='scatter', alpha=0.4) # Use pairplot and set the hue to be our class
+plt.xticks(fontsize=8) #Fontsize in sns plot
+plt.yticks(fontsize=8)
+plt.title('Dataset: {}'.format(file))
+plt.suptitle(tema)
+plt.subplots_adjust(left=None, bottom=0.1, right=None, top=0.9, wspace=None, hspace=None)
+plt.show() # Show the plot
+plt.style.use('default')
+
+points_df.Point = points_df.Point.map({'Red':1, 'Blue':0})
+X_train, X_test, y_train, y_test = train_test_split(points_df.drop(['Point'], axis=1), points_df.Point, stratify=points_df.Point,
+                                                    test_size=0.3, random_state=SEED)
+
+print("****************************************************")
+tema = "10. Changing batch sizes"; print("** %s\n" % tema)
+
+model = get_model() # Get a fresh new model with get_model
+print(model.summary())
+model_display(model, tema, file_name='03_10_model.png')
+
+training_1 = model.fit(X_train, y_train, epochs=5, batch_size=1, validation_data=(X_test, y_test)) # Train your model for 5 epochs with a batch size of 1
+print("\nThe accuracy when using a batch of size 1 is: {}\n".format(model.evaluate(X_test, y_test)[1]))
+
+model = get_model() # Get a fresh new model with get_model
+training_700 = model.fit(X_train, y_train, epochs=5, batch_size=700, validation_data=(X_test, y_test)) # Fit your model for 5 epochs with a batch of size the training set
+print("\nThe accuracy when using the whole training set as a batch was: {}\n".format(model.evaluate(X_test, y_test)[1]))
+
+
+plt.figure(figsize=(10,4))
+ax=plt.subplot(1,2,1)
+plt.plot(training_1.history['loss'])
+plt.plot(training_1.history['val_loss'])
+plt.title('Model Loss (batch_size=1)')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'])
+plt.subplot(1,2,2, sharex=ax, sharey=ax)
+plt.plot(training_700.history['loss'])
+plt.plot(training_700.history['val_loss'])
+plt.title('Model Loss (batch_size=700)')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'])
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.suptitle(tema)
+plt.show()
+
+
+plt.figure(figsize=(10,4))
+ax=plt.subplot(1,2,1)
+plt.plot(training_1.history['acc'])
+plt.plot(training_1.history['val_acc'])
+plt.title('Model Accuracy (batch_size=1)')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'])
+plt.subplot(1,2,2, sharex=ax, sharey=ax)
+plt.plot(training_700.history['acc'])
+plt.plot(training_700.history['val_acc'])
+plt.title('Model Accuracy (batch_size=700)')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'])
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.suptitle(tema)
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

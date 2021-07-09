@@ -1,0 +1,215 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 19 18:12:55 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Advanced Model Architectures
+Introduction:
+    It's time to get introduced to more advanced architectures! You will create an autoencoder 
+    to reconstruct noisy images, visualize convolutional neural network activations, use deep 
+    pre-trained models to classify images and learn more about recurrent neural networks and 
+    working with text as you build a network that predicts the next word in a sentence.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+#import keras.backend     as k                                                 #For DeapLearning
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.datasets                  import mnist                             #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.compat.v1.set_random_seed(SEED) #Instead of tf.set_random_seed, because it is deprecated.
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    """
+    model_display function make a plot of the defined model. This function need the followin parameters:
+        model: the model to plot.
+        sup_title: the text that is going to be printed as suptitle in the plot.
+        file_name: the file where to save the image.
+    """
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def show_encodings(X_noise, y_target, encoded_imgs, number=4, sup_title=""):
+    n = 5  # how many digits we will display
+    original = X_noise
+    original = original[np.where(y_target == number)]
+    y_target = y_target[np.where(y_target == number)]
+    encoded_imgs = encoded_imgs[np.where(y_target==number)]
+    plt.figure(figsize=(10, 4))
+    #plt.title('Original '+str(number)+' vs Encoded representation')
+    for i in range(min(n,len(original))):
+        # display original imgs
+        ax = plt.subplot(2, n, i + 1)
+        plt.imshow(original[i].reshape(28, 28))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+        plt.title("Number: {}".format(y_target[i]))
+        
+        # display encoded imgs
+        ax = plt.subplot(2, n, i + 1 + n)
+        plt.imshow(np.tile(encoded_imgs[i],(32,1)))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+        plt.title("Number: {}".format(y_target[i]))
+    plt.suptitle("{}/nEncoding images".format(sup_title))
+    plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=0.5)
+    plt.show()
+
+def compare_plot(original, decoded_imgs, y_target, sup_title="", number=4):
+    original = original[np.where(y_target == number)]
+    decoded_imgs = decoded_imgs[np.where(y_target == number)]
+    y_target = y_target[np.where(y_target==number)]
+    
+    n = 4  # How many digits we will display
+    plt.figure(figsize=(10, 4))
+    for i in range(min(n,len(original))):
+        # Display original
+        ax = plt.subplot(2, n, i + 1)
+        plt.imshow(original[i].reshape(28, 28))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+        plt.title("Number: {}".format(y_target[i]))
+        
+        # Display reconstruction
+        ax = plt.subplot(2, n, i + 1 + n)
+        plt.imshow(decoded_imgs[i].reshape(28, 28))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+        plt.title("Number: {}".format(y_target[i]))
+    plt.suptitle("{}/nNoisy vs Decoded images".format(sup_title))
+    plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=0.5)
+    plt.show()
+
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+plt.figure(figsize=(10, 4))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    #plt.imshow(x_train[i], cmap=plt.get_cmap(name='gray'))
+    plt.xlabel('Number: {}'.format(y_train[i]))
+plt.suptitle("Number MNIST Database")
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.5, hspace=0.5)
+plt.show()
+
+plt.figure(figsize=(10, 1.5))
+for i in range(10):
+    plt.subplot(1,10,i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    #plt.pcolor(x_train[i],  cmap='gray') # Visualize the result
+    #plt.gca().invert_yaxis()
+    plt.imshow(x_train[i], cmap=plt.get_cmap(name='gray'))
+    plt.xlabel('Number: {}'.format(y_train[i]))
+plt.suptitle("Number MNIST Database")
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+y_target_train = to_categorical(y_train)
+y_target_test = to_categorical(y_test)
+
+X_train = x_train.reshape(len(x_train), 784)
+X_test  = x_test.reshape(len(x_test ), 784)
+
+print("****************************************************")
+tema = "Creating the noise matrix"; print("** %s\n" % tema)
+
+#n_rows = x_test.shape[1]
+#n_cols = x_test.shape[2]
+#mean = 0.5; stddev = 0.3;
+#noise = np.random.normal(mean, stddev, (n_rows, n_cols))
+#x_test_noisy = x_test + noise # creating the noisy test data by adding X_test with noise
+
+# Generate corrupted MNIST images by adding noise with normal dist
+# centered at 0.5 and std=0.5
+noise = np.random.normal(loc=0.5, scale=0.5, size=x_train.shape)
+x_train_noise = x_train + noise
+x_train_noise = np.clip(x_train_noise, 0., 1.)
+noise = np.random.normal(loc=0.5, scale=0.5, size=x_test.shape)
+x_test_noise = x_test + noise
+x_test_noise = np.clip(x_test_noise, 0., 1.)
+
+plt.figure(figsize=(10, 1.5))
+for i in range(10):
+    plt.subplot(1,10,i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    #plt.pcolor(x_train_noisy[i],  cmap='gray') # Visualize the result
+    #plt.gca().invert_yaxis()
+    plt.imshow(x_train_noise[i], cmap=plt.get_cmap(name='gray'))
+    plt.xlabel('Number: {}'.format(y_train[i]))
+plt.suptitle("Noise MNIST Database")
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.8, wspace=0.5, hspace=None)
+plt.show()
+
+X_train_noise = x_train_noise.reshape(len(x_train_noise), 784)
+X_test_noise  = x_test_noise.reshape(len(x_test_noise), 784)
+
+print("****************************************************")
+tema = "4. Building an autoencoder"; print("** %s\n" % tema)
+
+autoencoder = Sequential() # Start with a sequential model
+autoencoder.add(Dense(32, input_shape=(784, ), activation="relu", name='Dense')) # Add a dense layer with the original image as input
+autoencoder.add(Dense(784, activation="sigmoid", name='Output')) # Add an output layer with as many nodes as the image
+autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy') # Compile your model
+autoencoder.name = 'Autoencoder'
+
+model_display(autoencoder, tema, file_name='04_04_model.png')
+
+autoencoder.fit(X_train_noise, X_train, validation_split=0.2, epochs=30, batch_size=128) # Train the autoencoder
+
+print("****************************************************")
+tema = "5. De-noising like an autoencoder"; print("** %s\n" % tema)
+
+encoder = Sequential() # Build your encoder
+encoder.add(autoencoder.layers[0])
+encoder.name = 'Encoder'
+
+model_display(encoder, tema, file_name='04_05_model.png')
+
+preds = encoder.predict(X_test_noise) # Encode the images and show the encodings
+show_encodings(X_test_noise, y_test, preds, number=7, sup_title=tema)
+
+decoded_imgs = autoencoder.predict(X_test_noise) # Predict on the noisy images with your autoencoder
+compare_plot(X_test_noise, decoded_imgs, y_test, sup_title=tema, number=7) # Plot noisy vs decoded images
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

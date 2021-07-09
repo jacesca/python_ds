@@ -1,0 +1,259 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 15 13:00:20 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Improving Your Model Performance
+Introduction:
+    In the previous chapters, you've trained a lot of models! You will now learn how to interpret 
+    learning curves to understand your models as they train. You will also visualize the effects of 
+    activation functions, batch-sizes, and batch-normalization. 
+    Finally, you will learn how to perform automatic hyperparameter optimization to your Keras models 
+    using sklearn.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+#from pandas.api.types                import CategoricalDtype                  #For categorical data
+
+from keras.callbacks                 import EarlyStopping                     #For DeapLearning
+from keras.callbacks                 import ModelCheckpoint                   #For DeapLearning
+#from keras.datasets                  import mnist                             #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+from sklearn                         import datasets                          #For learning machine
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_display(training, loss_name):
+    plt.figure()
+    plt.plot(training.history['loss']) # Plot the training loss 
+    plt.ylabel(loss_name)
+    plt.xlabel('epochs')
+    plt.title('Evaluation results in each epoch')
+    plt.suptitle(tema)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_compare(train, validation, metrics):
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.show()
+
+def plot_results(train_accs, test_accs, train_sizes):
+    plt.figure()
+    plt.plot(train_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(train_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.xticks(train_sizes); 
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('Training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+    plt.show()
+
+def get_model(act_function):
+    if act_function not in ['relu', 'linear', 'sigmoid', 'tanh']:
+        raise ValueError('Make sure your activation functions are named correctly!')  
+    else:
+        print("Finishing with", act_function, "...")  
+        model = Sequential() # Instantiate a Sequential model
+        model.add(Dense(64, input_shape=(20,), activation=act_function, name='Dense_1')) # Add a hidden layer of 64 neurons and a 20 neuron's input
+        model.add(Dense(3, activation='sigmoid', name='Output')) # Add an output layer of 3 neurons with sigmoid activation
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']) # Compile your model with adam and binary crossentropy loss
+        return model
+    
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+digits = datasets.load_digits()
+X_features = digits.images
+y_target   = digits.target
+
+x_train, x_test, y_train, y_test = train_test_split(X_features, y_target, stratify=y_target,
+                                                    test_size=0.2, random_state=SEED)
+#(x_train, y_train), (x_test, y_test) = mnist.load_data()
+#x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+#plt.pcolor(x_train[10],  cmap='gray') # Visualize the result
+#plt.imshow(x_train[10], cmap = plt.get_cmap(name = 'gray'))
+#plt.gca().invert_yaxis()
+#plt.title('Number: {}'.format(y_train[10]))
+#plt.suptitle(tema)
+#plt.gca().set_aspect('equal', adjustable='box')
+#plt.show()
+
+plt.figure(figsize=(10, 4))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([]); plt.yticks([]); plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    #plt.imshow(x_train[i], cmap=plt.get_cmap(name='gray'))
+    plt.xlabel('Number: {}'.format(y_train[i]))
+plt.suptitle("Number MNIST Database")
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.5, hspace=0.5)
+plt.show()
+
+X_train = x_train.reshape(len(x_train), 64)
+X_test  =  x_test.reshape(len(x_test ), 64)
+y_target_train = to_categorical(y_train)
+y_target_test = to_categorical(y_test)
+
+#X_train = x_train.reshape(len(x_train), 784)
+#X_test  =  x_test.reshape(len(x_test ), 784)
+
+file = 'irrigation_machine.csv'
+irrigation_df = pd.read_csv(file, 
+                            usecols=['sensor_0', 'sensor_1', 'sensor_2', 'sensor_3', 'sensor_4', 
+                                     'sensor_5', 'sensor_6', 'sensor_7', 'sensor_8', 'sensor_9', 
+                                     'sensor_10', 'sensor_11', 'sensor_12', 'sensor_13', 'sensor_14',
+                                     'sensor_15', 'sensor_16', 'sensor_17', 'sensor_18', 'sensor_19',
+                                     'parcel_0', 'parcel_1', 'parcel_2'])
+
+print('\nIrrigation machine Dataset info: \n',  irrigation_df.info()) # Describe the data
+print('\nIrrigation machine Dataset stats: \n', irrigation_df.describe(include='all')) # Describe the data
+
+sensors = irrigation_df.drop(['parcel_0', 'parcel_1', 'parcel_2'], axis=1)
+parcels = irrigation_df[['parcel_0', 'parcel_1', 'parcel_2']]
+
+print("****************************************************")
+tema = "2. Learning the digits"; print("** %s\n" % tema)
+
+model = Sequential() # Instantiate a Sequential model
+model.add(Dense(16, input_shape=(64,), activation='relu', name='Dense_1')) # Input and hidden layer with input_shape, 16 neurons, and relu 
+model.add(Dense(10, activation='softmax', name='Output')) # Output layer with 10 neurons (one per digit) and softmax
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy']) # Compile your model
+
+initial_weights = model.get_weights() #Get initial weight for the recently defined model
+
+model_display(model, tema, file_name='03_02_model.png')
+
+#preds = model.predict(X_train) # Test if your model works and can process input data
+#print('Predictions without training: \n{}'.format(preds)) # Print preds
+#
+#preds_rounded = np.round(preds)
+#print('\nRounded Predictions: \n{}'.format(preds_rounded)) # Print rounded preds
+#
+#print("\nThe 5 first predictions\n{} | {} | {}\n".format('Raw Model Predictions','True labels', 'Target')) # Print preds vs true values
+#for i, pred in enumerate(preds_rounded[:5]):
+#    print("{:>21} | {} | {}".format(str(pred), y_target_train[i], y_train[i]))
+
+print("****************************************************")
+tema = "3. Is the model overfitting?"; print("** %s\n" % tema)
+
+monitor_val_loss = EarlyStopping(monitor='loss', patience=5) # Define a callback to monitor val_acc
+modelCheckpoint = ModelCheckpoint('03_03_model_mnist.hdf5', save_best_only=True) # Save the best model as best_banknote_model.hdf5
+
+training = model.fit(X_train, y_target_train, validation_data=(X_test, y_target_test),  
+                     epochs=60, verbose=0, callbacks=[monitor_val_loss, modelCheckpoint]) # Train your model for 60 epochs, using X_test and y_test as validation data
+#training = model.fit(X_train, y_target_train, epochs=60, validation_split=0.2, verbose=0, 
+#                     callbacks=[monitor_val_loss, modelCheckpoint]) # Trai2 your model for 60 epochs, using X_test and y_test as validation data
+
+learning_curve_compare(training.history['loss'], training.history['val_loss'], metrics='Loss') # Plot train vs test loss during training
+
+print("****************************************************")
+tema = "4. Do we need more data?"; print("** %s\n" % tema)
+
+training_sizes = np.array([ 125,  502,  879, 1255, 1435])
+#training_sizes = np.array([ 110, 220, 330, 440, 550, 660, 770, 880, 990, 1100, 1210, 1320, 1430])
+#training_sizes = np.array([ 110, 330, 550, 770, 990, 1210, 1430])
+
+train_accs = []
+test_accs = []
+
+for size in training_sizes:
+    X_train_frac, _, y_train_frac, _ = train_test_split(X_train, y_target_train, train_size=size) # Get a fraction of training data    
+    model.set_weights(initial_weights) # Set the model weights to the initial weights and fit the model
+    model.fit(X_train_frac, y_train_frac, epochs=50, callbacks=[monitor_val_loss], verbose=0)
+
+    # Evaluate and store results for the training fraction and the test set
+    train_accs.append(model.evaluate(X_train_frac, y_train_frac, verbose=0)[1])
+    test_accs.append(model.evaluate(X_test, y_target_test, verbose=0)[1])
+
+plot_results(train_accs, test_accs, training_sizes) # Plot train vs test accuracies
+
+print("****************************************************")
+tema = "7. Comparing activation functions"; print("** %s\n" % tema)
+
+sensors_train, sensors_test, parcels_train, parcels_test = train_test_split(sensors,  parcels, stratify=parcels, # Create training and test sets
+                                                                            test_size=0.3, random_state=SEED)
+
+activations = ['relu', 'linear', 'sigmoid', 'tanh'] # Activation functions to try
+activation_results = {} # Loop over the activation functions
+
+for act in activations:
+    model = get_model(act_function=act) # Get a new model with the current activation
+    training = model.fit(sensors_train, parcels_train, validation_data=(sensors_test, parcels_test), 
+                         epochs=20, verbose=0) # Fit the model
+    activation_results[act] = training
+  
+print("****************************************************")
+tema = "8. Comparing activation functions II"; print("** %s\n" % tema)
+
+val_loss_per_function = {k: v.history['val_loss'] for k, v in activation_results.items()} #Extract val_loss history of each activation function 
+val_acc_per_function = {k: v.history['val_acc'] for k, v in activation_results.items()} #Extract val_acc history of each activation function 
+
+val_loss= pd.DataFrame(val_loss_per_function) # Create a dataframe from val_loss_per_function
+val_acc = pd.DataFrame(val_acc_per_function) # Create a dataframe from val_acc_per_function
+
+# Call plot on the dataframe
+val_loss.plot(title='Loss per Activation Function')
+plt.ylabel('Loss Test Evaluation')
+plt.xlabel('Epochs')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+# Call plot on the dataframe
+val_acc.plot(title='Accuracy per Activation Function')
+plt.ylabel('Accuracy Test Evaluation')
+plt.xlabel('Epochs')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = ""; print("** %s\n" % tema)
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

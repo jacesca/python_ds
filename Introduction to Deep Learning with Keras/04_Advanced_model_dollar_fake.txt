@@ -1,0 +1,209 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep 18 19:37:00 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Advanced Model Architectures
+Introduction:
+    It's time to get introduced to more advanced architectures! You will create an autoencoder 
+    to reconstruct noisy images, visualize convolutional neural network activations, use deep 
+    pre-trained models to classify images and learn more about recurrent neural networks and 
+    working with text as you build a network that predicts the next word in a sentence.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import keras.backend     as k                                                 #For DeapLearning
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import pandas            as pd                                                #For loading tabular data
+#import seaborn           as sns                                               #For visualizing data
+import tensorflow as tf                                                       #For DeapLearning
+
+from pandas.api.types                import CategoricalDtype                  #For categorical data
+
+from keras.callbacks                 import EarlyStopping                     #For DeapLearning
+from keras.callbacks                 import ModelCheckpoint                   #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.compat.v1.set_random_seed(SEED) #Instead of tf.set_random_seed, because it is deprecated.
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    """
+    model_display function make a plot of the defined model. This function need the followin parameters:
+        model: the model to plot.
+        sup_title: the text that is going to be printed as suptitle in the plot.
+        file_name: the file where to save the image.
+    """
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_compare(train, validation, metrics, sup_title):
+    """
+    learning_curve_compare function show the curve of the learning performance. 
+    This function need the followin parameters:
+        - train: the metrics result in the train data per epochs.
+        - validation: the metrics result in the validation  data per epochs.
+        - metrics: the metrics that is tracked and is going to show in the plot.
+        - sup_title: the text that is going to be printed as suptitle in the plot.
+    """
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.suptitle(sup_title)
+    plt.show()
+
+def plot_results(train_accs, test_accs, train_sizes, sup_title):
+    """
+    plot_results function shows the evolution of accuracy in the learning process through different size samples.
+    This function needs the following parameters:
+        - train_accs: the accuracy tracked with the train data.
+        - test_accs: the accuracy tracked with the validation data.
+        - train_sizes: the different sizes of samples using to train and test.
+        - sup_title: the text that is going to be printed as suptitle in the plot.
+    """
+    plt.figure()
+    plt.plot(train_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(train_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.xticks(train_sizes); 
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('Training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+    plt.suptitle(sup_title)
+    plt.show()
+    
+def compare_histories_acc(h1,h2,metric='acc',ylabel='Accuracy',sup_title=''):
+    """
+    compare_histories_acc funtion shows the comparative learning curve, between Batchnormalized and standard model.
+    This function needs the following parameters:
+         - h1: the metrics saved in the normal standard model.
+         - h2: the matrics saved in the normalized model.
+         - metrics: metrics tracked in the models.
+         - ylabel: the label of y axis.
+         - sup_title: the text that is going to be printed as suptitle in the plot.
+    """
+    plt.figure()
+    plt.plot(h1.history[metric])
+    plt.plot(h1.history['val_{}'.format(metric)])
+    plt.plot(h2.history[metric])
+    plt.plot(h2.history['val_{}'.format(metric)])
+    plt.title("Batch Normalization Effects")
+    plt.xlabel('Epoch')
+    plt.ylabel(ylabel)
+    plt.legend(['Train', 'Test', 'Train with Batch Normalization', 'Test with Batch Normalization'], loc='best')
+    plt.suptitle(sup_title)
+    plt.show()
+
+def create_model():
+    model = Sequential() # Create a sequential model
+    model.add(Dense(2, input_shape=(4,), activation='relu', name='Dense_1')) # Add a dense layer 
+    model.add(Dense(1, input_shape=(4,), activation='sigmoid', name='Dense_2')) # Add a dense layer 
+    model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy']) # Compile your model
+    return model
+
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'banknotes.csv'
+banknotes = pd.read_csv(file)
+banknotes['label'] = banknotes['class'].replace({0:'real', 1:'fake'})
+
+cats = CategoricalDtype(categories=['real', 'fake']) #,  ordered=True #Create categorical type data to use
+banknotes['label'] = banknotes['label'].astype(cats) # Change the data type of 'rating' to category
+
+#g = sns.pairplot(banknotes[['variace', 'skewness', 'curtosis', 'entropy', 'label']], hue='label') # Use pairplot and set the hue to be our class
+#g.fig.set_figheight(4) #Height and width of sns plot
+#g.fig.set_figwidth(10)
+#plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=0.15, right=None, top=0.88, wspace=None, hspace=None)
+#plt.show() # Show the plot
+
+print('Dataset stats: \n', banknotes.describe()) # Describe the data
+print('\nObservations per class: \n{}'.format(banknotes['label'].value_counts())) # Count the number of observations of each class
+
+X_train, X_test, y_train, y_test = train_test_split(banknotes[['variace', 'skewness', 'curtosis', 'entropy']].values,  # Create training and test sets
+                                                    banknotes['class'].values,  stratify=banknotes['class'].values,
+                                                    test_size=0.5, random_state=SEED)
+
+print("****************************************************")
+tema = "Getting back the model"; print("** %s\n" % tema)
+
+model = create_model()
+
+model_display(model, tema, file_name='04_02_model.png')
+
+monitor_val_loss = EarlyStopping(monitor='val_loss', patience=5) # Define a callback to monitor val_acc
+modelCheckpoint = ModelCheckpoint('04_02_model_dollar_fake.hdf5', save_best_only=True) # Save the best model as best_banknote_model.hdf5
+training = model.fit(X_train, y_train, 
+                     epochs=50, validation_split=0.2, callbacks=[monitor_val_loss, modelCheckpoint]) # Train your model for 20 epochs
+accuracy = model.evaluate(X_test, y_test)[1] # Evaluate your model accuracy on the test set
+
+print('Accuracy:',accuracy) # Print accuracy
+
+learning_curve_compare(training.history['loss'], training.history['val_loss'], metrics='Loss', sup_title=tema) # Plot train vs test loss during training
+learning_curve_compare(training.history['acc'], training.history['val_acc'], metrics='Accuracy', sup_title=tema) # Plot train vs test accuracy during training
+
+print("****************************************************")
+tema = "2. It's a flow of tensors"; print("** %s\n" % tema)
+
+model.load_weights('04_02_model_dollar_fake.hdf5')
+
+inp = model.layers[0].input  # Input tensor from the 1st layer of the model
+out = model.layers[0].output # Output tensor from the 1st layer of the model
+
+inp_to_out = k.function([inp],[out]) # Define a function from inputs to outputs
+print("The output of the first layer: \n{}".format(inp_to_out([X_test]))) # Print the results of passing X_test through the 1st layer
+
+print("****************************************************")
+tema = "3. Neural separation"; print("** %s\n" % tema)
+
+model.load_weights('04_02_model_dollar_fake.hdf5')
+#model = create_model()
+
+for i in range(0, 21):
+    h = model.fit(X_train, y_train, batch_size=16, epochs=1, verbose=0) # Train model for 1 epoch
+    if i%4==0: 
+        layer_output = inp_to_out([X_test])[0] # Get the output of the first layer
+        test_accuracy = model.evaluate(X_test, y_test)[1] # Evaluate model accuracy for this epoch
+        print(layer_output[0])
+      
+        # Plot 1st vs 2nd neuron output
+        plt.figure()
+        plt.scatter(layer_output[:, 0], layer_output[:, 1], c=y_test)
+        plt.title('Epoch: {}, Test Acc: {:3.1f} %'.format(i+1, test_accuracy * 100.0)) 
+        plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

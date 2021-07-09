@@ -1,0 +1,157 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 15 13:00:20 2019
+
+@author: jacqueline.cortez
+
+Chapter 3. Improving Your Model Performance
+Introduction:
+    In the previous chapters, you've trained a lot of models! You will now learn how to interpret 
+    learning curves to understand your models as they train. You will also visualize the effects of 
+    activation functions, batch-sizes, and batch-normalization. 
+    Finally, you will learn how to perform automatic hyperparameter optimization to your Keras models 
+    using sklearn.
+"""
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Importing libraries \n")
+
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+print("****************************************************")
+print("** Preparing the environment \n")
+
+SEED=42
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+print("****************************************************")
+print("** User functions \n")
+
+def model_display(model, sup_title, file_name):
+    print(model.summary()) # Summarize your model
+    
+    plot_model(model, to_file=file_name, show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+    
+    # Plotting the model
+    plt.figure()
+    data = plt.imread(file_name) # Display the image
+    plt.imshow(data)
+    plt.axis('off');
+    plt.title('Defined Model')
+    plt.suptitle(sup_title)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_display(training, loss_name):
+    plt.figure()
+    plt.plot(training.history['loss']) # Plot the training loss 
+    plt.ylabel(loss_name)
+    plt.xlabel('epochs')
+    plt.title('Evaluation results in each epoch')
+    plt.suptitle(tema)
+    #plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+    plt.show()
+
+def learning_curve_compare(train, validation, metrics):
+    plt.figure()
+    plt.plot(train)
+    plt.plot(validation)
+    plt.title('Model {}'.format(metrics))
+    plt.ylabel(metrics)
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'])
+    plt.show()
+
+def plot_results(train_accs, test_accs, train_sizes):
+    plt.figure()
+    plt.plot(train_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(train_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.xticks(train_sizes); 
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('Training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+    plt.show()
+
+def get_model(act_function):
+    if act_function not in ['relu', 'linear', 'sigmoid', 'tanh']:
+        raise ValueError('Make sure your activation functions are named correctly!')  
+    else:
+        print("Finishing with", act_function, "...")  
+        model = Sequential() # Instantiate a Sequential model
+        model.add(Dense(64, input_shape=(20,), activation=act_function, name='Dense_1')) # Add a hidden layer of 64 neurons and a 20 neuron's input
+        model.add(Dense(3, activation='sigmoid', name='Output')) # Add an output layer of 3 neurons with sigmoid activation
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']) # Compile your model with adam and binary crossentropy loss
+        return model
+    
+print("****************************************************")
+tema = "Reading the data"; print("** %s\n" % tema)
+
+file = 'irrigation_machine.csv'
+irrigation_df = pd.read_csv(file, 
+                            usecols=['sensor_0', 'sensor_1', 'sensor_2', 'sensor_3', 'sensor_4', 
+                                     'sensor_5', 'sensor_6', 'sensor_7', 'sensor_8', 'sensor_9', 
+                                     'sensor_10', 'sensor_11', 'sensor_12', 'sensor_13', 'sensor_14',
+                                     'sensor_15', 'sensor_16', 'sensor_17', 'sensor_18', 'sensor_19',
+                                     'parcel_0', 'parcel_1', 'parcel_2'])
+
+print('\nIrrigation machine Dataset info: \n',  irrigation_df.info()) # Describe the data
+print('\nIrrigation machine Dataset stats: \n', irrigation_df.describe(include='all')) # Describe the data
+
+sensors = irrigation_df.drop(['parcel_0', 'parcel_1', 'parcel_2'], axis=1)
+parcels = irrigation_df[['parcel_0', 'parcel_1', 'parcel_2']]
+
+print("****************************************************")
+tema = "7. Comparing activation functions"; print("** %s\n" % tema)
+
+sensors_train, sensors_test, parcels_train, parcels_test = train_test_split(sensors,  parcels, stratify=parcels, # Create training and test sets
+                                                                            test_size=0.3, random_state=SEED)
+
+activations = ['relu', 'linear', 'sigmoid', 'tanh'] # Activation functions to try
+activation_results = {} # Loop over the activation functions
+
+for act in activations:
+    model = get_model(act_function=act) # Get a new model with the current activation
+    training = model.fit(sensors_train, parcels_train, validation_data=(sensors_test, parcels_test), 
+                         epochs=100, verbose=0) # Fit the model
+    activation_results[act] = training
+  
+print("****************************************************")
+tema = "8. Comparing activation functions II"; print("** %s\n" % tema)
+
+val_loss_per_function = {k: v.history['val_loss'] for k, v in activation_results.items()} #Extract val_loss history of each activation function 
+val_acc_per_function = {k: v.history['val_acc'] for k, v in activation_results.items()} #Extract val_acc history of each activation function 
+
+val_loss= pd.DataFrame(val_loss_per_function) # Create a dataframe from val_loss_per_function
+val_acc = pd.DataFrame(val_acc_per_function) # Create a dataframe from val_acc_per_function
+
+# Call plot on the dataframe
+val_loss.plot(title='Loss per Activation Function')
+plt.ylabel('Loss Test Evaluation')
+plt.xlabel('Epochs')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+# Call plot on the dataframe
+val_acc.plot(title='Accuracy per Activation Function')
+plt.ylabel('Accuracy Test Evaluation')
+plt.xlabel('Epochs')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
