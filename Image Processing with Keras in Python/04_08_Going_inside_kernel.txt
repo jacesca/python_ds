@@ -1,0 +1,176 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 10 22:50:45 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Improving Deep Convolutional
+Introduction:
+    There are many ways to improve training by neural networks. In this chapter, we will focus on our ability to track 
+    how well a network is doing, and explore approaches towards improving convolutional neural networks.
+"""
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+
+from scipy.signal                    import convolve2d                        #For learning machine - deep learning
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.layers                    import Conv2D                            #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.layers                    import Flatten                           #For DeapLearning
+from keras.layers                    import MaxPool2D                         #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.optimizers                import Adam                              #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+img_rows, img_cols = 28, 28
+mnist = tf.keras.datasets.fashion_mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+plt.pcolor(x_train[10],  cmap='gray') # Visualize the result
+plt.gca().invert_yaxis()
+plt.title('Figure 1')
+plt.suptitle("0. Fashion MNIST Database")
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+plt.figure(figsize=(6,6))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[y_train[i]])
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.3, hspace=0.3)
+plt.suptitle("0. Fashion MNIST Database")
+plt.show()
+
+train_data   = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
+train_labels = to_categorical(y_train, len(class_names))
+test_data    = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
+test_labels  = to_categorical(y_test, len(class_names))
+
+print("****************************************************")
+tema = "8. Extracting a kernel from a trained network"; print("** %s\n" % tema)
+
+model = Sequential()
+model.add(Conv2D(64, kernel_size=2, activation='relu', input_shape=(img_rows, img_cols, 1), name='Input')) # Add a convolutional layer (15 units)
+model.add(Conv2D(20, kernel_size=2, activation='relu', name='Conv2D')) # Add another convolutional layer (5 units)
+model.add(MaxPool2D(2, name='MaxPool2D-1')) # Add a pooling operation
+model.add(Flatten(name='Flatten')) # Flatten and feed to output layer
+model.add(Dense(10, activation='softmax', name='Output'))
+
+print(model.summary())
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+#checkpoint = ModelCheckpoint('04_03_weights.hdf5', monitor='val_loss', save_best_only=True)
+#training = model.fit(train_data, train_labels,  
+#                     epochs=10, verbose=True, validation_split=.20, batch_size=64, callbacks=[checkpoint]) # Fit the model
+model.load_weights('04_03_weights.hdf5') # Load the weights from file
+
+print("Classes predicted: ", model.predict_classes(test_data))  # Predict from the first three images in the test data
+print("Labels: ", y_test)
+print(model.evaluate(test_data, test_labels, batch_size=10, verbose=True)) # Evaluate the model on separate test data
+
+model.load_weights('04_03_weights.hdf5') # Load the weights into the model
+print("\nLayers: ", model.layers)
+c1 = model.layers[0] # Get the first convolutional layer from the model
+weights1 = c1.get_weights() # Get the weights of the first convolutional layer
+
+print("\nKernels in the first layer: ", weights1[0].shape)
+#a[..., 0] selects the first elements in the last dimension of a multidimensional array. 
+kernel1 = weights1[0][..., 0, 0] # Pull out the first channel of the first kernel in the first layer
+print("\nKernel1 details: ", kernel1)
+
+kernel2 = weights1[0][..., 0, 1] # Pull out the first channel of the first kernel in the first layer
+print("\nKernel2 details: ", kernel2)
+
+kernel3 = weights1[0][..., 0, 2] # Pull out the first channel of the first kernel in the first layer
+print("\nKernel3 details: ", kernel3)
+
+kernel4 = weights1[0][..., 0, 3] # Pull out the first channel of the first kernel in the first layer
+print("\nKernel4 details: ", kernel4)
+
+kernel5 = weights1[0][..., 0, 4] # Pull out the first channel of the first kernel in the first layer
+print("\nKernel5 details: ", kernel5)
+
+print("****************************************************")
+tema = "10. Visualizing kernel responses"; print("** %s\n" % tema)
+
+# Visualize the image
+plt.figure()
+plt.imshow(test_data[10, :, :, 0])
+plt.title('The 11st Figure ({}) before Convolution'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+# Visualize the image with the first kernel
+out = convolve2d(test_data[10, :, :, 0], kernel1, mode="same", boundary="symm")
+plt.figure()
+plt.imshow(out)
+plt.title('The 11st Figure ({}) before Convolution with the first kernel'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+# Visualize the image with the second kernel
+out = convolve2d(test_data[10, :, :, 0], kernel2, mode="same", boundary="symm")
+plt.figure()
+plt.imshow(out)
+plt.title('The 11st Figure ({}) before Convolution with the second kernel'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+# Visualize the image with the third kernel
+out = convolve2d(test_data[10, :, :, 0], kernel3, mode="same", boundary="symm")
+plt.figure()
+plt.imshow(out)
+plt.title('The 11st Figure ({}) before Convolution with the third kernel'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+# Visualize the image with the fourth kernel
+out = convolve2d(test_data[10, :, :, 0], kernel4, mode="same", boundary="symm")
+plt.figure()
+plt.imshow(out)
+plt.title('The 11st Figure ({}) before Convolution with the fourth kernel'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+# Visualize the image with the fifth kernel
+out = convolve2d(test_data[10, :, :, 0], kernel5, mode="same", boundary="symm")
+plt.figure()
+plt.imshow(out)
+plt.title('The 11st Figure ({}) before Convolution with the fifth kernel'.format(class_names[y_test[10]]))
+plt.suptitle(tema)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

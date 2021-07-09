@@ -1,0 +1,190 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep  8 12:58:40 2019
+
+@author: jacqueline.cortez
+
+Chapter 2. Using Convolutions
+Introduction:
+    Convolutional neural networks use the data that is represented in images to learn. In this chapter, we will probe data in images, 
+    and we will learn how to use Keras to train a neural network to classify objects that appear in images.
+"""
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.callbacks                 import EarlyStopping                     #For DeapLearning
+from keras.layers                    import Conv2D                            #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.layers                    import Flatten                           #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.optimizers                import Adam                              #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+def rgb2gray(rgb):
+    return np.dot(rgb[:,:,:3], [0.2989, 0.5870, 0.1140])
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+img_rows, img_cols = 28, 28
+mnist = tf.keras.datasets.fashion_mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+plt.pcolor(x_train[10],  cmap='gray') # Visualize the result
+plt.gca().invert_yaxis()
+plt.title('Figure 1')
+plt.suptitle("0. Fashion MNIST Database")
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+plt.figure(figsize=(6,6))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[y_train[i]])
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.3, hspace=0.3)
+plt.suptitle("0. Fashion MNIST Database")
+plt.show()
+
+print("****************************************************")
+tema = "2. One dimensional convolutions"; print("** %s\n" % tema)
+
+array = np.array([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
+kernel = np.array([1, -1, 0])
+conv = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+for ii in range(8): # Output array
+    conv[ii] = (kernel * array[ii:ii+3]).sum()
+
+print(conv) # Print conv
+
+print("****************************************************")
+tema = "3. Image convolutions"; print("** %s\n" % tema)
+
+data = plt.imread('bricks.png') # Load the image
+im   = rgb2gray(data)
+
+plt.figure()
+plt.imshow(data) # Visualize the result
+plt.title('bricks.png (RGB image)')
+plt.suptitle(tema)
+plt.show()
+
+plt.figure()
+plt.pcolor(im,  cmap='gray') # Visualize the result
+plt.title('bricks.png (Grayscale)')
+plt.suptitle(tema)
+plt.show()
+
+kernel = np.array([[0, 1, 0], 
+                   [1, 1, 1], 
+                   [0, 1, 0]])
+result = np.zeros(im.shape)
+
+for ii in range(im.shape[0] - 3): # Output array
+    for jj in range(im.shape[1] - 3):
+        result[ii, jj] = (im[ii:ii+3, jj:jj+3] * kernel).sum()
+
+print(result) # Print result
+
+plt.figure()
+plt.pcolor(result,  cmap='gray') # Visualize the result
+plt.title('bricks.png (Edges)')
+plt.suptitle(tema)
+plt.show()
+
+print("****************************************************")
+tema = "6. Convolutional network for image classification"; print("** %s\n" % tema)
+
+model = Sequential() # Initialize the model object
+model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=(28,28,1), name='Input')) # Add a convolutional layer
+model.add(Flatten(name='Flatten')) # Flatten the output of the convolutional layer
+model.add(Dense(10, activation='softmax', name='Output')) # Add an output layer for the 3 categories
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='01_08_model.png', show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('01_08_model.png') # Display the image
+plt.imshow(data)
+plt.title('A MNIST case in a Neural Red')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "7. Training a CNN to classify clothing types"; print("** %s\n" % tema)
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+
+train_data   = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
+train_labels = to_categorical(y_train, len(class_names))
+
+model.fit(train_data, train_labels,  
+          epochs=10, verbose=True, validation_split=.20, batch_size=64, callbacks=[EarlyStopping(patience=2)]) # Fit the model
+
+print("****************************************************")
+tema = "8. Evaluating a CNN with test data"; print("** %s\n" % tema)
+
+test_data   = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
+test_labels = to_categorical(y_test, len(class_names))
+
+print(model.evaluate(test_data, test_labels, batch_size=10)) # Evaluate the model on separate test data
+
+print("****************************************************")
+tema = "10. Add padding to a CNN"; print("** %s\n" % tema)
+
+model = Sequential() # Initialize the model
+model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=(img_rows, img_cols, 1), padding='same', name='Input')) # Add the convolutional layer
+model.add(Flatten(name='Flatten')) # Feed into output layer
+model.add(Dense(10, activation='softmax', name='Output'))
+
+print(model.summary())
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+model.fit(train_data, train_labels,  
+          epochs=10, verbose=True, validation_split=.20, batch_size=64, callbacks=[EarlyStopping(patience=2)]) # Fit the model
+print(model.evaluate(test_data, test_labels, batch_size=10)) # Evaluate the model on separate test data
+
+print("****************************************************")
+tema = "11. Add strides to a convolutional network"; print("** %s\n" % tema)
+
+model = Sequential() # Initialize the model
+model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=(img_rows, img_cols, 1), strides=2)) # Add the convolutional layer
+model.add(Flatten()) # Feed into output layer
+model.add(Dense(10, activation='softmax'))
+
+print(model.summary())
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+model.fit(train_data, train_labels,  
+          epochs=10, verbose=True, validation_split=.20, batch_size=64, callbacks=[EarlyStopping(patience=2)]) # Fit the model
+print(model.evaluate(test_data, test_labels, batch_size=10)) # Evaluate the model on separate test data
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

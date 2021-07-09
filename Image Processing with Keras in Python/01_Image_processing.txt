@@ -1,0 +1,145 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Sep  7 23:05:17 2019
+
+@author: jacqueline.cortez
+
+Chapter 1. Image Processing With Neural Networks
+Introduction:
+    Convolutional neural networks use the data that is represented in images to learn. In this chapter, we will probe data in images, 
+    and we will learn how to use Keras to train a neural network to classify objects that appear in images.
+"""
+import numpy as np                                                                  #For making operations in lists
+import matplotlib.pyplot as plt                                                     #For creating charts
+import tensorflow as tf                                                             #For DeapLearning
+
+from keras.callbacks import EarlyStopping                                           #For DeapLearning
+from keras.layers import Dense                                                      #For DeapLearning
+from keras.models import Sequential                                                 #For DeapLearning
+from keras.optimizers import Adam                                                   #For DeapLearning
+from keras.utils import plot_model                                                  #For DeapLearning
+from keras.utils import to_categorical                                              #For DeapLearning
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+mnist = tf.keras.datasets.fashion_mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+print("****************************************************")
+tema = "2. Images as data: visualizations"; print("** %s\n" % tema)
+
+data = plt.imread('bricks.png') # Load the image
+plt.imshow(data) # Display the image
+plt.title('bricks.png')
+plt.suptitle(tema)
+plt.show()
+
+print("Shape: ", data.shape)
+
+print("****************************************************")
+tema = "3. Images as data: changing images"; print("** %s\n" % tema)
+
+plt.figure()
+data[ 0: 40, 0:40, 0] = 1 # Set the red channel in this part of the image to 1
+data[ 0: 40, 0:40, 1] = 0 # Set the green channel in this part of the image to 0
+data[ 0: 40, 0:40, 2] = 0 # Set the blue channel in this part of the image to 0
+data[40: 80, 0:40, 0] = 0 # Make color cyan
+data[40: 80, 0:40, 1] = 1 
+data[40: 80, 0:40, 2] = 1 
+data[80:120, 0:40, 0] = 1 # Make color yellow
+data[80:120, 0:40, 1] = 1 
+data[80:120, 0:40, 2] = 0 
+plt.imshow(data) # Visualize the result
+plt.title('bricks.png')
+plt.suptitle(tema)
+plt.show()
+
+print("****************************************************")
+tema = "5. Using one-hot encoding to represent images"; print("** %s\n" % tema)
+
+labels       = ['shoe', 'shirt', 'shoe', 'shirt', 'dress', 'dress', 'dress']
+n_categories = 3 # The number of image categories
+categories   = np.array(["shirt", "dress", "shoe"]) # The unique values of categories in the data
+ohe_labels   = np.zeros((len(labels), n_categories)) # Initialize ohe_labels as all zeros
+
+for ii in range(len(labels)): # Loop over the labels
+    jj = np.where(categories == labels[ii]) # Find the location of this label in the categories variable
+    ohe_labels[ii, jj] = 1 # Set the corresponding zero to one
+
+print(ohe_labels)
+print(ohe_labels.shape)
+    
+print("****************************************************")
+tema = "6. Evaluating a classifier"; print("** %s\n" % tema)
+
+test_labels = np.array([[0., 0., 1.], [0., 1., 0.], [0., 0., 1.], [0., 1., 0.], [0., 0., 1.], [0., 0., 1.], [0., 0., 1.], [0., 1., 0.]])
+predictions = np.array([[0., 0., 1.], [0., 1., 0.], [0., 0., 1.], [1., 0., 0.], [0., 0., 1.], [1., 0., 0.], [0., 0., 1.], [0., 1., 0.]])
+
+number_correct = (test_labels*predictions).sum() # Calculate the number of correct predictions
+print("Number of correct predictions: ", number_correct)
+
+proportion_correct = number_correct/len(predictions) # Calculate the proportion of correct predictions
+print("Proportion of correct predictions: ", proportion_correct)
+
+print("****************************************************")
+tema = "8. Build a neural network"; print("** %s\n" % tema)
+
+model = Sequential(name='hhh') # Initializes a sequential model
+model.add(Dense(200, activation='relu', input_shape=(784,), name='Dense')) # First layer
+model.add(Dense(200, activation='relu', name='Hidden-layer')) # Second layer
+model.add(Dense(10, activation='softmax', name='Output')) # Output layer
+
+# Summarazing the model
+print(model.summary()) # Summarize the model
+plot_model(model, to_file='01_08_model.png', show_shapes=False, show_layer_names=True, rankdir='TB') # rankdir='TB' makes vertical plot and rankdir='LR' creates a horizontal plot
+
+# Plotting the model
+plt.figure()
+data = plt.imread('01_08_model.png') # Display the image
+plt.imshow(data)
+plt.title('A MNIST case in a Neural Red')
+plt.suptitle(tema)
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=0.88, wspace=0.3, hspace=None)
+plt.show()
+
+print("****************************************************")
+tema = "9. Compile a neural network"; print("** %s\n" % tema)
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+
+print("****************************************************")
+tema = "10. Fitting a neural network model to clothing data"; print("** %s\n" % tema)
+
+train_data   = x_train.reshape(len(x_train), 784) # Reshape the data to two-dimensional array
+train_labels = to_categorical(y_train, len(class_names))
+
+model.fit(train_data, train_labels,  
+          epochs=150, verbose=True, validation_split=.20, batch_size=2048, callbacks=[EarlyStopping(patience=2)]) # Fit the model
+
+print("****************************************************")
+tema = "11. Cross-validation for neural network evaluation"; print("** %s\n" % tema)
+
+test_data = x_test.reshape(len(x_test), 784) # Reshape test data
+test_labels = to_categorical(y_test, len(class_names))
+
+print(model.evaluate(test_data, test_labels)) # Evaluate the model
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,112 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 10 22:50:45 2019
+
+@author: jacqueline.cortez
+
+Chapter 4. Improving Deep Convolutional
+Introduction:
+    There are many ways to improve training by neural networks. In this chapter, we will focus on our ability to track 
+    how well a network is doing, and explore approaches towards improving convolutional neural networks.
+"""
+import numpy             as np                                                #For making operations in lists
+import matplotlib.pyplot as plt                                               #For creating charts
+
+from scipy.signal                    import convolve2d                        #For learning machine - deep learning
+
+import tensorflow as tf                                                       #For DeapLearning
+
+from keras.callbacks                 import ModelCheckpoint                   #For DeapLearning
+from keras.layers                    import BatchNormalization                #For DeapLearning
+from keras.layers                    import Conv2D                            #For DeapLearning
+from keras.layers                    import Dense                             #For DeapLearning
+from keras.layers                    import Dropout                           #For DeapLearning
+from keras.layers                    import Flatten                           #For DeapLearning
+from keras.layers                    import MaxPool2D                         #For DeapLearning
+from keras.models                    import Sequential                        #For DeapLearning
+from keras.optimizers                import Adam                              #For DeapLearning
+from keras.utils                     import plot_model                        #For DeapLearning
+from keras.utils                     import to_categorical                    #For DeapLearning
+
+
+
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** User defined variables \n")
+
+SEED=1
+np.random.seed(SEED)
+tf.set_random_seed(SEED)
+
+#print("****************************************************")
+print("** User Functions\n")
+
+def Convolution(image, kernel):
+    conv_bucket = []
+    for d in range(image.ndim):
+        conv_channel = convolve2d(image[:,:,d], kernel, 
+                               mode="same", boundary="symm")
+        conv_bucket.append(conv_channel)
+    return np.stack(conv_bucket, axis=2).astype("uint8")
+
+#print("****************************************************")
+print("** Getting the data for this program\n")
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+img_rows, img_cols = 28, 28
+mnist = tf.keras.datasets.fashion_mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0 #Data normalization
+
+plt.pcolor(x_train[10],  cmap='gray') # Visualize the result
+plt.gca().invert_yaxis()
+plt.title('Figure 1')
+plt.suptitle("0. Fashion MNIST Database")
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+plt.figure(figsize=(6,6))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[y_train[i]])
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.3, hspace=0.3)
+plt.suptitle("0. Fashion MNIST Database")
+plt.show()
+
+train_data   = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
+train_labels = to_categorical(y_train, len(class_names))
+test_data    = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
+test_labels  = to_categorical(y_test, len(class_names))
+
+print("****************************************************")
+tema = "6. Add batch normalization to your network"; print("** %s\n" % tema)
+
+model = Sequential()
+model.add(Conv2D(64, kernel_size=2, activation='relu', input_shape=(img_rows, img_cols, 1), name='Input')) # Add a convolutional layer
+model.add(BatchNormalization(name='Normalization')) # Add batch normalization layer
+model.add(Conv2D(20, kernel_size=2, activation='relu', name='Conv2D')) # Add another convolutional layer
+model.add(Flatten(name='Flatten')) # Flatten and feed to output layer
+model.add(Dense(10, activation='softmax', name='Output'))
+
+print(model.summary())
+
+model.compile(optimizer=Adam(lr=0.01), loss='categorical_crossentropy', metrics=['accuracy']) # Compile the model
+checkpoint = ModelCheckpoint('04_06_weights.hdf5', monitor='val_loss', save_best_only=True)
+training = model.fit(train_data, train_labels,  
+                     epochs=10, verbose=True, validation_split=.20, batch_size=64, callbacks=[checkpoint]) # Fit the model
+model.load_weights('04_06_weights.hdf5') # Load the weights from file
+
+print("Classes predicted: ", model.predict_classes(test_data))  # Predict from the first three images in the test data
+print("Labels: ", y_test)
+print(model.evaluate(test_data, test_labels, batch_size=10, verbose=True)) # Evaluate the model on separate test data
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
