@@ -1,0 +1,320 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 18 22:03:16 2019
+
+@author: jacqueline.cortez
+Chapter 2: Some Simple Time Series
+    In this chapter you'll learn about some simple time series models. These include white noise and a random walk.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot              as plt                                  #For creating charts
+import pandas                         as pd                                   #For loading tabular data
+import numpy                          as np                                   #For making operations in lists
+import pprint                                                                 #Import pprint to format disctionary output
+
+from math                             import sqrt
+from matplotlib.ticker                import StrMethodFormatter               #Import the necessary library to delete the scientist notation
+from statsmodels.graphics.tsaplots    import plot_acf                         #For autocorrelation function
+from statsmodels.tsa.stattools        import acf                              #For autocorrelation function
+from statsmodels.tsa.stattools        import adfuller                         #Augmented Dickey-Fuller Test for Random Walk
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+print("****************************************************")
+topic = "2. Taxing Exercise: Compute the ACF"; print("** %s\n" % topic)
+
+file = "HRB.data" 
+HRB = pd.read_fwf(file, index_col = 'Quarter', parse_dates=True, infer_datetime_format=True)
+
+# Compute the acf array of HRB
+acf_array = acf(HRB, fft=False)
+print("ACF:\n{}\n".format(acf_array))
+
+# Plot the data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,4))
+
+HRB.plot(grid=True, ax=ax1) # Plot HRB data
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Quarter'); ax1.set_ylabel('Earnings'); # Labeling the axis.
+ax1.set_title('Evolution of Earings', color='red'); 
+
+plot_acf(HRB, fft=False, lags=40, alpha=1, ax=ax2) # Plot the acf function
+ax2.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax2.tick_params(labelsize=8)
+ax2.set_title('Autocorrelation', color='red'); 
+
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "3. Are We Confident This Stock is Mean Reverting?"; print("** %s\n" % topic)
+
+file = "MSFT.data" 
+MSFT = pd.read_fwf(file, index_col = 'Date', parse_dates=True, infer_datetime_format=True)
+
+MSFT = MSFT.resample(rule='W').last() # Convert the daily data to weekly data
+returns = MSFT.pct_change().dropna() # Compute the percentage change of prices
+autocorrelation = returns.Adj_Close.autocorr() # Compute and print the autocorrelation of returns
+print("The autocorrelation of weekly returns is %4.2f \n" %(autocorrelation)) #This is negative so is mean reverting.
+
+
+
+
+# Find the number of observations by taking the length of the returns DataFrame
+nobs = len(returns)
+
+# Compute the approximate confidence interval
+conf = 1.96/sqrt(nobs)
+print("The approximate confidence interval is +/- %4.2f \n" %(conf))
+
+
+
+# Plot the data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,4))
+
+returns.plot(grid=True, ax=ax1) # Plot the entire time series diet and show gridlines
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Period Time'); ax1.set_ylabel('MSFT Returns'); # Labeling the axis.
+ax1.set_title('Correlation detected: {0:.4f}'.format(autocorrelation), color='red'); 
+
+plot_acf(returns, fft=False, alpha=0.05, lags=20, ax=ax2) # Plot the acf function
+ax2.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax2.tick_params(labelsize=8)
+ax2.set_title('Autocorrelation', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "4. White Noise"; print("** %s\n" % topic)
+
+noise = np.random.normal(loc=0, scale=1, size=500)
+
+#Plot all data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,4))
+
+ax1.plot(noise) # Plot the entire time series diet and show gridlines
+ax1.grid()
+ax1.tick_params(labelsize=8)
+#ax1.set_xlabel('Period Time'); ax1.set_ylabel('MSFT Returns'); # Labeling the axis.
+ax1.set_title('Noise data example', color='red'); 
+
+plot_acf(noise, fft=False, alpha=0.05, lags=50, ax=ax2) # Plot the acf function
+#ax2.grid()
+ax2.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax2.tick_params(labelsize=8)
+ax2.set_title('Autocorrelation', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "5. Can't Forecast White Noise"; print("** %s\n" % topic)
+
+# Simulate white noise returns
+returns = np.random.normal(loc=0.02, scale=0.05, size=1000)
+
+# Print out the mean and standard deviation of returns
+mean = np.mean(returns)
+std = np.std(returns)
+print("The mean is %5.3f and the standard deviation is %5.3f\. \n" %(mean,std))
+
+
+#Plot all data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,4))
+ax1.plot(returns) 
+ax1.grid()
+ax1.tick_params(labelsize=8)
+#ax1.set_xlabel('Period Time'); ax1.set_ylabel('MSFT Returns'); # Labeling the axis.
+ax1.set_title('Noise data example', color='red'); 
+
+plot_acf(noise, fft=False, alpha=0.05, lags=20, ax=ax2) # Plot the acf function
+#ax2.grid()
+ax2.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax2.tick_params(labelsize=8)
+ax2.set_title('Autocorrelation', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "6. Random Walk"; print("** %s\n" % topic)
+
+file = "stocks.data" 
+stocks = pd.read_fwf(file, index_col = 'observation_date', parse_dates=True, infer_datetime_format=True)
+
+returns = stocks.pct_change().dropna() # Compute the percentage change of prices
+autocorrelation = returns.SP500.autocorr() # Compute and print the autocorrelation of returns
+print("The autocorrelation of weekly returns is %4.2f \n" %(autocorrelation)) #This is negative so is mean reverting.
+
+results = adfuller(stocks.SP500)
+print("p-value: {0:,.4f}".format(results[1]))
+print("ADF test result for Random Walk:")
+pprint.pprint(results)
+print("")
+
+#Plot all data
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11.5, 3.5))
+stocks.plot(ax=ax1) 
+ax1.grid()
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Period Time'); ax1.set_ylabel('SP500'); # Labeling the axis.
+ax1.set_title('SP500 data (Random Walk)', color='red'); 
+
+returns.plot(ax=ax2) 
+ax2.grid()
+ax2.tick_params(labelsize=8)
+ax2.set_xlabel('Period Time'); ax1.set_ylabel('SP500 Returns'); # Labeling the axis.
+ax2.set_title('SP500 data (Returns)', color='red'); 
+
+plot_acf(returns, fft=False, alpha=0.05, lags=20, ax=ax3) # Plot the acf function
+#ax2.grid()
+ax3.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax3.tick_params(labelsize=8)
+ax3.set_title('Autocorrelation', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "7. Generate a Random Walk"; print("** %s\n" % topic)
+
+# Generate 500 random steps with mean=0 and standard deviation=1
+steps = np.random.normal(loc=0, scale=1, size=500)
+
+# Set first element to 0 so that the first price will be the starting stock price
+steps[0]=0
+
+# Simulate stock prices, P with a starting price of 100
+P = 100 + np.cumsum(steps)
+
+# Plot the simulated stock prices
+plt.figure()
+plt.plot(P)
+#plt.xlabel('Stock prices'); plt.ylabel('Bond Prices'); # Labeling the axis.
+plt.title("Simulated Random Walk", color='red')
+plt.suptitle(topic, color='navy', fontweight="bold");  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "8. Get the Drift"; print("** %s\n" % topic)
+
+# Generate 500 random steps
+steps = np.random.normal(loc=0.001, scale=0.01, size=500) + 1
+
+# Set first element to 1
+steps[0]=1
+
+# Simulate the stock price, P, by taking the cumulative product
+P = 100 * np.cumprod(steps)
+
+# Plot the simulated stock prices
+plt.figure()
+plt.plot(P)
+#plt.xlabel('Stock prices'); plt.ylabel('Bond Prices'); # Labeling the axis.
+plt.title("Simulated Random Walk with Drift", color='red')
+plt.suptitle(topic, color='navy', fontweight="bold");  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "9. Are Stock Prices a Random Walk?"; print("** %s\n" % topic)
+
+file = "AMZN.csv" 
+AMZN = pd.read_csv(file, index_col = 'Date', parse_dates=True, infer_datetime_format=True)
+
+# Run the ADF test on the price series and print out the results
+results = adfuller(AMZN['Adj Close'])
+print("ADF test result for Amazon stock prices (Random Walk):")
+pprint.pprint(results)
+print("")
+
+# Just print out the p-value
+print('The p-value of the test on prices is: ' + str(results[1]))
+
+returns = AMZN.pct_change().dropna()
+
+#Plot all data
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11.5, 3.5))
+AMZN.plot(ax=ax1) 
+ax1.grid()
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Period Time'); ax1.set_ylabel('Amazon stock prices'); # Labeling the axis.
+ax1.set_title('Amazon stock prices (Random Walk)', color='red'); 
+
+returns.plot(ax=ax2) 
+ax2.grid()
+ax2.tick_params(labelsize=8)
+ax2.set_xlabel('Period Time'); ax1.set_ylabel('Returns'); # Labeling the axis.
+ax2.set_title('Amazon stock Returns', color='red'); 
+
+plot_acf(returns, fft=False, alpha=0.05, lags=20, ax=ax3) # Plot the acf function
+#ax2.grid()
+ax3.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+ax3.tick_params(labelsize=8)
+ax3.set_title('Autocorrelation', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "10. How About Stock Returns?"; print("** %s\n" % topic)
+
+# Run the ADF test on the price series and print out the results
+results = adfuller(returns['Adj Close'])
+print("ADF test result for Amazon stock returns (Not a Random Walk):")
+pprint.pprint(results)
+print("")
+
+# Just print out the p-value
+print('The p-value of the test on prices is: ' + str(results[1]))
+
+print("****************************************************")
+topic = "13. Seasonal Adjustment During Tax Season"; print("** %s\n" % topic)
+
+file = "HRB.data" 
+HRB = pd.read_fwf(file, index_col = 'Quarter', parse_dates=True, infer_datetime_format=True)
+
+HRBsa = HRB.diff(4) # Seasonally adjust quarterly earnings
+print("First 10 rows of the seasonally adjusted series:\n{}".format(HRBsa.head(10))) # Print the first 10 rows of the seasonally adjusted series
+
+HRBsa = HRBsa.dropna() # Drop the NaN data in the first four rows
+
+
+#Plot all data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+plot_acf(HRB, fft=False, lags=40, alpha=0.05, ax=ax1) # Plot the acf function
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Period'); ax1.set_ylabel('H&R earnings'); # Labeling the axis.
+ax1.set_title("ACF of H&R Block's quarterly earnings", color='red', fontsize=10); 
+
+# Plot the autocorrelation function of the seasonally adjusted series
+plot_acf(HRBsa, fft=False, lags=38, alpha=0.05, ax=ax2) # Plot the acf function
+plt.xticks(fontsize=8);
+ax2.set_xlabel('Period'); ax2.set_ylabel('H&R earnings'); # Labeling the axis.
+ax2.set_title("ACF of H&R Block's seasonal adjustment earnings", color='red', fontsize=10); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=0.5, hspace=None);
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

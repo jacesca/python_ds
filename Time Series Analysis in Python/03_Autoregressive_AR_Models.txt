@@ -1,0 +1,274 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 18 22:03:16 2019
+
+@author: jacqueline.cortez
+Chapter 3: Autoregressive (AR) Models
+    In this chapter you'll learn about autoregressive, or AR, models for time series. 
+    These models use past values of the series to predict the current value.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot              as plt                                  #For creating charts
+import numpy                          as np                                   #For making operations in lists
+import pandas                         as pd                                   #For loading tabular data
+
+from statsmodels.graphics.tsaplots    import plot_acf                         #For autocorrelation function
+from statsmodels.graphics.tsaplots    import plot_pacf                        #Import the modules for simulating data and for plotting the PACF
+from statsmodels.tsa.arima_model      import ARMA                             #To estimate parameters from data simulated (AR model)
+from statsmodels.tsa.arima_process    import ArmaProcess                      #For Simulate Autoregressive (AR) Time Series 
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+print("****************************************************")
+topic = "1. Describe AR Model"; print("** %s\n" % topic)
+
+# AR parameter = +0.9
+ar = np.array([1, -0.9])
+ma = np.array([1])
+
+AR_object = ArmaProcess(ar, ma)
+simulated_data = AR_object.generate_sample(nsample=1000)
+
+plt.plot(simulated_data) # Plot HRB data
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Simulated data', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "2. Simulate AR(1) Time Series"; print("** %s\n" % topic)
+
+plt.figure(figsize=[10,4])
+# Plot 1: AR parameter = +0.9
+plt.subplot(2,2,1)
+ar1 = np.array([1, -0.9])
+ma1 = np.array([1])
+AR_object1 = ArmaProcess(ar1, ma1)
+simulated_data_1 = AR_object1.generate_sample(nsample=1000)
+plt.plot(simulated_data_1)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Phi=0.9', color='red'); 
+
+# Plot 2: AR parameter = -0.9
+plt.subplot(2,2,2)
+ar2 = np.array([1, 0.9])
+ma2 = np.array([1])
+AR_object2 = ArmaProcess(ar2, ma2)
+simulated_data_2 = AR_object2.generate_sample(nsample=1000)
+plt.plot(simulated_data_2)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Phi=-0.9', color='red'); 
+
+# Plot 1: AR parameter = +0.5
+plt.subplot(2,2,3)
+ar4 = np.array([1, -0.5])
+ma4 = np.array([1])
+AR_object4 = ArmaProcess(ar4, ma4)
+simulated_data_4 = AR_object4.generate_sample(nsample=1000)
+plt.plot(simulated_data_4)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Phi=0.5', color='red'); 
+
+# Plot 2: AR parameter = -0.5
+plt.subplot(2,2,4)
+ar5 = np.array([1, 0.5])
+ma5 = np.array([1])
+AR_object5 = ArmaProcess(ar5, ma5)
+simulated_data_5 = AR_object5.generate_sample(nsample=1000)
+plt.plot(simulated_data_5)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Phi=-0.5', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "3. Compare the ACF for Several AR Time Series"; print("** %s\n" % topic)
+
+# Plot 3: AR parameter = +0.3
+ar3 = np.array([1, -0.3])
+ma3 = np.array([1])
+AR_object3 = ArmaProcess(ar3, ma3)
+simulated_data_3 = AR_object3.generate_sample(nsample=1000)
+
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11,3))
+
+# Plot 1: AR parameter = +0.9
+plot_acf(simulated_data_1, alpha=1, lags=20, ax=ax1)
+ax1.tick_params(labelsize=7)
+ax1.set_title('Phi=+0.9', color='red'); 
+
+# Plot 2: AR parameter = -0.90
+plot_acf(simulated_data_2, alpha=1, lags=20, ax=ax2)
+ax2.tick_params(labelsize=7)
+ax2.set_title('Phi=-0.9', color='red'); 
+
+# Plot 3: AR parameter = +0.3
+plot_acf(simulated_data_3, alpha=1, lags=20, ax=ax3)
+ax3.tick_params(labelsize=7)
+ax3.set_title('Phi=+0.3', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "5. Estimating and Forecasting AR Model"; print("** %s\n" % topic)
+
+mod = ARMA(simulated_data, order=(1,0))
+result = mod.fit()
+
+print("Estimating an AR model: \n{}\n\n".format(result.summary()))
+print("Printing only the parameters: {}\n".format(result.params))
+
+#Forecastin the AR model (simulated data)
+result.plot_predict(start=990, end=1010)
+plt.title('Phi=+0.9', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "6. Estimating an AR Model"; print("** %s\n" % topic)
+
+# Fit an AR(1) model to the first simulated data
+mod = ARMA(simulated_data_1, order=(1,0))
+res = mod.fit()
+
+# Print out summary information on the fit
+print(res.summary())
+
+# Print out the estimate for the constant and for phi
+print("\n\nWhen the true phi=0.9, the estimate of phi (and the constant) are:\n{}\n".format(res.params))
+
+print("****************************************************")
+topic = "7. Forecasting with an AR Model"; print("** %s\n" % topic)
+
+# Forecast the first AR(1) model
+mod = ARMA(simulated_data_1, order=(1,0))
+res = mod.fit()
+res.plot_predict(start=990, end=1010)
+plt.title('Phi=+0.9', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "8. Let's Forecast Interest Rates"; print("** %s\n" % topic)
+
+file = "daily_rates.data" 
+daily_rates = pd.read_fwf(file, index_col = 'DATE', parse_dates=True, infer_datetime_format=True)
+
+#This frequency is necesary because the next warning:
+#     C:\Anaconda3\lib\site-packages\statsmodels\tsa\base\tsa_model.py:219: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+#     ' ignored when e.g. forecasting.', ValueWarning)
+interest_rate_data = daily_rates.resample('A').ffill().US10Y
+#daily_rates.reindex(pd.date_range(daily_rates.index[0], daily_rates.index[-1], freq='A-DEC')) --> Get null values becouse not all final year day is with data
+
+# Forecast interest rates using an AR(1) model
+mod = ARMA(interest_rate_data, order=(1,0))
+res = mod.fit()
+
+# Plot the original series and the forecasted series
+res.plot_predict(start=0, end='2022-12-31')
+plt.legend(fontsize=8)
+plt.title('Interest Rates per Year', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "9. Compare AR Model with Random Walk"; print("** %s\n" % topic)
+
+#Using the data from the exercise
+#simulated_data = np.array([5.        , 4.77522278, 5.60354317, 5.96406402, 5.97965372, 6.02771876, 5.5470751 , 5.19867084, 5.01867859, 5.50452928,
+#                           5.89293842, 4.6220103 , 5.06137835, 5.33377592, 5.09333293, 5.37389022, 4.9657092 , 5.57339283, 5.48431854, 4.68588587,
+#                           5.25218625, 4.34800798, 4.34544412, 4.72362568, 4.12582912, 3.54622069, 3.43999885, 3.77116252, 3.81727011, 4.35256176,
+#                           4.13664247, 3.8745768 , 4.01630403, 3.71276593, 3.55672457, 3.07062647, 3.45264414, 3.28123729, 3.39193866, 3.02947806,
+#                           3.88707349, 4.28776889, 3.47360734, 3.33260631, 3.09729579, 2.94652178, 3.50079273, 3.61020341, 4.23021143, 3.94289347,
+#                           3.58422345, 3.18253962, 3.26132564, 3.19777388, 3.43527681, 3.37204482])
+
+# Plot the interest rate series and the simulated random walk series side-by-side
+fig, axes = plt.subplots(2,1)
+
+# Plot the autocorrelation of the interest rate series in the top plot
+fig = plot_acf(interest_rate_data, alpha=1, lags=12, ax=axes[0])
+
+# Plot the autocorrelation of the simulated random walk series in the bottom plot
+fig = plot_acf(simulated_data, alpha=1, lags=12, ax=axes[1])
+
+# Label axes
+axes[0].set_title("Interest Rate Data")
+axes[1].set_title("Simulated Random Walk Data")
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "11. Estimate Order of Model: PACF"; print("** %s\n" % topic)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11,3))
+
+# Simulate AR(1) with phi=+0.6
+ma = np.array([1])
+ar = np.array([1, -0.6])
+AR_object = ArmaProcess(ar, ma)
+simulated_data_1 = AR_object.generate_sample(nsample=5000)
+
+# Plot PACF for AR(1)
+plot_pacf(simulated_data_1, lags=20, ax=ax1)
+ax1.tick_params(labelsize=7)
+ax1.set_title('Simulated data AR(1)', color='red'); 
+
+# Simulate AR(2) with phi1=+0.6, phi2=+0.3
+ma = np.array([1])
+ar = np.array([1, -0.6, -0.3])
+AR_object = ArmaProcess(ar, ma)
+simulated_data_2 = AR_object.generate_sample(nsample=5000)
+
+# Plot PACF for AR(2)
+plot_pacf(simulated_data_2, lags=20, ax=ax2)
+ax2.tick_params(labelsize=7)
+ax2.set_title('Simulated data AR(2)', color='red'); 
+
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+
+print("****************************************************")
+topic = "12. Estimate Order of Model: Information Criteria"; print("** %s\n" % topic)
+
+# Fit the data to an AR(p) for p = 0,...,6 , and save the BIC
+BIC = np.zeros(7)
+for p in range(7):
+    mod = ARMA(simulated_data_2, order=(p,0))
+    res = mod.fit()
+    # Save BIC for AR(p)    
+    BIC[p] = res.bic
+    
+# Plot the BIC as a function of p
+plt.figure()
+plt.plot(range(1,7), BIC[1:7], marker='o')
+plt.xlabel('Order of AR Model')
+plt.ylabel('Bayesian Information Criterion')
+plt.title('Simulated data AR(2)', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,288 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 14 15:54:55 2020
+
+@author: jacqueline.cortez
+Chapter 5: Putting It All Together
+    This chapter will show you how to model two series jointly using cointegration 
+    models. Then you'll wrap up with a case study where you look at a time series 
+    of temperature data from New York City.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot              as plt                                  #For creating charts
+import numpy                          as np                                   #For making operations in lists
+import pandas                         as pd                                   #For loading tabular data
+import statsmodels.api                as sm                                   #Make a prediction model
+
+#from matplotlib.ticker                import StrMethodFormatter               #Import the necessary library to delete the scientist notation
+from statsmodels.graphics.tsaplots    import plot_acf                         #For autocorrelation function
+from statsmodels.graphics.tsaplots    import plot_pacf                        #For simulating data and for plotting the PACF. Partial Autocorrelation Function measures the incremental benefit of adding another lag.
+from statsmodels.tsa.arima_model      import ARIMA                            #Similar to use ARMA but on original data (before differencing)
+from statsmodels.tsa.arima_model      import ARMA                             #To estimate parameters from data simulated (AR model)
+from statsmodels.tsa.stattools        import adfuller                         #Augmented Dickey-Fuller Test for Random Walk
+from statsmodels.tsa.stattools        import coint                            #Test for cointegration
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+print("****************************************************")
+topic = "2. A Dog on a Leash? (Part 1)"; print("** %s\n" % topic)
+
+file = "CME_HO1.csv" 
+HO = pd.read_csv(file, index_col="Date", parse_dates=True).sort_index()
+
+file = "CME_NG1.csv" 
+NG = pd.read_csv(file, index_col="Date", parse_dates=True).sort_index()
+
+plt.figure()
+# Plot the prices separately
+plt.subplot(2,1,1)
+plt.plot(7.25*HO.Close, label='Heating Oil')
+plt.plot(NG, label='Natural Gas')
+plt.legend(loc='best', fontsize='small')
+#plt.xticks(rotation=90)
+plt.xlabel('Year', fontsize=7); plt.ylabel('S/millionBTU', fontsize=7); # Labeling the axis.
+plt.title("The Heating Oil and Natural Gas prices", color='red')
+
+# Plot the spread
+plt.subplot(2,1,2)
+plt.plot(7.25*HO-NG, label='Spread')
+plt.legend(loc='best', fontsize='small')
+plt.axhline(y=0, linestyle='--', color='k')
+#plt.xticks(rotation=90)
+plt.xlabel('Year', fontsize=7); plt.ylabel('S/millionBTU', fontsize=7); # Labeling the axis.
+plt.title("Difference between both prices", color='red')
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "3. A Dog on a Leash? (Part 2)"; print("** %s\n" % topic)
+
+# Compute the ADF for HO and NG
+result_HO = adfuller(HO.Close, autolag='t-stat')
+print("The p-value for the ADF test on HO is ", result_HO[1])
+result_NG = adfuller(NG['Close'])
+print("The p-value for the ADF test on NG is ", result_NG[1])
+
+# Compute the ADF of the spread
+result_spread = adfuller(7.25 * HO.Close - NG.Close)
+print("The p-value for the ADF test on the spread is ", result_spread[1])
+
+#Trying the coint test.
+result_cointegration = coint(HO.Close, NG.Close)
+print("The Cointegration test result:\n", result_cointegration)
+
+print("****************************************************")
+topic = "4. Are Bitcoin and Ethereum Cointegrated?"; print("** %s\n" % topic)
+
+fwidths = [10,18]
+file = "BTC.data"
+BTC = pd.read_fwf(file, widths=fwidths, index_col="Date", parse_dates=True).sort_index()
+
+file = "ETH.data"
+ETH = pd.read_fwf(file, widths=fwidths, index_col="Date", parse_dates=True).sort_index()
+
+# Regress BTC on ETH
+ETH = sm.add_constant(ETH)
+result = sm.OLS(BTC,ETH).fit()
+
+# Compute ADF
+b = result.params[1]
+adf_stats = adfuller(BTC['Price'] - b*ETH['Price'])
+print("The p-value for the ADF test is ", adf_stats[1])
+
+print("****************************************************")
+topic = "6. Is Temperature a Random Walk (with Drift)?"; print("** %s\n" % topic)
+
+file = "temp_NY.data"
+temp_NY = pd.read_fwf(file, index_col="DATE").sort_index()
+
+# Convert the index to a datetime object
+temp_NY.index = pd.to_datetime(temp_NY.index, format='%Y')
+
+# Compute and print ADF p-value
+result = adfuller(temp_NY['TAVG'])
+footnote = "The p-value for the ADF test is {0:.4f}.".format(result[1])
+print(footnote)
+
+# Plot average temperatures
+temp_NY.plot()
+plt.ylabel('Average Temperature'); # Labeling the axis.
+plt.title("Average Temperature per Year in New York City", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.figtext(0.5, 0.05, "Footnote: " + footnote, horizontalalignment='center') 
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "7. Getting \"Warmed\" Up: Look at Autocorrelations"; print("** %s\n" % topic)
+
+# Take first difference of the temperature Series
+chg_temp = temp_NY.diff()
+chg_temp = chg_temp.dropna()
+
+# Plot the ACF and PACF on the same page
+fig, axes = plt.subplots(2,1)
+
+# Plot the ACF
+ax=axes[0]
+plot_acf(chg_temp, lags=20, ax=ax)
+#ax.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+#ax.tick_params(labelsize=8)
+ax.set_title('Autocorrelation Function\n(Any significant non zero autocorrelations implies\nthat series can be forecast from the past)', color='red'); 
+
+# Plot the PACF
+ax=axes[1]
+plot_pacf(chg_temp, lags=20, ax=ax)
+#ax.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))                  #Delete the scientist notation
+#ax.tick_params(labelsize=8)
+ax.set_title('Partial Autocorrelation Function\n(Benefit of Adding another Lag)', color='red'); 
+
+footnote = "Footnote: Average Temperature per Year in New York City. There is no clear pattern in the\nACF and PACF except the negative lag-1 autocorrelation in the ACF."
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.80, wspace=None, hspace=0.6);
+plt.figtext(0.01, 0.05, footnote, horizontalalignment='left') 
+plt.show()
+
+print("****************************************************")
+topic = "8. Which ARMA Model is Best?"; print("** %s\n" % topic)
+
+# Fit the data to an AR(1) model and print AIC:
+mod_ar1 = ARMA(chg_temp, order=(1, 0), freq="AS-JAN")
+res_ar1 = mod_ar1.fit()
+print("The AIC for an AR(1) is: ", res_ar1.aic)
+
+# Fit the data to an AR(2) model and print AIC:
+mod_ar2 = ARMA(chg_temp, order=(2, 0), freq="AS-JAN")
+res_ar2 = mod_ar2.fit()
+print("The AIC for an AR(2) is: ", res_ar2.aic)
+
+# Fit the data to an ARMA(1,1) model and print AIC:
+mod_arma11 = ARMA(chg_temp, order=(1,1), freq="AS-JAN")
+res_arma11 = mod_arma11.fit()
+print("The AIC for an ARMA(1,1) is: ", res_arma11.aic)
+
+print("\nThe ARMA(1,1) has the lowest AIC values among the three models.")
+
+print("****************************************************")
+topic = "9. Don't Throw Out That Winter Coat Yet"; print("** %s\n" % topic)
+
+# Forecast temperatures using an ARIMA(1,1,1) model
+# The d in order(p,d,q) is one, since we first differenced once.
+mod = ARIMA(temp_NY, order=(1,1,1), freq="AS-JAN") 
+res = mod.fit()
+
+footnote = "Footnote: According to the model, the temperature is expected to be about 0.6 degrees\nhigher in 30 years (almost entirely due to the trend), but the 95% confidence\ninterval around that is over 5 degrees."
+
+# Plot the original series and the forecasted series
+res.plot_predict(start='1872-01-01', end='2046-01-01')
+plt.xlabel('Year'); plt.ylabel('Average Temperature (°F)'); # Labeling the axis.
+plt.title("Forecasting the temperature over the next 30 years\nin Central Park NY", color='red')
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.25, right=None, top=0.8, wspace=None, hspace=None);
+plt.figtext(0.01, 0.05, footnote, horizontalalignment='left') 
+plt.show()
+ 
+print("****************************************************")
+topic = "99. Applying to El Salvador"; print("** %s\n" % topic)
+"""
+file = "TAVG_1901_2016_SLV.csv" 
+SLV = pd.read_csv(file, parse_dates=[["Year","Month","Day"]], index_col="Year_Month_Day", usecols=["Year","Month", "Day", "Temperature - (Celsius)"]).sort_index().rename(columns={"Temperature - (Celsius)":"TAVG"})
+SLV.index.rename('Date', inplace = True)
+
+SLV_yearly = SLV.resample('1A').mean()
+"""
+
+file = "TAVG_1901_2016_SLV.csv" 
+SLV = pd.read_csv(file, usecols=["Year", "Temperature - (Celsius)"]).sort_index().rename(columns={"Temperature - (Celsius)":"TAVG"})
+
+SLV_yearly = SLV.groupby("Year").mean()
+SLV_yearly.index = pd.to_datetime(SLV_yearly.index, format='%Y')
+
+###############################################################
+# Is Temperature a Random Walk (with Drift)?
+###############################################################
+# Compute and print ADF p-value
+result = adfuller(SLV_yearly['TAVG'])
+footnote = "The p-value for the ADF test is {0:.4f}.".format(result[1])
+print(footnote)
+# Plot average temperatures
+SLV_yearly.plot()
+plt.ylabel('Average Temperature'); # Labeling the axis.
+plt.title("Average Temperature per Year in El Salvador (1901-2016)", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.figtext(0.5, 0.05, "Footnote: " + footnote + " The data follows a random walk with drift.", horizontalalignment='center') 
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+###############################################################
+# Getting "Warmed" Up: Look at Autocorrelations
+###############################################################
+# Take first difference of the temperature Series
+SLV_chg_temp = SLV_yearly.diff()
+SLV_chg_temp = SLV_chg_temp.dropna()
+# Plot the ACF and PACF on the same page
+fig, axes = plt.subplots(2,1)
+# Plot the ACF
+ax=axes[0]
+plot_acf(SLV_chg_temp, lags=20, ax=ax)
+ax.set_title('Autocorrelation Function\n(Any significant non zero autocorrelations implies\nthat series can be forecast from the past)', color='red'); 
+# Plot the PACF
+ax=axes[1]
+plot_pacf(SLV_chg_temp, lags=20, ax=ax)
+ax.set_title('Partial Autocorrelation Function\n(Benefit of Adding another Lag)', color='red'); 
+#Preparing the last part of the graph
+footnote = "Footnote: Average Temperature per Year in El Salvador (1901-2016)."
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.2, right=None, top=0.80, wspace=None, hspace=0.6);
+plt.figtext(0.01, 0.05, footnote, horizontalalignment='left') 
+plt.show()
+
+###############################################################
+# Which ARMA Model is Best?
+###############################################################
+# Fit the data to an AR(1) model and print AIC:
+mod_ar1 = ARMA(SLV_chg_temp, order=(1, 0), freq="AS-JAN")
+res_ar1 = mod_ar1.fit()
+print("\nThe AIC for an AR(1) is: ", res_ar1.aic)
+# Fit the data to an AR(2) model and print AIC:
+mod_ar2 = ARMA(SLV_chg_temp, order=(2, 0), freq="AS-JAN")
+res_ar2 = mod_ar2.fit()
+print("The AIC for an AR(2) is: ", res_ar2.aic)
+# Fit the data to an ARMA(1,1) model and print AIC:
+mod_arma11 = ARMA(SLV_chg_temp, order=(1,1), freq="AS-JAN")
+res_arma11 = mod_arma11.fit()
+print("The AIC for an ARMA(1,1) is: ", res_arma11.aic)
+print("\nThe ARMA(1,1) has the lowest AIC values among the three models.")
+
+###############################################################
+# Don't Throw Out That Winter Coat Yet"; print("** %s\n" % topic)
+###############################################################
+# Forecast temperatures using an ARIMA(1,1,1) model
+# The d in order(p,d,q) is one, since we first differenced once.
+mod = ARIMA(SLV_yearly, order=(1,1,1), freq="AS-JAN") 
+res = mod.fit()
+# Plot the original series and the forecasted series
+res.plot_predict(start='1904-01-01', end='2026-01-01')
+plt.xlabel('Year'); plt.ylabel('Average Temperature (°C)'); # Labeling the axis.
+plt.title("Forecasting the temperature over the next 10 years\nin El Salvador", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.25, right=None, top=0.8, wspace=None, hspace=None);
+plt.axhline(y=24.75, linestyle='--', linewidth=1, color='k')
+plt.axhline(y=25.50, linestyle='--', linewidth=1, color='k')
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

@@ -1,0 +1,239 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 18 22:03:16 2019
+
+@author: jacqueline.cortez
+Chapter 4: Moving Average (MA) and ARMA Models
+    In this chapter you'll learn about another kind of model, the moving average, or MA, model. 
+    You will also see how to combine AR and MA models into a powerful ARMA model.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+#import datetime                                                               #For accesing datetime functions
+import matplotlib.pyplot              as plt                                  #For creating charts
+import numpy                          as np                                   #For making operations in lists
+import pandas                         as pd                                   #For loading tabular data
+
+from statsmodels.graphics.tsaplots    import plot_acf                         #For autocorrelation function
+from statsmodels.tsa.arima_model      import ARMA                             #To estimate parameters from data simulated (AR model)
+from statsmodels.tsa.arima_process    import ArmaProcess                      #For Simulate Autoregressive (AR) Time Series 
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+print("****************************************************")
+topic = "1. Describe Model"; print("** %s\n" % topic)
+
+ar = np.array([1])
+ma = np.array([1, 0.5])
+AR_object = ArmaProcess(ar, ma)
+simulated_data = AR_object.generate_sample(nsample=1000)
+
+plt.plot(simulated_data) # Plot HRB data
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Simulated data', color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "2. Simulate MA(1) Time Series"; print("** %s\n" % topic)
+
+plt.figure()
+
+# Plot 1: MA parameter = -0.9
+plt.subplot(2,1,1)
+ar1 = np.array([1])
+ma1 = np.array([1, -0.9])
+MA_object1 = ArmaProcess(ar1, ma1)
+simulated_data_1 = MA_object1.generate_sample(nsample=1000)
+plt.plot(simulated_data_1)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Simulated data 1 - MA parameter = -0.9', color='red'); 
+
+# Plot 2: MA parameter = +0.9
+plt.subplot(2,1,2)
+ar2 = np.array([1])
+ma2 = np.array([1, 0.9])
+MA_object2 = ArmaProcess(ar2, ma2)
+simulated_data_2 = MA_object2.generate_sample(nsample=1000)
+plt.plot(simulated_data_2)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title('Simulated data 2 - MA parameter = +0.9', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "3. Compute the ACF for Several MA Time Series"; print("** %s\n" % topic)
+
+# simulated_data_3: MA parameter = -0.3
+ar3 = np.array([1])
+ma3 = np.array([1, -0.3])
+MA_object3 = ArmaProcess(ar3, ma3)
+simulated_data_3 = MA_object3.generate_sample(nsample=1000)
+
+
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+
+# Plot 1: MA parameter = -0.9
+plot_acf(simulated_data_1, lags=20, ax=ax1)
+ax1.tick_params(labelsize=7)
+ax1.set_title('Simulated data 1 - MA parameter = -0.9', color='red'); 
+
+# Plot 2: MA parameter = 0.9
+plot_acf(simulated_data_2, lags=20, ax=ax2)
+ax2.tick_params(labelsize=7)
+ax2.set_title('Simulated data 2 - MA parameter = +0.9', color='red'); 
+
+# Plot 3: MA parameter = -0.3
+plot_acf(simulated_data_3, lags=20, ax=ax3)
+ax3.tick_params(labelsize=7)
+ax3.set_title('Simulated data 3 - MA parameter = -0.3', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.6);
+plt.show()
+
+print("****************************************************")
+topic = "6. Estimating an MA Model"; print("** %s\n" % topic)
+
+# Simulating the data
+ar1 = np.array([1])
+ma1 = np.array([1, -0.9])
+MA_object1 = ArmaProcess(ar1, ma1)
+simulated_data_1 = MA_object1.generate_sample(nsample=1000)
+
+## Import the ARMA module from statsmodels
+#from statsmodels.tsa.arima_model import ARMA
+
+# Fit an MA(1) model to the first simulated data
+mod = ARMA(simulated_data_1, order=(0,1))
+res = mod.fit()
+
+# Print out summary information on the fit
+print(res.summary())
+
+# Print out the estimate for the constant and for theta
+print("\n\nWhen the true theta=-0.9, the estimate of theta (and the constant) are:")
+print(res.params)
+
+print("****************************************************")
+topic = "7. Forecasting with MA Model"; print("** %s\n" % topic)
+
+res.plot_predict(start=990, end=1010)
+
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title("An example with simulated data", color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "9. High Frequency Stock Prices"; print("** %s\n" % topic)
+
+file = "Sprint_Intraday.csv" 
+intraday = pd.read_csv(file, header=None, usecols=[0,1])
+print("INTRADAY DATA (First 5 rows): \n{}".format(intraday.head()))
+
+# Change the first date to zero
+intraday.iloc[0,0] = 0
+
+# Change the column headers to 'DATE' and 'CLOSE'
+intraday.columns = ['DATE', 'CLOSE']
+
+# Examine the data types for each column
+print(intraday.dtypes)
+
+# Convert DATE column to numeric
+intraday['DATE'] = pd.to_numeric(intraday.DATE)
+
+# Make the `DATE` column the new index
+intraday = intraday.set_index('DATE')
+
+# Examine the data types for each column after changes
+print("\nAfter changes...")
+print(intraday.dtypes)
+print(intraday.info())
+
+print("****************************************************")
+topic = "10. More Data Cleaning: Missing Data"; print("** %s\n" % topic)
+
+# Notice that some rows are missing
+print("If there were no missing rows, there would be 391 rows of minute data.")
+print("The actual length of the DataFrame is:", len(intraday), ".")
+
+
+set_everything = set(range(391)) # Everything
+set_intraday = set(intraday.index) # The intraday index as a set
+set_missing = set_everything - set_intraday # Calculate the difference
+
+
+# Print the difference
+print("Missing rows: ", set_missing)
+
+
+intraday = intraday.reindex(range(391), method='ffill') # Fill in the missing rows
+intraday.index = pd.date_range(start='2017-09-01 9:30', end='2017-09-01 16:00', freq='1min') # Change the index to the intraday times
+
+
+# Plot the intraday time series
+intraday.plot(grid=True)
+
+plt.xticks(fontsize=7); plt.yticks(fontsize=7);
+plt.title("One day's prices (on September 1, 2017) for Sprint stock ", color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "11. Applying an MA Model"; print("** %s\n" % topic)
+
+# Compute returns from prices and drop the NaN
+returns = intraday.pct_change()
+returns = returns.dropna()
+
+# Plot ACF of returns with lags up to 60 minutes
+plot_acf(returns, lags=60)
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('ACF function with lags up to 60 minutes for Intraday', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+
+# Fit the data to an MA(1) model
+mod = ARMA(returns, order=(0,1))
+res = mod.fit()
+print(res.params)
+
+print("****************************************************")
+topic = "12. Equivalence of AR(1) and MA(infinity)"; print("** %s\n" % topic)
+
+
+# Build a list MA parameters
+ma = [0.8**i for i in range(30)]
+
+# Simulate the MA(30) model
+ar = np.array([1])
+AR_object = ArmaProcess(ar, ma)
+simulated_data = AR_object.generate_sample(nsample=5000)
+
+# Plot the ACF
+plot_acf(simulated_data, lags=30)
+plt.xticks(fontsize=7); plt.yticks(fontsize=8);
+plt.title('Simulated data', color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

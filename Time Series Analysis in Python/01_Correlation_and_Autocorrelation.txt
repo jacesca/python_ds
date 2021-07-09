@@ -1,0 +1,222 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Nov 17 16:11:31 2019
+
+@author: jacqueline.cortez
+Chapter 1: Correlation and Autocorrelation
+    In this chapter you'll be introduced to the ideas of correlation and autocorrelation for time series. 
+    Correlation describes the relationship between two time series and autocorrelation describes the 
+    relationship of a time series with its past values.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot as plt                                               #For creating charts
+import pandas            as pd                                                #For loading tabular data
+import statsmodels.api   as sm                                          #Make a prediction model
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "2. A \"Thin\" Application of Time Series"; print("** %s\n" % topic)
+
+file = "diet.data" 
+#fwidths = [1, 13]
+df_diet_search = pd.read_fwf(file, index_col = 'date')
+
+
+df_diet_search.index = pd.to_datetime(df_diet_search.index) # Convert the date index to datetime
+
+#Plot all data
+df_diet_search.plot(grid=True) # Plot the entire time series diet and show gridlines
+plt.xlabel('Period Time'); plt.ylabel('Total of searches'); # Labeling the axis.
+plt.title('Diet Term Search'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+#Plot only 2012
+df_diet2012 = df_diet_search["2012"] # Slice the dataset to keep only 2012
+
+df_diet2012.plot(grid=True) # Plot 2012 data
+plt.xlabel('Period Time'); plt.ylabel('Total of searches'); # Labeling the axis.
+plt.title('Diet Term Search during 2012'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "3. Merging Time Series With Different Dates"; print("** %s\n" % topic)
+
+file = "stocks.data" 
+#stocks = pd.read_fwf(file, index_col = 'observation_date', parse_dates=True, infer_datetime_format=True)
+stocks = pd.read_fwf(file, index_col = 'observation_date')
+
+file = "bonds.data" 
+#bonds = pd.read_fwf(file, index_col = 'observation_date', parse_dates=True, infer_datetime_format=True)
+bonds = pd.read_fwf(file, index_col = 'observation_date')
+
+
+# Convert the stock index and bond index into sets
+set_stock_dates = set(stocks.index)
+set_bond_dates = set(bonds.index)
+
+
+# Take the difference between the sets and print
+print("Dates where bonds are closed and stocks are open: \n{}\n\n".format(set_stock_dates - set_bond_dates))
+
+# Merge stocks and bonds DataFrames using join()
+stocks_and_bonds = stocks.join(bonds, how='inner')
+print("Days where bonds and stocks are open: {} days. \nFirst 5 rows \n{}\n".format(stocks_and_bonds.shape[0], stocks_and_bonds.head()))
+
+print("****************************************************")
+topic = "5. Correlation of Stocks and Bonds"; print("** %s\n" % topic)
+
+returns = stocks_and_bonds.pct_change() # Compute percent change using pct_change()
+
+# Compute correlation using corr()
+correlation = returns.SP500.corr(returns.US10Y)
+print("Correlation of stocks and interest rates: {}\n".format(correlation))
+
+# Make scatter plot
+plt.figure()
+plt.scatter(returns.SP500, returns.US10Y, alpha=0.5, color='maroon')
+plt.xlabel('Stock prices'); plt.ylabel('Bond Prices'); # Labeling the axis.
+plt.title('Is there any correlation?\nCorrelation detected: {0:.4f}'.format(correlation)); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "6. Flying Saucers Aren't Correlated to Flying Markets"; print("** %s\n" % topic)
+
+file = "levels.data" 
+levels = pd.read_fwf(file, index_col = 'Date')
+
+# Compute correlation of levels
+correlation1 = levels.DJI.corr(levels.UFO)
+print("Correlation of levels: {}\n".format(correlation1))
+
+# Compute correlation of percent changes
+changes = levels.pct_change()
+correlation2 = changes.DJI.corr(changes.UFO)
+print("Correlation of changes: {}\n".format(correlation2))
+
+# Make scatter plot
+plt.figure(figsize=(10,4))
+plt.subplot(1,2,1)
+plt.scatter(levels.DJI, levels.UFO, alpha=0.5, color='maroon')
+plt.xlabel('DJI'); plt.ylabel('UFO'); # Labeling the axis.
+plt.title('Correlation detected: {0:.4f}'.format(correlation1), color='red'); 
+plt.subplot(1,2,2)
+plt.scatter(changes.DJI, changes.UFO, alpha=0.5, color='maroon')
+plt.xlabel('DJI changes over time'); plt.ylabel('UFO changes over time'); # Labeling the axis.
+plt.title('Correlation detected: {0:.4f}'.format(correlation2), color='red'); 
+plt.suptitle(topic, color='navy', fontweight="bold");  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.15, right=None, top=0.85, wspace=0.5, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "8. Looking at a Regression's R-Squared"; print("** %s\n" % topic)
+
+file = "x_and_y_corr_example.csv" 
+x_and_y = pd.read_csv(file, sep=';')
+x = x_and_y.X
+y = x_and_y.Y
+
+
+# Compute correlation of x and y
+correlation = x.corr(y)
+print("The correlation between x and y is %4.2f" %(correlation))
+
+# Convert the Series x to a DataFrame and name the column x
+dfx = pd.DataFrame(x, columns=['X'])
+
+# Add a constant to the DataFrame dfx
+dfx1 = sm.add_constant(dfx)
+
+# Regress y on dfx1
+result = sm.OLS(y, dfx1).fit()
+
+# Print out the results and look at the relationship between R-squared and the correlation above
+print(result.summary())
+
+# Make scatter plot
+plt.figure()
+plt.scatter(x, y, alpha=0.5, color='maroon')
+plt.xlabel('x'); plt.ylabel('y'); # Labeling the axis.
+plt.title('Correlation detected: {0:.4f}'.format(result.params[1]), color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.15, bottom=0.15, right=None, top=0.85, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "11. A Popular Strategy Using Autocorrelation"; print("** %s\n" % topic)
+
+file = "MSFT.data" 
+MSFT = pd.read_fwf(file, index_col = 'Date', parse_dates=True, infer_datetime_format=True)
+
+
+# Convert the daily data to weekly data
+MSFT = MSFT.resample(rule='W').last()
+
+# Compute the percentage change of prices
+returns = MSFT.pct_change()
+
+# Compute and print the autocorrelation of returns
+autocorrelation = returns.Adj_Close.autocorr()
+print("The autocorrelation of weekly returns is %4.2f \n" %(autocorrelation)) #This is negative so is mean reverting.
+
+#Plot all data
+returns.plot(grid=True) # Plot the entire time series diet and show gridlines
+plt.xlabel('Period Time'); plt.ylabel('MSFT Returns'); # Labeling the axis.
+plt.title('Correlation detected: {0:.4f}'.format(autocorrelation), color='red'); 
+plt.suptitle(topic, color='navy');  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "12. Are Interest Rates Autocorrelated?"; print("** %s\n" % topic)
+
+file = "daily_rates.data" 
+daily_rates = pd.read_fwf(file, index_col = 'DATE', parse_dates=True, infer_datetime_format=True)
+
+
+# Compute the daily change in interest rates 
+daily_diff = daily_rates.diff()
+
+# Compute and print the autocorrelation of daily changes
+autocorrelation_daily = daily_diff['US10Y'].autocorr()
+print("The autocorrelation of daily interest rate changes is %4.2f" %(autocorrelation_daily))
+
+# Convert the daily data to annual data
+yearly_rates = daily_rates.resample(rule='A').last()
+
+# Repeat above for annual data
+yearly_diff = yearly_rates.diff()
+autocorrelation_yearly = yearly_diff['US10Y'].autocorr()
+print("The autocorrelation of annual interest rate changes is %4.2f \n" %(autocorrelation_yearly))
+
+
+
+#Plot all data
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,4))
+
+daily_diff.plot(grid=True, ax=ax1) # Plot the entire time series diet and show gridlines
+ax1.tick_params(labelsize=8)
+ax1.set_xlabel('Period Time'); ax1.set_ylabel('US10Y Daily Diff'); # Labeling the axis.
+ax1.set_title('Daily Auto-correlation detected: {0:.4f}'.format(autocorrelation_daily), color='red'); 
+
+yearly_diff.plot(grid=True, ax=ax2) # Plot the entire time series diet and show gridlines
+ax2.tick_params(labelsize=8)
+ax2.set_xlabel('Period Time'); ax2.set_ylabel('US10Y Yearly Diff'); # Labeling the axis.
+ax2.set_title('Yearly Auto-correlation detected: {0:.4f}'.format(autocorrelation_yearly), color='red'); 
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=0.15, right=None, top=0.85, wspace=0.5, hspace=None);
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
