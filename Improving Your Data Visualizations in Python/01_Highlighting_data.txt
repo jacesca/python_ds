@@ -1,0 +1,166 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jul 23 13:18:02 2019
+
+@author: jacqueline.cortez
+
+Capítulo 1. Highlighting your data
+Introduction:
+    How do you show all of your data while making sure that viewers don't miss an important point or points? 
+    Here we discuss how to guide your viewer through the data with color-based highlights and text. We also introduce 
+    a dataset on common pollutant values across the United States.
+"""
+
+import pandas as pd                   #For loading tabular data
+import matplotlib.pyplot as plt       #For creating charts
+import seaborn as sns                 #For visualizing data
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("** Getting the data for this program\n")
+
+file = "pollution_wide.csv" 
+pollution = pd.read_csv(file)
+
+#houston_pollution = pollution[pollution.city  ==  'Houston']
+houston_pollution = pollution[pollution.city  ==  'Houston'].copy()
+max_O3 = houston_pollution.O3.max() # Find the highest observed O3 value
+houston_pollution['point type'] = ['Highest O3 Day' if O3  ==  max_O3 else 'Others' for O3 in houston_pollution.O3] # Make a column that denotes which day had highest O3
+
+
+
+print("****************************************************")
+tema = '2. Hardcoding a highlight'; print("** %s\n" % tema)
+
+# Make array orangred for day 330 of year 2014, otherwise lightgray
+houston_colors = ['orangered' if (day  ==  330) & (year  ==  2014) else 'lightgray' for day,year in zip(houston_pollution.day, houston_pollution.year)]
+#print(set(zip(houston_pollution.day, houston_pollution.year)))       
+
+sns.set() # Set default Seaborn style
+sns.regplot(x = 'NO2', y = 'SO2', data = houston_pollution, fit_reg = False, scatter_kws = {'facecolors': houston_colors, 'alpha': 0.7})
+plt.title("City of Houston")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '3. Programmatically creating a highlight'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+sns.scatterplot(x = 'NO2', y = 'SO2', hue = 'point type', data = houston_pollution) # Encode the hue of the points with the O3 generated column
+plt.title("City of Houston")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '5. Comparing with two KDEs'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+sns.kdeplot(pollution[pollution.year == 2012].O3, shade = True, label = '2012') # Filter dataset to the year 2012
+sns.kdeplot(pollution[pollution.year != 2012].O3, shade = True, label = 'other years') # Filter dataset to everything except the year 2012
+plt.xlabel('O3') # Label the axes
+plt.ylabel('KDE (Kernel Density Estimator)')
+plt.title("Pollution in 2012 compare with other years")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '6. Improving your KDEs'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+sns.distplot(pollution[pollution.city == 'Vandenberg Air Force Base'].O3, label = 'Vandenberg', hist = False, color = 'steelblue', rug = True)
+sns.distplot(pollution[pollution.city != 'Vandenberg Air Force Base'].O3, label = 'Other cities', hist = False, color = 'gray')
+plt.xlabel('O3') # Label the axes
+plt.ylabel('KDE (Kernel Density Estimator)')
+plt.title("Pollution in Vandenberg Air Force Base")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '7. Beeswarms'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+pollution_mar = pollution[pollution.month == 3]
+sns.swarmplot(y = "city", x = 'O3', data = pollution_mar, size = 3)
+plt.title('March Ozone levels by city')
+plt.suptitle(tema)
+plt.subplots_adjust(left=0.40, bottom=None, right=0.95, top=None, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '9. A basic text annotation'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+sns.scatterplot(x = 'CO', y = 'SO2', data = pollution[pollution.month  ==  8]) # Draw basic scatter plot of pollution data for August
+plt.text(0.57, 41, "Cincinnati had highest observed\nSO2 value on Aug 11, 2013",  fontdict = {'ha': 'left', 'size': 'small'}) # Label highest SO2 value with text annotation
+plt.title("Relation between CO and SO2")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '10. Arrow annotations'; print("** %s\n" % tema)
+
+sns.set() # Set default Seaborn style
+plt.figure()
+# Query and filter to New Years in Long Beach
+jan_pollution = pollution.query("(month  ==  1) & (year  ==  2012)")
+lb_newyears = jan_pollution.query("(day  ==  1) & (city  ==  'Long Beach')")
+sns.scatterplot(x = 'CO', y = 'NO2', data = jan_pollution)
+
+# Point arrow to lb_newyears & place text in lower left 
+plt.annotate('Long Beach New Years', xy = (lb_newyears.CO, lb_newyears.NO2), xytext = (2, 15), 
+             # Shrink the arrow to avoid occlusion
+             arrowprops = {'facecolor':'gray', 'width': 3, 'shrink': 0.03},
+             backgroundcolor = 'white')
+plt.title("Pollution in January 2012")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+tema = '11. Combining annotations and color'; print("** %s\n" % tema)
+
+# Make a vector where Long Beach is orangered; else lightgray
+is_lb = ['orangered' if city  ==  'Long Beach' else 'lightgray' for city in pollution['city']]
+
+sns.set() # Set default Seaborn style
+plt.figure()
+# Map facecolors to the list is_lb and set alpha to 0.3
+sns.regplot(x = 'CO', y = 'O3', data = pollution, fit_reg = False, scatter_kws = {'facecolors':is_lb, 'alpha': 0.3})
+# Add annotation to plot
+plt.text(1.6, 0.072, 'April 30th, Bad Day')
+plt.title("Pollution in Long Beach City")
+plt.suptitle(tema)
+#plt.subplots_adjust(left=None, bottom=None, right=None, top=0.85, wspace=None, hspace=None)
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
