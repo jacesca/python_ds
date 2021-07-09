@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Nov 17 11:27:22 2019
+
+@author: jacqueline.cortez
+Chapter 4: Putting it all together - Artisanal mining sites case study
+    In this final chapter, we leave the Paris data behind us, and apply everything we have learnt up to now 
+    on a brand new dataset about artisanal mining sites in Eastern Congo. Further, you will still learn some 
+    new spatial operations, how to apply custom spatial operations, and you will get a sneak preview into 
+    raster data.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import contextily                                                             #To add a background web map to our plot
+import geopandas         as gpd                                               #For working with geospatial data
+import matplotlib.pyplot as plt                                               #For creating charts
+import numpy             as np                                                #For making operations in lists
+import pandas            as pd                                                #For loading tabular data
+import rasterio                                                               #To work with continue data (grid) in geospatial information
+import rasterio.plot                                                          # Import the plotting functionality of rasterio
+
+from shapely.geometry                import LineString                        #(Geospatial) To create a Linestring geometry column 
+from shapely.geometry                import Point                             #(Geospatial) To create a point geometry column 
+from shapely.geometry                import Polygon                           #(Geospatial) To create a point geometry column 
+from matplotlib                      import colors                            #To create custom cmap
+from matplotlib.ticker               import StrMethodFormatter                #Import the necessary library to delete the scientist notation
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+pd.set_option("display.max_columns",20)
+pd.options.display.float_format = '{:,.2f}'.format
+
+print("****************************************************")
+topic = "Reading geospatialdata"; print("** %s\n" % topic)
+
+## Read the mines place from Congo
+#filename = "my_data\\my_data_mines.gpkg"
+#df_mining_sites = gpd.read_file(filename)
+#print("Columns of df_mining_sites:\n{}".format(df_mining_sites.columns))
+#print("CRS of df_mining_sites:\n{}\n".format(df_mining_sites.crs))
+
+print("****************************************************")
+topic = "12. Import and plot raster data"; print("** %s\n" % topic)
+
+file = "vegtm30.tif"
+src = rasterio.open(file) # Open the raster dataset
+
+# Plot the raster layer with the mining sites
+##plt.imshow(src.read(1), cmap='summer')
+ax = rasterio.plot.show(src)
+#ax = rasterio.plot.reshape_as_image(src.read())
+#df_mining_sites.plot(ax=ax, color='red', markersize=1)
+ax.tick_params(labelsize=7); 
+ax.set_xlabel('Longitude', fontsize=7); ax.set_ylabel('Latitude', fontsize=7); # Labeling the axis.
+ax.set_title('My first raster data sample\nSouthern Africa Vegetation Map', color='darkblue', fontsize=10)
+plt.suptitle(topic, fontsize=10, fontweight='bold');  # Setting the titles.
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

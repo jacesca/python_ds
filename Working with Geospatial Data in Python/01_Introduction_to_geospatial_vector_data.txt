@@ -1,0 +1,230 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 13 17:25:18 2019
+
+@author: jacqueline.cortez
+Chapter 1: Introduction to geospatial vector data
+    In this chapter, you will be introduced to the concepts of geospatial data, and more specifically of vector data. 
+    You will then learn how to represent such data in Python using the GeoPandas library, and the basics to read, 
+    explore and visualize such data. And you will exercise all this with some datasets about the city of Paris.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot as plt                                               #For creating charts
+import pandas            as pd                                                #For loading tabular data
+import contextily                                                             #To add a background web map to our plot
+import geopandas         as gpd                                               #For working with geospatial data
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "User Variables"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Defined functions"; print("** %s\n" % topic)
+
+print("****************************************************")
+topic = "Reading geospatialdata"; print("** %s\n" % topic)
+
+df_countries_geo = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+print("Columns of df_countries_geo:\n{}\n".format(df_countries_geo.columns))
+
+df_cities_geo = gpd.read_file(gpd.datasets.get_path('naturalearth_cities'))
+print("Columns of df_cities_geo:\n{}\n".format(df_cities_geo.columns))
+
+# Read the Paris districts dataset
+filename = "paris_districts_utm.geojson"
+df_paris_districts_geo = gpd.read_file(filename)
+print("Columns of {}:\n{}\n".format(filename, df_paris_districts_geo.columns))
+
+print("****************************************************")
+topic = "Reading data"; print("** %s\n" % topic)
+
+filename = "paris_restaurants.csv"
+df_restaurants = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_restaurants.columns))
+
+print("****************************************************")
+topic = "2. Restaurants in Paris"; print("** %s\n" % topic)
+
+print("Head of paris_restaurants:\n{}\n".format(df_restaurants.head()))
+
+# Make a plot of all points
+fig, ax = plt.subplots()
+ax.plot(df_restaurants.x, df_restaurants.y, marker='o', alpha=0.5, linestyle='None')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Restaurants in Paris'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "3. Adding a background map"; print("** %s\n" % topic)
+
+# A figure of all restaurants with background
+fig, ax = plt.subplots()
+ax.plot(df_restaurants.x, df_restaurants.y, marker='o', alpha=0.5, linestyle='None', markersize=1)
+contextily.add_basemap(ax)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Restaurants in Paris'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "4. Introduction to GeoPandas"; print("** %s\n" % topic)
+
+df_countries_geo.plot()
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('World Map'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+df_countries_geo['area'] = df_countries_geo.geometry.area
+print("Head of df_countries:\n{}\n".format(df_countries_geo.head()))
+
+print("****************************************************")
+topic = "5. Explore the Paris districts (I)"; print("** %s\n" % topic)
+
+# Inspect the first rows
+print("Head of df_paris_districts:\n{}\n".format(df_paris_districts_geo.head()))
+
+# Make a quick visualization of the districts
+df_paris_districts_geo.plot()
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Paris Districts'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "6. Explore the Paris districts (II)"; print("** %s\n" % topic)
+
+df_paris_districts_geo['area'] = df_paris_districts_geo.geometry.area
+print("Head of df_paris_districts:\n{}\n".format(df_paris_districts_geo.head()))
+
+print("****************************************************")
+topic = "7. The Paris restaurants as a GeoDataFrame"; print("** %s\n" % topic)
+
+# Convert it to a GeoDataFrame
+df_restaurants_geo = gpd.GeoDataFrame(df_restaurants, geometry=gpd.points_from_xy(df_restaurants.x, df_restaurants.y))
+print("Head of df_restaurants_geo:\n{}\n".format(df_restaurants_geo.head()))
+
+# Make a plot of the restaurants
+ax = df_restaurants_geo.plot(markersize=1)
+contextily.add_basemap(ax)
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Restaurants in Paris'); plt.suptitle(topic);  # Setting the titles.
+plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "8. Exploring and visualizing spatial data"; print("** %s\n" % topic)
+
+#Filtering data
+df_africa_geo = df_countries_geo[df_countries_geo.continent == 'Africa']
+df_africa_geo.plot(color='red', edgecolor='black')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Africa Continent'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+#Coloring the world map
+df_countries_geo.plot(column='continent', edgecolor='black')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('World Map (Coloring by continent)'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+#Coloring the world map
+df_countries_geo.plot(column='gdp_md_est', edgecolor='black')
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('World Map (Coloring by gdp_md_est)'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+
+#Multilayered plot
+fig, ax = plt.subplots(figsize=(10,4))
+df_countries_geo.plot(ax = ax)
+df_cities_geo.plot(ax=ax, color='red', markersize=10)
+ax.set_axis_off()
+plt.xlabel('Longitude'); plt.ylabel('Latitude'); # Labeling the axis.
+plt.title('Main cities in the world'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "9. Visualizing the population density"; print("** %s\n" % topic)
+
+df_paris_districts_geo['population_density'] = df_paris_districts_geo.population / df_paris_districts_geo.area * (10**6) # Add a population density column
+
+# Make a plot of the districts colored by the population density
+fig, ax = plt.subplots(figsize=(10,4))
+base = df_paris_districts_geo.plot(ax = ax, column='population_density', legend=True)
+#ax.set_anchor('N'); 
+#Changing the fontsize of the color bar: (Source: https://gist.github.com/sebbacon/60ceec549f1d461af4543ccc5024c095?short_path=839cef5)
+#     The Figure has two Axes: one for the map, and one for the Colorbar. The one we care about is the second one. 
+#     cb_ax = fig.axes[1] #Axes for the colorbar.
+#     The legend is actually a Colorbar object. To change the legend's font size, we have to get hold of the Colorbar's 
+#     Axes object, and call .tick_params() on that. 
+fig.axes[1].tick_params(labelsize=7) #Changing the fontsize of the colorbar in second axes of the graph.
+plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude', fontsize=7); plt.ylabel('Latitude', fontsize=7); # Labeling the axis.
+plt.title('Density population in Paris'); plt.suptitle(topic);  # Setting the titles.
+#plt.subplots_adjust(left=0.2, bottom=None, right=None, top=None, wspace=None, hspace=None);
+plt.show()
+
+print("****************************************************")
+topic = "10. Using pandas functionality: groupby"; print("** %s\n" % topic) 
+
+restaurants_type_counts = df_restaurants_geo.groupby('type').size() # Calculate the number of restaurants of each type
+
+print("Restaurants by type (Using groupb)y:\n{}\n".format(restaurants_type_counts)) # Print the result
+print("Restaurants by type (Using value_counts method):\n{}\n".format(df_restaurants_geo['type'].value_counts())) # Print the result
+
+print("****************************************************")
+topic = "11. Plotting multiple layers"; print("** %s\n" % topic)
+
+# Take a subset of the African restaurants
+df_african_restaurants_geo = df_restaurants_geo[df_restaurants_geo['type']=='African restaurant']
+
+# Make a multi-layered plot
+fig, ax = plt.subplots(figsize=(10, 5))
+df_restaurants_geo.plot(ax=ax, color='darkgreen', markersize=1)
+df_african_restaurants_geo.plot(ax=ax, color='red', markersize=3)
+ax.set_axis_off()
+contextily.add_basemap(ax)
+plt.title('African Restaurants in Paris'); plt.suptitle(topic);  # Setting the titles.
+plt.show()
+
+
+#Making one more example:
+#Source: http://datos.mop.gob.sv/?q=search/field_topic/proyectos-de-inversi%C3%B3n-6
+filename = "SV_proyectos_MOP.csv"
+df_mop_sv = pd.read_csv(filename)
+print("Columns of {}:\n{}\n".format(filename, df_mop_sv.columns))
+df_mop_sv_geo = gpd.GeoDataFrame(df_mop_sv, geometry=gpd.points_from_xy(df_mop_sv.LONGITUD, df_mop_sv.LATITUD), crs={'init': 'epsg:4326'})
+print("Columns of df_mop_sv_geo:\n{}\n".format(df_mop_sv_geo.columns))
+gpd.GeoDataFrame.crs = {'init': 'epsg:4326'}
+df_mop_sv_geo = df_mop_sv_geo.to_crs(epsg = 3857)
+
+#print(dir(contextily.tile_providers)) # To use in url=contextily.tile_providers.OSM_A
+#print(dir(contextily.providers))      # To use in url=contextily.providers.Stamen.TonerLite
+
+# Make a multi-layered plot
+ax = df_mop_sv_geo.plot(color='red', figsize=(10, 5))
+contextily.add_basemap(ax) #, url=contextily.providers.Stamen.TonerLite)
+plt.xticks(fontsize=7); plt.yticks(fontsize=7); 
+plt.xlabel('Longitude', fontsize=7); plt.ylabel('Latitude', fontsize=7); # Labeling the axis.
+plt.title('Proyectos MOP en Ejecución (El Salvador 2018)'); plt.suptitle(topic);  # Setting the titles.
+plt.show()
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
