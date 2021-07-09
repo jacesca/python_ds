@@ -1,0 +1,384 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 22 22:47:15 2020
+
+@author: jacqueline.cortez
+Subject: Practicing Statistics Interview Questions in Python
+Chapter 3: Statistical Experiments and Significance Testing
+    Prepare to dive deeper into crucial concepts regarding experiments and testing by reviewing 
+    confidence intervals, hypothesis testing, multiple tests, and the role that power and sample 
+    size play. We'll also discuss types of errors, and what they mean in practice.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot             as plt                                   #For creating charts
+import numpy                         as np                                    #For making operations in lists
+import pandas                        as pd                                    #For loading tabular data
+
+from scipy.stats                     import binom                             #Generate binomial data
+from scipy.stats                     import sem                               #For statistic thinking 
+from scipy.stats                     import t                                 #For statistic thinking 
+from scipy.stats                     import ttest_ind                         #For Student's t-test. Tests whether the means of two independent samples are significantly different.
+from statsmodels.sandbox.stats.multicomp import multipletests                 #To adjust the p-value when you run multiple tests.
+from statsmodels.stats.power         import TTestIndPower                     #Explain how the effect, power and significance level affect the sample size. Create results object for t-test analysis
+from statsmodels.stats.power         import zt_ind_solve_power                #To determinate sample size. Assign and print the needed sample size
+from statsmodels.stats.proportion    import proportion_confint                #Fon confidence interval-->proportion_conf(number of successes, number of trials, alpha value represented by 1 minus our confidence level)
+from statsmodels.stats.proportion    import proportion_effectsize             #To determinate sample size. Standardize the effect size
+from statsmodels.stats.proportion    import proportions_ztest                 #To run the Z-score test, when you know the population standard deviation
+
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+    
+print("****************************************************")
+topic = "2. Confidence interval by hand"; print("** %s\n" % topic)
+
+#z_score     = 2.7764451051977987
+#sample_mean = 3.0
+data         = [1, 2, 3, 4, 5]
+confidence   = 0.95
+
+sample_mean  = np.mean(data)
+alpha        = 1-confidence
+z_score      = t.ppf(1-alpha/2, df=4) # Two-sided; df=degrees of fredom
+
+
+print("EXAMPLE: ", data, "with mean=", sample_mean)
+
+print("\nMANUALLY COMPUTED: ")
+# Compute the standard error and margin of error
+std_err      = sem(data)
+margin_error = std_err * z_score
+lower        = sample_mean - margin_error # Compute and print the lower threshold
+upper        = sample_mean + margin_error # Compute and print the upper threshold
+print("Lower threshold in this example:", lower)
+print("Upper threshold in this example: ", upper)
+    
+print("\nAUTOMATIC COMPUTED: ")
+threshold    = t.interval(confidence, len(data)-1, loc=sample_mean, scale=std_err)
+print("Threshold in this example:", threshold)
+
+print("****************************************************")
+topic = "3. Applying confidence intervals"; print("** %s\n" % topic)
+
+#heads = binom.rvs(1, 0.5, size=50).sum() #How many heads i get in 50 coin flips (one simple flip each)
+heads = binom.rvs(50, 0.5, size=1) #How many heads i get in 50 coin flips (one simple flip each)
+
+# Compute and print the 99% confidence interval -> alpha = 1-confidence
+confidence_99 = proportion_confint(heads, 50, 0.01) #proportion_conf(number of successes, number of trials, alpha value represented by 1 minus our confidence level)
+# Compute and print the 90% confidence interval
+confidence_90 = proportion_confint(heads, 50, 0.1)
+
+print("Example: NUMBER OF HEADS IN 50 FAIR COIN FLIPS --> Got ", heads, "Heads.")
+print("99% confidence interval for 50 trials: ", confidence_99)
+print("90% confidence interval for 50 trials: ", confidence_90)
+
+
+# Repeat this process 10 times 
+print("\nExample: REPEAT THE SAME PROCESS 10 TIMES")
+heads = binom.rvs(50, 0.5, size=10)
+for val in heads:
+    confidence_interval = proportion_confint(val, 50, .10)
+    print("90% confidence interval for 50 trials (got {} heads): ".format(val), confidence_interval)
+
+
+# Repeat this process 10 times 
+print("\nExample: REPEAT THE SAME PROCESS 10 TIMES")
+heads = binom.rvs(50, 0.5, size=10)
+for val in heads:
+    confidence_interval = proportion_confint(val, 50, .01)
+    print("99% confidence interval for 50 trials (got {} heads): ".format(val), confidence_interval)
+
+
+print("****************************************************")
+topic = "5. One tailed z-test (Data from the course)"; print("** %s\n" % topic)
+
+file = "ab_data_sample.data"
+sample = pd.read_fwf(file, index_col="id")
+
+# Assign and print the conversion rate for each group
+conv_rates = sample.groupby('group').mean()
+print("Conversion rate for each group: \n{}".format(conv_rates))
+
+# Assign the number of control conversions and trials
+num_control = sample[sample.group == 'control']['converted'].sum()
+total_control = len(sample[sample.group == 'control'])
+
+# Assign the number of conversions and total trials
+num_treat = sample[sample.group == 'treatment']['converted'].sum()
+total_treat = len(sample[sample.group == 'treatment'])
+
+count = np.array([num_treat, num_control]) 
+nobs = np.array([total_treat, total_control])
+
+##################################################################
+##EXPLANATION OF PARAMENTER "alternative" IN "proportions_ztest" #
+##"alternative" can be [‘two-sided’, ‘smaller’, ‘larger’]        #
+##The alternative hypothesis can be either two-sided or one of   #
+##the one- sided tests, smaller means that the alternative       #
+##hypothesis is prop < value and larger means prop > value.      #
+##                                                               #
+##In the two sample test, smaller means that the alternative     #
+##hypothesis is p1 < p2 and larger means p1 > p2 where p1 is the #
+#proportion of the first sample and p2 of the second one.        #
+##################################################################
+
+# Run the z-test and print the result 
+# alternative="larger" --> Conversion of treatment > control
+
+#H0 = The treatment not effecting the outcome in any way.
+#H1 = The treatment does have a conclusive effect on the outcome.
+
+stat, pval = proportions_ztest(count, nobs, alternative="larger")
+print('\nZ-score: {0:0.3f}'.format(pval))
+
+if pval > 0.05:
+	print('The treatment does not affect the outcome in any way (pval > 0.05).')
+else:
+	print('The treatment does have a conclusive effect on the outcome (pval <= 0.05).')
+
+
+print("****************************************************")
+topic = "5. One tailed z-test (Data from the source)"; print("** %s\n" % topic)
+#Source: https://www.kaggle.com/zhangluyuan/a-b-testing#Table-of-Contents
+##############################################################
+##Preparing the data
+##############################################################
+##5.1 Read the data and store it.
+file = "ab_data.csv" 
+ab_data = pd.read_csv(file, parse_dates=["timestamp"])
+print("(1). Reading the data...\n{}\n".format(ab_data.head()))
+
+##############################################################
+##5.2 Find the number of rows in the dataset.
+print("(2). Finding the shape (rows, columns) of the dataset: {}.\n".format(ab_data.shape))
+
+##############################################################
+##5.3 The number of unique users in the dataset.
+print("(3). Unique users in the dataset: {:,.0f} users.\n".format(ab_data.user_id.nunique()))
+
+##############################################################
+##5.4 The proportion of users converted.
+print("(4). The proportion of users converted: {:.0%}.\n".format((ab_data.converted==1).mean()))
+
+##############################################################
+##5.5 The number of times the new_page and treatment don't line up.
+wrong_rows = ((ab_data.group=='treatment') & (ab_data.landing_page=='old_page')).sum()+ ((ab_data.group=='control') & (ab_data.landing_page=='new_page')).sum()
+print("(5). The number of times that landing_page and group don't line up: {:,.0f} rows.\n".format(wrong_rows))
+
+##############################################################
+##5.6 Find the missing values in the dataset.
+print("(6). Finding the missing values in the dataset:")
+print(ab_data.info(),"\n")
+
+##############################################################
+##5.7 Create a new dataset with misaligned rows dropped.
+print("(7). Dropping misaligned rows...")
+ab_data['misaligned'] = ((ab_data.group=='treatment') & (ab_data.landing_page=='old_page')) | ((ab_data.group=='control') & (ab_data.landing_page=='new_page'))
+sample = ab_data.query('misaligned==False')
+print("Shape after dropping: {} --> {:,.0f} deleted rows.".format(sample.shape, ab_data.misaligned.sum()))
+wrong_rows = ((sample.group=='treatment') & (sample.landing_page=='old_page')).sum() + ((sample.group=='control') & (sample.landing_page=='new_page')).sum()
+print("The number of times that landing_page and group don't line up: {:,.0f} rows.".format(wrong_rows))
+print("Unique users in the dataset: {:,.0f} users.\n".format(sample.user_id.nunique()))
+
+##############################################################
+##5.8 Finding duplicated users.
+duplicated_user = sample.user_id.value_counts().sort_values(ascending=False) #Finding howmany times an user appears
+duplicated_user = duplicated_user[duplicated_user>1] #Making the filter
+duplicated_user = sample[sample.user_id.isin(duplicated_user.index.values)] #Retrieving only duplicated
+print("(8). Finding duplicated users...")
+print(duplicated_user)
+#duplicated_user = duplicated_user.reset_index().groupby("user_id")['index'].last()
+sample = sample.drop_duplicates(subset=["user_id"], keep='first')
+print("\nShape after dropping: {} --> {:,.0f} deleted rows.".format(sample.shape, len(duplicated_user)/2))
+print("Unique users in the dataset: {:,.0f} users.\n".format(ab_data.user_id.nunique()))
+
+##############################################################
+##5.9 What is the probability of an individual converting regardless of the page they receive?
+print("(9). What is the probability of an individual converting regardless of the page they receive?")
+print("{:,.4%}\n".format((sample.converted==1).mean()))
+
+##############################################################
+##5.10 Given that an individual was in the control group, what is the probability they converted?
+print("(10). Given that an individual was in the control group, what is the probability they converted?")
+print("{:,.4%}\n".format((sample.query("group == 'control'")["converted"]==1).mean()))
+
+##############################################################
+##5.11 Given that an individual was in the treatment group, what is the probability they converted?
+print("(11). Given that an individual was in the treatment group, what is the probability they converted?")
+print("{:,.4%}\n".format((sample.query("group == 'treatment'")["converted"]==1).mean()))
+
+##############################################################
+##5.12 A/B Test
+sample = sample[["group", "converted"]]
+
+# Assign and print the conversion rate for each group
+conv_rates = sample.groupby('group').mean()
+print("Conversion rate for each group: \n{}".format(conv_rates))
+
+# Assign the number of control conversions and trials
+num_control = sample[sample.group == 'control']['converted'].sum()
+total_control = len(sample[sample.group == 'control'])
+
+# Assign the number of conversions and total trials
+num_treat = sample[sample.group == 'treatment']['converted'].sum()
+total_treat = len(sample[sample.group == 'treatment'])
+
+count = np.array([num_treat, num_control]) 
+nobs = np.array([total_treat, total_control])
+
+#H0 = The treatment not effecting the outcome in any way.
+#H1 = The treatment does have a conclusive effect on the outcome.
+stat, pval = proportions_ztest(count, nobs, alternative="larger")
+print('\nZ-score: {0:0.3f}'.format(pval))
+
+if pval > 0.05:
+	print('The treatment does not affect the outcome in any way (pval > 0.05).')
+else:
+	print('The treatment does have a conclusive effect on the outcome (pval <= 0.05).')
+
+print("****************************************************")
+topic = "6. Two tailed t-test"; print("** %s\n" % topic)
+
+file = "laptops-prices2.data"
+laptops2 = pd.read_fwf(file, index_col="Id").sort_index()
+#laptops3 = laptops2.drop(laptops2[laptops2.Company.isin(['Acer'])].index, axis=0)
+laptops3 = laptops2.drop(laptops2.query("Company in ['Acer']").index, axis=0)
+
+pd.options.display.float_format = '{:,.2f}'.format
+
+# Display the mean price for each group
+prices = laptops3.groupby('Company').mean()
+print("The mean price for each group: \n{}".format(prices))
+
+# Assign the prices of each group
+asus = laptops3[laptops3['Company'] == 'Asus']['Price']
+toshiba = laptops3[laptops3['Company'] == 'Toshiba']['Price']
+
+# Run the t-test
+tstat, pval = ttest_ind(asus, toshiba)
+print('\nt-Test: {0:0.3f}'.format(pval))
+
+if pval > 0.05:
+    print('Probably the same distribution (p > 0.05).')
+    print("There's not enough evidence here to conclude that there are differences in prices between Toshiba and Asus laptops.")
+else:
+    print('Probably different distributions (p <= 0.05).')
+    print('Toshiba laptops are significantly more expensive than Asus.')
+
+print("****************************************************")
+topic = "9. Calculating sample size"; print("** %s\n" % topic)
+
+std_effect = proportion_effectsize(.20, .25)
+print("std_effect=",std_effect)
+
+sample_size = zt_ind_solve_power(effect_size=std_effect, nobs1=None, alpha=.05, power=.95)
+print("Sample_size=",sample_size)
+
+print("****************************************************")
+topic = "10. Visualizing the relationship"; print("** %s\n" % topic)
+
+sample_sizes = np.array(range(5, 100))
+effect_sizes = np.array([0.2, 0.5, 0.8])
+alpha_sizes = np.array([.01, .05, .1])
+# Create results object for t-test analysis
+results = TTestIndPower()
+
+# Plot the power analysis with the nobs on x-axis
+results.plot_power(dep_var='nobs', nobs=sample_sizes, effect_size=effect_sizes)
+plt.ylabel('Power tto conclude with high probability'); # Labeling the axis.
+plt.title("Power of test", color='red') #Not neccesary, use the same title that the function use with a different color
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+
+
+# Plot the power analysis with effect on x-axis
+plt.figure(figsize=(11,5.7))
+ax = plt.subplot(1,1,1)
+results.plot_power(dep_var='effect_size', nobs=sample_sizes, effect_size=effect_sizes, ax=ax)
+plt.legend(loc='upper left', bbox_to_anchor=(1, 1.03), ncol=3, fontsize=7, fancybox=True, title='Number of Observation')
+plt.ylabel('Power tto conclude with high probability'); # Labeling the axis.
+plt.title("Power of test", color='red') #Not neccesary, use the same title that the function use with a different color
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=0.1, bottom=None, right=0.75, top=None, wspace=None, hspace=None)
+plt.show()
+
+# Plot the power analysis with the nobs on x-axis for differents confidence levels (alpha)
+plt.rc('xtick',labelsize=8)
+plt.rc('ytick',labelsize=8)
+plt.rcParams["axes.labelsize"] = 8
+plt.figure(figsize=(10,4))
+for i, alpha in enumerate(alpha_sizes, start=1):
+    ax = plt.subplot(1,3,i); 
+    alpha=alpha_sizes[i-1]
+    results.plot_power(dep_var='nobs', nobs=sample_sizes, effect_size=effect_sizes, alpha=alpha, ax=ax)
+    plt.legend(loc='best', fontsize=8)
+    plt.ylabel('Power tto conclude with high probability'); # Labeling the axis.
+    plt.title("Power of test with alpha={:,.2f}".format(alpha), color='red', fontsize=9) #Not neccesary, use the same title that the function use with a different color
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+plt.style.use('default')
+
+# Plot the power analysis with effect on x-axis for differents confidence levels (alpha)
+plt.rc('xtick',labelsize=8)
+plt.rc('ytick',labelsize=8)
+plt.rcParams["axes.labelsize"] = 8
+fig = plt.figure(figsize=(11,5.7))
+for i, alpha in enumerate(alpha_sizes, start=1):
+    ax = plt.subplot(1,3,i); 
+    alpha=alpha_sizes[i-1]
+    results.plot_power(dep_var='effect_size', nobs=sample_sizes, effect_size=effect_sizes, alpha=alpha, ax=ax)
+    ax.legend().set_visible(False)
+    plt.ylabel('Power tto conclude with high probability'); # Labeling the axis.
+    plt.title("Power of test with alpha={:,.2f}".format(alpha), color='red', fontsize=9) #Not neccesary, use the same title that the function use with a different color
+plt.suptitle(topic, color='navy');  # Setting the titles.
+handles, labels = ax.get_legend_handles_labels()
+#labels = [x[0:4] for x in labels]
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.75, 0.95), ncol=3, fontsize=7, title='Number of Observation')
+plt.subplots_adjust(left=0.05, bottom=None, right=0.75, top=None, wspace=None, hspace=None)
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+topic = "12. Calculating error rates"; print("** %s\n" % topic)
+
+# Print error rate for 60 tests with 5% significance
+error_rate = 1 - (1-0.05)**60
+print("Error rate for 60 tests with 5% significance:", error_rate)
+
+# Print error rate for 30 tests with 5% significance
+error_rate = 1 - (.95**(30))
+print("Error rate for 30 tests with 5% significance:", error_rate)
+
+# Print error rate for 10 tests with 5% significance
+error_rate = 1 - (.95**(10))
+print("Error rate for 1 0 tests with 5% significance:", error_rate)
+
+
+print("****************************************************")
+topic = "13. Bonferroni correction"; print("** %s\n" % topic)
+
+pvals = [.01, .05, .10, .50, .99]
+print("p-values:", pvals)
+# Create a list of the adjusted p-values
+p_adjusted = multipletests(pvals, alpha=.05, method='bonferroni')
+
+# Print the resulting conclusions
+print("Resulting conclusions:", p_adjusted[0])
+
+# Print the adjusted p-values themselves 
+print("p-values adjusted with Bonferroni Correction:",p_adjusted[1])
+
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

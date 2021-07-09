@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 25 17:05:24 2020
+
+@author: jaces
+"""
+import pandas                        as pd                                    #For loading tabular data
+
+##############################################################
+#First method
+print("FIRST METHOD - ONLY COLUMNS")
+file = "weather-dataset-australia.csv" 
+weather_aus = pd.read_csv(file, parse_dates=["Date"], #index_col="Date", parse_dates=True, 
+                          usecols=['Date', 'Location', 'MinTemp', 'MaxTemp', 'WindGustSpeed', 
+                                   'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 
+                                   'Pressure9am', 'Pressure3pm', 'Temp9am', 'Temp3pm', 
+                                   'RainTomorrow']).sort_index().dropna()
+
+print(weather_aus.groupby([(weather_aus.Date.dt.year),(weather_aus.Location)]).count())
+print(weather_aus.groupby(weather_aus.Date.dt.year).count())
+
+##############################################################
+#Second method
+print("SECOND METHOD - ONLY COLUMNS")
+file = "weather-dataset-australia.csv" 
+weather_aus = pd.read_csv(file, index_col="Date", parse_dates=True, 
+                          usecols=['Date', 'Location', 'MinTemp', 'MaxTemp', 'WindGustSpeed', 
+                                   'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 
+                                   'Pressure9am', 'Pressure3pm', 'Temp9am', 'Temp3pm', 
+                                   'RainTomorrow']).sort_index().dropna()
+
+print(weather_aus.groupby([(weather_aus.index.year),(weather_aus.Location)]).count())
+print(weather_aus.groupby(weather_aus.index.year).count())
+print(weather_aus.groupby(weather_aus.Location).count())
+

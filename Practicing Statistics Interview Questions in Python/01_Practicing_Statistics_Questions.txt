@@ -1,0 +1,344 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar 20 11:18:03 2020
+
+@author: jacqueline.cortez
+Subject: Practicing Statistics Interview Questions in Python
+Chapter 1: Probability and Sampling Distributions
+    This chapter kicks the course off by reviewing conditional probabilities, Bayes' theorem, and central 
+    limit theorem. Along the way, you will learn how to handle questions that work with commonly referenced 
+    probability distributions.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import matplotlib.pyplot              as plt                                  #For creating charts
+import numpy                          as np                                   #For making operations in lists
+import seaborn                        as sns                                  #For visualizing data
+
+from scipy.stats                     import bernoulli                         #Generate bernoulli data
+from scipy.stats                     import binom                             #Generate binomial data
+from scipy.stats                     import norm                              #Generate normal data
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+def ecdf(data):
+    """Compute ECDF for a one-dimensional array of measurements."""
+    n = len(data) # Number of data points: n
+    x = np.sort(data) # x-data for the ECDF: x
+    y = np.arange(1, n+1) / n # y-data for the ECDF: y
+    
+    return x, y
+
+print("****************************************************")
+topic = "5. Samples from a rolled die"; print("** %s\n" % topic)
+
+# Create a sample of 10 die rolls
+# numpy.random.randint(low, high=None, size=None, dtype='l')
+# Return random integers from low (inclusive) to high (exclusive).
+small = np.random.randint(1, 7, 10)
+
+# Calculate and print the mean of the sample
+small_mean = small.mean()
+print("The mean in a sample of 10 die rolls:", small_mean)
+
+# Create a sample of 1000 die rolls
+large = np.random.randint(1, 7, 1000)
+
+# Calculate and print the mean of the large sample
+large_mean = large.mean()
+print("The mean in a sample of 1000 die rolls:", large_mean)
+
+print("\nwhich theorem is at work here?")
+print("LAW OF LARGE NUMBERS.")
+print("The LAW OF LARGE NUMBERS states that as the size of a sample is increased, the estimate of the sample mean will be more accurately reflect the population mean.")
+
+print("****************************************************")
+topic = "6. Simulating central limit theorem"; print("** %s\n" % topic)
+
+# Create a list of 1000 sample means of size 30
+means1000 = [np.random.randint(1, 7, 30).mean() for i in range(1000)]
+
+plt.figure()
+# Create and show a histogram of the means
+plt.subplot(2,1,1)
+plt.hist(means1000)
+plt.xlabel('Average getted', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Means in a 1000 samples of 30 die rolls", color='red')
+
+# Adapt code for 100 samples of size 30
+means100 = [np.random.randint(1, 7, 30).mean() for i in range(100)]
+
+plt.subplot(2,1,2)
+# Create and show a histogram of the means
+plt.hist(means100)
+plt.xlabel('Average getted', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Means in a 100 samples of 30 die rolls", color='red')
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+
+median_1000 = np.median(means1000)
+mean_1000 = np.mean(means1000)
+median_100 = np.median(means100)
+mean_100 = np.mean(means100)
+
+#Reoeting using seaborn library
+sns.set_style('darkgrid')
+plt.figure()
+plt.subplot(2,1,1)
+sns.distplot(means1000, bins=10)
+plt.axvline(x=mean_1000, color='b', label='Mean', linestyle='-', linewidth=2)
+plt.axvline(x=median_1000, color='r', label='Median', linestyle='--', linewidth=2) # Add vertical lines for the median and mean
+plt.xlabel('Average getted', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.legend(loc='best', fontsize='small')
+plt.title("Means in a 1000 samples of 30 die rolls (Seaborn)", color='red')
+plt.subplot(2,1,2)
+sns.distplot(means100, bins=10)
+plt.axvline(x=mean_100, color='b', label='Mean', linestyle='-', linewidth=2)
+plt.axvline(x=median_100, color='r', label='Median', linestyle='--', linewidth=2) # Add vertical lines for the median and mean
+plt.xlabel('Average getted', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Means in a 100 samples of 30 die rolls (Seaborn)", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.legend(loc='best', fontsize='small')
+plt.show()
+plt.style.use('default')
+
+
+print("****************************************************")
+topic = "8. Bernoulli distribution"; print("** %s\n" % topic)
+
+#rvs(p, loc=0, size=1, random_state=None)-->Random variates.
+data = bernoulli.rvs(p=0.5, size=100)
+
+# Plot distribution
+plt.figure()
+plt.subplot(2,1,1)
+plt.hist(data)
+plt.axhline(y=50, color='b', label='Mean', linestyle='--', linewidth=1)
+plt.xlabel('Result obtained', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Results in a 100 samples of flipping a fair coin", color='red')
+
+# Generate bernoulli data
+data = bernoulli.rvs(p=0.5, size=1000)
+
+# Plot distribution
+plt.subplot(2,1,2)
+plt.hist(data)
+plt.axhline(y=500, color='b', label='Mean', linestyle='--', linewidth=1)
+plt.xlabel('Result obtained', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Results in a 1000 samples of flipping a fair coin", color='red')
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+
+print("****************************************************")
+topic = "9. Binomial distribution"; print("** %s\n" % topic)
+
+#For this exercise, consider a game where you are trying to make a ball in a basket. 
+#You are given 10 shots and you know that you have an 80% chance of making a given shot. 
+#To simplify things, assume each shot is an independent event.
+
+data = binom.rvs(n=10, p=0.8, size=1000)
+mu = data.mean()
+sigma = data.std()
+median = np.median(data)
+theorical = np.random.normal(mu,sigma,100000)
+
+# Plot the distribution
+plt.figure()
+plt.hist(data)
+plt.xlabel('Success in 10 shots', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Results in a 1000 samples of 10 BKB shots each (p = 0.80)", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+
+# Assign and print probability of 8 or less successes
+prob1 = binom.cdf(k=8, n=10, p=0.8)
+print("Probability of 8 or less successes:", prob1)
+
+# Assign and print probability of exactly 8 successes
+prob2 = binom.pmf(k=8, n=10, p=0.8)
+print("Probability of exactly 8 successes:", prob2)
+
+# Assign and print probability of all 10 successes
+prob3 = binom.pmf(k=10, n=10, p=0.8)
+print("Probability of all 10 successes:", prob3)
+
+# Assign and print probability of 10 or less successes
+prob4 = binom.cdf(k=10, n=10, p=0.8)
+print("Probability of 10 or less successes:", prob4)
+
+
+
+#Plot the CDF and PDF of the samples.
+plt.figure()
+# Plot the PDF
+plt.subplot(2,1,1)
+plt.hist(data, density=True)
+plt.xlabel('Success in 10 shots', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("PDF - Results in a 1000 samples of 10 BKB shots each", color='red')
+
+# Plot the CDF
+plt.subplot(2,1,2)
+n, bins, patches = plt.hist(data, density=True, cumulative=True, label='Empirical')
+plt.xlabel('Success in 10 shots', fontsize=8); plt.ylabel('Number of times', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("CDF - Results in a 1000 samples of 10 BKB shots each", color='red')
+
+# Add a line showing the expected distribution.
+y = ((1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+y = y.cumsum()
+y /= y[-1]
+plt.plot(bins, y, 'k--', linewidth=1.5, label='Theoretical')
+plt.legend(loc='best', fontsize='small')
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+
+
+
+#Repeting using seaborn library for showing CDF and PDF
+sns.set_style('darkgrid')
+plt.figure()
+plt.subplot(2,1,1)
+sns.distplot(data, kde=False, norm_hist=True, label='Empirical')
+sns.distplot(theorical, color='black', hist=False, label='Theorical', hist_kws=dict(edgecolor='k', linewidth=1))
+plt.axvline(x=mu, color='b', label='Mean', linestyle='-', linewidth=2)
+plt.axvline(x=median, color='r', label='Median', linestyle='--', linewidth=2) # Add vertical lines for the median and mean
+plt.xlabel('Slope', fontsize=8); plt.ylabel('PDF', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.legend(loc='best', fontsize='small')
+plt.title("PDF - Results in a 1000 samples of 10 BKB shots each (Seaborn)", color='red')
+plt.subplot(2,1,2)
+sns.distplot(data, kde=False, hist_kws={"density":True, "cumulative":True}, label='Empirical')
+# Add a line showing the expected distribution.
+_, bins = np.histogram(data)
+y = ((1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+y = y.cumsum()
+y /= y[-1]
+plt.plot(bins, y, 'k--', linewidth=1.5, label='Theoretical')
+plt.legend(loc='best', fontsize='small')
+plt.xlabel('Slope', fontsize=8); plt.ylabel('CDF', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("CDF - Results in a 1000 samples of 10 BKB shots each (Seaborn)", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+plt.style.use('default')
+
+
+
+#Repeting one more time for showing CDF and PDF (Graphing a PMF correctly)
+plt.figure()
+sns.set_style('darkgrid')
+#PDF
+plt.subplot(2,1,1)
+y = np.bincount(data)/len(data) # Get the frequency
+x = np.nonzero(y)[0]
+y = y[y!=0]
+plt.plot(x, y, 'ko', ms=6, mec='k')
+plt.vlines(x, 0, y, colors='k', linestyles='-', lw=2)
+plt.axvline(x=mu, color='b', label='Mean', linestyle='-', linewidth=1)
+plt.axvline(x=median, color='r', label='Median', linestyle='--', linewidth=1) # Add vertical lines for the median and mean
+plt.xlabel('Number of success in 10 BKB shots', fontsize=8); plt.ylabel('Probability (PMF)', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.legend(loc='best', fontsize='small')
+plt.title("Probability Mass Function (PMF)", color='red')
+#CDF
+plt.subplot(2,1,2)
+x, y = ecdf(data) #Ex. x=[2,2,3,3,3,4,5], y=[0.14, 0.28, 0.43, 0.57, 0.71, 0.86, 1]
+u, i = np.unique(x, return_index=True) #Ex. i=[0,2,5,6] -->Return the indices of the original array that give the unique values
+i = i-1 #Ex. i=['-1,1,4,5] -->To find the index of change.
+i = i[i>=0] #Ex. i=[1,4,5] -->To delete negative inexistent indices.
+i = np.append(i, len(x)-1) #Ex. i=[1,4,5,6] -->To add the last element index
+plt.plot(x[i], y[i], 'ko', ms=6, mec='k')
+plt.vlines(x[i], 0, y[i], colors='k', linestyles='-', lw=2)
+plt.axvline(x=mu, color='b', label='Mean', linestyle='-', linewidth=1)
+plt.axvline(x=median, color='r', label='Median', linestyle='--', linewidth=1) # Add vertical lines for the median and mean
+plt.xlabel('Number of success in 10 BKB shots', fontsize=8); plt.ylabel('Probability (CDF)', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.legend(loc='best', fontsize='small')
+plt.title("Cumulative Distribution function (CDF)", color='red')
+# Add a line showing the expected distribution.
+_, bins = np.histogram(data)
+y = ((1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+y = y.cumsum()
+y /= y[-1]
+plt.plot(bins, y, 'k--', linewidth=1.5)
+
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+plt.style.use('default')
+
+
+
+print("****************************************************")
+topic = "10. Normal distribution"; print("** %s\n" % topic)
+
+data = norm.rvs(size=1000)
+mu = data.mean()
+sigma = data.std()
+median = np.median(data)
+theorical = np.random.normal(mu,sigma,100000)
+
+# Compute and print true probability for greater than 2
+true_prob = 1 - norm.cdf(2)
+print("Given a standardized normal distribution, what is the probability of an observation greater than 2?", true_prob)
+
+# Compute and print sample probability for greater than 2
+sample_prob = sum(obs > 2 for obs in data) / len(data)
+print("Looking at our sample, what is the probability of an observation greater than 2?", sample_prob)
+
+#Using seaborn library for showing CDF and PDF
+sns.set_style('darkgrid')
+plt.figure()
+plt.subplot(2,1,1)
+sns.distplot(data, kde=False, norm_hist=True, label='Empirical')
+sns.distplot(theorical, color='black', hist=False, label='Theorical', hist_kws=dict(edgecolor='k', linewidth=1))
+plt.axvline(x=mu, color='b', label='Mean', linestyle='-', linewidth=2)
+plt.axvline(x=median, color='r', label='Median', linestyle='--', linewidth=2) # Add vertical lines for the median and mean
+plt.xlabel('Samples', fontsize=8); plt.ylabel('Probability (PDF)', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.legend(loc='best', fontsize='small')
+plt.title("Probability Density Function (PDF)", color='red')
+plt.subplot(2,1,2)
+sns.distplot(data, kde=False, hist_kws={"density":True, "cumulative":True}, label='Empirical')
+# Add a line showing the expected distribution.
+_, bins = np.histogram(data)
+y = ((1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+y = y.cumsum()
+y /= y[-1]
+plt.plot(bins, y, 'k--', linewidth=1.5, label='Theoretical')
+plt.legend(loc='best', fontsize='small')
+plt.xlabel('Samples', fontsize=8); plt.ylabel('Probability (CDF)', fontsize=8); # Labeling the axis.
+plt.xticks(fontsize=8); plt.yticks(fontsize=8);
+plt.title("Cumulative Distribution function (CDF)", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5);
+plt.show()
+plt.style.use('default')
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")

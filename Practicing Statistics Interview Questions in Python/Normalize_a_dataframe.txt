@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 25 15:42:49 2020
+
+@author: jaces
+"""
+
+import pandas as pd
+from sklearn.preprocessing           import MinMaxScaler                    #Used for normalize data in a dataframe
+
+###############################################################################
+## The dataframe
+###############################################################################
+df = pd.DataFrame({
+    "A": [1000, 765, 800],
+    "B": [10, 5, 7],
+    "C": [0.5, 0.35, 0.09]
+    })
+print(df, "\n")
+
+#      A   B     C
+#0  1000  10  0.50
+#1   765   5  0.35
+#2   800   7  0.09 
+
+###############################################################################
+## Dataframe normalized
+###############################################################################
+x = df.values #returns a numpy array
+min_max_scaler = MinMaxScaler()
+x_scaled = min_max_scaler.fit_transform(x)
+df_n = pd.DataFrame(x_scaled)
+print(df_n)
+
+#          0    1         2
+#0  1.000000  1.0  1.000000
+#1  0.000000  0.0  0.634146
+#2  0.148936  0.4  0.000000
+

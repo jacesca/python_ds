@@ -1,0 +1,269 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 24 22:54:00 2020
+
+@author: jacqueline.cortez
+Subject: Practicing Statistics Interview Questions in Python
+Chapter 4: Regression and Classification
+    Wrapping up, we'll address concepts related closely to regression and classification models. 
+    The chapter begins by reviewing fundamental machine learning algorithms and quickly ramps up 
+    to model evaluation, dealing with special cases, and the bias-variance tradeoff.
+"""
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+topic = "Importing libraries"; print("** %s\n" % topic)
+
+import itertools                                                              #For iterations
+import matplotlib.pyplot             as plt                                   #For creating charts
+import numpy                         as np                                    #For making operations in lists
+import pandas                        as pd                                    #For loading tabular data
+
+from sklearn.linear_model            import LinearRegression                  #For learning machine
+from sklearn.linear_model            import LogisticRegression                #For learning machine
+from sklearn.preprocessing           import MinMaxScaler                      #Used for normalize data in a dataframe
+from sklearn.metrics                 import confusion_matrix                  #For learning machine
+from sklearn.metrics                 import mean_absolute_error as MAE        #For learning machine
+from sklearn.metrics                 import mean_squared_error as MSE         #For learning machine
+from sklearn.metrics                 import precision_score                   #Compute the precision of the model. Precision is the number of true positives over the number of true positives plus false positives.
+from sklearn.metrics                 import recall_score                      #Compute the recall of the model. Recall is the number of true positives over the number of true positives plus false negatives and is linked to the rate of type 2 error.
+from sklearn.model_selection         import train_test_split                  #For learning machine
+
+
+print("****************************************************")
+topic = "Preparing the environment"; print("** %s\n" % topic)
+
+SEED = 123
+np.random.seed(SEED)
+
+def my_plot_confusion_matrix(cm, classes,
+                             normalize=False,
+                             title='Confusion matrix',
+                             cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    plt.figure()
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        title = title + "\nNormalized confusion matrix"
+    else:
+        title = title + "\nConfusion matrix, without normalization"
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title, color="red")
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes)
+    plt.yticks(tick_marks, classes, rotation=90)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.legend().set_visible(False)
+    plt.subplots_adjust(left=None, bottom=.15, right=None, top=.85, wspace=None, hspace=None)
+    plt.suptitle(topic, color='navy');
+    plt.show()
+ 
+    
+print("****************************************************")
+topic = "2. Linear regression"; print("** %s\n" % topic)
+
+file = "weather-ex-australia_4.data"
+weather = pd.read_fwf(file).dropna()
+
+X = weather.Humidity9am.values.reshape(-1,1)
+y = weather.Humidity3pm
+
+# Create and fit your linear regression model
+lm = LinearRegression()
+lm.fit(X, y)
+
+# Assign and print predictions
+preds = lm.predict(X)
+#print("Predictions: ", preds)
+weather['preds'] = preds.reshape(96,1)
+print(weather[['Humidity9am', 'Humidity3pm', 'preds']].head())
+
+# Plot your fit to visualize your model
+plt.scatter(X, y)
+plt.plot(X, preds, color='red', label='Linear Regression')
+plt.xlabel('Humidity9am'); plt.ylabel('Humidity3pm'); 
+plt.legend(loc='best')
+plt.title("Weather in Australia", color='red')
+plt.suptitle(topic, color='navy');  # Setting the titles.
+plt.show()
+
+# Assign and print coefficient 
+coef = lm.coef_
+print("Coefficient detected: ", coef)
+
+
+print("****************************************************")
+topic = "3. Logistic regression"; print("** %s\n" % topic)
+
+# Reading the data
+file = "weather-dataset-australia.csv" 
+weather_aus = pd.read_csv(file, index_col="Date", parse_dates=True, 
+                          usecols=['Date', 'Location', 'MinTemp', 'MaxTemp', 'WindGustSpeed', 
+                                   'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 
+                                   'Pressure9am', 'Pressure3pm', 'Temp9am', 'Temp3pm', 
+                                   'RainTomorrow']).sort_index().dropna()
+weather_aus['RainTomorrow'] = weather_aus.RainTomorrow.map({'No':0, 'Yes':1})
+weather_aus = weather_aus.query("Location == 'Perth'").drop(['Location'], axis=1) 
+                                                        
+# Normalize the data
+cols = weather_aus.columns
+min_max_scaler = MinMaxScaler()
+np_scaled = min_max_scaler.fit_transform(weather_aus)
+weather_n = pd.DataFrame(np_scaled, columns = cols)
+print("\nData after normalization:\n{}".format(weather_n.head()))
+print("\n{}".format(weather_n.describe()))
+
+# Split into training and test set
+Xn = weather_n[['Humidity9am','Humidity3pm']]
+yn = weather_n.RainTomorrow
+X_train, X_test, y_train, y_test = train_test_split(Xn, yn, test_size = 0.3, random_state=SEED, stratify=yn)
+
+# Create and fit your model
+clf = LogisticRegression()
+clf.fit(X_train, y_train)
+
+# Compute and print the accuracy
+acc = clf.score(X_train, y_train)
+print("\nAccuracy of the model:",acc)
+
+# Assign and print the coefficents
+coefs = clf.coef_
+print("Coefficents of the model (Humidity9am, Humidity3pm):\n",coefs)
+
+# Print explanation
+print("\nSince our features were normalized beforehand, we can look at the magnitude \
+of our coefficients to tell us the importance of each independent variable. \
+Here you can see the the second variable, Humidity3pm was much more important \
+to our outcome than humidity from that morning. This is intuitive since we \
+are trying to predict the rain for tomorrow!\n")
+
+
+print("****************************************************")
+topic = "5. Regression evaluation"; print("** %s\n" % topic)
+
+# Continue with exercise 2
+print("Linear Regression Model to explain relation between Humidity9am and Humidity3pm\n")
+
+# R-squared score
+r2 = lm.score(X, y)
+print("R-squared score:",r2)
+
+
+# Mean squared error
+mse = MSE(y, preds)
+print("Mean Squared Error:", mse)
+
+
+# Mean absolute error
+mae = MAE(y, preds)
+print("Mean Absolute Eror:", mae)
+
+print("\nR-SQUARED value tells us the percentage of the variance of \"y\" that \"X\" is responsible for.")
+print("Since there aren't too many outliers, MEAN SQUARED ERROR would be a good choice to measure the error.\n")
+
+
+print("****************************************************")
+topic = "6. Classification evaluation"; print("** %s\n" % topic)
+
+# Continue with exercise 3
+print("Logistic Regression Model to predict Rain based ob Humidity\n")
+
+# Generate and output the confusion matrix
+preds = clf.predict(X_test)
+matrix = confusion_matrix(y_test, preds)
+print("Confusion Matrix:\n", matrix)
+
+my_plot_confusion_matrix(matrix, classes=[False, True], normalize=False, 
+                         title='Confusion matrix', cmap=plt.cm.Blues)
+
+
+# Compute and print the precision
+y_preds = clf.predict(X_test)
+precision = precision_score(y_test, y_preds)
+print("\nPrecision of the model:", precision)
+
+
+# Compute and print the recall
+recall = recall_score(y_test, y_preds)
+print("Recall of the model:", recall)
+
+print("\nGood work! You can see here that the precision of our rain prediction model \
+was quite high, meaning that we didn't make too many Type I errors. However, there \
+were plenty of Type II errors shown in the bottom-left quadrant of the confusion matrix. \
+This is indicated further by the low recall score, meaning that there were plenty of \
+rainy days that we missed out on. Think a little about the context and what method you \
+would choose to optimize for!\n")
+
+print("****************************************************")
+topic = "8. Handling null values"; print("** %s\n" % topic)
+
+file = "laptops-with-null-values.data"
+laptops = pd.read_fwf(file, index_col="Id").sort_index()
+print("The dataset:\n", laptops.head())
+
+# Identify and print the the rows with null values
+#nulls = laptops[laptops.isnull().any(axis=1)]
+print("\nRows with null values:\n", laptops[laptops.isnull().any(axis=1)])
+
+# Impute constant value 0 and print the head
+#laptops.fillna(0, inplace=True)
+print("\nDataset after imput constant value:\n",laptops.fillna(0).head())
+
+# Impute median price and print the head
+#laptops.fillna(laptops.median(), inplace=True)
+#laptops.fillna(laptops.Price.median(), inplace=True)
+print("\nDataset after imput median price:\n",laptops.fillna(laptops.median()).head())
+
+# Drop each row with a null value and print the head
+laptops.dropna(inplace=True)
+print("\nDataset after dropping rows with null values:\n",laptops.head())
+
+print("****************************************************")
+topic = "9. Identifying outliers"; print("** %s\n" % topic)
+
+# Calculate the mean and std
+mean, std = laptops.Price.mean(), laptops.Price.std()
+print("Mean:", mean)
+print("Standard deviation:",std)
+print("Number of rows:", laptops.shape[0])
+
+# Compute and print the upper and lower threshold
+cut_off = std * 3
+lower, upper = mean-cut_off, mean+cut_off
+print("Threshold:", lower, 'to', upper)
+
+# Identify and print rows with outliers
+outliers = laptops[(laptops['Price'] > upper) | 
+                   (laptops['Price'] < lower)]
+print("Outliers:\n{}".format(outliers))
+
+# Drop the rows from the dataset
+laptops2 = laptops[(laptops['Price'] <= upper) &
+                  (laptops['Price'] >= lower)]
+print("\nDeleting outliers...")
+
+# Calculate the mean and std
+mean2, std2 = laptops2.Price.mean(), laptops2.Price.std()
+print("New Mean:", mean2)
+print("New Standard deviation:",std2)
+print("New Number of rows:", laptops2.shape[0])
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
