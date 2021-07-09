@@ -1,0 +1,143 @@
+# Import numpy
+import numpy as np
+
+# Assign the filename: file
+file = 'digits_header.txt'
+
+# Load the data: data
+data = np.loadtxt(file, delimiter="\t", skiprows=1, usecols=[0,2])
+
+# Print data
+print(data)
+________________________________________________________
+OUT:
+[[1. 0.]
+ [0. 0.]
+ [1. 0.]
+ [4. 0.]
+ [0. 0.]
+ [0. 0.]
+ [7. 0.]
+ [3. 0.]
+ [5. 0.]
+ [3. 0.]
+ [8. 0.]
+ [9. 0.]
+ [1. 0.]
+ [3. 0.]
+ [3. 0.]
+ [1. 0.]
+ [2. 0.]
+ [0. 0.]
+ [7. 0.]
+ [5. 0.]
+ [8. 0.]
+ [6. 0.]
+ [2. 0.]
+ [0. 0.]
+ [2. 0.]
+ [3. 0.]
+ [6. 0.]
+ [9. 0.]
+ [9. 0.]
+ [7. 0.]
+ [8. 0.]
+ [9. 0.]
+ [4. 0.]
+ [9. 0.]
+ [2. 0.]
+ [1. 0.]
+ [3. 0.]
+ [1. 0.]
+ [1. 0.]
+ [4. 0.]
+ [9. 0.]
+ [1. 0.]
+ [4. 0.]
+ [4. 0.]
+ [2. 0.]
+ [6. 0.]
+ [3. 0.]
+ [7. 0.]
+ [7. 0.]
+ [4. 0.]
+ [7. 0.]
+ [5. 0.]
+ [1. 0.]
+ [9. 0.]
+ [0. 0.]
+ [2. 0.]
+ [2. 0.]
+ [3. 0.]
+ [9. 0.]
+ [1. 0.]
+ [1. 0.]
+ [1. 0.]
+ [5. 0.]
+ [0. 0.]
+ [6. 0.]
+ [3. 0.]
+ [4. 0.]
+ [8. 0.]
+ [1. 0.]
+ [0. 0.]
+ [3. 0.]
+ [9. 0.]
+ [6. 0.]
+ [2. 0.]
+ [6. 0.]
+ [4. 0.]
+ [7. 0.]
+ [1. 0.]
+ [4. 0.]
+ [1. 0.]
+ [5. 0.]
+ [4. 0.]
+ [8. 0.]
+ [9. 0.]
+ [2. 0.]
+ [9. 0.]
+ [9. 0.]
+ [8. 0.]
+ [9. 0.]
+ [6. 0.]
+ [3. 0.]
+ [6. 0.]
+ [4. 0.]
+ [6. 0.]
+ [2. 0.]
+ [9. 0.]
+ [1. 0.]
+ [2. 0.]
+ [0. 0.]
+ [5. 0.]]
+________________________________________________________
+INSTRUCTION:
+1. Complete the arguments of np.loadtxt(): the file 
+   you're importing is tab-delimited, you want to skip 
+   the first row and you only want to import the first 
+   and third columns.
+2. Complete the argument of the print() call in order 
+   to print the entire array that you just imported.
+________________________________________________________
+GUIDE:
+Customizing your NumPy import
+What if there are rows, such as a header, that you 
+don't want to import? What if your file has a delimiter 
+other than a comma? What if you only wish to import 
+particular columns?
+
+There are a number of arguments that np.loadtxt() 
+takes that you'll find useful: delimiter changes the 
+delimiter that loadtxt() is expecting, for example, 
+you can use ',' and '\t' for comma-delimited and 
+tab-delimited respectively; skiprows allows you to 
+specify how many rows (not indices) you wish to skip; 
+usecols takes a list of the indices of the columns 
+you wish to keep.
+
+The file that you'll be importing, digits_header.txt,
+
+- has a header
+- is tab-delimited.
+________________________________________________________

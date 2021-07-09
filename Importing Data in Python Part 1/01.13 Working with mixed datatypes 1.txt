@@ -1,0 +1,79 @@
+Working with mixed datatypes (1)
+Much of the time you will need to import datasets 
+which have different datatypes in different columns; 
+one column may contain strings and another floats, 
+for example. The function np.loadtxt() will freak 
+at this. There is another function, np.genfromtxt(), 
+which can handle such structures. If we pass 
+dtype=None to it, it will figure out what types 
+each column should be.
+
+Import 'titanic.csv' using the function 
+np.genfromtxt() as follows:
+
+data = np.genfromtxt('titanic.csv', 
+                     delimiter=',', 
+                     names=True, 
+                     dtype=None)
+
+Here, the first argument is the filename, the second 
+specifies the delimiter , and the third argument names 
+tells us there is a header. Because the data are of 
+different types, data is an object called a structured 
+array. Because numpy arrays have to contain elements 
+that are all the same type, the structured array solves 
+this by being a 1D array, where each element of the array 
+is a row of the flat file imported. You can test this by 
+checking out the array's shape in the shell by executing 
+np.shape(data).
+
+Accessing rows and columns of structured arrays is 
+super-intuitive: to get the ith row, merely execute 
+data[i] and to get the column with name 'Fare', 
+execute data['Fare'].
+
+Print the entire column with name Survived to the shell. 
+What are the last 4 values of this column?
+_________________________________________________________
+IPYTHONSHELL:
+In [ 1]: import numpy as np
+
+In [ 2]: data = np.genfromtxt('titanic.csv', delimiter=',', names=True, dtype=None)
+
+In [ 3]: type(data)
+Out[ 3]: numpy.ndarray
+
+In [ 4]: data.dtype.names
+Out[ 4]: ('PassengerId', 'Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked')
+
+In [ 5]: np.shape(data)
+Out[ 5]: (891,)
+
+In [ 6]: data.shape
+Out[ 6]: (891,)
+
+In [ 7]: data[5]
+Out[ 7]: (6, 0, 3, b'male', nan, 0, 0, b'330877', 8.4583, b'', b'Q')
+
+In [ 8]: data["Fare"]
+Out[ 8]: array([  7.25  ,  71.2833,   7.925 ,  53.1   ,   8.05  ,   8.4583,
+	         51.8625,  21.075 ,  11.1333,  30.0708,  16.7   ,  26.55  ,
+	          8.05  ,  31.275 ,   7.8542,  16.    ,  29.125 ,  13.    ,
+		 ...
+	          9.8458,   7.8958,   7.8958,  83.1583,  26.    ,   7.8958,
+	         10.5167,  10.5   ,   7.05  ,  29.125 ,  13.    ,  30.    ,
+	         23.45  ,  30.    ,   7.75  ])
+
+In [ 9]: data["Survived"]
+Out[ 9]: array([0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1,
+	        1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1,
+	        1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1,
+	 	...
+	        1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1,
+	        1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0])
+
+In [10]: 
+_________________________________________________________
+RESULT:
+1,0,1,0.
+_________________________________________________________

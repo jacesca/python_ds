@@ -1,0 +1,26 @@
+Converting dataframe in numpy array.
+_______________________________________________________
+
+The following is a preview of the icecream.csv dataset. 
+
+	Id,IceCream,Children
+	1,0,3
+	2,1,1
+	3,1,3
+	4,1,1
+
+Complete the code to return the output 
+	icecream= pd.read_csv('icecream.csv')
+	#make into numpy array
+	icecream_array = icecream._______________
+	as_matrix()
+	print(icecream_array[0:3,0:3])
+
+REQUIRED OUTPUT
+	[[1 0 3]
+	 [2 1 1]
+	 [3 1 3]]
+
+
+ANSWER
+	icecream_array = icecream.values

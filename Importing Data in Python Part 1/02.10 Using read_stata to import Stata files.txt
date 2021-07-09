@@ -1,0 +1,40 @@
+GUIDE:
+Using read_stata to import Stata files
+The pandas package has been imported in the environment 
+as pd and the file disarea.dta is in your working 
+directory. The data consist of disease extents for 
+several diseases in various countries (more information 
+can be found here).
+
+What is the correct way of using the read_stata() 
+function to import disarea.dta into the object df?
+_________________________________________________________
+OUT: 
+In [1]: df = pd.read_stata('disarea.dta')
+
+In [2]: df.head()
+Out[2]: 
+  wbcode               country  disa1  disa2  disa3  disa4  disa5  disa6  \
+0    AFG           Afghanistan   0.00   0.00   0.76   0.73    0.0   0.00   
+1    AGO                Angola   0.32   0.02   0.56   0.00    0.0   0.00   
+2    ALB               Albania   0.00   0.00   0.02   0.00    0.0   0.00   
+3    ARE  United Arab Emirates   0.00   0.00   0.00   0.00    0.0   0.00   
+4    ARG             Argentina   0.00   0.24   0.24   0.00    0.0   0.23   
+   disa7  disa8   ...    disa16  disa17  disa18  disa19  disa20  disa21  \
+0   0.00    0.0   ...       0.0     0.0     0.0    0.00    0.00     0.0   
+1   0.56    0.0   ...       0.0     0.4     0.0    0.61    0.00     0.0   
+2   0.00    0.0   ...       0.0     0.0     0.0    0.00    0.00     0.0   
+3   0.00    0.0   ...       0.0     0.0     0.0    0.00    0.00     0.0   
+4   0.00    0.0   ...       0.0     0.0     0.0    0.00    0.05     0.0   
+   disa22  disa23  disa24  disa25  
+0    0.00    0.02    0.00    0.00  
+1    0.99    0.98    0.61    0.00  
+2    0.00    0.00    0.00    0.16  
+3    0.00    0.00    0.00    0.00  
+4    0.00    0.01    0.00    0.11  
+[5 rows x 27 columns]
+
+_________________________________________________________
+RESULT:
+df = pd.read_stata('disarea.dta')
+_________________________________________________________

@@ -1,0 +1,35 @@
+# Import package
+import scipy.io
+
+# Load MATLAB file: mat
+mat=scipy.io.loadmat("albeck_gene_expression.mat")
+
+# Print the datatype type of mat
+print(type(mat))
+print(mat.keys())
+________________________________________________________
+OUT:
+<class 'dict'>
+dict_keys
+(['__header__', '__version__', '__globals__', 'rfpCyt', 
+  'rfpNuc', 'cfpNuc', 'cfpCyt', 'yfpNuc', 'yfpCyt', 'CYratioCyt'])
+________________________________________________________
+INSTRUCTION:
+1. Import the package scipy.io.
+2. Load the file 'albeck_gene_expression.mat' into  
+   the variable mat; do so using the function  
+   scipy.io.loadmat().
+3. Use the function type() to print the datatype of  
+   mat to the IPython shell.
+________________________________________________________
+GUIDE:
+Loading .mat files
+In this exercise, you'll figure out how to load a MATLAB 
+file using scipy.io.loadmat() and you'll discover what 
+Python datatype it yields.
+
+The file 'albeck_gene_expression.mat' is in your working 
+directory. This file contains gene expression data from 
+the Albeck Lab at UC Davis. You can find the data and 
+some great documentation here.
+________________________________________________________

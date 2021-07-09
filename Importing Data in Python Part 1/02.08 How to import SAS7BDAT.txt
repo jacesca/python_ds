@@ -1,0 +1,8 @@
+GUIDE:
+How to import SAS7BDAT
+How do you correctly import the function SAS7BDAT() 
+from the package sas7bdat?
+_________________________________________________________
+RESULT:
+from sas7bdat import SAS7BDAT
+_________________________________________________________

@@ -1,0 +1,58 @@
+# Parse the first sheet and rename the columns: df1
+df1 = xl.parse(0, skiprows=[0], names=["Country","AAM due to War (2002)"])
+#df1 = xl.parse(0)
+
+# Print the head of the DataFrame df1
+print(df1.head())
+
+# Parse the first column of the second sheet and rename the column: df2
+df2 = xl.parse(1, parse_cols=[0], skiprows=[0], names=["Country"])
+#df2 = xl.parse(0)
+
+# Print the head of the DataFrame df2
+print(df2.head())
+________________________________________________________
+OUT:
+               Country  AAM due to War (2002)
+0              Albania               0.128908
+1              Algeria              18.314120
+2              Andorra               0.000000
+3               Angola              18.964560
+4  Antigua and Barbuda               0.000000
+
+               Country
+0              Albania
+1              Algeria
+2              Andorra
+3               Angola
+4  Antigua and Barbuda
+
+________________________________________________________
+INSTRUCTION:
+1. Parse the first sheet by index. In doing so, skip 
+   the first row of data and name the columns 'Country' 
+   and 'AAM due to War (2002)' using the argument names. 
+   The values passed to skiprows and names all need to 
+   be of type list.
+2. Parse the second sheet by index. In doing so, parse 
+   only the first column with the parse_cols parameter, 
+   skip the first row and rename the column 'Country'. 
+   The argument passed to parse_cols also needs to be 
+   of type list.
+________________________________________________________
+GUIDE:
+Customizing your spreadsheet import
+Here, you'll parse your spreadsheets and use additional 
+arguments to skip rows, rename columns and select only 
+particular columns.
+
+The spreadsheet 'battledeath.xlsx' is already loaded as xl.
+
+As before, you'll use the method parse(). This time, 
+however, you'll add the additional arguments skiprows, 
+names and parse_cols. These skip rows, name the columns 
+and designate which columns to parse, respectively. 
+All these arguments can be assigned to lists containing 
+the specific row numbers, strings and column numbers, 
+as appropriate.
+________________________________________________________
