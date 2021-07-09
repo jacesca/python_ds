@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 11 14:27:37 2019
+
+@author: jacqueline.cortez
+"""
+
+# Import packages
+import pandas as pd
+
+
+print("****************************************************")
+print("** BEGIN                                          **")
+print("****************************************************")
+print("Reading the excel file...\n")
+
+file = 'Female_Educatiov_vs_Fertility.xls'
+data = pd.ExcelFile(file)
+
+print("Hojas del archivo {}: {}.\n".format(file, data.sheet_names))
+
+print("****************************************************")
+print("Getting the required data...\n")
+# Obtiene los datos de la primer hoja
+df = data.parse(0, skiprows=8, header=None, skipfooter=20,
+                 names=['country', 'continent', 'fem_literacity', 'fertility', 'population'])
+
+print("Cleaning...\n")
+
+# Write the lambda function using replace to delete annoying comma, Regular expression
+df['country'] = df.country.apply(lambda x: x.replace(',', ''))
+
+# Explore the data
+print(df.head(),'\n')
+print(df.info())
+
+print("****************************************************")
+print("Saving the dataframe...\n")
+
+# Saving the dataframe
+out_file = "Female_Educatiov_vs_Fertility.csv"
+df.to_csv(out_file)
+print("Data saved as {} file.\n".format(out_file))
+
+print("****************************************************")
+print("** END                                            **")
+print("****************************************************")
