@@ -1,7 +1,18 @@
 
 import pytest
-from data.preprocessing_helpers import convert_to_int
-from data.preprocessing_helpers import row_to_list
+import os
+
+from data.preprocessing_helpers import convert_to_int, row_to_list, preprocess
+
+@pytest.fixture
+def raw_and_clean_data_file(tmpdir):
+    raw_data_file_path = tmpdir.join("raw.txt")
+    clean_data_file_path = tmpdir.join("clean.txt")
+    with open(raw_data_file_path, "w") as f: 
+        f.write("1,801\t201,411\n1,767565,112\n2,002\t333,209\n1990\t782,911\n1,285\t389129\n")
+    yield raw_data_file_path, clean_data_file_path
+    # No teardown code necessary
+
 
 class TestConvertToInt(object):
     def test_with_no_comma(self):
@@ -59,4 +70,16 @@ class TestRowToList(object):
     def test_on_one_tab_with_missing_value(self):     # (1, 1) boundary value
         actual = row_to_list('\t4,567\n')
         assert actual is None, 'Expected: None, Actual: {0}'.format(actual)
+        
+
+class TestPreprocess(object):
+    def test_on_raw_data(self, raw_and_clean_data_file):
+        raw_path, clean_path = raw_and_clean_data_file 
+        preprocess(raw_path, clean_path)
+        
+        with open(clean_path, 'r') as f: 
+            lines = f.readlines() 
+        
+        assert lines[0] == "1801\t201411\n" # Compare first_line
+        assert lines[1] == "2002\t333209\n" # Compare second_line
     
