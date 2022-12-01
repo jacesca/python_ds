@@ -783,6 +783,8 @@ mpl.rc('font', **font)
 ## plt.close(fig)
 plt.style.use('dark_background')
 plt.axis('off')                                                               #Turn off the axis in a graph, subplots.
+ax.get_xaxis().set_visible(False)
+ax.set_xticks([])
 plt.xticks(fontsize=7); plt.yticks(fontsize=8);
 plt.xticks(rotation=45)
 plt.yticks(rotation=90)                                                       #rotate y-axis labels by 90 degrees
