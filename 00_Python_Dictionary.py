@@ -874,6 +874,10 @@ sns.palettes.SEABORN_PALETTES                                                 #D
 sns.palplot(sns.color_palette())                                              #Display a palette
 sns.color_palette()                                                           #The current palette
 sns.set(style='whitegrid', palette='pastel', color_codes=True)
+# Applying temporary comfiguration in plot
+#with sns.plotting_context(rc={'axes.labelsize': 10, 'xtick.labelsize': 10, 'ytick.labelsize': 10, 
+#                              'legend.fontsize': 10, 'font.size': 10}):
+
 sns.mpl.rc('figure', figsize=(10,6))
 ## sns.distplot(data, bins=10, hist_kws={"density": True})                       #Example of hist_kws parameter 
 ## sns.distplot(data, hist=False, hist_kws=dict(edgecolor='k', linewidth=1))     #Example of hist_kws parameter 
